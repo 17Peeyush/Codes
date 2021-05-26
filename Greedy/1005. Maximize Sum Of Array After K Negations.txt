@@ -1,0 +1,70 @@
+Given an array nums of integers, we must modify the array in the following way: we choose an i and replace nums[i] with -nums[i], and we repeat this process k times in total.
+(We may choose the same index i multiple times.)
+Return the largest possible sum of the array after modifying it in this way.
+
+Example 1:
+Input: nums = [4,2,3], k = 1
+Output: 5
+Explanation: Choose indices (1,) and nums becomes [4,-2,3].
+
+Example 2:
+Input: nums = [3,-1,0,2], k = 3
+Output: 6
+Explanation: Choose indices (1, 2, 2) and nums becomes [3,1,0,2].
+
+Example 3:
+Input: nums = [2,-3,-1,5,-4], k = 2
+Output: 13
+Explanation: Choose indices (1, 4) and nums becomes [2,3,-1,5,4].
+ 
+Note:
+1 <= nums.length <= 10000
+1 <= k <= 10000
+-100 <= nums[i] <= 100
+
+Approach:
+1)
+Time  Complexity: O(nlogn)
+Space Complexity: O(1)
+Sort the array and first convert the negative numbers into positive numbers.
+If still some operations are left say 'k-neg' where neg is number of negative numbers in array.
+Then we have 2 case:
+case 1: Zero is present in the array so we apply all (k-neg) times operations on zero.
+case 2: If zero not present then we apply the operation on tnhe smallest integer 'k-neg' times.
+
+Code:
+ int largestSumAfterKNegations(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        int zero=-1,min=INT_MIN,index=-1;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]<0)
+            {
+                if(k>0){
+                    nums[i]=-nums[i];
+                    k--;}
+            }
+            else if(nums[i]==0)
+                zero=i;
+        }
+        sort(nums.begin(),nums.end());
+        if(k)
+        {
+            if(zero!=-1)
+            {
+                k=0;
+            }
+            else
+            {
+                if(k%2!=0)
+                { 
+                    nums[0]=-nums[0];
+                }
+                    
+            }
+        }
+       int sum=0;
+        for(auto x:nums)
+            sum+=x;
+        return sum;
+    }

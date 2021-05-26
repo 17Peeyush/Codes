@@ -1,3 +1,2 @@
 # Codes
-BinarySearch
-    *35.Search insert position
+Codes that I practice from different online coding platforms. (Leetcode, Hackerrank)

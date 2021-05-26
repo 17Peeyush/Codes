@@ -1,0 +1,48 @@
+A group of friends want to buy a bouquet of flowers. The florist wants to maximize his number of new customers and the money he makes.
+To do this, he decides he'll multiply the price of each flower by the number of that customer's previously purchased flowers plus 1.
+The first flower will be original price,(0+1)Xoriginal price , the next will be (1+1)Xoriginal price and so on.
+Given the size of the group of friends, the number of flowers they want to purchase and the original prices of the flowers, determine the minimum cost to purchase all of the flowers.
+The number of flowers they want equals the length of the c array.
+
+Input:
+c=[1,2,3,4]
+k=3
+Output:11
+
+Approach:
+First everyone buys the most expensive flower on their original price.
+Then suppose 'm' flowers left which the group needs to buy:
+	if m>k then each boy will buy a flower and he will pay (1+1)*original cost {1 is added because he already bought a flower.}
+	Now suppose 'n' flowers are left (m-k=n) then each of n boys will buy a flower at cost (2+1)*original cost(2 is added to 1 because he already bought 2 flowers)
+	if n was still greater than k then the above process will be repeated
+
+Code:
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n,k,t;
+    cin>>n>>k;
+    priority_queue<int> q;
+    int cost=0;
+    for(int i=0;i<n;i++)
+    {
+        cin>>t;
+        q.push(t);
+    }
+    for(int i=0;i<k;i++)
+    {
+        cost+=q.top();
+        q.pop();
+    }
+    for(int i=2;q.empty()==false;i++)
+    {
+        for(int j=0;j<k&&q.empty()==false;j++)
+        {
+            cost+=i*q.top();
+            q.pop();
+        }
+    }
+    cout<<cost;
+    return 0;
+}

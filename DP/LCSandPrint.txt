@@ -1,0 +1,43 @@
+vector<int> longestCommonSubsequence(vector<int> a, vector<int> b) {
+int m=a.size(),n=b.size();
+int sol[m+1][n+1];
+int i,j;
+for(i=0;i<=m;i++)
+{
+    for(j=0;j<=n;j++)
+    {
+        if(i==0||j==0) sol[i][j]=0;
+        else if(a[i-1]==b[j-1]) sol[i][j]=1+sol[i-1][j-1];
+        else sol[i][j]=max(sol[i-1][j],sol[i][j-1]);
+    }
+}
+    // int change=sol[m][n];
+    // i=m;
+    // vector<int> out;
+    // for(j=n;j>=0;j--)
+    // {
+    //     if(sol[i][j]!=change)
+    //         {   out.insert(out.begin(),b[j]);
+    //             change=sol[i][j];
+    //             i=i-1;j++;
+    //         }
+    // }
+    int index = sol[m][n];
+
+   vector<int> lcs(index);
+    i = m, j = n;
+   while (i > 0 && j > 0)
+   {
+      if (a[i-1] == b[j-1])
+      {
+          lcs[index-1] = a[i-1]; 
+          i--; j--; index--;     
+      }
+      else if (sol[i-1][j] > sol[i][j-1])
+         i--;
+      else
+         j--;
+   }
+
+return lcs;
+}

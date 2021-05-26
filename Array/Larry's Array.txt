@@ -1,0 +1,21 @@
+Hackerrank: Larry's Array
+Approach: Total number of inversion if divisible by 2 then array can be sorted.
+Inversion: if arr[i]>arr[j] where i<j and arr is array of integers.
+Time  Complexity: O(n^2)
+Space Complexity: O(n)
+
+Code:
+string larrysArray(vector<int> arr) {
+    int n=arr.size();
+    int inversion=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(arr[i]>arr[j])
+                inversion++;
+        }
+    }
+    if(inversion%2==0) return "YES";
+    return "NO";
+}
