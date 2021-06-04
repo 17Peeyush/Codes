@@ -1,0 +1,68 @@
+Problem:Hackerrank Knapsack
+
+Approach: 
+1)Unbounded knapsack Recursive 
+Time Complexity: O(2^n)
+The space complexity is O(n)O(n). This space will be used to store the recursion stack.
+Since our recursive algorithm works in a depth-first fashion, which means, we can’t have more than ‘n’ recursive calls on the call stack at any time.
+Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int unkc(int k,vector<int> arr,int n)
+{
+    if(n==0||k==0) return 0;
+    else if(arr[n-1]<=k)
+    {
+        return max(arr[n-1]+unkc(k-arr[n-1],arr,n),unkc(k,arr,n-1));
+    }
+    else
+    return unkc(k,arr,n-1);
+}
+int unboundedKnapsack(int k, vector<int> arr) {
+return unkc(k,arr,arr.size());
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,k,t;
+        cin>>n>>k;
+        vector<int> arr;
+        for(int i=0;i<n;i++)
+        {
+            cin>>t;
+            arr.push_back(t);
+        }
+        cout<<unboundedKnapsack(k,arr)<<endl;
+    }
+    return 0;
+}
+
+2)Unbounded Knapsack DP
+Time Complexity: O(n*k)
+Auxillary Space: O(n*k)
+Code:
+void unboundedKnapsack(int k, vector<int> arr) {
+    int n=arr.size();
+    int dp[n+1][k+1];
+    for(int i=0;i<n+1;i++)
+    {
+        for(int j=0;j<k+1;j++)
+        {
+            if(i==0||j==0) dp[i][j]=0;
+            else if(arr[i-1]<=j)
+            {
+                dp[i][j]=max(arr[i-1]+dp[i][j-arr[i-1]],dp[i-1][j]);
+            }
+            else
+            {
+                dp[i][j]=dp[i-1][j];
+            }
+        }
+    }
+    cout<<dp[n][k]<<endl;
+} 

@@ -1,0 +1,41 @@
+Problem: Hackerrank Breadth First Search: Shortest Reach
+The time complexity of BFS is O(V + E), where V is the number of nodes and E is the number of edge.
+Code:
+vector<int> bfs(int n, int m, vector<vector<int>> edges, int s) {
+    vector<vector<int>>g(n+1);
+    for(auto x:edges)
+    {
+        g[x[0]].push_back(x[1]);
+        g[x[1]].push_back(x[0]);
+    }
+    vector<bool>visited(n+1,false);
+    vector<int> distance(n+1,0);
+    queue<int>q;
+    q.push(s);
+    visited[s]=true;
+    while(!q.empty())
+    {
+        int c=q.front();
+        q.pop();
+        for(int i=0;i<g[c].size();i++)
+        {
+            if(visited[g[c][i]]==false)
+            {
+            q.push(g[c][i]);
+            visited[g[c][i]]=true;
+            distance[g[c][i]]=distance[c]+1;
+            }
+        }
+    }
+    vector<int>out;
+    for(int i=1;i<n+1;i++)
+        {
+            if(i==s)
+                continue;
+            else if(visited[i]==false)
+                out.push_back(-1);
+            else
+                out.push_back(distance[i]*6);
+        }
+    return out;
+}

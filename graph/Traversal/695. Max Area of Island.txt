@@ -1,0 +1,63 @@
+Problem:Leetcode
+You are given an m x n binary matrix grid.
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
+The area of an island is the number of cells with a value 1 in the island.
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Example 1:
+Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],
+	       [0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+Output: 6
+Explanation: The answer is not 11, because the island must be connected 4-directionally.
+Example 2:
+
+Input: grid = [[0,0,0,0,0,0,0,0]]
+Output: 0
+ 
+Constraints:
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 50
+grid[i][j] is either 0 or 1.
+
+Approach:
+Time  Complexity: O(r*c)
+Auxillary Space: O(1)
+Iterate through the whole matrix and if a block which is an island is found call dfs on it to discover its adjacent block which are islands.
+Leetcode
+(If we are on a land square and explore every square connected to it 4-directionally (and recursively squares connected to those squares, and so on),
+then the total number of squares explored will be the area of that connected shape.
+To ensure we don't count squares in a shape more than once, let's use seen to keep track of squares we haven't visited before.
+It will also prevent us from counting the same shape more than once.)
+
+Code:
+int dfs(vector<vector<int>>&g,int i,int j)
+    {
+        if(g[i][j]==-1) return 0;
+        if(g[i][j]==1) g[i][j]=-1;
+        else return 0;
+        int l=0,r=0,t=0,d=0;
+        if(j!=0) l=dfs(g,i,j-1);
+        if(j!=g[0].size()-1) r=dfs(g,i,j+1);
+        if(i!=0) t=dfs(g,i-1,j);
+        if(i!=g.size()-1) d=dfs(g,i+1,j);
+        return 1+l+r+t+d;
+        
+    }
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int r=grid.size(),c=grid[0].size();
+        int area=0;
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                    if(grid[i][j]==1)
+                    {
+                    int c_area=dfs(grid,i,j);
+                    area=max(c_area,area);
+                    }
+            }
+        }
+        return area;
+        
+    }
