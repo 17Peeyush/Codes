@@ -1,0 +1,45 @@
+https://leetcode.com/problems/find-the-duplicate-number/
+Approach: 
+(1)
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Note: In this approach we are modifying the input array and works for array containing positive elements.
+As it is given the numbers are from 1 to 'n' and indexes are from 0 to 'n' if we traverse by values we will always in bound of array.
+Idea is to visit an index 'i' then the next index to visit will be arr[i] and we will negate the value of arr[i] to mark it visited.
+If we reach an index 'i' whose value is negative that means we have already visited that index it means that index is the repeating element.
+Code:
+ int findDuplicate(vector<int>& nums) {
+       int i=0,ni;
+        while(nums[i]>0)
+        {
+            ni=nums[i];
+            nums[i]=-nums[i];
+            i=ni;
+        }
+        return i;
+    }
+
+(2)
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Implementing Flyod Cycle detection algorithm:
+Take 2 pointers slow and fast and they move 1 and 2 step respectively. (1 step is defined as if on index 'i' then it moves from 'i' to arr[i])
+They will meet at some point. Then take one pointer to start and now both move 1 step and where they meet will be the starting of cycle i.e repeating element in this case.
+Code:
+ int findDuplicate(vector<int>& nums) {
+       int s=0,f=0;
+        s=nums[s];
+        f=nums[nums[f]];
+        while(s!=f)
+        {
+         s=nums[s];
+         f=nums[nums[f]];
+        }
+        f=0;
+       while(s!=f)
+       {
+           s=nums[s];
+           f=nums[f];
+       }
+        return s;
+    }

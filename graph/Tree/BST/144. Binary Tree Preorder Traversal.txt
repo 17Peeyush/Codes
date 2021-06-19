@@ -1,0 +1,29 @@
+Problem: https://leetcode.com/problems/binary-tree-preorder-traversal/
+
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+vector<int> preorderTraversal(TreeNode* root) {
+        if(root==nullptr) return {};
+        stack<TreeNode*>s;
+        vector<int>out;
+        TreeNode *c=root;
+        while(1)
+        {
+            if(c)
+            {
+                out.push_back(c->val);
+                s.push(c);
+                c=c->left;
+            }
+            else
+            {
+                if(s.empty()) break;
+                c=s.top();
+                s.pop();
+                c=c->right;
+            }
+        }
+        return out;
+    }

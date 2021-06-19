@@ -1,0 +1,59 @@
+Problem: https://leetcode.com/problems/remove-duplicate-letters/
+Approach:
+Code:
+    string removeDuplicateLetters(string s) {
+        if(s.length()==1) return s;
+        vector<bool> alpha(26,false);
+        int n=s.length();
+        vector<int>li(26,-1);
+        for(int i=0;i<n;i++)
+        {
+            li[s[i]-97]=i;
+        }
+        string out="";
+        stack<char>st;
+        for(int i=0;i<n;)
+        {
+            if(st.empty())
+            {
+                st.push(s[i]);
+                alpha[s[i]-97]=true;
+                i++;
+            }
+            else
+            {
+                if(st.top()>s[i])
+                {
+                    if(li[st.top()-97]>i)
+                    {
+                        alpha[st.top()-97]=false;
+                        st.pop();
+                    }
+                    else{
+                    if(alpha[s[i]-97]==false)
+                        {
+                        st.push(s[i]);
+                        alpha[s[i]-97]=true;
+                       
+                        }
+                        i++;
+                    }
+                }
+                else
+                {
+                    if(alpha[s[i]-97]==false)
+                    {
+                        st.push(s[i]);
+                        alpha[s[i]-97]=true;
+                    }
+                    i++;
+                }
+            }
+        }
+        while(!st.empty())
+        {
+            out=st.top()+out;
+            st.pop();
+        }
+        return out;
+    }

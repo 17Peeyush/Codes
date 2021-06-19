@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/spiral-matrix/
+Time Complexity: O(nm) where n and m are number of rows and columns respectively.
+Auxillary Space: O(1)
+Code:
+ vector<int> spiralOrder(vector<vector<int>>&  matrix) {
+        int t=0,d=matrix.size()-1,l=0,r=matrix[0].size()-1;
+        int dir=0;
+        vector<int> out;
+	    int i; 
+        while(t<=d && l<=r)
+        {
+            if(dir==0)
+            {
+                for(i=l;i<=r;i++)
+                    out.push_back(matrix[t][i]);
+                t++;
+            }
+            else if(dir==1)
+            {
+                for(i=t;i<=d;i++)
+                    out.push_back(matrix[i][r]);
+                r--;
+            }
+            else if(dir==2)
+            {
+                for(i=r;i>=l;i--)
+                    out.push_back(matrix[d][i]);
+                d--;
+            }
+            else if(dir==3)
+            {
+                for(int i=d;i>=t;i--)
+                    out.push_back(matrix[i][l]);
+                l++;
+            }
+            dir=(dir+1)%4;
+        }
+        return out;
+}

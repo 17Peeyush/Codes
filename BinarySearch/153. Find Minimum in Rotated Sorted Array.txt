@@ -1,0 +1,27 @@
+Problem: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+Approach
+Time Complexity: O(logn), where n is the number of elements in the array.
+Auxillary Space: O(1)
+Suppose we have a rotated array [4,5,6,7,0,1,2,3] here all element are greater than their previous element but the minimum element is less than both its neighbours.
+We used binary search to find the element that satisfies the above condition. We alaways try to move towards unsorted part of array. 
+Code:
+ int findMin(vector<int>& nums) {
+     int l=0,h=nums.size()-1,n=h+1;
+     int prev,next,mid;
+     int res=-1;
+     while(l<=h)
+     {
+         mid=l+(h-l)/2;
+         prev=(mid+n-1)%n;
+         next=(mid+1)%n;
+         if(nums[mid]<=nums[prev] && nums[mid]<=nums[next])
+         {
+             res=nums[mid];
+             break;
+         }
+         else if(nums[mid]<=nums[h])
+             h=mid-1;
+         else l=mid+1;
+     }
+        return res;
+    }

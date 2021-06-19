@@ -1,0 +1,72 @@
+class Solution {
+public:
+    bool check_palindrome(string s)
+    {
+        if(s.length()==1) return true;
+        int i,j;
+        for(i=0,j=s.length()-1;i<=j;i++,j--)
+        {
+            if(s[i]!=s[j])
+                return false;
+        }
+        return true;
+    }
+    vector<vector<int>> palindromePairs(vector<string>& words) {
+        vector<vector<int>>output;
+        unordered_map<string,int>mp;
+        for(int i=0;i<words.size();i++)
+        {
+            mp[words[i]]=i;
+        }
+        //Reflextion
+        for(int i=0;i<words.size();i++)
+        {
+            string s=words[i];
+            reverse(s.begin(),s.end());
+            auto it=mp.find(s);
+            if(it!=mp.end() && it->second!=i)
+            {
+                output.push_back({i,it->second});
+            }
+        }
+        //Empty
+        if(mp.find("")!=mp.end())
+        {
+            int idx=mp.find("")->second;
+            for(int i=0;i<words.size();i++)
+            {
+                if(i!=idx&&check_palindrome(words[i]))
+                {
+                    output.push_back({i,idx});
+                    output.push_back({idx,i});
+                }
+            }
+        }
+        //Palindrome left right
+        for(int i=0;i<words.size();i++)
+        {
+            string s=words[i];
+            for(int par=1;par<s.length();par++)
+            {
+                string l=s.substr(0,par);
+                string r=s.substr(par);
+                if(check_palindrome(l))
+                {
+
+                        reverse(r.begin(),r.end());
+                    auto it=mp.find(r);
+                    if(it!=mp.end())
+                        output.push_back({it->second,i});
+                }
+                 if(check_palindrome(r))
+                {
+                    reverse(l.begin(),l.end());
+                    auto it=mp.find(l);
+                    if(it!=mp.end())
+                        output.push_back({i,it->second});
+                }
+            }
+        }
+        return output;
+    }
+};

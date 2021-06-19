@@ -1,0 +1,47 @@
+Problem: https://leetcode.com/problems/binary-tree-level-order-traversal/
+Approach: Used a queue to perform bfs and an additional parameter in queue which is used to store level of of node. 
+Root of the tree is at level 0 for root child the level is 1 and so on.
+Time Complexity: O(n) where n is the number of nodes in the binary tree
+The number of leaf nodes in a full binary tree with n nodes is equal to (n+1)/2
+Auxillary Space: O((n+1)/2) used queue
+Code:
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(root==nullptr) return {}; 
+        queue<pair<TreeNode*,int>> q;
+        q.push({root,0});
+        vector<vector<int>> levelorder;
+        vector<int> l1 ={root->val};
+        levelorder.push_back(l1);
+        while(!q.empty())
+        {
+            pair<TreeNode*,int> c=q.front();q.pop();
+            if(c.first->left!=nullptr)
+            {
+                q.push({c.first->left,c.second+1});
+                if(levelorder.size()==c.second+1)
+                {
+                    vector<int> l={c.first->left->val};
+                    levelorder.push_back(l);
+                }
+                else
+                {
+                    levelorder[c.second+1].push_back(c.first->left->val);
+                }
+            }
+            if(c.first->right!=nullptr)
+            {
+                q.push({c.first->right,c.second+1});
+                if(levelorder.size()==c.second+1)
+                {
+                    vector<int> l={c.first->right->val};
+                    levelorder.push_back(l);
+                }
+                else
+                {
+                    levelorder[c.second+1].push_back(c.first->right->val);
+                }
+            }
+        }
+        return levelorder;
+    }

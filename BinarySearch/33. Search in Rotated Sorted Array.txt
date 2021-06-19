@@ -1,0 +1,53 @@
+Problem: https://leetcode.com/problems/search-in-rotated-sorted-array/
+Approach:
+Time Complexity: O(logn)
+Auxillary Space: O(1)
+We find the minimum element in that array will will give us the position(index) say 'i' of partition.
+So elements from '0' to 'i-1'(part A)  are sorted and from 'i' to 'n-1'(part B) are sorted. 
+We check in which part can possibily our target number can exist and find it by binary search.
+Code:
+ int binarySearch(int l,int h,int n,vector<int>&arr)
+     { while(l<=h)
+        {
+            int mid=l+(h-l)/2;
+            if(arr[mid]==n)
+            {
+                return mid;
+            }
+            else if(arr[mid]<n)
+            {
+                l=mid+1;
+            }
+            else
+            {
+                h=mid-1;
+            }
+        }
+        return -1;
+    }
+    int search(vector<int>& nums, int target) {
+         int l=0,h=nums.size()-1,n=h+1;
+         int prev,next,mid;
+         int res=-1;
+         while(l<=h)
+         {
+             mid=l+(h-l)/2;
+             prev=(mid+n-1)%n;
+             next=(mid+1)%n;
+             if(nums[mid]<=nums[prev] && nums[mid]<=nums[next])
+             {
+                 res=mid;
+                 break;
+             }
+             else if(nums[mid]<=nums[h])
+                 h=mid-1;
+             else l=mid+1;
+         }
+         h=nums.size()-1;
+         if(target>=nums[mid]&&target<=nums[h])
+         {
+             res=binarySearch(mid,nums.size()-1,target,nums);
+         }
+        else res=binarySearch(0,mid,target,nums);
+        return res;
+    }

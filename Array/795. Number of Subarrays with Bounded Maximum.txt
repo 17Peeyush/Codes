@@ -1,0 +1,31 @@
+Problem: https://leetcode.com/problems/number-of-subarrays-with-bounded-maximum/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(1)
+First: If there is an array [1,2,3,4] then 4 will be in 4(size of array) subarrays.
+[1,2,3,4]
+[1,2,3],[2,3,4]
+[1,2],[2,3],[3,4]
+[1],[2],[3],[4]
+We will use observation in our approach.
+We traverse the array if the element is between left and right(inclusive) we can have a subarray in our answer.
+If element is less than left then it can only be included in subarray if there is an element (between left and right(inclusive)) is present.
+If we find an element greater than right then we start new subarray from next element. 
+Code:
+ int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
+    int s=0,e=0,c=0,ans=0;
+        for(;e<nums.size();e++)
+        {
+            if(nums[e]>=left && nums[e]<=right)
+            {
+                c=e-s+1;
+            }
+            else if(nums[e]>right)
+            {
+                c=0;
+                s=e+1;
+            }
+            ans+=c;
+        }
+        return ans;
+    }

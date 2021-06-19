@@ -1,0 +1,27 @@
+Problem:https://leetcode.com/problems/binary-tree-inorder-traversal/
+
+Aproach:
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code: 
+vector<int> inorderTraversal(TreeNode* root) {
+     if(root==NULL)
+           return {};
+        vector<int> out;
+        stack<TreeNode*> s;
+        while(true){
+            if(root){
+               s.push(root);
+               root=root->left; 
+            }
+            else{
+                if(s.empty())
+                    break;
+                root=s.top();
+                s.pop();
+                out.push_back(root->val);
+                root=root->right;
+            }
+        }
+        return out;
+    }

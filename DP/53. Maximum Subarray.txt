@@ -1,0 +1,62 @@
+Problem: https://leetcode.com/problems/maximum-subarray/
+Approach:
+(1)
+Time Complexity: O(n^n) where n is the size of array
+Auxillary Space: O(1)
+We generate all possible subarray and find the maximum subarray sum.
+
+Code:
+ int maxSubArray(vector<int>& nums) {
+        int n=nums.size();
+        int gmax=INT_MIN,cmax,sum=0;
+        for(int i=0;i<n;i++)
+        {
+            sum=nums[i];cmax=nums[i];
+            for(int j=i+1;j<n;j++)
+            {
+                sum+=nums[j];
+                cmax=max(cmax,sum);
+            }
+            gmax=max(gmax,cmax);
+        }
+        return gmax;
+    }
+
+(2)
+Time Complexity: O(n), where n is the size of array
+Auxillary Space: O(n)
+We use dynamic programming approach. For index 0 we consider nums[i] as maximum subarray as it will contain only 1 element at index 0.
+For other indexes say 'i' we check if including it in subarray from 'k'(0<=k<=i-1) to 'i-1' we get maximum sum or subarray starting from 'i' will give max sum.
+Code:
+ int maxSubArray(vector<int>& nums) {
+        int n=nums.size();
+        int gmax=nums[0];
+        int dp[n];
+        dp[0]=nums[0];
+        for(int i=1;i<n;i++)
+        {
+            if(dp[i-1]+nums[i]>nums[i])
+                dp[i]=dp[i-1]+nums[i];
+            else dp[i]=nums[i];
+            gmax=max(gmax,dp[i]);
+        }
+        return gmax;
+    }
+
+
+Code more optimized Auxillary Space: O(1)
+ int maxSubArray(vector<int>& nums) {
+        int n=nums.size();
+        int gmax=nums[0];
+        int dpb=nums[0],dpc;
+        
+        for(int i=1;i<n;i++)
+        {
+            if(dpb+nums[i]>nums[i])
+                dpc=dpb+nums[i];
+            else dpc=nums[i];
+            gmax=max(gmax,dpc);
+            dpb=dpc;
+        }
+        return gmax;
+    } 

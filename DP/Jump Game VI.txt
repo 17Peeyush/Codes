@@ -1,0 +1,61 @@
+Problem:
+Approach:
+1) Recursion + memoization
+Time Complexity: O(n*k)
+Auxillary Space: O(10^5)
+Let dp[i] be "the maximum score to reach the end starting at index i". The answer for dp[i] is nums[i] + min{dp[i+j]} for 1 <= j <= k. 
+Note: This solution was not able to pass all test cases. (TLE)
+
+Code:
+ int dp[100005];
+    bool cp[100005];
+    int result(int i,vector<int>&num,int k,int n)
+    {
+        if(cp[i]) return dp[i];
+        int range=min(i+k,n);
+        dp[i]=true;
+        int maxi=INT_MIN,c=INT_MIN;
+        for(int j=i+1;j<=range;j++)
+        {
+            c=result(j,num,k,n);
+            dp[j]=c;
+            cp[j]=true;
+            maxi=max(maxi,c);
+        }
+        if(maxi==INT_MIN)
+            maxi=0;
+        return dp[i]=num[i]+maxi;
+    }
+    int maxResult(vector<int>& nums, int k) {
+        memset(dp,-1,sizeof(dp));
+        memset(cp,false,sizeof(cp));
+        int n=nums.size()-1;
+        return result(0,nums,k,n);
+        
+    }
+
+2)
+Time Complexity: O(n*k)
+Auxillary Space: O(n+k)
+Maintaining a dequeue of index and an array dp storing the values of index. If size of queue exceeds k then we pop the front element.
+We check if the current dp value for index 'i' is greater than the recents dp values for index 'i+1','i+2',...,'i+k' ,
+then we pop all index as such only index 'i' is present in the queue. For index 'i-1',...,'i-k' we use index 'i' for comparison if above condition does not occur.  
+
+Code:
+int maxResult(vector<int>& nums, int k) {
+        deque<int> q;
+        int n=nums.size();
+        int dp[n];
+        dp[n-1]=nums[n-1];
+        q.push_back(n-1);
+        for(int i=n-2;i>=0;i--)
+        {
+            if(q.front()-i>k) q.pop_front();
+            dp[i]=nums[i]+dp[q.front()];
+            while(q.size()&&dp[q.back()]<dp[i])
+                q.pop_back();
+            q.push_back(i);
+        }
+        return dp[0];
+        
+    }

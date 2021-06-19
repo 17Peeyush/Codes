@@ -1,0 +1,30 @@
+https://leetcode.com/problems/maximum-units-on-a-truck/
+Approach:
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+Here we need to find the maximum number of boxes. So inorder to maximize the number of boxes we first choose the box type which can contain maximum number of boxes.
+Calculate the number of boxes untill we exceed the capacity of truck.
+Code:
+ bool static comparator(vector<int>&a,vector<int>&b)
+    {
+        return a[1]>b[1];
+    }
+    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+        sort(boxTypes.begin(),boxTypes.end(),comparator);
+        int i=0,n=boxTypes.size(),maxbox=0;
+        while(truckSize && i!=n)
+        {
+            if(boxTypes[i][0]<=truckSize)
+            {
+                maxbox+=boxTypes[i][0]*boxTypes[i][1];
+                truckSize-=boxTypes[i][0];
+            }
+            else
+            {
+                maxbox+=truckSize*boxTypes[i][1];
+                truckSize=0;
+            }
+            i++;
+        }
+        return maxbox;
+    }

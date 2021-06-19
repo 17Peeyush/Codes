@@ -1,0 +1,42 @@
+Problem:
+https://leetcode.com/problems/valid-palindrome-ii/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(1)
+We start checking from starting and end of the string that the characters are same.
+If we find at any instance the character are not same then our current state is "a######b" here 2 conditions arises whether we have to delete 'a' or 'b':
+So we first take the string "######b" and check with it is palindromic in nature if its is not palindrome then we check for "a######b".
+If either of the two string is palindrome then  return true.
+Code:
+ bool palin(int i,int j,string s)
+    {
+        while(i<j)
+        {
+            if(s[i]!=s[j])
+                return false;
+            i++;j--;
+        }
+        return true;
+    }
+    bool validPalindrome(string s) {
+     int i=0,j=s.length()-1;
+        int d=1;
+        while(i<j)
+        {
+             if(s[i]!=s[j]&&d==1)
+             {
+                 d--;
+                 return palin(i+1,j,s)||palin(i,j-1,s);
+             }
+             else if(s[i]!=s[j]&&d==0)
+             {
+                 return false;
+             }
+            else
+            {
+            i++;
+            j--;
+            }
+        } 
+        return true;
+    }

@@ -1,0 +1,24 @@
+Problem: https://leetcode.com/problems/search-in-a-binary-search-tree/
+
+Time Complexity: O(height of tree)
+
+Code:
+1)
+TreeNode* searchBST(TreeNode* root, int val) {
+       if(root)
+        {
+            if(root->val==val) return root;
+            else if(root->val<val) return searchBST(root->right,val);
+            else return searchBST(root->left,val);
+        }
+        return nullptr;   
+    }
+
+2)
+TreeNode* searchBST(TreeNode* root, int val) {
+      
+            if(root==nullptr||root->val==val) return root;
+            else if(root->val<val) return searchBST(root->right,val);
+             return searchBST(root->left,val);
+           
+    }

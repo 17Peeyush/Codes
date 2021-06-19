@@ -1,0 +1,67 @@
+Problem: https://leetcode.com/problems/longest-consecutive-sequence/
+Approach: 
+(1)
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+We have sorted the array then check linearly for consecutive elements.
+
+Code:
+int longestConsecutive(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        if(n==0) return 0;
+        int consecutive=0,maxcons=0;
+        for(int i=0;i<n-1;i++)
+        {
+            if(nums[i+1]==nums[i])
+                continue;
+            else if(nums[i+1]==nums[i]+1)
+               { 
+                   consecutive++;
+               }
+            else
+            {
+                maxcons=max(maxcons,consecutive);
+                consecutive=0;
+            }
+        }
+         maxcons=max(maxcons,consecutive);
+        return maxcons+1;
+    }
+
+
+
+(2)
+Time Complexity: O(n)
+Auxillary Space: O(n)
+We have stored the elements of array in set. Now for each element 'e' we search that e-1 is present in the set.
+ case 1:
+        If 'e'-1 is not present then that means if consecutive numbers streak including 'e' will start from 'e'.
+        So we check for consecutive number starting from 'e' present in set if present increase the streak 'cons' variable.
+ case 2:
+	If 'e'-1 is present then it means that consecutive number streak including 'e' will surely not start from 'e'.
+	We move to next element in order to find the starting of consecutive number streak including 'e'.   
+Code:
+int longestConsecutive(vector<int>& nums) {
+      if(nums.size()==0) return 0;
+      unordered_set<int> s(nums.begin(),nums.end());
+      int cons=0,max_cons=0;
+      for(int i=0;i<nums.size();i++)
+      {
+          if(s.count(nums[i]-1))
+              continue;
+          else
+          {
+              cons=0;
+              int n=nums[i];
+              while(s.count(n))
+              {
+                  cons++;
+                  n++;
+              }
+              max_cons=max(max_cons,cons);
+          }
+      }
+    return max_cons;
+          
+    }

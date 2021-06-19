@@ -1,0 +1,12 @@
+Problem: https://leetcode.com/problems/maximum-depth-of-binary-tree/
+
+Time Complexity: O(n) as we visited each node
+Space Complexity: O(n) the space cost incurred on the stack size because of recursion calls.
+Code:
+ int maxDepth(TreeNode* root) {
+     if(root!=nullptr)
+     {
+         return 1+max(maxDepth(root->left),maxDepth(root->right));
+     }
+    return 0;
+    }

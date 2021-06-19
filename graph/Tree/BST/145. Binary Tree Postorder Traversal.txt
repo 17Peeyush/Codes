@@ -1,0 +1,27 @@
+Problem:https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+Approach:Two stack method
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+vector<int> postorderTraversal(TreeNode* root) {
+        if(root==nullptr) return {};
+        vector<int>out;
+        stack<TreeNode*> s1,s2;
+        s1.push(root);
+        TreeNode* c;
+        while(!s1.empty())
+        {
+            c=s1.top();s1.pop();
+            s2.push(c);
+            if(s2.top()->left)
+                s1.push(s2.top()->left);
+            if(s2.top()->right)
+                s1.push(s2.top()->right);
+        }
+        while(!s2.empty())
+        {   c=s2.top();s2.pop();
+            out.push_back(c->val);
+         }
+        return out;
+    }

@@ -1,0 +1,54 @@
+Problem: https://leetcode.com/problems/min-cost-climbing-stairs/
+Approach :
+(1)
+For a step 'i' we are considering the minimum cost between the step 'i+1' and 'i+2'.
+Time Complexity: O(2^n)
+Auxillary Space: O(n)
+Code:
+ int d[1001];
+    int minCost(int i,int n,vector<int>&cost)
+    {
+        if(i>=n) return 0;
+        if(d[i]!=-1) return d[i];
+        d[i]=cost[i]+min(minCost(i+1,n,cost),minCost(i+2,n,cost));
+        return d[i];
+     }
+    int minCostClimbingStairs(vector<int>& cost) { 
+        memset(d,-1,sizeof(d));
+        minCost(0,cost.size(),cost);
+        return min(d[0],d[1]);
+    }
+
+(2)
+Tabulation of solution (1)
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+ int minCostClimbingStairs(vector<int>& cost) {
+        int dp[1005];
+        memset(dp,0,sizeof(dp));
+        int n=cost.size();
+        for(int i=n-1;i>=0;i--)
+        {
+            dp[i]=cost[i]+min(dp[i+1],dp[i+2]);
+        }
+        return min(dp[0],dp[1]);
+    }
+
+(3)
+Same approach but constant space complexity.
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        int dp1=0,dp2=0,dpc;
+        for(int i=n-1;i>=0;i--)
+        {
+            dpc=cost[i]+min(dp1,dp2);
+            dp2=dp1;
+            dp1=dpc;
+            
+        }
+        return min(dp1,dp2);
+    }

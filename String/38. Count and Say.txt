@@ -1,0 +1,27 @@
+Problem: https://leetcode.com/problems/count-and-say/
+Code:
+ string gen(string s,int n)
+    {
+        char ch;int c,i=0;
+        string out="";
+        while(i<n)
+        {
+            ch=s[i];
+            c=0;
+            while(i<n&&s[i]==ch)
+            {
+                i++;c++;
+            }
+            out+=to_string(c)+ch;
+        }
+        return out;
+    }
+    string countAndSay(int n) {
+        if(n==1) return "1";
+        string s="1";
+        for(int i=2;i<=n;i++)
+        {
+            s=gen(s,s.length());
+        }
+        return s;
+    }

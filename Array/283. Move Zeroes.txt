@@ -1,0 +1,48 @@
+Problem: https://leetcode.com/problems/move-zeroes
+Approach:
+(1)
+Time Complexity: O(n)
+Auxillary Space: O(1)
+A two-pointer approach could be helpful here. The idea would be to have one pointer for iterating the array and another pointer that just works on the non-zero elements of the array.
+
+Code:
+void moveZeroes(vector<int>& nums) {
+        int i=0,j=0,n=nums.size();
+        for(;j<n;j++)
+        {
+            if(nums[j])
+            {
+                swap(nums[i],nums[j]);
+                i++;
+            }
+        }
+    }
+
+
+(2)
+Time Complexity: O(n)
+Auxillary Space: O(1)
+We are taking two pointers 'i' and 'j' and i stops at index which have element as 0 and 'j' stops at index which have non zero element.
+If 'j' is greater than 'i' that means non zero element is on the right side of zero so we swap them.
+If 'j' is less than 'i' that means non zero element is on left size of zero element so we increment 'j' so it searches on the right of 'i' (zero element).
+If 'i' or 'j' exceeds the size of array we stop.
+Code:
+ void moveZeroes(vector<int>& nums) {
+        int i=0,j=0,n=nums.size();
+        while(j<n&&i<n)
+        {
+            while(i<n&&nums[i]!=0)
+                i++;
+            while(j<n&&nums[j]==0)
+            {j++;}
+           if(j==n)
+           { break;}
+            else if(j>i&& j!=n)
+            {
+                int t=nums[i];
+                nums[i]=nums[j];
+                nums[j]=t;
+            }
+            else {j=i+1;}
+        }
+    }
