@@ -1,0 +1,65 @@
+Problem: https://leetcode.com/problems/longest-palindromic-substring/
+Approach:
+Time Complexity: O(n^2), where n is the length of the string
+Auxillary Space: O(1)
+Let us consider 2 cases:
+Case 1: string= "abccb"
+		 01234 
+	here s[2]==s[3] condition holds true. So we can check if s[1]==s[4] is true if it is true then we can check s[1-1]==s[4+1] and so on.
+        Without going out of bounds and it will give us longest palindromic substring.
+Case 2: string= "abcdcb"
+		 012345
+	Here we check for index 'i' by above approach s[i]==s[i+1] then we will fail. But we can observe for the substring "cdc" s[2]==s[4] holds true.
+	So we check for s[1]==s[5](s[2-1]==s[4+1]) and if it holds true then we check so on. Here the only difference from case 1 is the smallest substring will be of length 3.
+	And the difference between the index is 2 when checking for smallest substring.  
+Code:
+string longestPalindrome(string s) {
+        int n=s.length();
+        string out="";
+        if(n==1) return s;
+	//Handling string if the length is equal to 2 
+        if(n==2 && s[0]==s[1]) return s;
+        else if(n==2){
+            out+=s[0];
+            return out;
+        }
+        int l,h,max=0;
+        for(int i=1;i<s.length();i++)
+        {
+            //case 1
+            l=i-1;h=i;
+            if(s[l]==s[h])
+            {
+                while(l>=0&&h<s.length()&&s[l]==s[h])
+                {
+                    l--;h++;
+                }
+                l++;h--;
+                if((h-l+1)>max)
+                {
+                    max=h-l+1;
+                    out=s.substr(l,max);
+                }
+            }
+            //case 2
+            l=i-1;h=i+1;
+            if(h<s.length()&&s[l]==s[h])
+            {
+                while(l>=0&&h<s.length()&&s[l]==s[h])
+                {
+                    l--;h++;
+                }
+                l++;h--;
+                if((h-l+1)>max)
+                {
+                    max=h-l+1;
+                    out=s.substr(l,max);
+                }
+            }
+        }
+	//if there is no palindromic substring greater than length 1 so we return substring of length 1
+        if(max==0)
+            out+=s[0];
+        return out;
+        
+    }

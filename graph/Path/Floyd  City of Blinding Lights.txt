@@ -1,0 +1,51 @@
+Problem: https://www.hackerrank.com/challenges/floyd-city-of-blinding-lights/problem
+Approach: Implemented Flyod-Warshall algorithm
+Time Complexity: O(N^3), where N is the number of nodes in the graph
+Auxillary Space: O(N^2)
+Code:
+#include <bits/stdc++.h>
+#define INF 10009
+using namespace std;
+void flyodWarshall(vector<vector<int>>&g,int n)
+{
+    for(int i=1;i<n;i++)
+        g[i][i]=0;
+    for(int k=1;k<n;k++)
+    {
+        for(int i=1;i<n;i++)
+        {
+            for(int j=1;j<n;j++)
+            {
+                g[i][j]=g[i][j]>(g[i][k]+g[k][j])?g[i][k]+g[k][j]:g[i][j];
+            }
+        }
+    }
+}
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>>g(n+1,vector<int>(n+1,INF));
+    int u,v,w;
+    for(int i=0;i<m;i++)
+    {
+        cin>>u>>v>>w;
+        g[u][v]=w;
+    }
+    flyodWarshall(g,n+1);
+    int q,a,b;
+    cin>>q;
+    for(int i=0;i<q;i++)
+    {
+        cin>>a>>b;
+        if(g[a][b]==INF)
+            cout<<-1<<endl;
+        else {
+            cout<<g[a][b]<<endl;
+        }
+    }    
+    
+
+    return 0;
+}
+

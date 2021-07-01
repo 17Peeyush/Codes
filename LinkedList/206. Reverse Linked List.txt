@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/reverse-linked-list/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Suppose we have a link list :
+1->2->3->4->5->null
+step1: null<-1  2->3->4->5->null
+step2: null<-1<-2  3->4->5->null
+step3: null<-1<-2<-3  4->5->null
+step4: null<-1<-2<-3<-4  5->null
+step5: null<-1<-2<-3<-4<-5
+Below code is implementation of above approach.
+Code:
+ ListNode* reverseList(ListNode* head) {
+        if(head==nullptr) return nullptr;
+        ListNode *p1,*p2;
+        p1=head;
+        p2=p1->next;
+        p1->next=nullptr;
+        while(p2!=nullptr)
+        {
+            ListNode*p3=p2->next;
+            p2->next=p1;
+            p1=p2;
+            if(p3==nullptr)
+                head=p2;
+            p2=p3;
+        }
+        return head;
+    }

@@ -1,0 +1,46 @@
+Problem:https://leetcode.com/problems/find-peak-element/
+Approach: BinarySearch on answer
+Here first we are checking if the leftmost element at index '0' is greater than its neighbour(right element) then it is peak element.
+If the rightmost element at index 'N-1" is greater than its neighbour(left element)then it is peak element.
+In other cases we are checking for an element say at index 'mid' if it is greater than its neighbours then it is peak element.
+If it is not greater than its neghbour then we search in that side of mid's neighbour which is than element at mid.   
+
+Time Complexity: O(logN), where N is the numbder of elements in the array.
+Auxillary Space: O(1)
+
+Code:
+ int findPeakElement(vector<int>& nums) {
+        int l=0,h=nums.size()-1,mid;
+        if(h+1==1) return h;
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(mid==0)
+            {
+                if(nums[mid]>nums[mid+1])
+                    return mid;
+                else
+                    return mid+1;
+            }
+            else if(mid==nums.size()-1)
+            {
+                if(nums[mid]>nums[mid-1])
+                    return mid;
+                else
+                    return mid-1;
+            }
+            else if(nums[mid]>nums[mid+1]&&nums[mid]>nums[mid-1])
+            {
+                return mid;
+            }
+            else if(nums[mid]>nums[mid+1])
+            {
+                h=mid-1;
+            }
+            else
+            {
+                l=mid+1;
+            }   
+        }
+        return -1;
+    }

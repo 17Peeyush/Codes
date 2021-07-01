@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/out-of-boundary-paths/
+Approach : Recursion with Memoization
+In the brute force approach, while going through the various branches of the recursion tree, we could reach the same position with the same number of moves left.
+Thus, a lot of redundant function calls are made with the same set of parameters leading to a useless increase in runtime. We can remove this redundancy by making use of a memoization array, memomemo. 
+memo[i][j][k]memo[i][j][k] is used to store the number of possible moves leading to a path out of the boundary if the current position is given by the indices (i, j)(i,j) and number of moves left is kk.
+Thus, now if a function call with some parameters is repeated, the memomemo array will already contain valid values corresponding to that function call resulting in pruning of the search space.
+
+Time Complexity: O(mnk)
+Auxillary Space: O(mnk)
+
+Code:
+ #define MOD 1000000007
+    long memo [51][51][51];
+    long findPathsd(int m, int n, int maxMove, int startRow, int startColumn) {
+        if(maxMove<0) return 0;
+        if(startRow==m||startColumn==n||startRow<0||startColumn<0) return 1;
+        if(memo[startRow][startColumn][maxMove]!=-1)
+            return memo[startRow][startColumn][maxMove];
+        
+            long d= findPathsd(m,n,maxMove-1,startRow+1,startColumn);
+            long r= findPathsd(m,n,maxMove-1,startRow,startColumn+1);
+            long u= findPathsd(m,n,maxMove-1,startRow-1,startColumn);
+            long l= findPathsd(m,n,maxMove-1,startRow,startColumn-1);
+            long t=(l+r+u+d)%MOD;
+        return memo[startRow][startColumn][maxMove]=t;
+    }
+     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+         memset(memo,-1,sizeof(memo));
+         return (int)findPathsd(m, n,maxMove,startRow, startColumn);
+     }

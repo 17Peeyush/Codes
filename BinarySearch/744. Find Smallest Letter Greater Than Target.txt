@@ -1,0 +1,34 @@
+Problem:https://leetcode.com/problems/find-smallest-letter-greater-than-target/
+Approach:
+Using binary search if we find the target element we return the next(distinct) element.
+If we find an element greater than target it may be possible solution but we search for smaller alphabet until we find an alphabet smaller than or equal to target. 
+Time Complexity: O(logn), where n is the number of elements in the array.
+Auxillary Space: O(1)
+Code:
+char nextGreatestLetter(vector<char>& letters, char target) {
+      int l=0,h=letters.size()-1,n=letters.size();
+        if(target>=letters[h])
+            return letters[0];
+      int res=-1,mid;
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(letters[mid]==target)
+            {
+              if(mid+1<n)
+                l=mid+1;
+                else
+                {res=0;break;}
+            }
+            else if(letters[mid]<target)
+            {
+                l=mid+1;
+            }
+            else
+            {
+                res=mid;
+                h=mid-1;
+            }
+        }
+        return letters[res];
+    }

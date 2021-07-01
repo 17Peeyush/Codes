@@ -1,0 +1,37 @@
+Problem: https://leetcode.com/problems/candy/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(n)
+First we are creating another candy array with holds count of candies given to each child.
+We have initialized candy array as it was stated that each child gets atleast one candy.
+Now we traverse candy from left to right and increase the candy of a child if its rating is greater than its left neighbour.
+Now we traverse candy from right to left and increase the candy of a child if its rating is greater than its right neighbour.
+(We needed to traverse from both direction as it will  check all possible case 
+Suppose we have 'i'th child having rating 2 and its right neighbour 'i+1'th child having rating 1.
+But while traversing from left to right we are giving same number of candy to both 'i'th and 'i+1'th child.
+So we check from right to left here this case is tackled and we increase the candy of 'i'th child by 1)
+Code:
+ int candy(vector<int>& ratings) {
+        int n=ratings.size();
+        vector<int>candy(n,1);
+        
+        for(int i=0;i<n-1;i++)
+        {
+            if(ratings[i]<ratings[i+1])
+            {
+                candy[i+1]=candy[i]+1;    
+            }
+        }
+        for(int j=n-1;j>0;j--)
+        {
+            if(ratings[j-1]>ratings[j])
+            {
+                if(candy[j-1]<=candy[j])
+                    candy[j-1]=candy[j]+1;
+            }
+        }
+        
+        return accumulate(candy.begin(),candy.end(),0);
+            
+        
+    }

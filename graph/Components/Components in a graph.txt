@@ -1,0 +1,51 @@
+Problem: https://www.hackerrank.com/challenges/components-in-graph/problem
+Code:
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int findparent(int n,vector<int>&parent)
+{
+    if(parent[n]<0) return n;
+    parent[n]=findparent(parent[n],parent);
+    return parent[n];
+}
+void unionByWeight(int s,int d,vector<int>&parent)
+{
+    int ps=findparent(s,parent),pd=findparent(d, parent);
+    if(ps!=pd)
+    {
+        if(ps<pd)
+        {
+            parent[ps]+=parent[pd];
+            parent[pd]=ps;
+        }
+        else {
+            parent[pd]+=parent[ps];
+            parent[ps]=pd;
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int>parent(2*n+1,-1);
+    int s,d;
+    for(int i=0;i<n;i++)
+    {
+        cin>>s>>d;
+        unionByWeight(s, d,parent);
+    }  
+    int min=INT_MIN,max=INT_MAX,f=0; 
+    for(int i=1;i<parent.size();i++)
+    {
+        if(min<parent[i]&&parent[i]<-1)
+            min=parent[i];
+        if(max>parent[i])
+        max=parent[i];
+    }
+    cout<<-min<<" "<<-max;
+    return 0;  
+}

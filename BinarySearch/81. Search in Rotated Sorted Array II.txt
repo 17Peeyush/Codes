@@ -1,0 +1,37 @@
+Problem: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+Approach:
+Time Complexity: O(logn)
+Auxillary Space: O(1)
+We are performing binary search and if mid is equal to target then true.
+Otherwise we are checking a special case if the value at low, mid and high are same then we can't determine which side of the mid is the sorted part so we increase low and high.
+eg:[1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1]
+If the above condition is not satisfied then we check for the side of array which is sorted and search for target in sorted part of the array.
+Note: This solution works for both the cases if duplicates elements are present or not.
+Code:
+bool search(vector<int>& nums, int target) {
+        int l=0,h=nums.size()-1,mid;
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(nums[mid]==target) return true;
+            else if(nums[l]==nums[mid]&&nums[mid]==nums[h])
+            {
+                l++;h--;continue;
+            }
+            else if(nums[l]<=nums[mid])
+            {
+                if(nums[l]<=target&&target<nums[mid])
+                    h=mid-1;
+                else
+                    l=mid+1;
+            }
+            else 
+            {
+                if(nums[mid]<target && target<=nums[h])
+                    l=mid+1;
+                else
+                    h=mid-1;              
+            }
+        }
+        return false;
+    }

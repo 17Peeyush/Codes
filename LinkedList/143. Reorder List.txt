@@ -1,0 +1,36 @@
+Problem:https://leetcode.com/problems/reorder-list/
+Time Complexity: O(n), where n is the number of nodes in the list list
+Auxillary Space: O(n)
+We have simply implemented the condition that was given in the question with the help of dequeue.
+Code:
+void reorderList(ListNode* head) {
+        if(head->next==nullptr) return ;
+        deque<ListNode*>dq;
+        ListNode*p=head->next;
+        while(p!=nullptr)
+        {
+            dq.push_back(p);
+            p=p->next;
+        }
+        p=head;
+        char ch='b';
+        while(!dq.empty())
+        {
+            ListNode*temp;
+            if(ch=='b')
+            {
+                ch='f';
+                temp=dq.back();dq.pop_back();
+                p->next=temp;
+            }
+            else
+            {
+                ch='b';
+                temp=dq.front();dq.pop_front();
+                p->next=temp; 
+            }
+            p=p->next;   
+        }
+        p->next=nullptr;
+        return ;
+    }

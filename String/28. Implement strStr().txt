@@ -1,0 +1,72 @@
+Problem: https://leetcode.com/problems/implement-strstr/
+Approach:Implemented KMP (Knuth-Morris-Pratt)
+Time Complexity: O(m+n), where m and n are the length of pattern and text respectively.
+Auxillary Space: O(n)
+Code:
+ vector<int>createlps(string pat)
+{
+    int m=pat.length();
+    vector<int>lps(m);
+    int i=1,len=0;
+    lps[0]=0;
+    while(i<m)
+    {
+        if(pat[len]==pat[i])
+        {
+            len++;
+            lps[i]=len;
+            i++;
+        }
+        else
+        {
+            if(len!=0)
+            {
+                len=lps[len-1];
+            }
+            else
+            {
+                lps[i]=0;
+                i++;
+            }
+        }
+    }
+    return lps;
+}
+
+int kmp(string text,string pat)
+{
+    int n=text.length(),m=pat.length();
+    vector<int>lps=createlps(pat);
+    vector<int>out;
+    int i=0,j=0;
+    while(i<n)
+    {
+        if(text[i]==pat[j])
+        {
+            i++;
+            j++;
+        }
+        else
+        {
+            if(j!=0)
+            {
+                j=lps[j-1];
+            }
+            else
+            {
+                i++;
+            }
+        }
+        if(j==m)
+        {
+             return (i-j);
+        }
+    }
+    return -1;
+}
+    int strStr(string haystack, string needle) {
+        if(needle.size()==0)return 0;
+        if(haystack.size()==0)return -1;
+        int index=-1;
+        return kmp(haystack,needle);
+    }

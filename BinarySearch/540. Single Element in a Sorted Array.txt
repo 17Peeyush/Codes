@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/single-element-in-a-sorted-array/
+Approach
+Time Complexity: O(logn)
+Auxillary Space: O(1)
+Here we are determining the single element on the basis of indexes.
+eg: [1,1,2,2,3,3,4,8,8,10,10]
+     0 1 2 3 4 5 6 7 8  9 10
+Here 4 is the single element. Left of 4(arr[6]) the start of pair is at the even index. 1 at index '0', 2 at index '2', 3 at index '4'.
+But due to single element this pattern is changed now startung of a pair starts at the odd index. 8 ay index '7', 10 at index '9'.
+So by this property we are checking the mid is even or odd and if it is even and starting of pair then the pattern will surely change at the right side of mid, otherwise on left side.
+As for the single at will be not equal to both of its neighbours.
+Code:
+ int singleNonDuplicate(vector<int>& nums) {
+        int n=nums.size();
+        if(n==1) return nums[0];
+        if(nums[0]!=nums[1]) return nums[0];
+        if(nums[n-1]!=nums[n-2]) return nums[n-1];
+        int l=0,h=n-1,mid;
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(mid+1<n&&mid-1>=0&&nums[mid-1]!=nums[mid]&&nums[mid]!=nums[mid+1])
+                return nums[mid];
+            else if(mid%2!=0&&mid+1<n&&nums[mid]==nums[mid+1])
+                h=mid-1;
+            else if(mid%2==0&&mid+1<n&&nums[mid]!=nums[mid+1])
+                h=mid-1;
+            else
+                l=mid+1;
+        }
+        return -1;
+    }

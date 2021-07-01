@@ -1,0 +1,88 @@
+Problem: https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1#
+Expected Time Complexity: O((N2)4).
+Expected Auxiliary Space: O(L * X), L = length of the path, X = number of paths.
+Code:
+ #include<bits/stdc++.h>
+ using namespace std;
+ string Moves(stack<char>st)
+    {
+        string str="";
+        while(!st.empty())
+        {
+            str+=st.top();
+            st.pop();
+        }
+        reverse(str.begin(),str.end());
+        return str;
+    }
+    void dfs(int i,int j,int n,vector<vector<int>>&m,vector<vector<bool>>&visited,stack<char>st,vector<string>&out)
+    {
+        if(i==n-1&&j==n-1)
+        {
+            string str=Moves(st);
+            out.push_back(str);
+        }
+        else
+        {
+            visited[i][j]=true;
+            if(i+1<n && m[i+1][j]!=0 && !visited[i+1][j])
+            {
+                st.push('D');
+                
+                dfs(i+1,j,n,m,visited,st,out);
+               
+                st.pop();
+            }
+            if(j+1<n && m[i][j+1]!=0 && !visited[i][j+1])
+            {
+                st.push('R');
+                
+                dfs(i,j+1,n,m,visited,st,out);
+               
+                st.pop();
+            }
+            if(j-1>=0 && m[i][j-1]!=0 && !visited[i][j-1])
+            {
+                st.push('L');
+             
+                dfs(i,j-1,n,m,visited,st,out);
+                
+                st.pop();
+            }
+            if(i-1>=0 && m[i-1][j]!=0 && !visited[i-1][j])
+            {
+                st.push('U');
+              
+                dfs(i-1,j,n,m,visited,st,out);
+                
+                st.pop();
+            }
+            visited[i][j]=false;
+        }
+    }
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        // Your code goes here
+        vector<string>out;
+        if(m[n-1][n-1]==0||m[0][0]==0) return out;
+        vector<vector<bool>> visited(n,vector<bool>(n,false));
+        stack<char>st;
+        dfs(0,0,n,m,visited,st,out);
+        sort(out.begin(),out.end());
+        return out;
+    }
+    int main()
+    {
+        int n;
+        cin>>n;
+        vector<vector<int>>m(n,vector<int>(n));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                cin>>m[i][j];
+            }
+        }
+        vector<string>out=findPath(m,n);
+        cout<<"\n"<<out.size()<<endl;
+        for(auto x:out) cout<<x<<" ";
+    }

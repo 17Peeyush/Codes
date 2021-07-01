@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/redundant-connection/
+Approach: Use Union Find to detect cycle.
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+ int findparent(int n,vector<int>&parent)
+    {
+        if(parent[n]<0) return n;
+        parent[n]=findparent(parent[n],parent);
+        return parent[n];
+    }
+    bool unionBYWeight(int s,int d,vector<int>&parent)
+    {
+        int ps=findparent(s,parent),pd=findparent(d,parent);
+        if(ps==pd)
+            return true;
+        else
+        {
+            if(parent[ps]<parent[pd])
+            {
+                parent[ps]+=parent[pd];
+                parent[pd]=ps;
+            }
+            else
+            {
+                parent[pd]+=parent[ps];
+                parent[ps]=pd;
+            }
+        }
+        return false;
+    }
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        vector<int>parent(1002,-1);
+        for(auto x:edges)
+        {
+            if(unionBYWeight(x[0],x[1],parent))
+            {
+                return {x[0],x[1]};
+            }
+        }
+        return {};
+    }

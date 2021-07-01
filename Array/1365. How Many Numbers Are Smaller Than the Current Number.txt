@@ -23,7 +23,9 @@ Output: [0,0,0,0]
 Constraints:
 2 <= nums.length <= 500
 0 <= nums[i] <= 100
-
+Approach 1:
+Time Complexity: O(n)
+Auxillary Space: O(n)
 Code:
 vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
         vector<int> out; // output vector
@@ -42,4 +44,37 @@ vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
             out.push_back(consSum[nums[i]]);
         }
         return out;
+    }
+Approach 2:
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+int findBS(int target,vector<int>&nums,int l,int h)
+    {
+        int res=-1;
+        int mid;
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(nums[mid]==target)
+            {
+                res=mid;
+                h=mid-1;
+            }
+            else if(nums[mid]>target)
+                h=mid-1;
+            else
+                l=mid+1;
+        }
+        return res;
+    }
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+         vector<int>nums1(nums.begin(),nums.end());
+        sort(nums1.begin(),nums1.end());
+        vector<int>ans;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            ans.push_back(findBS(nums[i],nums1,0,n-1));
+        }
+        return ans;
     }

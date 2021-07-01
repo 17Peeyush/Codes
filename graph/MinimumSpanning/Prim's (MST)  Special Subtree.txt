@@ -1,0 +1,47 @@
+Problem: https://www.hackerrank.com/challenges/primsmstsub/problem
+Prim’s algorithm has a time complexity of O(V2), V being the number of vertices.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int prims(int n, vector<vector<pair<int,int>>>&g, int s) {
+    vector<bool>visited(n+1,false);
+    priority_queue<pair<int,int>>q;
+    q.push({0,s});
+    int mst=0;
+    while(n)
+    {
+        pair<int,int>x=q.top();q.pop();
+        int w=-x.first,node=x.second;
+        if(visited[node]) continue;
+        visited[node]=true;
+        mst+=w;
+        n--;
+        for(auto y: g[node])
+        {
+            if(visited[y.first]==false)
+            {
+                q.push({-y.second,y.first});
+            }
+        }
+    }
+    return mst;
+
+}
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    vector<vector<pair<int,int>>> g(n+1);
+    int u,v,w;
+    for(int i=0;i<m;i++)
+    {
+        cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
+    }    
+    int s;
+    cin>>s;
+    cout<<prims(n,g,s)<<endl;
+}

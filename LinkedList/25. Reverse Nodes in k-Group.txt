@@ -1,0 +1,37 @@
+Problem:https://leetcode.com/problems/reverse-nodes-in-k-group/
+Time Complexity: O(n), where n is the number of nodes in the linked list
+Auxillary Space: O(n)
+We are using a stack to reverse elements. We are pushing k nodes at a time in stack and poping it(reverse order).
+If we encounter nullptr if the stack is not full it means they are left out nodes and left as it is.
+Code:
+ListNode* reverseKGroup(ListNode* head, int k) {
+     ListNode*dummy=new ListNode();
+        dummy->next=head;
+        ListNode*p=dummy,*c=head;
+        stack<ListNode*>st;
+        int f=1;
+        while(f)
+        {
+            while(st.size()!=k)
+            {
+                if(c==nullptr)
+                {
+                    f=0;
+                    break;
+                }
+                st.push(c);
+                c=c->next;
+            }
+            while(f&&!st.empty())
+            {
+                p->next=st.top();
+                st.pop();
+                p=p->next;
+            }
+            if(st.empty())
+            {
+                p->next=c;
+            }
+        }
+        return dummy->next;
+    }

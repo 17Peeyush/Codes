@@ -1,0 +1,103 @@
+Problem: https://leetcode.com/problems/swim-in-rising-water/
+Approach:
+(1)Dijkastra's 
+Time Complexity: O(n^2logn)
+Auxillary Space: O(n*n)
+Here we are applying dijsktra on the matrix for each block we are accessing its four neighbours(top, down, left, right).
+And moving to that neighbour which has the least cost. (Achieving it with the help of prioprity queue)
+While moving if we end up on block with index 'N-1','N-1' we return the answer.   
+Code:
+ //Check valid values of 'i' and 'j'
+ bool valid(int i,int j,int n)
+    {
+        if(i<0||i==n||j<0||j==n) return false;
+        return true;
+    }
+    int swimInWater(vector<vector<int>>& grid) {
+        int n=grid.size();
+         vector<vector<bool>>v(n,vector<bool>(n,false));
+         priority_queue<tuple<int,int,int>>q;
+         int i=0,j=0,cost=grid[i][j];
+         q.push({-cost,i,j});
+         while(!q.empty())
+         {
+             tuple x=q.top();q.pop();
+             i=get<1>(x);j=get<2>(x);
+             cost=max(cost,-get<0>(x));
+             if(v[i][j]) continue;
+             v[i][j]=true;
+             if(valid(i-1,j,n) && !v[i-1][j])//top
+             {
+                 if(i-1==n-1&&j==n-1)
+                 {
+                    cost=max(cost,grid[i-1][j]);
+                     break;
+                 }
+                 q.push({-grid[i-1][j],i-1,j});
+             }
+             if(valid(i,j+1,n) && !v[i][j+1])//right
+             {
+                 if(i==n-1&&j+1==n-1)
+                 {
+                    cost=max(cost,grid[i][j+1]);
+                     break;
+                 }
+                 q.push({-grid[i][j+1],i,j+1});
+             }
+             if(valid(i+1,j,n) && !v[i+1][j])//down
+             {
+                 if(i+1==n-1&&j==n-1)
+                 {
+                    cost=max(cost,grid[i+1][j]);
+                     break;
+                 }
+                 q.push({-grid[i+1][j],i+1,j});
+             }
+             if(valid(i,j-1,n) && !v[i][j-1])//left
+             {
+                 if(i==n-1&&j-1==n-1)
+                 {
+                    cost=max(cost,grid[i][j-1]);
+                     break;
+                 }
+                 q.push({-grid[i][j-1],i,j-1});
+             }
+             
+         }
+        return cost;
+    }
+
+(2) Binary Search + DFS
+Time Complexity: O(n^2logn)
+Auxillary Space: O(n^2)
+Here we are calculating threshold value for which we can reach the block having index ('N-1','N-1') from block having index ('0','0').(Binary search btw 0 to N*N)
+For a given the threshold value(mid value) we perform dfs on the blocks that have values less than or equal to mid i.e we can easily swim across those blocks if the water level is equal to threshold value. 
+If we are able to reach from ('0','0') to ('N-1','N-1') for a threshold value (mid) we try to find if it is possible o reach from ('0','0') to ('N-1','N-1') for a lesser threshold value.
+If we are not able to reach from ('0','0') to ('N-1','N-1') then we try dfs for a higher threshold value.
+Code:
+ vector<vector<bool>>v;
+    void dfs(int i,int j,int mid,vector<vector<int>>&g)
+    {
+        if(!v[i][j]&&g[i][j]<=mid)
+        {
+            v[i][j]=true;
+            if(i-1>=0) dfs(i-1,j,mid,g);
+            if(j-1>=0) dfs(i,j-1,mid,g);
+            if(i+1<g.size()) dfs(i+1,j,mid,g);
+            if(j+1<g.size()) dfs(i,j+1,mid,g);
+        }
+    }
+    int swimInWater(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int l=0,h=n*n;
+        while(l<h)
+        {
+            int mid=l+(h-l)/2;
+            v=vector<vector<bool>>(n,vector<bool>(n,false));
+            dfs(0,0,mid,grid);
+            if(v[n-1][n-1])
+                h=mid;
+            else l=mid+1;
+        }
+        return l;
+    }
