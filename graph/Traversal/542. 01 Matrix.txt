@@ -1,0 +1,52 @@
+Problem: https://leetcode.com/problems/01-matrix/
+Approach:
+BFS
+Time Complexity: O(m*n)
+Auxillary Space: O(1)
+Here we are storing all the index of element equals to 0 in a queue and converting all the elements to infinity.
+Now we are calculating the minimum distance of neighbouring elements of elementsequal to 0 and adding them in the queue.
+Now each will calculate the minimum distance for each of its four neighbours.
+Note: Minimum distance here refer to the nearest 0
+Code:
+vector<vector<int>> updateMatrix(vector<vector<int>>& distance) {
+        int m=distance.size(),n=distance[0].size();
+        queue<pair<int,int>>q;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(distance[i][j]==0)
+                {
+                    q.push({i,j});
+                }
+                else
+                {
+                    distance[i][j]=INT_MAX-1;
+                }
+            }
+        }
+        //       l,t,b,r
+        int x[]={-1,0,0,1};
+        int y[]={0,1,-1,0};
+        while(!q.empty())
+        {
+            auto cor=q.front();q.pop();
+            int i=cor.first,j=cor.second;
+            for(int k=0;k<4;k++)
+            {
+                int cx=j+x[k];
+                int cy=i+y[k];
+                if(cx>=0&&cx<n&&cy>=0&&cy<m)
+                {
+                    if(distance[cy][cx]>distance[i][j]+1)
+                    {
+                        distance[cy][cx]=distance[i][j]+1;
+                        q.push({cy,cx});
+                    }
+                }
+                
+            }
+        }
+        return distance;
+            
+    }

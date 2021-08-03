@@ -1,0 +1,37 @@
+Problem: https://practice.geeksforgeeks.org/problems/finding-the-numbers0215/1#
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Here we are first calculating the xor of all elements then our xor will contain the two unique numbers xor (a^b).
+Now we check for the left most set bit as it will tell that a's that bit is either 1 and b's that bit is 0 or vice versa.
+On that bit position we divide the array in two part one which have that bit set and other that don't have that bit set.
+Well the array will thus divided that they will have pair of all element and one unique element.
+Now we can find the unique element by simple xor of all elements.
+Code:
+vector<int> singleNumber(vector<int> nums) 
+    {
+        int xor_=0;
+        for(auto x:nums)
+        xor_^=x;
+        int lset=0;
+        while(lset<32)
+        {
+            if((1<<lset)&xor_)
+            {
+                break;
+            }
+            lset++;
+        }
+        vector<int>set_el;
+        for(auto x: nums)
+        {
+            if((1<<lset)&x)
+                set_el.push_back(x);
+        }
+        int first=0;
+        for(auto x: set_el)
+        {
+            first^=x;
+        }
+        xor_=xor_^first;
+        return {min(first,xor_),max(first,xor_)};
+    }

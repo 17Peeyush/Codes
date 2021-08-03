@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/is-graph-bipartite/
+Approach:
+A graph is bipartite if its nodes can be colored using two colors so that there are no adjacent nodes with the same color. It is surprisingly easy to check if a graph
+is bipartite using graph traversal algorithms. The idea is to color the starting node blue, all its neighbors red, all their neighbors blue, and so on.
+If at some point of the search we notice that two adjacent nodes have the same color, this means that the graph is not bipartite.
+Otherwise the graph is bipartite and one coloring has been found.
+Time Complexity: O(V+E), where V is the vertices in the graph and E is the edges.
+Auxillary Space: The space complexity for DFS is O(h) where h is the maximum height of the tree.
+Code:
+  bool isBipartite(vector<vector<int>>&g,int node,vector<int>&color,int colour)
+    {
+        color[node]=colour;
+        for(auto x: g[node])
+        {
+            if(colour==color[x])
+                return false;
+            if(color[x]==-1)
+            {
+                if(!isBipartite(g,x,color,1-colour))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<int>color(n,-1);
+        for(int i=0;i<n;i++)
+        {
+            if(color[i]==-1)
+            {
+                if(!isBipartite(graph,i,color,0))
+                    return false;
+            }
+        }
+        return true;
+    } 

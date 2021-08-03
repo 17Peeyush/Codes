@@ -1,0 +1,118 @@
+Problem: https://leetcode.com/problems/word-ladder-ii/
+Approach:
+(1)
+Time Complexity: O(26*n*l) , where n is the number of words, l is the length of each word
+Auxillary Space: O(l), l is the size of recursive stack
+Note: This approach did not pass all test cases. (TLE)
+Code:
+vector<vector<string>> out;
+    int minpath=1001;
+    void findList(string bw,string ew,vector<string>tin,unordered_set<string> wl)
+    {
+        int l=bw.length();
+        for(int i=0;i<l;i++)
+        {
+            char ch=bw[i];
+            for(char x='a';x<='z';x++)
+            {
+                bw[i]=x;
+                if(bw==ew)
+                {
+                    tin.push_back(bw);
+                    int t=tin.size();
+                    minpath=min(t,minpath);
+                    out.push_back(tin);
+                    return;
+                }
+                else if(wl.find(bw)!=wl.end())
+                {
+                    tin.push_back(bw);
+                    wl.erase(bw);
+                    findList(bw,ew,tin,wl);
+                    tin.pop_back();
+                    wl.insert(bw);
+                }
+            }
+            bw[i]=ch;
+        }
+    }
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string> WL(wordList.begin(),wordList.end());
+        if(WL.find(endWord)==WL.end()) return {};
+        vector<string> tin;
+        tin.push_back(beginWord);
+        findList(beginWord,endWord,tin,WL);
+        vector<vector<string>> finout;
+        for(auto x: out)
+        {
+            int t=x.size();
+            if(t==minpath)
+                finout.push_back(x);
+        }
+        return finout;
+    }
+
+(2)
+Time Complexity: O(26*n*l+ve), where n is the number of words, l is the length of each word, v is the vertices of graph created and e is the edges
+Auxillary Space: O(n*l)
+Code:
+ vector<vector<string>> out;
+    void dfs(string bw,string ew,unordered_map<string,vector<string>>adj,vector<string>tin)
+    {
+        tin.push_back(bw);
+        if(bw==ew)
+        {
+            out.push_back(tin);
+            return;
+        }
+        for(auto x: adj[bw])
+        {
+            dfs(x,ew,adj,tin);
+        }
+    }
+    vector<vector<string>> findLadders(string bw, string ew, vector<string>& wordList) {
+        unordered_set<string> wl(wordList.begin(),wordList.end());
+        if(wl.find(ew)==wl.end()) return {};
+        unordered_map<string,vector<string>> adj;
+        unordered_map<string,int> level;
+        queue<string> q;
+        q.push(bw);
+        level[bw]=0;
+        int lvl=0;
+        while(!q.empty())
+        {
+            int size=q.size();
+            lvl++;
+            while(size--)
+            {
+                string curr=q.front(); q.pop();
+                adj[curr]=vector<string>();
+                int l=curr.length();
+                string temp=curr;
+                for(int i=0;i<l;i++)
+                {
+                    for(char ch='a';ch<='z';ch++)
+                    {
+                        temp[i]=ch;
+                        if(wl.find(temp)!=wl.end())
+                        {
+                            if(level.find(temp)==level.end())
+                            {
+                                level[temp]=lvl;
+                            }
+                            if(level[temp]>level[curr])
+                            {
+                                adj[curr].push_back(temp);
+                                q.push(temp);
+                            }
+                            
+                        }
+                    }
+                    temp[i]=curr[i];
+                }
+            }
+        }
+        vector<string> tin;
+        dfs(bw,ew,adj,tin);
+        return out;
+    }

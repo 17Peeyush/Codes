@@ -1,0 +1,33 @@
+Problem: https://leetcode.com/problems/reverse-words-in-a-string/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Used stack to store words then poped the stack elements getting elements in reverse order.
+Code:
+string reverseWords(string s) {
+        s=s+" ";
+        string str="";
+        stack<string> st;
+        int n=s.length();
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]==' ')
+            {
+                if(str!="")
+                {
+                    st.push(str);
+                }
+                str="";
+            }
+            else
+            {
+                str+=s[i];
+            }
+        }
+        str="",s="";
+        while(!st.empty())
+        {
+            str=st.top();st.pop();
+            s+=str+" ";
+        }
+        return s.substr(0,s.length()-1);
+    }

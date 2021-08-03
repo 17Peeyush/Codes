@@ -1,0 +1,49 @@
+Problem: https://leetcode.com/problems/find-k-closest-elements/
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+Here in this approach we have used max heap to have a track of max difference and we are only retaining the elements with minimum absolute difference from x. 
+In the end we are returning the left element in the heap by storing its element in a array.
+Code:
+vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        priority_queue<pair<int,int>>q;
+        int n=arr.size();
+        if(n==k) return arr;
+        for(int i=0;i<n;i++)
+        {
+            q.push({abs(x-arr[i]),arr[i]});
+            if(q.size()>k)
+            {
+                q.pop();
+            }
+        }
+        vector<int>out;
+        while(!q.empty())
+        {
+            out.push_back(q.top().second);q.pop();
+        }
+        sort(out.begin(),out.end());
+        return out;
+    }
+
+2)
+Time Complexity: O(n)
+Auxillary Space: O(1), if not considering the vector which is returned.
+Starting with 2 pointers one at the first index '0' and one at the last index 'n-1'.
+Minimizing the size of array based on the values of absolute difference of x with elements at the 2 pointers.
+If at any point of time size of array becomes equal to k we return that subarray.
+Code:
+vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int l=0,h=arr.size()-1;
+        while(h-l+1>k)
+        {
+            if(abs(arr[h]-x)>=abs(arr[l]-x))
+            {
+                h--;
+            }
+            else
+            {
+                l++;
+            }
+        }
+        return vector<int>(arr.begin()+l,arr.begin()+h+1);
+    }

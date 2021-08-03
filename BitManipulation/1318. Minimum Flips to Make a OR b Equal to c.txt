@@ -1,0 +1,34 @@
+Problem: https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c/
+Time Complexity: O(1)
+Auxilaary Space: O(1)
+Code:
+int rshift(int num,int i)
+    {
+        return num>>i;
+    }
+    int minFlips(int a, int b, int c) {
+        int i=0,bita,bitb,bitc,curr=1;
+        int count=0;
+        while(i<32)
+        {
+            
+            bita=rshift(a,i)&1;
+            bitb=rshift(b,i)&1;
+            bitc=rshift(c,i)&1;
+            if(rshift(a,i)==0&&rshift(b,i)==0&&rshift(c,i)==0) break;
+            i++;
+            if(bitc==1&&(bita|bitb)==1) {
+                continue;}
+            else if(bitc==1&&(bita|bitb)==0) {
+                count++;}
+            else if(bitc==0&&(bita|bitb)==0) {
+                continue;}
+            else if(bitc==0&&bita==1&&bitb==1) {
+                count=count+2;}
+            else if(bitc==0 && bita!=0&&bitb!=0){
+                continue;}
+            else {   
+                count++;}
+        }
+        return count;
+    }

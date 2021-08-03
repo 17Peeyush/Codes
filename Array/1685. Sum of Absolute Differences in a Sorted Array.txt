@@ -1,0 +1,42 @@
+Problem:
+Approach:
+(1)
+Time Complexity: O(n*n), where n is the number of elements in the array
+Auxillary Space: O(1)
+Note: This approach was not able to pass all the test cases. (TLE)
+Code:
+vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> out(n,0);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                int t=abs(nums[i]-nums[j]);
+                out[i]+=t;
+                out[j]+=t;
+            }
+        }
+        return out;
+    }
+(2)
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Here we are first calculating total sum.
+Then for each element we are calculating left sum (sum of all the element to the left of current element including current element).
+Then subtracting current element number of times the number of element in left sum.
+Similarly we calculate rightsum (total sum - left sum) and subtract the number of times the number of element in the righsum.
+Addition of remaining leftsum and rightsum is our answer.
+Code:
+ vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> out(n,0);
+        int leftsum=0,rightsum=0,sum=accumulate(nums.begin(),nums.end(),0);
+        for(int i=0;i<n;i++)
+        {
+           leftsum+=nums[i];
+           rightsum=sum-leftsum;
+           out[i]=abs(leftsum-(nums[i]*(i+1)))+rightsum-(nums[i]*(n-1-i));
+        }
+        return out;
+    }

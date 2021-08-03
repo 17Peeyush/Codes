@@ -1,0 +1,50 @@
+Problem:https://practice.geeksforgeeks.org/problems/max-and-min-products3347/1#
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+ vector<long long int> getMaxandMinProduct(long long int arr[], long long int n)
+    {
+        // Your code goes here
+        long long int minn,maxn,pmul=1,nmul=1,neg=INT_MAX,cneg=0,pos=INT_MAX,maxpos=INT_MIN;
+        int zero=0;
+        if(n==1) return {arr[0],arr[0]};
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]==0)
+                {zero++;maxpos=max(maxpos,arr[i]);}
+            else if(arr[i]<0)
+                {nmul*=arr[i];
+                    neg=min(neg,abs(arr[i]));
+                    cneg++;
+                }
+            else
+            {
+                pmul*=arr[i];
+                pos=min(pos,arr[i]);
+                maxpos=max(maxpos,arr[i]);
+            }
+        }
+        if(zero==n) return {0,0};
+        else if(cneg==0)
+        {
+            minn=pos;
+            if(zero!=0)
+                minn=0;
+            maxn=pmul;
+        }
+        else if(nmul>0)
+        {
+            maxn=pmul*nmul;
+            minn=maxn/(-neg);
+        }
+        else
+        {
+            minn=nmul*pmul;
+            maxn=minn/(-neg);
+        }
+        if(maxpos==0)
+        {
+            maxn=maxpos;
+        }
+        return {minn,maxn};
+    }  

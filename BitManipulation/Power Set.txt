@@ -1,0 +1,24 @@
+Problem: https://practice.geeksforgeeks.org/problems/power-set4302/1
+Time Complexity: O((2^n)*l) 
+Auxillary Space: O(1)
+Code:
+	vector<string> AllPossibleStrings(string str){
+		    int l=str.length();
+		    int ub=pow(2,l)-1;
+		    vector<string>out;string temp;
+		    for(int i=1;i<=ub;i++)
+		    {
+		        int j=0;temp="";
+		        while(j<l)
+		        {
+		            if((i>>j)&1)
+		            {
+		                temp=str[l-1-j]+temp;
+		            }
+		            j++;
+		        }
+		        out.push_back(temp);
+		    }
+		  sort(out.begin(),out.end());
+		    return out;
+		}

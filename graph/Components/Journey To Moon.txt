@@ -1,0 +1,95 @@
+Problem: https://www.hackerrank.com/challenges/journey-to-the-moon/problem
+Time Complexity: O(V+E)
+Auxillary Space: O(E)
+1)
+Code:
+void dfs(vector<vector<int>>&g,vector<bool>&visited,int &c,int node)
+{
+    visited[node]=true;
+    c++;
+    for(auto x:g[node])
+    {
+        if(!visited[x])
+        {
+            dfs(g,visited,c,x);
+        }
+    }
+}
+int journeyToMoon(int n, vector<vector<int>> astronaut) {
+ vector<vector<int>>g(n);
+ int m=astronaut.size();
+ for(int i=0;i<m;i++)
+ {
+     g[astronaut[i][0]].push_back(astronaut[i][1]);
+     g[astronaut[i][1]].push_back(astronaut[i][0]);
+ }   
+ vector<bool>visited(n,false);
+ int cs=0,c=0,totalp=0;
+ dfs(g,visited,c,0);
+ cs=c;
+ for(int i=0;i<n;i++)
+ {
+     if(!visited[i])
+     {
+         c=0;
+         dfs(g,visited,c,i);
+         totalp+=cs*c;
+         cs+=c; 
+     }
+ }
+ return totalp;
+}
+
+2) Combinations
+Code:
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void dfs(vector<vector<long long>>&g,vector<bool>&visited,long long &c,long long node)
+{
+    visited[node]=true;
+    c++;
+    for(auto x:g[node])
+    {
+        if(!visited[x])
+        {
+            dfs(g,visited,c,x);
+        }
+    }
+}
+long long journeyToMoon(long long n, vector<vector<long long>>&g) {
+ vector<bool>visited(n,false);
+ long long c=0;
+ long long cs=0,totalp=(n*(n-1))/2;
+ for(long long i=0;i<n;i++)
+ {
+     if(!visited[i])
+     {
+         c=0;
+         dfs(g,visited,c,i);
+         cs=(c*(c-1))/2;
+         totalp=totalp-cs;
+          
+     }
+ }
+ return totalp;
+}
+
+int main()
+{
+   long long n,p;
+   cin>>n>>p;
+   vector<vector<long long>>g(n);
+   long long s,d;
+ for(long long i=0;i<p;i++)
+ {
+     cin>>s>>d;
+     g[s].push_back(d);
+     g[d].push_back(s);
+ }
+ cout<<journeyToMoon(n,g);   
+}
+   
+   

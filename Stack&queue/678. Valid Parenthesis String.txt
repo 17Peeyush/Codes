@@ -1,0 +1,104 @@
+Problem: https://leetcode.com/problems/valid-parenthesis-string/
+https://leetcode.com/problems/valid-parenthesis-string/discuss/1318181/2-Approach-with-example-and-explanation
+Approach: 
+Time Complexity: O(n*3^n) where n is the length of the string. For each asterisk we try 3 different values. Thus, we could be checking the validity of up to 3^n strings. 
+Then, each check of validity is O(n).
+Auxillary Space: O(n)
+For each asterisk, let's try both possibilities.
+Note: This approach will not pass all the test cases.(TLE)
+Code:
+bool check(int i,int n,string&s,stack<char>st)
+    {
+        if(i==n)
+        {
+            return st.empty();
+        }
+        while(i<n&&s[i]!='*')
+        {
+            if(st.empty())
+            {
+                if(s[i]==')') return false;
+                else st.push(s[i]);
+            }
+            else
+            {
+                if(s[i]==')') st.pop();
+                else st.push(s[i]);
+            }
+            i++;
+        }
+        if(i==n) return st.empty();
+        st.push('(');
+        bool a=check(i+1,n,s,st);st.pop();
+        if(a) return true;
+        if(!st.empty())
+        {
+            st.pop();
+            a=check(i+1,n,s,st);
+            if(a) return true;
+            st.push('(');
+        }
+        return check(i+1,n,s,st);
+        
+    }
+    bool checkValidString(string s) {
+        stack<char>st;
+        int n=s.length();
+        return check(0,n,s,st);
+    }
+
+Approach 2:Two Stack
+In this approach we are using 2 stacks open and asterisk to store index of '(' and '*' respectively while traversing the string.
+If we encounter ')' then we check open stack if it is not empty it means we can have one valid pair of brackets "()".
+If we encounter ')' then we check open stack if it is empty, then we check in asterisk stack if it is empty then there is no way we can create a valid pair of brackets by converting '*' to '('.
+If we encounter ')' then we check open stack if it is empty, then we check in asterisk stack if it is not empty then we can create a valid pair of brackets by converting '*' to '('.
+After once we have have traversed the string we check if open is not empty then we check for asterisk if it is empty then we have only opening brackets. eg: "(("
+Hence we can't have a valid string, but if asterisk is not empty then we can convert '*' to ')' so we check top of asterisk and open.
+	case 1: if asterisk top is greater than open top then it is a valid case. eg: "(*"
+	case 2: if asterisk top is less than open top then it is invalid case. eg: "*(" we can't have valid pairs.
+In the end after applying all operations if the open stack is empty then we have string which can be converted to valid pairs of brackets.
+ 
+Time Complexity: O(n)
+Auxillary Space: O(n)
+bool checkValidString(string s) {
+        stack<int>open,asterisk;
+        int n=s.length();
+        for(int i=0;i<n;i++)
+        {
+
+            if(s[i]=='(')
+            {
+                open.push(i);
+            }
+            else if(s[i]==')')
+            {
+                 if(open.empty())
+                {
+                    if(asterisk.empty()) return false;
+                    else
+                    {
+                            asterisk.pop();
+                    }
+                }
+                else
+                open.pop();
+            }
+            else if(s[i]=='*')
+            {
+                asterisk.push(i);
+            }
+            
+        }
+        while(!open.empty()&&!asterisk.empty())
+        {
+            if(open.top()<asterisk.top())
+            {
+                open.pop();asterisk.pop(); 
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return open.empty();
+    }

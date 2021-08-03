@@ -1,0 +1,64 @@
+Problem:https://leetcode.com/problems/find-median-from-data-stream/
+Approach:
+Time Complexity: If we omit the way how stream was read, complexity of median finding is O(nlogn), as we need to read the stream, and due to heap insertions/deletions.
+Auxillary Space: O(n)
+Here we are taking two heaps one is min and other one is max.
+We are trying to get the median by manipulating the insertion in both heaps such that when at any instance the number of elements is even then median will be top of both heap divided by 2.
+If the number of elements are odd then top of heap which is having more elements.
+Here when both heap are empty then we insert first in max heap.
+After that we check the condition that elements greater than max heap top should be inserted into min heap.
+ eg: max heap have elements: 1, 2 where 2 is currently at top 
+ min heap have elements: 4 where 4 is currently at top
+ Now if we want to add 3 then if we add in min heap we will get incorrect median whereas if we follow the condition, and 3 is greater than 2 (top of max heap) so we add in min heap.
+ Now the median can be easily calculated as the size of both heap is same (even number of elements), so median is '(2+3)/2' (top of min and max heap).
+We also always balance the heap i.e the difference in size of both heap should not exceed 2.
+1 is allowed as in case of odd number of elements any one of the heap will have one element extra.
+	   
+Code:
+class MedianFinder {
+public:
+    /** initialize your data structure here. */
+    priority_queue<int> maxh;
+    priority_queue<int,vector<int>,greater<int>> minh;  
+    MedianFinder() {
+        maxh={};
+        minh={};
+    }
+    void balanceheap()
+    {
+        int mi=minh.size(),ma=maxh.size();
+        if(mi-ma>1)
+        {
+            maxh.push(minh.top());
+            minh.pop();
+        }
+        else if(ma-mi>1)
+        {
+            minh.push(maxh.top());
+            maxh.pop();
+        }
+    }
+    void addNum(int num) {
+        if(maxh.empty())
+        {
+            maxh.push(num);
+        }
+        else if(maxh.top()<=num)
+        {
+            minh.push(num);
+        }
+        else
+        {
+            maxh.push(num);
+        }
+        balanceheap();
+    }
+    
+    double findMedian() {
+        if(minh.size()==maxh.size())
+        {
+            return (double)(minh.top()+maxh.top())/2;
+        }
+        return minh.size()>maxh.size()?minh.top():maxh.top();
+    }
+};

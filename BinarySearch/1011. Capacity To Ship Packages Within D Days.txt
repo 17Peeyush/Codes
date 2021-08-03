@@ -1,0 +1,40 @@
+Problem:
+Approach:
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+Here we are using binary search. We try to get possible by calculating mid which will give possible ans(capacity).
+We try to split the array so that its each part is in capacity and if it is possible then we increase capacity else decrease capacity.
+Code:
+ bool capacity(int mid,vector<int>&w,int days)
+    {
+        int n=w.size(),c=1,s=0;
+        for(int i=0;i<n;i++)
+        {
+            s+=w[i];
+            if(s>mid)
+            {
+                s=w[i];
+                c++;
+            }
+        }
+        return c<=days;
+    }
+    int shipWithinDays(vector<int>& weights, int days) {
+        int l=*max_element(weights.begin(),weights.end());
+        int h=accumulate(weights.begin(),weights.end(),0);
+        int mid,res=-1;
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(capacity(mid,weights,days))
+            {
+                res=mid;
+                h=mid-1;
+            }
+            else
+            {
+                l=mid+1;
+            }
+        }
+        return res;
+    }

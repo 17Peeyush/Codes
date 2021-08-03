@@ -1,0 +1,47 @@
+Problem: https://leetcode.com/problems/online-stock-span/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Here we are using stack to keep track of the stocks and their indexes.
+If the top of the stack is less than price of today's stock it will be included in span of stock.
+If the top of the stack is greater than price of today's stock it will not be included but all the elements between (inclusive today's) today's and stok top will be included.
+If the stack becomes empty then it means all the element at the left of today's will be included.
+Code:
+class StockSpanner {
+public:
+    stack<pair<int,int>>st;
+    int idx=0;
+    StockSpanner() {
+        st={};
+    }
+    
+    int next(int price) {
+        int res;
+        if(st.empty())
+        {
+            st.push({price,idx++});
+            res=1;
+        }
+        else if(price<st.top().first)
+        {
+            st.push({price,idx++});
+            res=1;
+        }
+        else if(price>=st.top().first)
+        {
+            while(!st.empty()&&price>=st.top().first)
+            {
+                st.pop();
+            }
+            if(st.empty())
+            {
+                res=idx+1;
+            }
+            else
+            {
+                res=idx-st.top().second;
+            }
+            st.push({price,idx++});
+        }
+        return res;
+    }
+};

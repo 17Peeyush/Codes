@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/number-of-operations-to-make-network-connected/
+Time Complexity: O(n)
+Auxillary Space: O(n*n)
+In order for all(n) the nodes to be connected i.e. there should be atleast n-1 edges. 
+If there are sufficient number of edges we check for the number of components using dfs.
+Code:
+void dfs(vector<bool>&visited,vector<vector<int>>&g,int node)
+    {
+        visited[node]=true;
+        for(auto x: g[node])
+        {
+            if(!visited[x])
+            {
+                dfs(visited,g,x);
+            }
+        }
+    }
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        vector<bool>visited(n,false);
+        int nc=connections.size();
+        if(nc<n-1) return -1;
+        vector<vector<int>>g(n);
+        int s=-1,d=-1;
+        for(int i=0;i<nc;i++)
+        {
+            s=connections[i][0];
+            d=connections[i][1];
+            g[s].push_back(d);
+            g[d].push_back(s);
+        }
+        
+        s=0;
+        for(int i=0;i<n;i++)
+        {
+            if(visited[i]==false)
+            {s++;dfs(visited,g,i);}    
+        }
+        return s-1;
+    }

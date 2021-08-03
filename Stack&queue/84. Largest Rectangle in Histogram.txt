@@ -1,0 +1,75 @@
+Problem: https://leetcode.com/problems/largest-rectangle-in-histogram/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Here for a given index we are calculating how much it can expand towards its left and right by calculating nearest smaller element to left (in ls array),
+and nearest smaller element to right(in rs array).
+After that we are calculating for each index the boundary to which it can expand and multiply by its height to calculate the area.
+Code:
+vector<int>NSL(vector<int>&h)
+    {
+        int n=h.size();
+        stack<pair<int,int>>st;
+        vector<int>ls(n);
+        int i=0;
+        while(i<n)
+        {
+            if(st.empty())
+            {
+                ls[i]=-1;
+                st.push({h[i],i});
+                i++;
+            }
+            else if(h[i]>st.top().first)
+            {
+                ls[i]=st.top().second;
+                st.push({h[i],i});
+                i++;
+            }
+            else
+            {
+                st.pop();
+            }
+        }
+        return ls;
+    }
+    vector<int>NSR(vector<int>&h)
+    {
+        int n=h.size();
+        stack<pair<int,int>>st;
+        vector<int>rs(n);
+        int i=n-1;
+        while(i>=0)
+        {
+            if(st.empty())
+            {
+                rs[i]=n;
+                st.push({h[i],i});
+                i--;
+            }
+            else if(h[i]>st.top().first)
+            {
+                rs[i]=st.top().second;
+                st.push({h[i],i});
+                i--;
+            }
+            else
+            {
+                st.pop();
+            }
+        }
+        return rs;
+    }
+    int largestRectangleArea(vector<int>& heights) {
+        vector<int>ls=NSL(heights);
+        vector<int>rs=NSR(heights);
+        int area=INT_MIN,ca;
+        int n=heights.size(),b;
+        for(int i=0;i<n;i++)
+        {
+            b=rs[i]-ls[i]-1;
+            ca=heights[i]*b;
+            area=max(area,ca);
+        }
+        return area;
+    }

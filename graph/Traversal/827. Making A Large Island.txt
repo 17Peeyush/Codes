@@ -1,0 +1,78 @@
+Problem:https://leetcode.com/problems/making-a-large-island/
+Approach:For each group, fill it with value index and remember it's size as area[index] = dfs(...).
+Then for each 0, look at the neighboring group ids seen and add the area of those groups, plus 1 for the 0 we are toggling. This gives us a candidate answer, and we take the maximum.
+To solve the issue of having potentially no 0, we take the maximum of the previously calculated areas.
+Time Complexity: O(n*n)
+Auxillary Space: O(n*n)
+Code:
+ 
+         void dfs(int i,int j,vector<vector<int>>&grid,vector<vector<bool>>&visited,int id,int &c)
+    {
+        grid[i][j]=id;
+        c++;
+        visited[i][j]=true;
+        int x[]={-1,1,0,0};
+        int y[]={0,0,-1,1};
+        for(int k=0;k<4;k++)
+        {
+            int nx=j+x[k];
+            int ny=i+y[k];
+            if(nx>=0&&nx<grid.size()&&ny>=0&&ny<grid.size())
+            {
+                if(grid[ny][nx]==1&&!visited[ny][nx])
+                    dfs(ny,nx,grid,visited,id,c);
+            }
+        }
+    }
+    int largestIsland(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<vector<bool>>visited(n,vector<bool>(n,false));
+        int id=2;
+        unordered_map<int,int> mp;
+         int maxarea=INT_MIN,cone=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==1) cone++;
+                if(grid[i][j]==1 && !visited[i][j])
+                {
+                    int count=0;
+                    dfs(i,j,grid,visited,id,count);
+                    mp[id]=count;
+                    maxarea=max(maxarea,count);
+                    id++;
+                }
+            }
+        }
+       if(cone==n*n) return maxarea;
+        unordered_set<int> nid;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==0)
+                {
+                    int x[]={-1,1,0,0};
+                    int y[]={0,0,-1,1};
+                    int area=1;
+                    unordered_set<int>nid;
+                    for(int k=0;k<4;k++)
+                    {
+                        int nx=j+x[k];
+                        int ny=i+y[k];
+                        if(nx>=0&&nx<grid.size()&&ny>=0&&ny<grid.size())
+                        {
+                           nid.insert(grid[ny][nx]);
+                        }
+                    }
+                    for(auto x:nid)
+                    {
+                        area+=mp[x];
+                    }
+                    maxarea=max(area,maxarea);
+                }
+            }
+        }
+        return maxarea;
+    }

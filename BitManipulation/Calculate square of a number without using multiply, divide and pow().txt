@@ -1,0 +1,37 @@
+Problem: https://www.geeksforgeeks.org/calculate-square-of-a-number-without-using-and-pow/
+Approach:
+Time Complexity: O(1)
+Auxillary Space: O(1)
+For a given number `num` we get square of it by multiplying number as `num * num`. 
+Now write one of `num` in square `num * num` in terms of power of `2`. Check below examples.
+
+Eg: num = 10, square(num) = 10 * 10 
+                          = 10 * (8 + 2) = (10 * 8) + (10 * 2)
+    num = 15, square(num) = 15 * 15 
+                          = 15 * (8 + 4 + 2 + 1) = (15 * 8) + (15 * 4) + (15 * 2) + (15 * 1)
+
+Multiplication with power of 2's can be done by left shift bitwise operator.
+
+Code:
+#include <iostream>
+
+using namespace std;
+int find_square(int n)
+{
+    int i=0,square=0;
+    while(i<32)
+    {
+        if(n&(1<<i))
+        {
+            square+=n<<i;
+        }
+        i++;
+    }
+    return square;
+}
+int main()
+{
+    int n=12;
+    cout<<find_square(n);
+    return 0;
+}

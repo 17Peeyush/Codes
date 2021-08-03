@@ -1,0 +1,31 @@
+Problem: https://leetcode.com/problems/number-of-islands/
+Time Complexity: O(n*m)
+Auxillary Space: O(n*m)
+Code:
+ void dfs(vector<vector<char>>&grid,vector<vector<bool>>&visited,int i,int j)
+    {
+        visited[i][j]=true;
+        int n=grid.size(),m=grid[0].size();
+        if(i-1>=0&&!visited[i-1][j]&&grid[i-1][j]=='1') dfs(grid,visited,i-1,j);
+        if(j-1>=0&&!visited[i][j-1]&&grid[i][j-1]=='1') dfs(grid,visited,i,j-1);
+        if(i+1<n&&!visited[i+1][j]&&grid[i+1][j]=='1') dfs(grid,visited,i+1,j);
+        if(j+1<m&&!visited[i][j+1]&&grid[i][j+1]=='1') dfs(grid,visited,i,j+1);
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid.size(),m=grid[0].size();
+        vector<vector<bool>> visited(n,vector<bool>(m,false));
+        int island=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(!visited[i][j]&&grid[i][j]=='1')
+                {
+                    island++;
+                    dfs(grid,visited,i,j);
+                }
+            }
+        }
+        return island;
+        
+    }

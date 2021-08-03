@@ -1,0 +1,24 @@
+Problem:
+Time complexity: O(nlogn)
+Auxillary Space: O(n)
+Code:
+vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        int n=arr.size();
+        int min=INT_MAX;
+        vector<vector<int>>out;
+        for(int i=0;i<n-1;i++)
+        {
+            int t=abs(arr[i]-arr[i+1]);
+            if(t<min)
+                {
+                    min=t;
+                    out.clear();
+                }
+            if(t==min)
+            {
+                out.push_back({arr[i],arr[i+1]});
+            }
+        }
+        return out;
+    }

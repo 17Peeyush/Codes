@@ -1,0 +1,12 @@
+Problem: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/solution/
+Time Complexity: O(N), where N is the number of nodes in the binary tree. In the worst case we might be visiting all the nodes of the binary tree.
+Auxillary Space: O(N). This is because the maximum amount of space utilized by the recursion stack would be NN since the height of a skewed binary tree could be NN.
+Code:
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL||root==p||root==q) return root;
+        TreeNode* left=lowestCommonAncestor(root->left,p,q);
+        TreeNode* right=lowestCommonAncestor(root->right,p,q);
+        if(left&&right)
+            return root;
+        return left?left:right;
+    }

@@ -1,0 +1,53 @@
+Problem:https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+Approach: https://ayoubomari.medium.com/kth-smallest-element-in-sorted-matrix-b20400cf878e
+Time Complexity: O(klogk)
+Auxillary Space: O(n*n)
+Code:
+ int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int n=matrix.size();
+        set<pair<int,int>>s;
+        s.insert({0,0});
+        priority_queue<tuple<int,int,int>,vector<tuple<int,int,int>>,greater<tuple<int,int,int>>>p;
+        p.push({matrix[0][0],0,0});
+        while(k>1)
+        {
+            tuple t=p.top();p.pop();
+            int row=get<1>(t),col=get<2>(t);
+             if(row+1<n&&s.find({row+1,col})==s.end())
+            {
+                p.push({matrix[row+1][col],row+1,col});
+                s.insert({row+1,col});
+            }
+            if(col+1<n&&s.find({row,col+1})==s.end())
+            {
+                p.push({matrix[row][col+1],row,col+1});
+                s.insert({row,col+1});
+            }
+            k--;
+        }
+        return get<0>(p.top());
+    }
+
+(2)
+Time Complexity: O(n*n+klog(n*n))
+Auxillary Space: O(n*n)
+Code:
+ int kthSmallest(vector<vector<int>>& matrix, int k) {
+       priority_queue<int,vector<int>,greater<int>>q;
+        int n=matrix.size(),m=matrix[0].size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                q.push(matrix[i][j]);
+            }
+        }
+        int c;
+        while(k--)
+        {
+            c=q.top();
+            q.pop();
+        }
+        return c;
+        
+    }

@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/3sum/
+Approach:
+Time Complexity: O(n*n)
+Auxillary Space: O(1)
+Code:
+vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size(),i,j;
+        set<vector<int>>out;
+        for(int k=0;k<n;k++)
+        {
+            i=k+1;j=n-1;
+            while(i<j)
+            {
+                if(nums[i]+nums[j]==-nums[k])
+                {
+                    out.insert({nums[i],nums[j],nums[k]});
+                    i++;j--;
+                }
+                else if((nums[i]+nums[j]<-nums[k]))
+                {
+                    i++;
+                }
+                else
+                {
+                    j--;
+                }
+            }
+        }
+        vector<vector<int>>o(out.begin(),out.end());
+        return  o;
+    }

@@ -1,0 +1,38 @@
+Problem: 
+Time Complexity: O(n*k), where k is the length of lcp and n is size of vector
+Auxillary Space: O(1)
+Code:
+ string longestCommonPrefix(vector<string>& s) {
+        int n=s.size();
+        string lps="";
+        int j=0,f=1;
+        char ch;
+        while(f)
+        {
+           if(j>=s[0].length())
+           {
+               f=0;return lps;
+           }
+            else
+            {
+                ch = s[0][j];
+            }
+           for(int i=1;i<n;i++)
+            {
+                if(j>=s[i].length())
+                {
+                    f=0;
+                    return lps;
+                }
+               else if(s[i][j]!=ch)
+               {
+                   f=0;
+                   return lps;
+               }
+            }
+            j++;
+            lps+=ch;
+        }
+        return lps;
+        
+        }

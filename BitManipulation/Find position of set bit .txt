@@ -1,0 +1,22 @@
+Problem:https://practice.geeksforgeeks.org/problems/find-position-of-set-bit3706/1
+Time Complexity: O(1)
+Auxillary Space: O(1)
+Code:
+int findPosition(int N) {
+        // code here
+        int i=0,res=-1,flag=0;
+        while(i<32)
+        {
+            if(N&(1<<i))
+            {
+                res=i+1;
+                flag++;
+            }
+            if(flag>1)
+            {
+                return -1;
+            }
+            i++;
+        }
+        return res;
+    }

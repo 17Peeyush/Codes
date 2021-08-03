@@ -1,0 +1,60 @@
+Problem: https://leetcode.com/problems/three-equal-parts/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Here we are first checking the number of ones the array if the total number of ones is divisible by 3 then only it is possible to divide the array into three parts.
+Now we are traversing thearray from right to left in order to capture the pattern.
+Now we have to the pattern then we are starting from left after the leading zeros are exhausted and we try to match the pattern.
+Now after the first time we successfully matched the pattern we have our first block.
+Now we start our search for second block. If similarly second block is matched to pattern then it is possible otherwise not possible.
+Code:
+vector<int> threeEqualParts(vector<int>& arr) {
+        int numberOfOnes=accumulate(arr.begin(),arr.end(),0);
+         int n=arr.size();
+        if(numberOfOnes==0) return {0,n-1};
+        if(numberOfOnes%3!=0)
+        {
+            return {-1,-1};
+        }
+        int eachpart=numberOfOnes/3;
+        int pat,count=0,i;
+        for(i=n-1;i>=0;i--)
+        {
+            if(arr[i]==1)
+            {
+                count++;
+            }
+            if(count==eachpart)
+            {
+                pat=i;
+                break;
+            }
+        }
+        i=0;
+        while(arr[i]!=1)
+        {
+            i++;
+        }
+        for(int j=0;j<n-pat;j++)
+        {
+            if(arr[i+j]!=arr[pat+j])
+            {
+                return {-1,-1};
+            }
+        }
+        int first=i+(n-pat-1);
+        i=first+1;
+        while(arr[i]!=1)
+        {
+            i++;
+        }
+         for(int j=0;j<n-pat;j++)
+        {
+            if(arr[i+j]!=arr[pat+j])
+            {
+                return {-1,-1};
+            }
+        }
+        int second=i+(n-pat);
+        return{first,second};
+    }

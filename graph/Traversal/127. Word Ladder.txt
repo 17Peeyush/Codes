@@ -1,0 +1,40 @@
+Problem: https://leetcode.com/problems/word-ladder/
+Approach:
+Time Complexity: O(n*n*k),n is length of word, k is the number of elements in wordlist
+Auxillary Space: O(k) k is the number of elements in wordlist
+Code:
+int ladderLength(string bw, string ew, vector<string>& wl) {
+        unordered_set<string>st(wl.begin(),wl.end());
+        if(st.find(ew)==st.end()) return 0;
+        queue<string>q;
+        int c=0;
+        q.push(bw);
+        while(!q.empty())
+        {
+            int n=q.size();
+            c++;
+            while(n--)
+            {
+                string str=q.front();q.pop();
+                for(int i=0;i<str.length();i++)
+                {
+                    string temp=str;
+                    for(char ch='a';ch<='z';ch++)
+                    {
+                        temp[i]=ch;
+                        if(st.find(temp)!=st.end())
+                        {
+                            if(temp==ew)
+                                return c+1;
+                            else
+                            {
+                                q.push(temp);
+                                st.erase(temp);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }

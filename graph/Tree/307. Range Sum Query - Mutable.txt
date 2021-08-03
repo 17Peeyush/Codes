@@ -1,0 +1,57 @@
+Problem:https://leetcode.com/problems/range-sum-query-mutable/
+Time Complexity: O(logn)
+Auxillary Space: O(4*n)
+Code:
+class NumArray {
+public:
+    int tree[120000],n;
+    vector<int> num;
+    void build(int node,int l,int h)
+    {
+        if(l==h) {tree[node]=num[l];}
+        else
+        {
+            int mid=l+(h-l)/2;
+            build(2*node,l,mid);
+            build(2*node+1,mid+1,h);
+            tree[node]=tree[2*node]+tree[2*node+1];
+        }
+    }
+    NumArray(vector<int>& nums) {
+        num=nums;
+        n=nums.size();
+        build(1,0,n-1);
+    }
+    
+    void updateTree(int node,int l,int h,int index,int val)
+    {
+        if(l==h) tree[node]=val;
+        else
+        {
+            int mid=l+(h-l)/2;
+            if(index<=mid)
+                updateTree(2*node,l,mid,index,val);
+            else
+                updateTree(2*node+1,mid+1,h,index,val);
+            tree[node]=tree[2*node]+tree[2*node+1];
+        }
+    }
+    void update(int index, int val) {
+       updateTree(1,0,n-1,index,val); 
+        num[index]=val;
+    }
+    
+    int querySum(int node,int l,int h,int left,int right)
+    {
+        if(l>right||h<left) return 0;
+        if(left<=l&&h<=right) return tree[node];
+        int mid=l+(h-l)/2;
+        int q1=querySum(2*node,l,mid,left,right);
+        int q2=querySum(2*node+1,mid+1,h,left,right);
+        return q1+q2;
+    }
+   
+    int sumRange(int left, int right) {
+        return querySum(1,0,n-1,left,right);
+    }
+};

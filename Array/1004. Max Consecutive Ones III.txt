@@ -1,0 +1,35 @@
+Problem: https://leetcode.com/problems/max-consecutive-ones-iii/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Here we are using 2 pointer approach. Both the pointers start from index '0'. 
+Then we start incrementing e pointer till we are getting '1' or till the number of fliped '0' is less than k and regularly check for max length of subarray.
+At any point of time the number of fliped ''0' to '1' becomes more than k we increment s till number of fliped '0' is less than k.
+Now again s pointer is at starting of another valid subarray. We again increment e and repeat the above process. 
+
+Code:
+int longestOnes(vector<int>& nums, int k) {
+        int maxl=0;
+        int n=nums.size(),s=0,e=0,flip=0;
+        while(e<n)
+        {
+            if(nums[e]==1){e++;}
+            else if(flip<k){flip++;e++;}
+            else 
+            {
+                while(flip==k)
+                {
+                    if(nums[s]==1)
+                        s++;
+                    else
+                    {
+                        flip--;
+                        s++;
+                    }
+                }
+            }
+            maxl=max(maxl,e-s);
+        }
+        
+        return maxl;
+    }

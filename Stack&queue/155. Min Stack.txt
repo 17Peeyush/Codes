@@ -1,0 +1,86 @@
+Problem: https://leetcode.com/problems/min-stack/
+Time Complexity: O(1) getting min element
+Auxillary Space: O(n)
+Code:
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<int>st,stmin;
+    MinStack() {
+     st={};  
+        stmin={};
+    }
+    
+    void push(int x) {
+        st.push(x);
+        if(stmin.empty())
+            stmin.push(x);
+        else if(x<stmin.top())
+            stmin.push(x);
+        else stmin.push(stmin.top());
+    }
+    
+    void pop() {
+        if(!st.empty())
+        {st.pop();
+        stmin.pop();}
+    }
+    
+    int top() {
+        return st.top();
+    }
+    
+    int getMin() {
+        return stmin.top();
+    }
+};
+
+Approach 2:
+Time Complexity: O(1)
+Auxillary Space: O(1)
+Code:
+stack<long long int>st;
+    long long int  min;
+    MinStack() {
+        st={};
+        min;
+    }
+    
+    void push(int val) {
+     if(st.empty())
+     {
+         st.push(val);
+         min=val;
+     }
+     else if(val<min)
+     {
+         st.push(val+(val-min));
+         min=val;
+     }
+     else
+     {
+         st.push(val);
+     }
+    }
+    
+    void pop() {
+        if(!st.empty())
+        {
+        if(st.top()<min)
+        {
+            min=min+(min-st.top());
+        }
+            st.pop();
+        }
+        
+    }
+    
+    int top() {
+        if(st.top()>min) return st.top();
+        return min;
+    }
+    
+    int getMin() {
+        return min;
+    }
+};
