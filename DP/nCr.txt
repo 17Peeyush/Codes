@@ -1,0 +1,25 @@
+Problem: https://practice.geeksforgeeks.org/problems/ncr1019/1
+Time Complexity: O(n*r)
+Auxillary Space: O(n*r)
+Code:
+class Solution{
+public:
+    int nCr(int n, int r){
+        int MOD=1000000007;
+       long long int dp[n+1][r+1]={0};
+       for(int i=0;i<n+1;i++)
+       {
+           dp[i][0]=1;
+           dp[i][1]=i;
+       }
+       
+       for(int i=1;i<n+1;i++)
+       {
+           for(int j=1;j<r+1&&j<i+1;j++)
+           {
+               dp[i][j]=(dp[i-1][j]%MOD+dp[i-1][j-1]%MOD)%MOD;
+           }
+       }
+       return dp[n][r];
+    }
+};

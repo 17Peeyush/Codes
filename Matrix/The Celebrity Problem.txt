@@ -1,0 +1,34 @@
+Problem:
+Approach: Two pointers
+Time Complexity: O(n)
+Auxillary Space: O(1)
+We start traversing matrix M from [0,N-1].
+If in matrix M[i][j]==1 then it means 'i' knows 'j'.
+Here we are considering two facts:
+1) If M[i][j]==1 then it means that i know 'j' hence 'i' can't be the celebrity so we move to next person (i+1).
+2) If M[i][j]==0 then it means that j is not known by 'i' hence 'j' can't be the celebrity (as celebrity is know by all n-1 guests) so we move to next person (j-1). 
+If 'i' and 'j' becomes equal that means it is a possibility that that person is the celebrity.
+So we check for the validity of that person being the celebrity. If it is found that he is the celebrity we return its index otherwise no celebrity i.e. -1.
+Explaination in depth: https://geekstocode.com/the-celebrity-problem/
+Code:
+int celebrity(vector<vector<int> >& M, int n) 
+    {
+        // code here 
+        int start=0,end=n-1;
+        while(start<end)
+        {
+            if(M[start][end])
+                start++;
+            else
+                end--;
+        }
+        for(int c=0;c<n;c++)
+        {
+            if(M[end][c]) return -1;
+        }
+        for(int r=end+1;r<n;r++)
+        {
+            if(!M[r][end]) return -1;
+        }
+        return end;
+    }

@@ -1,0 +1,54 @@
+Problem: https://practice.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+/*
+struct Node
+{
+int data;
+Node* left;
+Node* right;
+};
+/*
+class Solution {
+  public:
+  void verticalOT(Node *root,int val,map<int,vector<int>>&mp)
+  {
+     queue<pair<Node*,int>> q;
+     q.push({root,0});
+     while(!q.empty())
+     {
+         int size=q.size();
+         while(size--)
+         {
+             auto x=q.front();q.pop();
+             if(mp.find(x.second)==mp.end())
+             {
+                 mp[x.second]=vector<int>();
+             }
+             mp[x.second].push_back(x.first->data);
+             if(x.first->left!=nullptr)
+             {
+                 q.push({x.first->left,x.second-1});
+             }
+              if(x.first->right!=nullptr)
+             {
+                 q.push({x.first->right,x.second+1});
+             }
+         }
+     }
+  }
+    vector <int> bottomView(Node *root) {
+        // Your Code Here
+        if(!root) return {};
+        map<int,vector<int>>mp;
+        verticalOT(root,0,mp);
+        vector<int> bottom;
+        for(auto x:mp)
+        {
+            int s=x.second.size();
+            bottom.push_back(x.second[s-1]);
+        }
+        return bottom;
+    }
+};

@@ -1,0 +1,69 @@
+Problem: https://leetcode.com/problems/basic-calculator/
+Time Comlexity: O(n), where n is the length of string
+Auxillary Space: O(h), where h is number of '(' brackets in string
+Code:
+class Solution {
+public:
+    int extractnum(int &i,string&s)
+    {
+        string temp="";
+        int n=s.length();
+        while(i<n&&isdigit(s[i]))
+        {
+            temp+=s[i];i++;
+        }
+        return stoi(temp);
+    }
+    int solvebracket(int &i,string &s)
+    {
+       int n=s.length();
+        int ans=0;
+        bool sign=true;//true -> + , false -> -
+       while(i<n&&s[i]!=')')
+       {
+           if(s[i]==' ') i++;
+           else if(s[i]=='(')
+           {
+               i++;
+              int t=solvebracket(i,s);
+               if(sign)
+               {
+                   ans+=t;
+               }
+               else
+               {
+                   ans=ans-t;
+               }
+               sign= true;
+           }
+           else if(s[i]=='-')
+           {
+               i++;
+               sign=false;
+           }
+           else if(s[i]=='+')
+           {i++;
+            sign=true;
+           }
+           else 
+           {
+               if(sign)
+               {
+                   ans+=extractnum(i,s);
+               }
+               else
+               {
+                   ans=ans-extractnum(i,s);
+               }
+               sign=true;
+           }
+       }
+        i++;
+        return ans;
+    }
+    int calculate(string s) {
+        int i=0;
+        s='('+s+')';
+        return solvebracket(i,s);
+    }
+};

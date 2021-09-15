@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/cousins-in-binary-tree/
+Time Complexity: O(n), where n is the number of nodes in the tree
+Auxillary Space: O(h), where h is the height of tree (size of recursive stack)
+Code:
+class Solution {
+public:
+    TreeNode* rx,* ry;
+    int dx,dy;
+    
+    void depthf(TreeNode* root,int x,int y,int depth,TreeNode* par,int &c)
+    {
+        if(!root) return;
+        if(root->val==x)
+        {
+            rx=par;
+            dx=depth;
+            c++;
+        }
+        if(root->val==y)
+        {
+            ry=par;
+            dy=depth;
+            c++;
+        }
+        if(c==2)
+            return;
+        depthf(root->left,x,y,depth+1,root,c);
+        depthf(root->right,x,y,depth+1,root,c);
+    }
+    
+    bool isCousins(TreeNode* root, int x, int y) {
+     int c=0;
+        depthf(root,x,y,0,nullptr,c);
+        if(dx==dy && rx!=ry)
+            return true;
+        return false;
+    }
+};

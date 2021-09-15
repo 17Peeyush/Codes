@@ -1,0 +1,41 @@
+Problem: https://leetcode.com/problems/arithmetic-slices/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int> dp;
+    int solve(vector<int>&nums,int i)
+    {
+        if(i==nums.size())
+            return accumulate(dp.begin(),dp.end(),0);
+        else if(i+2<nums.size())
+        {
+            int d=nums[i+1]-nums[i];
+            if(d==nums[i+2]-nums[i+1])
+            {
+                dp[i+2]=1; i=i+2;
+                while(i+1!=nums.size())
+                {
+                    if(d!=nums[i+1]-nums[i])
+                    {
+                        return solve(nums,i);
+                    }
+                    else
+                    {
+                        dp[i+1]=1+dp[i];
+                    }
+                    i++;
+                }
+                return solve(nums,i+1);
+            }
+            return solve(nums,i+1);
+        }
+        return solve(nums,nums.size());
+    }
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int n=nums.size();
+        dp=vector<int>(n+1,0);
+        return solve(nums,0);
+    }
+};

@@ -1,0 +1,35 @@
+Problem: https://practice.geeksforgeeks.org/problems/subarray-with-0-sum-1587115621/1
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Example :
+arr[] = {1, 4, -2, -2, 5, -4, 3}
+
+If we consider all prefix sums, we can
+notice that there is a subarray with 0
+sum when :
+1) Either a prefix sum repeats or
+2) Or prefix sum becomes 0.
+
+Prefix sums for above array are:
+1, 5, 3, 1, 6, 2, 5
+
+Since prefix sum 1 repeats, we have a subarray
+with 0 sum. 
+
+Code:
+bool subArrayExists(int arr[], int n)
+    {
+        //Your code here
+        unordered_set<int>s;
+        int csum=0;
+        for(int i=0;i<n;i++)
+        {
+            csum+=arr[i];
+            if(csum==0) return true;
+            if(s.find(csum)!=s.end())
+                return true;
+            s.insert(csum);
+        }
+        return false;
+    }

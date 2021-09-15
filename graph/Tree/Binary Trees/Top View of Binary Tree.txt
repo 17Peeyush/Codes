@@ -1,0 +1,50 @@
+Problem: https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+Time Complexity: O(n)
+Auxillary space: O(n)
+Code:
+class Solution
+{
+    public:
+    //Function to return a list of nodes visible from the top view 
+    //from left to right in Binary Tree.
+    void verticalOT(Node *root,int val,map<int,vector<int>>&mp)
+  {
+     queue<pair<Node*,int>> q;
+     q.push({root,0});
+     while(!q.empty())
+     {
+         int size=q.size();
+         while(size--)
+         {
+             auto x=q.front();q.pop();
+             if(mp.find(x.second)==mp.end())
+             {
+                 mp[x.second]=vector<int>();
+             }
+             mp[x.second].push_back(x.first->data);
+             if(x.first->left!=nullptr)
+             {
+                 q.push({x.first->left,x.second-1});
+             }
+              if(x.first->right!=nullptr)
+             {
+                 q.push({x.first->right,x.second+1});
+             }
+         }
+     }
+  }
+    vector<int> topView(Node *root)
+    {
+        //Your code here
+        if(!root) return {};
+        map<int,vector<int>>mp;
+        verticalOT(root,0,mp);
+        vector<int> topV;
+        for(auto x:mp)
+        {
+            topV.push_back(x.second[0]);
+        }
+        return topV;
+    }
+
+};

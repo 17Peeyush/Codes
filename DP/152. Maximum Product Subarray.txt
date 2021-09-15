@@ -1,0 +1,23 @@
+Problem: https://leetcode.com/problems/maximum-product-subarray/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int maxProduct(vector<int>& arr) {
+        int maxp=arr[0],minp=arr[0],maxt=arr[0];
+        int n=arr.size();
+        for(int i=1;i<n;i++)
+        {
+            if(arr[i]==0)
+            {
+                maxp=1;minp=1;
+            }
+            int t=maxp*arr[i];
+            maxp=max(max(maxp*arr[i],arr[i]),minp*arr[i]);
+            minp=min(min(minp*arr[i],arr[i]),t);
+            maxt=max(maxt,maxp);
+        }
+        return maxt;
+    }
+};

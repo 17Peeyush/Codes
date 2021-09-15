@@ -1,0 +1,23 @@
+Problem: https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425/1
+Approach:
+Here we have 2 option either we make pair or remain single. (Implementing it)
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution
+{
+public:
+    int countFriendsPairings(int n) 
+    {  if(n==1) return 1;
+       if(n==2) return 2;
+        long dp[n+1];
+        int MOD=1000000007;
+        dp[1]=1;
+        dp[2]=2;
+        for(int i=3;i<n+1;i++)
+        {
+            dp[i]=(dp[i-1]%MOD+(i-1)*dp[i-2]%MOD)%MOD;
+        }
+        return dp[n];
+    }
+};    

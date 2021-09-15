@@ -1,0 +1,49 @@
+Problem: https://leetcode.com/problems/word-break/
+Approach:
+Time Complexity: O(n^2)
+Auxillary Space: O(n+m), here n is the length of the string and m is the length of wordDict
+Here first we have created list of words starting with same alphabet.
+Then we check from starting index 'i' if words starting from alphabet at index 'i' is a substring from index i then, we can partition the string and move forward.
+We will now check the same for the next index where the previous word ended.
+If we are able to reach the end of the string then it implies that the string can be broken down into words in wordDict, hence true otherwise false.
+Code:
+class Solution {
+public:
+    vector<int>dp;
+    int wB(int i,string&s,vector<vector<string>>&mp)
+    {
+        int n=s.length();
+        if(dp[i]!=-1) return dp[i];
+        if(i==n) return dp[i]=1;
+        else
+        {
+            char ch=s[i];
+            int ans=0;
+            for(auto x:mp[ch-'a'])
+            {
+                int l=x.length();
+                if(i+l-1<n)
+                {
+                    string temp=s.substr(i,l);
+                    if(temp==x)
+                    {
+                        ans=ans+wB(i+l,s,mp);
+                        if(ans)
+                            return dp[i]=1;
+                    }
+                }
+            }
+        }
+        return dp[i]=0;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        vector<vector<string>> wmp(26,vector<string>());
+        int n=s.length();
+        dp=vector<int>(n+1,-1);
+        for(auto x:wordDict)
+        {
+            wmp[x[0]-'a'].push_back(x);
+        }
+        return wB(0,s,wmp);
+    }
+};

@@ -1,0 +1,36 @@
+Problem: https://practice.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-linked-list/1
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+class Solution
+{
+    public:
+    void sum(Node *head,int &carry)
+    {
+        if(head->next!=nullptr)
+            sum(head->next,carry);
+        int s=head->data+ carry;
+        if(s==10)
+        {
+            head->data=0;
+            carry=1;
+        }
+        else
+        {
+            head->data=s;
+          carry=0;   
+        }
+    }
+    Node* addOne(Node *head) 
+    {
+        int carry=1;
+        sum(head,carry);
+        if(carry)
+        {
+            Node* newhead=new Node(1);
+            newhead->next=head;
+            head=newhead;
+        }
+        return head;
+    }
+};

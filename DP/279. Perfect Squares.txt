@@ -1,0 +1,89 @@
+Problem:
+Approach:
+(1) Similar to Coin change problem: Minimum number of coins to get a change of sum S
+Time Complexity: O(n*s), where s is the number of squares less than 10^4
+Auxillary Space: O(n*s)
+Code:
+class Solution {
+public:
+    // int minsq(vector<int>&sq,int n,int w)
+    // {
+    //     if(n==0&&w!=0)
+    //     {
+    //         return INT_MAX;
+    //     }
+    //     else if(w==0)
+    //     {
+    //         return 0;
+    //     }
+    //     else if(w>=sq[n-1])
+    //     {
+    //         return min(1+minsq(sq,n,w-sq[n-1]),minsq(sq,n-1,w));
+    //     }
+    //     return minsq(sq,n-1,w);
+    // }
+    int numSquares(int num) {
+     int i=1;
+     vector<int> sq;
+     while(i*i<10000)
+     {
+        sq.push_back(i*i);
+         i++;
+     }
+     int n=sq.size();
+     int dp[n+1][num+1];
+     for(int j=0;j<num+1;j++)
+         dp[0][j]=INT_MAX-1;
+     for(int i=0;i<n+1;i++)
+         dp[i][0]=0;
+     for(int j=0;j<num+1;j++)
+     {
+         if(j%sq[0]==0)
+         {
+             dp[1][j]=j/sq[0];
+         }
+         else
+         {
+             dp[1][j]=INT_MAX-1;
+         }
+     }
+     for(int i=2;i<n+1;i++)
+     {
+         for(int j=1;j<num+1;j++)
+         {
+             if(j>=sq[i-1])
+                 dp[i][j]=min(1+dp[i][j-sq[i-1]],dp[i-1][j]);
+             else
+                 dp[i][j]=dp[i-1][j];
+         }
+     }
+      return dp[n][num];
+    }
+};
+
+Approach (2):Legendre's three-square theorem
+Time Complexity: O(sqrt(n))
+Auxillary Space: O(1)
+In mathematics, Legendre's three-square theorem states that a natural number can be represented as the sum of three squares of integers
+ n=x^{2}+y^{2}+z^{2}
+if and only if n is not of the form n = 4^a(8b + 7) for nonnegative integers a and b.
+Code:
+class Solution {
+public:
+    int numSquares(int n) {
+        if(ceil(sqrt(n)==floor(sqrt(n))))
+            return 1;
+        while(n%4==0)
+        {
+            n/=4;
+        }
+        
+        if(n%8==7) return 4; // as num is in the form of 4^a(8b+7) so it can't be expressed in 3 sq
+        for(int i=1;i*i<=n;i++)
+        {   int b=n-(i*i);
+            if(ceil(sqrt(b)==floor(sqrt(b))))
+                return 2;
+        }
+        return 3;
+    }
+};

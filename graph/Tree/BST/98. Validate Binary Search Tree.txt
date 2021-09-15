@@ -1,0 +1,24 @@
+Problem:https://leetcode.com/problems/validate-binary-search-tree/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(h), size of recursive stack where h is the height of the BST
+Here we are taking two variable minv and maxv with acts as boundary for each node.
+For root we have minv defined as LLONG_MIN and for root maxv defined as LLONG_MAX. 
+But for each subtree we are again changing the value of minv and maxv and checking for left child have less value than the parent and right child should have greater value than parent.
+We also check for the root value should be in between boundary values(minv, maxv).
+For BST:
+For left subtree the maximum value will be less than the root value.
+For right subtree the minmum value will be more than the root value.
+Code:
+class Solution {
+public:
+    bool BST(TreeNode* root,long long minv,long long maxv)
+    {
+        if(!root) return true;
+        if(!(minv<root->val&&root->val<maxv)) return false;
+        return BST(root->left,minv,root->val)&&BST(root->right,root->val,maxv);
+    }
+    bool isValidBST(TreeNode* root) {
+      return BST(root,LLONG_MIN,LLONG_MAX);
+    }
+}; 

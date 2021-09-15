@@ -1,0 +1,51 @@
+Problem: https://leetcode.com/problems/complex-number-multiplication/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    pair<int,int> extractNum(string num)
+    {
+        bool rsign=false,isign=false;
+        int i=0,n=num.length();
+        if(num[0]=='-')
+            rsign=true;
+        if(num[0]=='+'||num[0]=='-')
+            i++;
+        string real="",imaginary="";
+        while(i<n&&isdigit(num[i]))
+        {
+            real+=num[i];
+            i++;
+        }
+        int neg=0;
+        while(i<n&&!isdigit(num[i]))
+        {
+            if(num[i]=='-') neg++;
+            i++;
+        }
+        if(neg%2!=0)
+            isign=true;
+        while(i<n&&num[i]!='i')
+        {
+            imaginary+=num[i];
+            i++;
+        }
+        int realn=stoi(real);
+        int ima=stoi(imaginary);
+        if(rsign)
+            realn=-realn;
+        if(isign)
+            ima=-ima;
+        return {realn,ima};
+        
+    }
+    string complexNumberMultiply(string num1, string num2) {
+        pair<int,int>n1=extractNum(num1);
+        pair<int,int>n2=extractNum(num2);
+        int real=(n1.first*n2.first)-(n1.second*n2.second);
+        int imaginary=(n1.first*n2.second)+(n1.second*n2.first);
+        string mul=to_string(real)+"+"+to_string(imaginary)+"i";
+        return mul;
+    }
+};

@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/reorganize-string/
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    string reorganizeString(string s) {
+     unordered_map<char,int>mp;
+        int n=s.length();
+        for(auto x:s)
+            mp[x]++;
+        priority_queue<pair<int,char>>q;
+        for(auto x:mp)
+        {
+            q.push({mp[x.first],x.first});
+        }
+        int i=0;
+        string output="";
+        while(q.size()>1)
+        {
+            auto x=q.top();q.pop();
+            auto y=q.top();q.pop();
+            output=output+x.second+y.second;
+            int a=x.first-1;
+            int b=y.first-1;
+            if(a>0)
+                q.push({a,x.second});
+            if(b>0)
+                q.push({b,y.second});
+        }
+        if(q.empty()) return output;
+        if(q.top().first>1)
+            return "";
+        else
+            output=output+q.top().second;
+        return output;
+    }
+};

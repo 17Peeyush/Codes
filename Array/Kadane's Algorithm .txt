@@ -1,0 +1,22 @@
+Problem: https://practice.geeksforgeeks.org/problems/kadanes-algorithm-1587115620/1
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+class Solution{
+    public:
+    // arr: input array
+    // n: size of array
+    //Function to find the sum of contiguous subarray with maximum sum.
+    int maxSubarraySum(int arr[], int n){
+        
+        int maxsum=arr[0];
+        int currsum=arr[0];
+        for(int i=1;i<n;i++)
+        {
+            currsum=max(currsum+arr[i],arr[i]);
+            maxsum=max(maxsum,currsum);
+        }
+        return maxsum;
+        
+    }
+};

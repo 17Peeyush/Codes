@@ -1,0 +1,78 @@
+Problem: https://leetcode.com/problems/intersection-of-two-linked-lists/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+SET
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        unordered_set<ListNode*>mp;
+        ListNode*p=headA;
+        while(p!=nullptr)
+        {
+            mp.insert(p);
+            p=p->next;
+        }
+        p=headB;
+        while(p!=nullptr)
+        {
+            if(mp.find(p)!=mp.end())
+            {
+                return p;
+            }
+            p=p->next;
+        }
+        return p;
+    }
+};
+
+Stack
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        stack<ListNode*> A, B;
+        ListNode* p=headA;
+        while(p!=nullptr)
+        {
+            A.push(p);
+            p=p->next;
+        }
+        p=headB;
+        while(p!=nullptr)
+        {
+            B.push(p);
+            p=p->next;
+        }
+        p=nullptr;
+        while(!A.empty()&&!B.empty())
+        {
+            if(A.top()!=B.top())
+            {
+                break;
+            }
+            else
+            {
+                p=A.top();
+                A.pop();
+                B.pop();
+            }
+        }
+        return p;
+    }
+};

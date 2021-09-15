@@ -1,0 +1,58 @@
+Problem: https://leetcode.com/problems/array-of-doubled-pairs/
+Approach:
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Here we are sorting the input and storing the frequency of each element in a map.
+Then traversing the map if the current element is positive then checking if 2*current element is present in the map.
+POSITIVE NUMBER CASE:
+If 2*current_element is present in the map then we calculate the difference of frequency of 2*current_element(k)- frequency of current_element(l)= 'k-l' (let):
+	case 1: if resultant frequency 'k-l' >0 then it implies we can create 'k' pairs of <current_element,2*current_element> and the 'k-l' pairs <2*current_element,2*2*current_element>
+	(it will be checked when we process 2*current_element)
+	case 2: if 'k-l' is less than 0 it means we can't create sufficient pair of <current_element,2*current_element> and |k-l| current_element swill be left so answer is false
+NEGATIVE NUMBER CASE: 
+Every thing will remain same but in case of checking for 2*current_element we will check for current_element/2 as when we traverse sorted input then higher negative value will processed first.
+Eg: [-14,-8,-7,-4] Here -14 will come first and if we check for -28 then our answer will be false but correct answer is true.
+So in case of negative we will divide. 
+Code:
+class Solution {
+public:
+    bool canReorderDoubled(vector<int>& arr) {
+        map<int,int>mp;
+        for(auto x: arr)
+            mp[x]++;
+        for(auto x:mp)
+        {
+            if(x.second==0) continue;
+            if(x.first==0)
+            {
+                if(x.second%2!=0)
+                    return false;
+                continue;
+            }
+            else 
+            {
+                if(x.first>0)
+                {
+                    if(mp.find(2*x.first)==mp.end())
+                    {
+                        return false;
+                    }
+                    mp[2*x.first]=mp[2*x.first]-mp[x.first];
+                    if(mp[2*x.first]<0)
+                        return false;
+                }
+                else
+                {
+                    if(x.first%2!=0)
+                        return false;
+                    if(mp.find(x.first/2)==mp.end())
+                        return false;
+                    mp[x.first/2]=mp[x.first/2]-mp[x.first];
+                    if(mp[x.first/2]<0)
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+};

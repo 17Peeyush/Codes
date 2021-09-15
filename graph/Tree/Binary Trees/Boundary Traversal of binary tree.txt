@@ -1,0 +1,58 @@
+Problem: https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int> bt;
+    stack<int> s;
+    void leftBoundary(Node *root)
+    {
+        if(!root) return;
+        else if(root->left==nullptr && root->right==nullptr) return;
+        bt.push_back(root->data);
+        if(root->left)
+        {
+            leftBoundary(root->left);
+        }
+        else
+        {
+            leftBoundary(root->right);    
+        }
+    }
+    void leaf(Node *root)
+    {
+        if(!root) return;
+        if(root->left==nullptr && root->right==nullptr) {bt.push_back(root->data);}
+        leaf(root->left);
+        leaf(root->right);
+    }
+     void rightBoundary(Node *root)
+    {
+        if(!root) return;
+        else if(root->left==nullptr && root->right==nullptr) return;
+        s.push(root->data);
+        if(root->right)
+        {
+            rightBoundary(root->right);
+        }
+        else
+        {
+            rightBoundary(root->left);    
+        }
+    }
+    vector <int> printBoundary(Node *root)
+    {
+        if(root)
+        bt.push_back(root->data);
+        leftBoundary(root->left);
+        leaf(root);
+        rightBoundary(root->right);
+        while(!s.empty())
+        {
+            bt.push_back(s.top());
+            s.pop();
+        }
+        return bt;
+    }
+};

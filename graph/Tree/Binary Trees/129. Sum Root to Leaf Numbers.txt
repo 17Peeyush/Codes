@@ -1,0 +1,29 @@
+Problem: https://leetcode.com/problems/sum-root-to-leaf-numbers/
+Time Complexity: O(n)
+Auxillary Space: O(h), where h is the height of tree
+Code:
+class Solution {
+public:
+  
+    int n=0;
+    void sumN(TreeNode* root,string num)
+    {
+        if(!root) return;
+        num+=to_string(root->val);
+        if(!root->left&&!root->right)
+        {
+            n+=stoi(num);
+        }
+        else
+        {
+            sumN(root->left,num);
+            sumN(root->right,num);
+        }
+        num.pop_back();
+    }
+    int sumNumbers(TreeNode* root) {
+        string num="";   
+        sumN(root,num);
+        return n;
+    }
+};

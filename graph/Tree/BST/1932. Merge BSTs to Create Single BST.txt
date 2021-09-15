@@ -1,0 +1,105 @@
+Problem: https://leetcode.com/problems/merge-bsts-to-create-single-bst/
+Approach:
+Time Complexity: O(n) 
+Auxillary Space: O(n)
+Here first we traverse the trees vector and for each particular bst we try to merge it with another bst which has same root->val equal to one of the leaves value.
+Now we try to combining the current root leave by new bst by assigning left and right of new root then  we also check for valid bst for its child.
+It may be possible that the after merging the new subtree it is not following the property of bst.
+
+Merging:
+Here while traversing through a tree we are checking if its current not is not a root of other tree.
+If found we assign new root child to current node and mark the node which is merged in merge vector so that we don't process it again and update that root value in mp.
+Whenever merging is successful we increment counter, as we have valid answer only when all n-1 nodes are merged.
+
+Checking Valid Bst:
+We first assume that our root value can be in between range lower and higher (INT_MIN and INT_MAX for root).
+Then at each step we check the root value is in range.
+Then we check this recursively for ecah child.
+For left subtree all the values in it should be less than root value so the lower is equal to INT_MIN but higher is equal to root value.
+For right child subtree all the values in it should be more than the root value so the lower is equal to root value and higher is equal to INT_MAX.
+
+Helper datastructures:
+Here one map which store root value and its corresponding index in trees vector. (mp)
+A vector is used to track which bst are merged and avoid their processing. (merge)
+A counter variable which is used to count the number of bst which are merged. (count)
+A bool variable if at any instance if after merging the tree is not following bst property the it should inform this and stop further recursive calls. (flag) 
+
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    unordered_map<int,int> mp;
+    vector<bool> merge;
+    int count=0;
+    bool flag=true;
+    void validBst(int l,int h,TreeNode *root,vector<TreeNode*>&trees)
+    {
+        if(!flag) return;
+        if(!root) return;
+        //if root val in present in mp then there is another root with same value in trees vector 
+        if(mp.find(root->val)!=mp.end()&&root->left==nullptr&&root->right==nullptr)
+        {
+            
+            int idx=mp[root->val];
+            TreeNode* temp=trees[idx];
+            if(temp!=root)// if the bst only contains 1 element i.e root to avoid unneccsary count 
+            {
+                count++;
+                root->left=temp->left;
+                root->right=temp->right;
+                trees[idx]=root;
+                merge[idx]=false;
+            }
+        }
+        if(l<root->val&&root->val<h)// checking for valid bst
+        {
+            validBst(l,root->val,root->left,trees);
+            if(!flag) return;
+            validBst(root->val,h,root->right,trees);
+            return;
+        }
+        flag=false; // if not valid bst
+        return;
+    }
+    TreeNode* canMerge(vector<TreeNode*>& trees) {
+        int n=trees.size();
+        merge=vector<bool>(n,true); // to keep track of merge bst
+        for(int i=0;i<n;i++) // Store index of root->val 
+        {
+            mp[trees[i]->val]=i;
+        }
+        for(int i=0;i<n;i++) //traverse trees vector
+        {
+            if(!flag)
+                break;
+            if(!merge[i]) continue;// Do not process merged bst
+            validBst(INT_MIN,INT_MAX,trees[i],trees);
+        }
+        if(count+1==n&&flag)// count equal to number of trees merged
+        {
+            count=0;
+            TreeNode * temp;
+            for(int i=0;i<n;i++)
+            {// If tree is not merge then it must the root of the main in which other trees are merge
+                if(merge[i]) {
+                    temp=trees[i];
+                    count++;
+                    if(count>1)// then it means more than one tree is left unmerged
+                        return nullptr;
+                    }           
+            }
+            return temp;
+        }
+        return nullptr;
+    }
+};

@@ -1,0 +1,33 @@
+Problem: https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1
+Time Complexity: O(n)
+Auxillary Space: O(l), where l is the number of nodes in an level
+Code:
+vector<int> leftView(Node *root)
+{
+     if(!root) return {};
+        vector<int>leftView;
+        queue<Node*>q;
+        q.push(root);
+        while(!q.empty())
+        {
+            int size=q.size();
+            int k=size-1;
+            while(size--)
+            {
+                auto x=q.front();q.pop();
+                if(k==size)
+                {
+                    leftView.push_back(x->data);
+                }
+                if(x->left!=nullptr)
+                {
+                    q.push(x->left);
+                }
+                if(x->right!=nullptr)
+                {
+                    q.push(x->right);
+                }
+            }
+        }
+        return leftView; 
+}

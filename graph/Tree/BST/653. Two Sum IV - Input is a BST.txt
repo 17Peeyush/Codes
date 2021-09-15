@@ -1,0 +1,20 @@
+Problem: https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    bool sum(TreeNode* root,unordered_set<int>&s,int target)
+    {
+        if(!root) return false;
+        if(s.find(root->val)!=s.end())
+            return true;
+        else 
+            s.insert(target-root->val);
+        return sum(root->left,s,target)||sum(root->right,s,target);        
+    }
+    bool findTarget(TreeNode* root, int k) {
+        unordered_set<int>s;
+        return sum(root,s,k);
+    }
+};

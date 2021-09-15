@@ -1,0 +1,24 @@
+Problem: https://leetcode.com/problems/group-anagrams/
+Time Complexity: O(nklogk), where n is number of words and k is length of each word.
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& str) {
+        unordered_map<string,int> mp;
+        vector<vector<string>>out;
+        int i=0;
+        for(auto x:str)
+        {
+            string temp=x;
+            sort(temp.begin(),temp.end());
+            if(mp.find(temp)==mp.end())
+            {
+                mp[temp]=i++;
+                out.push_back(vector<string>());
+            }
+               out[mp[temp]].push_back(x);   
+        }
+        return out;
+    }
+};
