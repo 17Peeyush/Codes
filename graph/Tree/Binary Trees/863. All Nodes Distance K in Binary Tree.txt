@@ -1,0 +1,64 @@
+Problem: https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+Time Complexity: O(n+m) ~ O(n)
+Auxillary Space: O(n)
+Date: 03-10-2021
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    unordered_map<TreeNode*,TreeNode*> mp;
+    void traverse(TreeNode* root,TreeNode* parent)
+    {
+        if(!root) return;
+        mp[root]=parent;
+        traverse(root->left,root);
+        traverse(root->right,root);
+    }
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        traverse(root,nullptr);
+        if(k==0)
+            return{target->val};
+        queue<TreeNode*>q;
+        q.push(target);
+        int level=0;
+        unordered_set<TreeNode*> seen;
+        while(level!=k&&!q.empty())
+        {
+            int size=q.size();
+            while(size--)
+            {
+                auto x=q.front();
+                q.pop();
+                seen.insert(x);
+                if(mp[x]!=nullptr&&seen.find(mp[x])==seen.end())
+                { q.push(mp[x]);
+                }
+                if(x->left&&seen.find(x->left)==seen.end())
+                {
+                    q.push(x->left);
+                }
+                 if(x->right&&seen.find(x->right)==seen.end())
+                {
+                    q.push(x->right);
+                }
+            }
+            level++;
+        }
+        vector<int> out;
+        while(!q.empty())
+        {
+            auto x=q.front();
+            q.pop();
+            out.push_back(x->val);
+        }
+        return out;
+    }
+};

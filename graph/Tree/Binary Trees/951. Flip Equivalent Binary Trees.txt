@@ -1,0 +1,29 @@
+Problem: https://leetcode.com/problems/flip-equivalent-binary-trees/
+Time Complexity: O(min(n1,n2)), where n1,n2 are lengths of the root1 and root2.
+Auxillary Space: O(min(h1,h2)), where h1,h2 are heights of the root1 and root2.
+Code:
+/*
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool flipEquiv(TreeNode* n1, TreeNode* n2) {
+ if (n1 == NULL && n2 == NULL) 
+    return true; 
+ if (n1 == NULL || n2 == NULL) 
+    return false; 
+ if (n1->val != n2->val) 
+    return false; 
+ return 
+ (flipEquiv(n1->left,n2->left) && flipEquiv(n1->right,n2->right))|| 
+ (flipEquiv(n1->left,n2->right) && flipEquiv(n1->right,n2->left)); 
+    }
+};

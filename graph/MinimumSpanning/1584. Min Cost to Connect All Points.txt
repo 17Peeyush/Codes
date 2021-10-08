@@ -1,0 +1,44 @@
+Problem: https://leetcode.com/problems/min-cost-to-connect-all-points/
+Time Complexity: O(ElogV)
+Auxillary Space: O(E)
+Date: 07-10-2021
+Code:
+class Solution {
+public:
+    int prims(vector<vector<pair<int,int>>>&g,int n)
+    {
+        vector<bool>visited(n,false);
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+        q.push({0,0});
+        int mst=0;
+        while(!q.empty())
+        {
+            auto [w,s]=q.top(); q.pop();
+            if(visited[s]) continue;
+            visited[s]=true;
+            mst+=w;
+            for(auto y:g[s])
+            {
+                if(!visited[y.second])
+                {
+                    q.push(y);
+                }
+            }
+        }
+        return mst;
+    }
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int n=points.size();
+        vector<vector<pair<int,int>>> g(n);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                int d=abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]);
+                g[i].push_back({d,j});
+                g[j].push_back({d,i});
+            }
+        }
+        return prims(g,n);
+    }
+};

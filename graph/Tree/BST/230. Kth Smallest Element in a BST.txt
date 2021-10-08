@@ -1,0 +1,45 @@
+Problem: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+Time Complexity: O(n), n is the number of nodes in the bst.
+Auxillary Space: O(h), h is the height of the bst.
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool fnull=false;
+    int K=0,kmin=INT_MAX;
+    void traverse(TreeNode* root,int k)
+    {
+        
+        if(!root) {
+            if(fnull==false)
+            {fnull=true;}
+            return;
+        }
+        if(K>k) return;
+        traverse(root->left,k);
+        if(fnull)
+            K++;
+        if(K==k)
+        {
+            kmin=root->val;
+            K++;
+            return;
+        }
+        if(K>k) return;
+        traverse(root->right,k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        traverse(root,k);
+        return kmin;
+    }
+};

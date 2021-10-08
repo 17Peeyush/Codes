@@ -1,0 +1,46 @@
+Problem: https://leetcode.com/problems/next-greater-node-in-linked-list/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Date: 03-10-2021
+Code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> output;
+    stack<int> st; 
+    void NLN(ListNode* head,int i)
+    {
+        if(head==nullptr)
+        {
+            output=vector<int>(i);
+            return;
+        }
+        NLN(head->next,i+1);
+        while(!st.empty()&&st.top()<=head->val)
+        {
+            st.pop();
+        }
+        if(st.empty())
+        {
+            output[i]=0;
+        }
+        else
+        {
+            output[i]=st.top();
+        }
+        st.push(head->val);
+    }
+    vector<int> nextLargerNodes(ListNode* head) {
+        NLN(head,0);
+        return output;
+    }
+};

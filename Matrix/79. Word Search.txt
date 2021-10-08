@@ -1,0 +1,46 @@
+Problem: https://leetcode.com/problems/word-search/
+Time Complexity: O(m*n*k)
+Auxillary Space: O(m*n)
+Code:
+class Solution {
+public:
+    int m,n;
+    bool isvalid(int i,int j)
+    {
+        if(i>=0&&i<m&&j>=0&&j<n) return true;
+        return false;
+    }
+    bool search(vector<vector<char>>&board,string word,int i,int j,int ci,vector<vector<bool>>&visited){
+        if(!isvalid(i,j)) return false;
+        if(visited[i][j]) return false;
+        if(board[i][j]!=word[ci]) return false;
+        if(ci+1==word.length()) return true;
+        visited[i][j]=true;
+        bool result = search(board, word, i-1, j, ci+1,visited)
+            ||  search(board, word, i+1, j, ci+1,visited)
+            ||  search(board, word, i, j-1, ci+1,visited)
+            ||  search(board, word, i, j+1, ci+1,visited);
+        visited[i][j]=false;
+        return result;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+      m=board.size();n=board[0].size();
+        bool found=false;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(board[i][j]==word[0])
+                   {
+                    vector<vector<bool>>visited(m,vector<bool>(n,false));
+                    found=search(board,word,i,j,0,visited);
+                    if(found)
+                        break;
+                   }
+            }
+            if(found)
+                break;
+        }
+        return found;
+    }
+};

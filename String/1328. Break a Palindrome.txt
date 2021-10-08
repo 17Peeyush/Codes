@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/break-a-palindrome/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Date: 23-09-2021
+Code:
+class Solution {
+public:
+    string breakPalindrome(string p) {
+        int n=p.length();
+        if(n==1) return  "";
+        int l=0,r=n-1;
+        while(l<r)
+        {
+            if(p[l]!='a')
+                p[l]='a';
+            if(p[l]!=p[r])
+                break;
+            l++;r--;
+        }
+        if(l>=r&&p[n-1]=='a')
+            p[n-1]='b';
+        return p;
+        
+    }
+};

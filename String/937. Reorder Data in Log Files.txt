@@ -1,0 +1,52 @@
+Problem: https://leetcode.com/problems/reorder-data-in-log-files/
+Time Complexity: O(nklogk) , where n is the total log and k is number of letter log
+Auxillary Space: O(klogk)
+Date: 23-09-2021
+Code:
+class Solution {
+public:
+    bool static comparator(string&a,string &b)
+    {
+        int al=a.length(),bl=b.length();
+        int i=0;
+        while(i<al&&a[i]!=' ')
+        {
+            i++;
+        }
+        string ap=a.substr(i);
+        i=0;
+        while(i<bl&&b[i]!=' ')
+        {
+            i++;
+        }
+        string bp=b.substr(i);
+        if(ap==bp)
+        {
+            ap=a.substr(0,i);
+            bp=b.substr(0,i);
+            return ap<bp;
+        }
+        return ap<bp;
+            
+    }
+    vector<string> reorderLogFiles(vector<string>& logs) {
+        vector<string> dig,let;
+        for(auto x: logs)
+        {
+            int n=x.length();
+            for(int i=n-1;i>=0;i--)
+            {
+                if(x[i]==' ') continue;
+                else if(isdigit(x[i]))
+                   { dig.push_back(x);break;}
+                else
+                 {   let.push_back(x);break;}
+            }
+        }
+        sort(let.begin(),let.end(),comparator);
+        vector<string> out(let.begin(),let.end());
+        for(auto x:dig)
+            out.push_back(x);
+        return out;
+    }
+};

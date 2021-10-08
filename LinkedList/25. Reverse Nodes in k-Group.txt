@@ -1,4 +1,5 @@
 Problem:https://leetcode.com/problems/reverse-nodes-in-k-group/
+(1)
 Time Complexity: O(n), where n is the number of nodes in the linked list
 Auxillary Space: O(n)
 We are using a stack to reverse elements. We are pushing k nodes at a time in stack and poping it(reverse order).
@@ -35,3 +36,62 @@ ListNode* reverseKGroup(ListNode* head, int k) {
         }
         return dummy->next;
     }
+
+(2)
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverse(ListNode* start,ListNode* end)
+    {
+        end->next=nullptr;
+        ListNode*p =start,*c=start->next;
+        p->next=nullptr;
+        while(c!=nullptr)
+        {
+            ListNode *t=c->next;
+            c->next=p;
+            p=c;
+            c=t;
+        }
+        return p;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+       if(!head) return nullptr;
+        if(k==1) return head;
+        ListNode* dummy=new ListNode(-1);
+        dummy->next=head;
+        int count=0;
+        ListNode  *p=head,*nh=p,*linker=dummy,*c=dummy;
+        while(p!=nullptr)
+        {
+            if(count%k==0&&count!=0)
+            {
+                linker->next=reverse(nh,c);
+                linker=nh;
+                nh=p;
+            }
+            c=p;
+            p=p->next;
+            count++;
+            if(p==nullptr&&count%k==0)
+            {
+                linker->next=reverse(nh,c);
+            }
+        }
+        if(count%k!=0)
+            linker->next=nh;
+        return dummy->next;
+    }
+};

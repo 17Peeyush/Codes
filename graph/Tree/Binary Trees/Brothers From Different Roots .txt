@@ -1,0 +1,46 @@
+Problem: https://practice.geeksforgeeks.org/problems/brothers-from-different-root/1
+Time Complexity: O(n+m)
+Auxillary Space: O(m)
+Date: 05-10-2021
+Code:
+/*Structure of the Node of the BST is as
+struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution
+{
+public:
+    unordered_set<int> s;
+    int c=0;
+    void traverse(Node* root)
+    {
+        if(!root) return;
+        s.insert(root->data);
+        traverse(root->left);
+        traverse(root->right);
+    }
+    void count(Node* root,int x)
+    {
+        if(!root) return;
+        if(s.find(x-root->data)!=s.end())
+            c++;
+        count(root->left,x);
+        count(root->right,x);
+    }
+    int countPairs(Node* root1, Node* root2, int x)
+    {
+        traverse(root2);
+        count(root1,x);
+        return c;
+    }
+};

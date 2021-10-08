@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+Time Complexity: O(k^(n)), where N is the length of nums, and k is as given.
+Auxillary Space: O(n), the space used by recursive calls to search in our call stack.
+Code:
+class Solution {
+public:
+    bool helper(vector<int>&nums,vector<bool>&visited,int k,int es,int cs,int start)
+    {
+        if(k==0) return true;
+        else if(es<cs) return false;
+        else if(es==cs)
+        {
+            return helper(nums,visited,k-1,es,0,0);
+        }
+        int n=nums.size();
+        for(int i=start;i<n;i++)
+        {
+            if(visited[i]) continue;
+            visited[i]=true;
+            if(helper(nums,visited,k,es,cs+nums[i],i+1))
+                return true;
+            visited[i]=false;
+        }
+            return false;
+    }
+    bool canPartitionKSubsets(vector<int>& nums, int k) {
+        int sum=accumulate(nums.begin(),nums.end(),0);
+        if(sum%k!=0) return false;
+        if(k==1) return true;
+        int n=nums.size();
+        int eachsum=sum/k;
+        // cout<<sum<<"\n"<<eachsum;
+        vector<bool>visited(n,false);
+        return helper(nums,visited,k,eachsum,0,0);
+    }
+};

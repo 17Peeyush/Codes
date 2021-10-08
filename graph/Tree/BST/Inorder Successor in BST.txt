@@ -1,0 +1,51 @@
+Problem: https://practice.geeksforgeeks.org/problems/inorder-successor-in-bst/1
+Date: 15-09-2021
+Time Complexity: O(h), where h is the height of the bst.
+Auxillary Complexity: O(h), here space is consider of recursive stack.
+Code:
+class Solution{
+  public:
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+    Node* temp=nullptr;
+    pair<int,int> inorder(Node*root,Node*x)
+    {
+        pair<int,int>p;
+        // if(!root) return {0,0};
+        if(root==x)
+        {
+            if(root->right)
+            {
+                temp=root->right;
+                while(temp->left)
+                {
+                    temp=temp->left;
+                }
+                return {0,0};
+            }
+            else
+            {
+                return {1,root->data};
+            }
+        }
+        else if(root->data<x->data)
+        {
+         p=inorder(root->right,x);   
+        }
+        else
+        {
+            p=inorder(root->left,x);
+        }
+        if(p.first&&p.second<root->data)
+        {
+            temp=root;
+            p={0,0};
+        }
+        return p;
+    }
+    Node * inOrderSuccessor(Node *root, Node *x)
+    {
+        //Your code here
+        inorder(root,x);
+        return temp;
+    }
+};

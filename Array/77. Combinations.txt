@@ -1,0 +1,35 @@
+Problem: https://leetcode.com/problems/combinations/
+Time Complexity:for loop can run for a maximum of n times with each backtrack with the maximum iteration of NcK times. i.e: overall time complexity will be O(N* C(n, K)).
+Auxillary Space: O(k* C(n, K))(as we have total C(n, K) possible answer each having a size of k )
+Date: 03-10-2021
+Code:
+class Solution {
+public:
+    vector<vector<int>>output;
+    void combination(vector<int>&arr,int i,vector<int>input,int k)
+    {
+        int n=arr.size();
+        
+        if(input.size()==k)
+        {
+            output.push_back(input);
+            return;
+        }
+        if(i==n) return;
+        for(;i<n;i++)
+        {
+            input.push_back(arr[i]);
+            combination(arr,i+1,input,k);
+            input.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> arr(n);
+        for(int i=0;i<n;i++)
+            arr[i]=i+1;
+        if(n==k) return {arr};
+        vector<int>input;
+        combination(arr,0,input,k);
+        return output;
+    }
+};

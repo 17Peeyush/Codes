@@ -1,0 +1,31 @@
+Problem: https://practice.geeksforgeeks.org/problems/transform-to-sum-tree/1
+Time Complexity: O(n), where n is the number of nodes in the binary tree.
+Auxillary Space: O(1), ignoring the size of recursive stack
+Code:
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+class Solution {
+  public:
+  
+    // Convert a given tree to a tree where every node contains sum of values of
+    // nodes in left and right subtrees in the original tree
+    int SumTree(Node* root)
+    {
+        if(!root) return 0;
+        int ls=SumTree(root->left);
+        int rs=SumTree(root->right);
+        int ts=ls+rs+root->data;
+        root->data=ls+rs;
+        return ts;
+    }
+    void toSumTree(Node *node)
+    {
+        // Your code here
+        SumTree(node);
+    }
+};

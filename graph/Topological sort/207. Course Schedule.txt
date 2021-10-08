@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/course-schedule/
+Time Complexity: O(v+e)
+Auxillary Space: O(v)
+Date: 07-10-2021
+Code:
+class Solution {
+public:
+    bool Kahn(vector<vector<int>>&g,vector<int>&indegree,int n)
+    {
+        queue<int>q;
+        vector<int>topo;
+        for(int i=0;i<n;i++)
+        {
+            if(!indegree[i])
+                q.push(i);
+        }
+        while(!q.empty())
+        {
+            auto x=q.front();
+            q.pop();
+            topo.push_back(x);
+            for(auto node: g[x])
+            {
+                indegree[node]--;
+                if(!indegree[node])
+                    q.push(node);
+            }
+        }
+        int m=topo.size();
+        return m==n;
+    }
+    bool canFinish(int n, vector<vector<int>>& pre) {
+        vector<int> indegree(n,0);
+        vector<vector<int>>g(n);
+        for(auto x: pre)
+        {
+            indegree[x[0]]++;
+            g[x[1]].push_back(x[0]);
+        }
+        return Kahn(g,indegree,n);
+    }
+};

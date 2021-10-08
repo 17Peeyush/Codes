@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/shortest-path-in-binary-matrix/
+Time Complexity: O(n*n)
+Auxillary Space: O(n*n)
+Code:
+class Solution {
+public:
+    bool isValid(int i,int j,int n)
+    {
+        if(i>=0&&i<n&&j>=0&&j<n) return true;
+        return false;
+    }
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int n=grid.size();
+        if(grid[0][0]!=0||grid[n-1][n-1]!=0) return -1;
+        vector<vector<bool>>track(n,vector<bool>(n,true));
+        queue<tuple<int,int,int>>q;// x,y,k(steps)
+        q.push({0,0,1});
+        track[0][0]=false;
+        int min_dis=INT_MAX;
+        vector<vector<int>>dir={{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+        while(!q.empty())
+        {
+             auto [x,y,k]=q.front();
+             q.pop();
+             if(x==n-1&&y==n-1) min_dis=min(min_dis,k);
+             for(auto it:dir)
+             {
+                 if(isValid(it[0]+x,it[1]+y,n)&&grid[x+it[0]][y+it[1]]==0&&track[it[0]+x][it[1]+y])
+                 {
+                    q.push({x+it[0],y+it[1],k+1});
+                    track[x+it[0]][y+it[1]]=false;
+                 }
+             }
+        }
+        if(min_dis==INT_MAX)
+            min_dis=-1;
+        return min_dis;
+    }
+};

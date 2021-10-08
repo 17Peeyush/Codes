@@ -1,0 +1,69 @@
+Problem: https://practice.geeksforgeeks.org/problems/minimum-sum4058/1
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+class Solution{   
+public:
+    string addString(string a,string b)// a.length>b.length
+{
+    int n=b.length();
+    int i,carry=0;
+    string out="";
+    for(i=0;i<n;i++)
+    {
+        int temp=(a[i]-48)+(b[i]-48)+carry;
+        if(temp>9)
+        {
+            string st=to_string(temp);
+            out=st[1]+out;
+            carry=1;
+        }
+        else
+        {
+            out=to_string(temp)+out;
+            carry=0;
+        }
+    }
+    n=a.length();
+    for(;i<n;i++)
+    {
+        int temp=(a[i]-48)+carry;
+        if(temp>9)
+        {
+            string st=to_string(temp);
+            out=st[1]+out;
+            carry=1;
+        }
+        else
+        {
+            out=to_string(temp)+out;
+            carry=0;
+        }
+    }
+    if(carry) out='1'+out;
+    return out;
+    
+}
+    string solve(int arr[], int n) {
+        // code here
+        sort(arr,arr+n);
+        string num1="",num2="";
+        int i=0;
+        while(i<n)
+        {
+            if(arr[i]!=0)
+                num1=to_string(arr[i])+num1;
+            if(i+1<n)
+            {
+                if(arr[i+1]!=0)
+                num2=to_string(arr[i+1])+num2;
+            }
+            i=i+2;
+        }
+        string res;
+        if(num1.length()>num2.length())
+            res=addString(num1,num2);
+        else
+            res=addString(num2,num1);
+        return res;
+    }
+};

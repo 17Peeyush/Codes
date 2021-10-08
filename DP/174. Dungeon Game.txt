@@ -1,0 +1,58 @@
+Problem: https://leetcode.com/problems/dungeon-game/
+Time Complexity: O(m*n)
+Auxillary Space: O(m*n)
+Date: 03-10-2021
+Code:
+class Solution {
+public:
+    int m,n;
+    bool isValid(int i,int j)
+    {
+        if(i>=0&&i<m&&j>=0&&j<n) return true;
+        return false;
+    }
+    int calculateMinimumHP(vector<vector<int>>& dungeon) {
+        m=dungeon.size();
+        n=dungeon[0].size();
+        vector<vector<int>> dp(m,vector<int>(n,INT_MAX));
+        if(dungeon[m-1][n-1]<0)
+            dp[m-1][n-1]=-dungeon[m-1][n-1]+1;
+        else
+            dp[m-1][n-1]=1;
+        for(int i=m-1;i>=0;i--)
+        {
+            for(int j=n-1;j>=0;j--)
+            {
+                if(i==m-1&&j==n-1) continue;
+                if(dungeon[i][j]<0){
+                    if(isValid(i+1,j))
+                    {
+                        dp[i][j]=min(dp[i][j],dp[i+1][j]-dungeon[i][j]);
+                    }
+                    if(isValid(i,j+1))
+                    {
+                        dp[i][j]=min(dp[i][j],dp[i][j+1]-dungeon[i][j]);
+                    }
+                }
+                else
+                {
+                    if(isValid(i+1,j))
+                    { 
+                        if(dungeon[i][j]>=dp[i+1][j])
+                         {
+                            dp[i][j]=1;}
+                        else dp[i][j]=min(dp[i][j],dp[i+1][j]-dungeon[i][j]);
+                    }
+                    if(isValid(i,j+1))
+                    {
+                         if(dungeon[i][j]>=dp[i][j+1])
+                          { 
+                             dp[i][j]=1;}
+                        else dp[i][j]=min(dp[i][j],dp[i][j+1]-dungeon[i][j]);
+                    }
+                }
+            }
+        }
+        return dp[0][0];
+    }
+};

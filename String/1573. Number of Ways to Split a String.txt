@@ -1,0 +1,53 @@
+Problem: https://leetcode.com/problems/number-of-ways-to-split-a-string/
+Time complexity: O(n)
+Auxillary Space: O(n)
+Date: 23-09-2021
+Code:
+class Solution {
+public:
+    int MOD=1000000007;
+    int numWays(string s) {
+        int count1=0;
+        int n=s.length();
+        vector<pair<int,int>>track;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='1')
+            {
+                count1++;
+                track.push_back({count1,i});
+            }
+        }
+        if(count1==0)
+        {
+            return (long(n - 2) * long(n - 1) / 2) % MOD;
+        }
+        if(count1%3!=0)
+        {
+            return 0;
+        }
+        int firstend=-1,secondstart=-1,secondend=-1,thirdstart=-1;
+        int each=count1/3;
+        for(auto x:track)
+        {
+            if(x.first==each)
+            {
+                firstend=x.second;
+            }
+            if(x.first==each+1)
+            {
+                secondstart=x.second;
+            }
+            if(x.first==each*2)
+            {
+                secondend=x.second;
+            }
+            if(x.first==each*2+1)
+            {
+                thirdstart=x.second;
+            }
+        }
+        long long a=abs(secondstart-firstend),b=abs(thirdstart-secondend);
+        return (a%MOD*b%MOD)%MOD;
+    }
+};

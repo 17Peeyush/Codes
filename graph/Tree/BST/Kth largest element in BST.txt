@@ -1,0 +1,51 @@
+Problem: https://practice.geeksforgeeks.org/problems/kth-largest-element-in-bst/1
+Time Complexity: O(n), where n is the number of nodes in bst.
+Auxillary Space: O(h), where h is the height of the bst.
+Code:
+/*The Node structure is defined as
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+// return the Kth largest element in the given BST rooted at 'root'
+class Solution
+{
+    public:
+    bool fnull=false;
+    int K=0,kmax=INT_MIN;
+    void traverse(Node* root,int k)
+    {
+        
+        if(!root) {
+            if(fnull==false)
+            {fnull=true;}
+            return;
+        }
+        if(K>k) return;
+        traverse(root->right,k);
+        if(fnull)
+            K++;
+        if(K==k)
+        {
+            kmax=root->data;
+            K++;
+            return;
+        }
+        if(K>k) return;
+        traverse(root->left,k);
+    }
+    int kthLargest(Node *root, int k)
+    {
+        //Your code here
+        traverse(root,k);
+        return kmax;
+    }
+};

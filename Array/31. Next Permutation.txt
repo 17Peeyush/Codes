@@ -1,0 +1,82 @@
+Problem: https://leetcode.com/problems/next-permutation/
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n=nums.size();
+        int index=-1;
+        int i;
+        for(i=n-1;i>0;i--)
+        {
+            if(nums[i-1]<nums[i])
+            {
+                index=i-1;
+                break;
+            }
+        }
+        if(i==0)
+        {
+            sort(nums.begin(),nums.end());
+        }
+        else
+        {
+            sort(nums.begin()+index+1,nums.end());
+            for(i=index;i<n;i++)
+            {
+                if(nums[i]>nums[index])
+                {
+                    swap(nums[index],nums[i]);
+                    break;
+                }
+            }
+        }
+    }
+};
+
+(2)
+Here we are first finding the element's index say 'index' which is not following the increasing sequence from right to left.
+Then we reverse the elements after the index.
+Then we find the element which is just greater than the element at the index.
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n=nums.size();
+        int index=-1;
+        int i;
+        for(i=n-1;i>0;i--)
+        {
+            if(nums[i-1]<nums[i])
+            {
+                index=i-1;
+                break;
+            }
+        }
+        if(i==0)
+        {
+            sort(nums.begin(),nums.end());
+        }
+        else
+        { 
+            i=index+1;
+            int j=n-1;
+            while(i<j)
+            {
+                swap(nums[j],nums[i]);
+                i++;j--;
+            }
+            for(i=index+1;i<n;i++)
+            {
+                if(nums[i]>nums[index])
+                {
+                    swap(nums[index],nums[i]);
+                    break;
+                }
+            }
+        }
+    }
+};

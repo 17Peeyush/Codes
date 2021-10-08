@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/permutations/
+Time Complexity: O(n*n!)
+Auxillary Space: O(h), where h is the height of recursive (tree) stack
+Code:
+class Solution {
+public:
+    vector<vector<int>>output;
+    void permutation(vector<int>&nums,int l,int n)
+    {
+        if(l<n-1)
+        {
+            for(int i=l;i<n;i++)
+            {
+                swap(nums[l],nums[i]);
+                permutation(nums,l+1,n);
+                swap(nums[l],nums[i]);
+            }
+        }
+        else
+        {
+            output.push_back(nums);
+            return;
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n=nums.size();
+        permutation(nums,0,n);
+        return output;
+    }
+};

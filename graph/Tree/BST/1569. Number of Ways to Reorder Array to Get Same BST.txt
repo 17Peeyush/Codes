@@ -1,0 +1,58 @@
+Problem: https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/
+Approach:
+Time Complexity: O(n*n+log(h)) where h is the height of the bst
+Auxillary space: O(n)
+Here we are observing a pattern that there is a fixed order for inputing elements of left sub tree and right subtree.
+But there is no order bewtween the elements of left subtree and right subtree.
+The root remain constant in order.
+Code:
+class Solution {
+public:
+    vector<vector<long long>> cdp;
+    int MOD=1000000007;
+    void build_ncr(long n,long r)
+    {
+        for(int i=0;i<n+1;i++)
+        {
+            cdp[i][0]=1;
+            cdp[i][1]=i;
+        }
+        for(int i=1;i<n+1;i++)
+        {
+            for(int j=1;j<r+1&&j<i+1;j++)
+            {
+                cdp[i][j]=(cdp[i-1][j]%MOD+cdp[i-1][j-1]%MOD)%MOD;
+            }
+        }
+    }
+    long count_ways(vector<int>nums)
+    {
+        int n=nums.size();
+        if(n<=2) return 1;
+        int root=nums[0];
+        vector<int>leftchild;
+        vector<int>rightchild;
+        for(int i=1;i<n;i++)
+        {
+            if(nums[i]>root)
+            {
+                rightchild.push_back(nums[i]);
+            }
+            else
+            {
+                leftchild.push_back(nums[i]);
+            }
+        }
+        int leftsize=leftchild.size(),rightsize=rightchild.size();
+        long leftcount=count_ways(leftchild)%MOD;
+        long rightcount=count_ways(rightchild)%MOD;
+        return ((cdp[leftsize+rightsize][leftsize]%MOD)*((leftcount*rightcount)%MOD))%MOD;
+    }
+    int numOfWays(vector<int>& nums) {
+        int n=nums.size();
+        cdp=vector<vector<long long>>(n+1,vector<long long>(n+1));
+        build_ncr(n,n);
+        int ans=count_ways(nums)%MOD;
+        return ans-1;
+    }
+};
