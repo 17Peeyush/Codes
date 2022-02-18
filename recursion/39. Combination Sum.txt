@@ -1,0 +1,37 @@
+Problem: https://leetcode.com/problems/combination-sum/
+Time Complexity: exponential
+Auxillary Space: exponential
+Date: 19-11-2021
+Code:
+class Solution {
+public:
+    vector<vector<int>>output;
+    void helper(int i,vector<int>&arr,int sum,vector<int>input)
+    {
+        if(i<0||sum<0)
+        {
+            return;
+        }
+        else if(arr[i]==sum)
+        {
+            helper(i-1,arr,sum,input);
+            input.push_back(arr[i]);
+            output.push_back(input);
+        }
+        else if(arr[i]>sum)
+        {
+            helper(i-1,arr,sum,input);
+        }
+        else
+        {
+            helper(i-1,arr,sum,input);
+            input.push_back(arr[i]);
+            helper(i,arr,sum-arr[i],input);
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int> input;
+        helper(candidates.size()-1,candidates,target,input);
+        return output;
+    }
+};

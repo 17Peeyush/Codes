@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+Date: 07-02-2022
+Time Complexty: O(n)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int i=0,j=0,c=nums[0],count=0,n=nums.size();
+        while(i<n){
+            if(c==nums[i]){
+                count++;
+                if(count<3){
+                    nums[j]=nums[i];
+                    j++;
+                    i++;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            else
+            {
+                count=0;
+                c=nums[i];
+            }
+        }
+        return j;
+        
+    }
+};

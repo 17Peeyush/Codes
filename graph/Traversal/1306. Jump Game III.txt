@@ -1,0 +1,63 @@
+Problem: https://leetcode.com/problems/jump-game-iii/
+Time Complexity: O(n+2*n)
+Auxillary Space: O(n+2*n)
+Date: 09-12-2021
+Code:
+(1) Created a graph then applied nfs on it.
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start) {
+        int n=arr.size();
+        vector<vector<int>>g(n,vector<int>());
+        unordered_set<int> endid;
+        for(int i=0;i<n;i++){
+            if(arr[i]==0)
+            {
+                endid.insert(i);
+                continue;
+            }
+            if(i+arr[i]<n){
+                g[i].push_back(i+arr[i]);
+            }
+            if(i-arr[i]>=0)
+            {
+                g[i].push_back(i-arr[i]);
+            }
+        }
+        queue<int>q;
+        vector<bool>visited(n,false);
+        q.push(start);
+        while(!q.empty()){
+            int t=q.front();
+            q.pop();
+            if(endid.find(t)!=endid.end())
+                return true;
+            if(visited[t]) continue;
+            visited[t]=true;
+            for(auto x:g[t]){
+                if(!visited[x])
+                    q.push(x);
+            }
+        }
+        return false;
+    }
+};
+
+(2)
+Time Complexity: O(n)
+Auxillary Space: O(n), if considering recursive stack else O(1)
+Code:
+class Solution {
+public:
+    vector<bool> visited;
+    Solution(){
+        visited=vector<bool>(50000,false);
+    }
+    bool canReach(vector<int>& arr, int start) {
+        if(start<0||start>=arr.size()) return false;
+        if(visited[start]) return false;
+        visited[start]=true;
+        if(arr[start]==0) return true;
+        return canReach(arr,arr[start]+start)||canReach(arr,start-arr[start]);
+    }
+};

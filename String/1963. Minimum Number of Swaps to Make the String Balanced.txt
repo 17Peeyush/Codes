@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/minimum-number-of-swaps-to-make-the-string-balanced/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Date: 16-10-2021
+Here we are traversing the string and whenever we are finding abnormalityb i.e the brackets are not balanced there is a extra closing bracket without an opening bracket then we are searching an opening bracket from the end and swaping it with the extra closing bracket. This is a greedy approach but leads to solution.
+Code:
+class Solution {
+public:
+    int minSwaps(string s) {
+        int n=s.length(),i=0,j=n-1,swapcount=0,bcount=0;
+        while(i<n)
+        {
+            if(s[i]=='[')
+            {
+                bcount++;
+            }
+            else
+            {
+                bcount--;
+            }
+            if(bcount<0)
+            {
+                while(j>i&&s[j]!='[')
+                {
+                    j--;
+                }
+                swap(s[i],s[j]);
+                swapcount++;
+                bcount++;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return swapcount;
+    }
+}; 

@@ -1,0 +1,28 @@
+Problem: https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Date: 18-11-2021
+Code:
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        stack<char> st;
+        for(auto x: s)
+        {
+            if(st.empty())
+                st.push(x);
+            else if(x==')')
+            {
+                if(st.top()=='(')
+                    st.pop();
+                else
+                    st.push(')');
+            }
+            else
+            {
+                st.push('(');
+            }
+        }
+        return st.size();
+    }
+};

@@ -1,0 +1,57 @@
+Problem: https://leetcode.com/problems/remove-k-digits/
+Date: 18-02-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Approach: We try to find first decreasing pairs of number then remove the number with higher value from left to right because leftmost digit is most significant digit and rightmost is the least significant digit.
+There may a case arise that all the digits in given number is already sorted in increasing order then we will remove the last 'k' digits to get the answer.
+Code:
+class Solution {
+public:
+    string removeKdigits(string nums, int k) {
+        int n=nums.length();
+        int m=n-k;
+        if(n==k) return "0";
+        stack<char>st;
+        int i=0;
+        while(i<n&&k){
+            if(st.empty()){
+                if(nums[i]!='0')
+                {
+                    st.push(nums[i]);
+                }
+                i++;
+            }
+            else if(k&&st.top()>nums[i]){
+                st.pop();
+                k--;
+            }
+            else
+            {
+                st.push(nums[i]);
+                i++;
+            }
+        }
+        while(!st.empty()&&k--)
+        {
+            st.pop();
+        }
+        string output="";
+        while(!st.empty())
+        {
+            output=st.top()+output;
+            st.pop();
+        }
+        if(i<n)
+        {
+            if(output.length()==0)
+            {
+                while(i<n&&nums[i]=='0')
+                i++;
+            }
+            output+=nums.substr(i);
+        }
+        if(output.length()==0)
+            output="0";
+        return output;
+    }
+};

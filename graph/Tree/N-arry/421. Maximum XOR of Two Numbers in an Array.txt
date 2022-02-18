@@ -1,0 +1,55 @@
+Problem: https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
+Date: 27-01-2022
+Time Complexity: O(n*32)=> O(n)
+Auxillary Space: O(sizeof(digit)*32*n)=>O(n)
+Code:
+class Solution {
+public:
+    struct TriNode{
+        vector<TriNode*>digit;
+        TriNode(){
+            digit=vector<TriNode*>(2,nullptr);
+        }
+    };
+    void insert(TriNode* root,int num){
+        TriNode*p=root;
+        for(int i=31;i>=0;i--){
+            int t=(num>>i)&1;
+            if(p->digit[t]==nullptr){
+                p->digit[t]=new TriNode();
+            }
+            p=p->digit[t];
+        }
+    }
+    int find(TriNode* root,int num)
+    {
+        TriNode* p=root;
+        int temp=0;
+        for(int i=31;i>=0;i--){
+            int t=(num>>i)&1;
+            t=t^1;// alternating
+            if(p->digit[t]!=nullptr)
+            {
+                temp+=pow(2,i);
+            }
+            else
+            {
+                t=t^1;
+            }
+                p=p->digit[t];
+        }
+        return temp;
+    }
+    int findMaximumXOR(vector<int>& nums) {
+        TriNode* root=new TriNode();
+        for(auto x:nums){
+            insert(root,x);
+        }
+        int mx=0;
+        for(auto x:nums){
+            int t=find(root,x);
+            mx=max(mx,t);
+        }
+        return mx;
+    }
+};

@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/sequential-digits/
+Date: 23-01-2022
+Time Complexity: O(n*n)
+Auxillary Space: O(n) height of recursive stack
+Code:
+class Solution {
+public:
+    vector<int>output;
+    void generate(string num,int&h,int & low,int & high)
+    {
+        if(num.length()>h)
+            return;
+        int n=stoi(num);
+        if(low<=n&&n<=high)
+            output.push_back(n);
+        if(num.length()==h||n>high)
+            return;
+        int i=num[num.length()-1]-'0';
+        if(i<9)
+        generate(num+to_string(i+1),h,low,high);
+        
+    }
+    vector<int> sequentialDigits(int low, int high) {
+        int l=(to_string(low)).length(),h=(to_string(high).length());
+        for(int i=1;i<10;i++)
+        {
+            generate(to_string(i),h,low,high);
+        }
+        sort(output.begin(),output.end());
+        return output;
+    }
+};

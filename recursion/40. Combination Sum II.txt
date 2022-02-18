@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/combination-sum-ii/
+Date: 14-02-2022
+Time Complexity: O(2^n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+     vector<vector<int>>v;
+    void helper(int i,vector<int>&c,int&target,int sum,int &n,vector<int>t){
+        if(sum==target)
+        {
+            v.push_back(t);
+            return;
+        }
+        if(i==n||sum>=target) return;
+        for(int id=i;id<n;id++)
+        {
+            if(c[id]+sum>target) break;
+            if(id>i&&c[id]==c[id-1]) continue;
+            t.push_back(c[id]);
+            helper(id+1,c,target,sum+c[id],n,t);
+            t.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<int> temp;
+        int n=candidates.size();
+        sort(candidates.begin(),candidates.end());
+        helper(0,candidates,target,0,n,temp);
+        return v;
+    }
+};

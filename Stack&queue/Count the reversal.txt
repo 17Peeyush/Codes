@@ -1,0 +1,42 @@
+Problem: https://practice.geeksforgeeks.org/problems/count-the-reversals0401/1
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Date: 18-11-2021
+Approach:
+First remove all the valid brackets, then we always end up with an expression of the form }}…}{{…{, an expression that contains 0 or more number of closing brackets followed by 0 or more numbers of opening brackets. 
+How many minimum reversals are required for an expression of the form “}}..}{{..{” ?. 
+Let m be the total number of closing brackets and n be the number of opening brackets.
+We need ⌈m/2⌉ + ⌈n/2⌉ reversals. For example }}}}{{ requires 2+1 reversals.
+
+Code:
+int countRev (string s)
+{
+    if(s.length()%2!=0)
+        return -1;
+     stack<char> st;
+        for(auto x: s)
+        {
+            if(st.empty())
+                st.push(x);
+            else if(x=='}')
+            {
+                if(st.top()=='{')
+                    st.pop();
+                else
+                    st.push('}');
+            }
+            else
+            {
+                st.push('{');
+            }
+        }
+        int close=0,open=0;
+        while(!st.empty())
+        {
+            if(st.top()=='{')
+                open++;
+            else close++;
+            st.pop();
+        }
+        return ceil(open/2.0)+ceil(close/2.0);
+}

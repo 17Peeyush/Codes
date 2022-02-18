@@ -1,0 +1,71 @@
+Problem: https://leetcode.com/problems/multiply-strings/solution/
+Time Complexity: O(m*m+mn)
+Auxillary Space: O(m*m+mn)
+Date: 07-11-2021
+Code:
+class Solution {
+public:
+    bool checkzero(string s)
+    {
+        for(auto x: s)
+        {
+            if(x!='0')
+                return false;
+        }
+        return true;
+    }
+    string singlemul(string num,int m,int p)
+    {
+        
+        string out(p,'0');
+        int n=num.size();
+        int carry=0;
+        for(int i=n-1;i>=0;i--)
+        {
+            int t=num[i]-48;
+            int mul=t*m+carry;
+            carry=mul/10;
+            out+=to_string(mul%10);
+        }
+        if(carry)
+        {
+            out+=to_string(carry);
+        }
+        return out;
+    }
+    string add(string s,string l)
+    {
+        if(s.length()==0) return l;
+        int n=s.length(),m=l.length();
+        string z(m-n,'0');
+        s+=z;
+        string out="";
+        int sum=0,carry=0;
+        for(int i=0;i<m;i++)
+        {
+            sum=(s[i]-48)+(l[i]-48)+carry;
+            out+=to_string(sum%10);
+            carry=sum/10;
+        }
+        if(carry)
+            out+=to_string(carry);
+        return out;
+    }
+    string multiply(string num1, string num2) {
+       int n1=num1.size(),n2=num2.size();
+       string ans="",current="";
+       int places=0;
+       for(int i=n2-1;i>=0;i--)
+       {
+           current=singlemul(num1,num2[i]-48,places++);
+           if(current.length()>ans.length())
+                ans=add(ans,current);// a,b => a<b
+           else
+               ans=add(current,ans);
+       }
+        reverse(ans.begin(),ans.end());
+        if(checkzero(ans))
+            return "0";
+        return ans;
+    }
+};

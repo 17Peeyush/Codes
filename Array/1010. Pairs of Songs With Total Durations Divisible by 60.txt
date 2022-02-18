@@ -1,0 +1,23 @@
+Problem: https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/
+Time Complexity: O(n+60)
+Auxillary Space: O(1)
+Date: 02-01-2022
+Code:
+class Solution {
+public:
+    int numPairsDivisibleBy60(vector<int>& time) {
+        vector<int>rem(60);
+        int n=time.size();
+        for(int i=0;i<n;i++)
+        {
+            rem[time[i]%60]++;
+        }
+        int total=0;
+        total+=((rem[0]-1)*rem[0])/2;
+        total+=((rem[30]-1)*rem[30])/2;
+        for(int i=1;i<30;i++){
+            total+=rem[i]*(rem[60-i]);
+        }
+        return total;
+    }
+};

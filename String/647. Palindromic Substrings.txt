@@ -1,0 +1,35 @@
+Problem: https://leetcode.com/problems/palindromic-substrings/
+Time Complexity: O(n*n)
+Auxillary Space: O(1)
+Date: 10-10-2021
+Here we are considering the fact that each element is the middle of a string and checking its neighbours if they are equal then it is palindromic substring.
+Two cases which we take into consideration when the string length is odd then we need to check start looking the neighbours including that element.
+In case of string length is even then we take a window of size 2.
+eg: Odd: "a b c b a"
+	  0 1 2 3 4 so we start from in different direction but starting index is same i.e. 2.
+Even: "a b c c b a"
+       0 1 2 3 4 5 so in this case we take window of size 2 then we start from 2 and move towards left simultaneously we start from 3 and move towards right and compare elements.
+
+Code:
+class Solution {
+public:
+    int count=0;
+    void isPalindrome(string &s,int l,int r,int n)
+    {
+        string temp="";
+            while((l>=0&&r<n)&&(s[l]==s[r]))
+            {
+                count++;
+                l--;r++;
+            }
+    }
+    int countSubstrings(string s) {
+        int n=s.length();
+        for(int i=0;i<n;i++)
+        {
+            isPalindrome(s,i,i+1,n);
+            isPalindrome(s,i,i,n);
+        }
+        return count;
+    }
+};

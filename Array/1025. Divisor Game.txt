@@ -1,0 +1,23 @@
+Problem: https://leetcode.com/problems/divisor-game/
+Date: 14-02-2022
+Time Complexity: O(n^logn)
+Auxillary SpacE: O(n)
+Code:
+class Solution {
+public:
+    unordered_map<int,bool>mp;
+    
+    bool divisorGame(int n) {
+        if(n==1) return false;
+        if(n==2) return true;
+        if(mp.find(n)!=mp.end())
+            return mp[n];
+        for(int x=1;x<=n/2;x++)
+        {
+            if(n%x==0)
+            {if(!divisorGame(n-x))
+                return mp[n]=true;}
+        }
+        return mp[n]=false;
+    }
+};

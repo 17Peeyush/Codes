@@ -1,0 +1,33 @@
+Problem: https://leetcode.com/problems/daily-temperatures/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Date: 13-11-2021
+Code:
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n=temperatures.size();
+        vector<int>answer(n);
+        stack<pair<int,int>>st;
+        int i=n-1;
+        while(i>=0){
+            if(st.empty())
+            {
+                st.push({temperatures[i],i});
+                answer[i]=0;
+                i--;
+            }
+            else if(st.top().first>temperatures[i])
+            {
+                answer[i]=st.top().second-i;
+                st.push({temperatures[i],i});
+                i--;
+            }
+            else
+            {
+                st.pop();
+            }
+        }
+        return answer;
+    }
+};

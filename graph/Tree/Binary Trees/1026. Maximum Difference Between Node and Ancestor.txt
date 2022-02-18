@@ -1,0 +1,41 @@
+Problem: https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/
+Time Complexity: O(n), where n is the number of nodes in the binary tree.
+Auxillary Space: O(h), where h is the height of binary tree.
+Date: 31-12-2021
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxdif=0;
+    pair<int,int> traversal(TreeNode* root){
+        if(!root) return{0,0};
+        pair<int,int> l,r,c={root->val,root->val},fin={root->val,root->val};
+        if(root->left)
+        {
+           l= traversal(root->left);
+           maxdif=max(maxdif,max(abs(c.first-l.first),abs(c.second-l.second)));
+           fin={min(c.first,l.first),max(c.second,l.second)};
+        }
+        if(root->right)
+        {
+            r= traversal(root->right);
+            maxdif=max(maxdif,max(abs(c.first-r.first),abs(c.second-r.second)));
+            fin={min(fin.first,r.first),max(fin.second,r.second)};
+        }
+        return fin;
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        traversal(root);
+        return maxdif;
+    }
+};

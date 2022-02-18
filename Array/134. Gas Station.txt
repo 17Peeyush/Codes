@@ -1,0 +1,67 @@
+Problem:
+Date: 21-01-2022
+Time Complexity: O(n*n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n=gas.size();
+        vector<int> net(n);
+        unordered_set<int> positive;
+        int sum=0;
+        for(int i=0;i<n;i++){
+            net[i]=gas[i]-cost[i];
+            sum+=net[i];
+            if(net[i]>=0)
+                positive.insert(i);
+        }
+        if(sum<0)
+            return -1;
+        for(auto x:positive){
+            int c=x;
+            int sum=0;
+            bool neg=false;
+            for(int i=0;i<n;i++)
+            {
+                sum+=net[(c+i)%n];
+                if(sum<0)
+                {
+                    neg=true;
+                    break;
+                }
+            }
+            if(!neg) return c;
+        }
+        return -1;
+    }
+};
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n=gas.size();
+        vector<int> net(n);
+        int sum=0;
+        for(int i=0;i<n;i++){
+            net[i]=gas[i]-cost[i];
+            sum+=net[i];
+        }
+        if(sum<0)
+            return -1;        
+        int start=0;
+        sum=0;
+        for(int i=0;i<n;i++){
+            sum+=net[i];
+            if(sum<0)
+            {
+                start=i+1;
+                sum=0;
+            }
+        }
+        return start;
+    }
+};

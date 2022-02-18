@@ -1,0 +1,52 @@
+Problem: https://practice.geeksforgeeks.org/problems/is-binary-tree-heap/1
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Date: 25-10-2021
+Code:
+class Solution {
+  public:
+   bool isCompleteTree(Node* root) {
+        bool null=false;
+        queue<Node*> q;
+        q.push(root);
+        while(!q.empty())
+        {
+            Node* curr=q.front();
+            q.pop();
+            if(curr==nullptr)
+            {
+                null=true;
+            }
+            else
+            {
+                if(null) return false;
+                q.push(curr->left);
+                q.push(curr->right);
+            }
+        }
+        return true;
+    }
+    bool ismax(Node* root)
+    {
+        if(!root) return true;
+        if(root->left==nullptr&&root->right==nullptr)
+            return true;
+        else if(root->right==nullptr)
+        {
+           return (root->left->data)<root->data;
+        }
+        if((root->data)>max(root->left->data,root->right->data))
+        {
+            return ismax(root->left)&&ismax(root->right);
+        }
+        return false;
+    }
+    bool isHeap(struct Node* tree) {
+        // code here
+        if(isCompleteTree(tree))
+        {
+            return ismax(tree);
+        }
+        return false;
+    }
+};

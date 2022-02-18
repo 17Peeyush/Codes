@@ -1,0 +1,40 @@
+Problem: https://leetcode.com/problems/contiguous-array/ 
+Date: 04-02-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Approach:
+Here if we take value of 0 to be -1 then calculate cumulative sum then at certain instance we will get same sum this implies that the sum in between have cancelled each other hence equal number of 0 and 1 is present in that block.
+eg:
+	  1  2  3  4  5  6  7  8
+	[ 0  0  1  0  0  0  1  1 ]
+	 -1 -2 -1 -2 -3 -4 -3 -2
+Here we can observe that sum -1,-2,-3 is repeating if we observe where sum is repeating because of equal number of 0's and 1's and we get final sum as 0 then that means max len of subarray is equal to length of the original array. (To take care of this case mp[0]=0 is added.)
+
+Code:
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        int mx=0;
+        int presum=0,len=0;
+        unordered_map<int,int>mp;
+        mp[0]=0;
+        for(auto x:nums){
+            len++;
+            if(x==0)
+                presum--;
+            else
+                presum++;
+            if(mp.find(presum)==mp.end())
+            {
+                mp[presum]=len;
+            }
+            else
+            {
+                mx=max(mx,(len-mp[presum]));
+            }
+        }
+        if(presum==0)
+            mx=len;
+        return mx;
+    }
+};

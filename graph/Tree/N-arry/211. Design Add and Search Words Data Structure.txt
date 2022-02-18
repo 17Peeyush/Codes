@@ -1,0 +1,69 @@
+Problem: https://leetcode.com/problems/design-add-and-search-words-data-structure/
+Date: 28-01-2022
+Time Complexity: Insert and Search -> O(N*word_length)
+Auxillary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words
+Code:
+class WordDictionary {
+public:
+    struct TriNode{
+        vector<TriNode*>alpha;
+        bool isword;
+        TriNode(){
+            alpha=vector<TriNode*>(26,nullptr);
+            isword=false;
+        }
+    };
+    
+    TriNode* root;
+    
+    WordDictionary() {
+        root=new TriNode();
+    }
+    
+    void addWord(string word) {
+        TriNode*p=root;
+        for(int i=0;i<word.length();i++){
+            if(p->alpha[word[i]-'a']==nullptr){
+                p->alpha[word[i]-'a']=new TriNode();
+            }
+            p=p->alpha[word[i]-'a'];
+        }
+        p->isword=true;
+    }
+    
+    void custom_search(TriNode*p,int i,string&word,bool&temp){
+        if(temp) return;
+        else if(i>=word.length()){
+            if(p->isword)
+                temp=true;
+            return;
+        }
+        else if(word[i]=='.')
+        {
+            for(auto x:p->alpha)
+            {
+                if(x!=nullptr)
+                   {
+                    custom_search(x,i+1,word,temp);
+                   }
+            }
+        }
+        else if(p->alpha[word[i]-'a']!=nullptr)
+        {
+            custom_search(p->alpha[word[i]- 'a'],i+1,word,temp);
+        }
+    }
+    
+    bool search(string word) {
+        bool temp=false;
+        custom_search(root,0,word,temp);
+        return temp;
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */

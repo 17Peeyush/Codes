@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/maximize-distance-to-closest-person/
+Date: 16-01-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int maxDistToClosest(vector<int>& seats) {
+        int n=seats.size();
+        vector<int> occupied;
+        int notempty=0,emptyseat=-1;
+        int j=0;
+        for(int i=0;i<n;i++){
+            if(seats[i])
+            {
+                occupied.push_back(i+1);
+                notempty++;   
+            }
+            else
+            {
+                emptyseat=i+1;
+            }
+        }
+        if(notempty+1==n)
+        {
+            return 1;
+        }
+        int temp=0;
+        for(int i=1;i<occupied.size();i++)
+        {
+            if((occupied[i]-occupied[i-1])/2>temp)
+            {
+                temp=(occupied[i]-occupied[i-1])/2;
+            }
+        }
+       //Corner cases: empty seats at the end and at the begining
+            int k=n-occupied[occupied.size()-1];
+            temp=max(k,temp);
+            temp=max(occupied[0]-1,temp);
+        return temp;
+    }
+};

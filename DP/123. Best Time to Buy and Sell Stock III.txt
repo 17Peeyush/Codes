@@ -1,0 +1,109 @@
+Problem:
+(1)
+Time Complexity: O(2^n)
+Auxillary Space: O(2^n)
+Date: 17-10-2021
+Code: (Recursion)
+class Solution {
+public:
+    int profit=0,n;
+    void helper(int b,int i,int transaction,int cp,int stock,vector<int>&prices)
+    {
+        if(transaction>1||i>=n){
+            profit=max(profit,cp);
+            return;
+        }
+        if(b)
+        {
+            helper(0,i+1,transaction+1,cp+prices[i]-stock,0,prices); //sell
+            helper(1,i+1,transaction,cp,stock,prices);//skip
+        }
+        else
+        {
+            helper(1,i+1,transaction,cp,prices[i],prices);//buy
+            helper(0,i+1,transaction,cp,0,prices);//skip
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        n=prices.size();
+        helper(0,0,0,0,0,prices);
+        return profit;
+    }
+};
+
+(2)
+Time Complexity: O(2^n)
+Auxillary Space: O(2^n)
+Code:
+class Solution {
+public:
+    int n;
+    unordered_map<string,int> mp;
+    int helper(int b,int i,int transaction,vector<int>&prices)
+    {
+        if(transaction>1||i>=n){
+            return 0;
+        }
+        string key=to_string(b)+"@"+to_string(i)+"@"+to_string(transaction);
+        if(mp.find(key)!=mp.end())
+            return mp[key];
+        int profit=0;
+        if(b)
+        {
+            int t1=helper(0,i+1,transaction+1,prices)+prices[i]; //sell
+            int t2=helper(1,i+1,transaction,prices);//skip
+            profit=max(t1,t2);
+        }
+        else
+        {
+            int t1=helper(1,i+1,transaction,prices)-prices[i];//buy
+            int t2=helper(0,i+1,transaction,prices);//skip
+            profit=max(t1,t2);
+        }
+        mp[key]=profit;
+        return profit;
+    }
+    int maxProfit(vector<int>& prices) {
+        n=prices.size();
+       return helper(0,0,0,prices);
+    }
+};
+
+(3)
+Here we are calculating once from left to right side the maximum profitr which we can obtain by selling a stock till current day. 
+Similarly we calculate from right to left if we have to sell today what will be the maximum profit we can make.
+In the end we are calculating the summition of left and right value which will give us maximum profit.
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    
+     int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        int minSoFar=prices[0];
+        vector<int> left(n,0);
+         vector <int> right(n,0);
+        for(int i=1;i<n;i++)
+        {
+            minSoFar=min(prices[i],minSoFar);
+            left[i]=max(prices[i]-minSoFar,left[i-1]);
+        }
+        int profit=INT_MIN;
+        int maxSoFar=prices[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+             maxSoFar=max(maxSoFar,prices[i]);
+            right[i]=max(right[i+1],maxSoFar-prices[i]);
+        }
+         for(int i=0;i<n;i++)
+         {
+             if(left[i]+right[i]>profit)
+             {
+                 profit=left[i]+right[i];
+             }
+         }
+        return profit;
+    }
+   
+};

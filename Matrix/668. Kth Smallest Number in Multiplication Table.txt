@@ -1,0 +1,28 @@
+Problem: https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/solution/
+Time Complexity: O(mlog(mn))
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int smaller(int num,int m,int n){
+        int sum=0,t;
+        for(int i=1;i<=m;i++)
+        {
+            int t=min(num/i,n);
+            if(t==0) break;
+            sum+=t;
+        }
+        return sum;
+    }
+    int findKthNumber(int m, int n, int k) {
+        int low=0,high=m*n,mid;
+        while(low<=high){
+            mid=low+(high-low)/2;
+            if(smaller(mid,m,n)<k)
+                low=mid+1;
+            else
+                high=mid-1;
+        }
+        return low;
+    }
+};

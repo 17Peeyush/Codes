@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/k-diff-pairs-in-an-array/
+Date: 09-02-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+     unordered_set<int> s;
+        unordered_set<string>uq;
+        for(auto x: nums)
+        {
+            if(s.find(x+k)!=s.end())
+            {
+                uq.insert(to_string(x)+","+to_string(x+k));
+            }
+            if(s.find(x-k)!=s.end())
+            {
+                uq.insert(to_string(x-k)+","+to_string(x));
+            }
+            s.insert(x);
+        }
+        return uq.size();
+    }
+};

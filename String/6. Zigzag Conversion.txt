@@ -1,0 +1,78 @@
+Problem: https://leetcode.com/problems/zigzag-conversion/
+Date: 12-12-2021
+(1)
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    string convert(string s, int nr) {
+        int i=0,n=s.length();
+        vector<vector<char>>st(nr,vector<char>());
+        while(i<n){
+            int dr=0;
+            while(dr<nr&&i<n)
+            {
+                st[dr].push_back(s[i]);
+                dr++;
+                i++;
+            }
+            int ur=nr-2;
+            if(nr>0)
+            {
+                while(ur>0&&i<n)
+                {
+                    st[ur].push_back(s[i]);
+                    ur--;
+                    i++;
+                }
+            }
+        }
+        string output="";
+        for(auto x:st){
+            for(auto y:x){
+                output+=y;
+            }
+        }
+        return output;
+    }
+};
+
+(2)
+Time Complexity: O(n)
+Auxillary Space: O(n), if considering returning string otherwise O(1)
+Code:
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows==1) return s;
+        string output="";
+        int n=s.length();
+        for(int i=0;i<numRows;i++)
+        {
+            if(i!=0&&i!=numRows-1)
+            {
+                int curr=i,next=numRows-1-i;
+                while(curr<n)
+                {
+                    output+=s[curr];
+                    if(curr+2*next<n)
+                    {
+                        output+=s[curr+2*next];
+                    }
+                    curr=curr+(2*numRows-2);
+                }
+            }
+            else
+            {
+                int curr=i;
+                while(curr<n)
+                {
+                    output+=s[curr];
+                    curr=curr+(2*numRows-2);
+                }
+            }
+        }
+        return output;
+    }
+};

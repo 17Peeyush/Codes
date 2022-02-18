@@ -1,0 +1,31 @@
+Problem: https://leetcode.com/problems/majority-element/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Date: 16-10-2021
+Moore Voting Algorithm: Here we are considering the first element as the candidate element and if the next element is same as candidate element we are incrementing count other wise decrementing the count. If count is zero we assign new candidate which is current element. Intuition behind this approach is that if the majority elment is present it will always will be greater than number of half the elements so in the end it will be always in current candidate.
+Code:
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count=1;
+        int el=0;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]!=el)
+            {
+                count--;
+            }
+            else
+            {
+                count++;
+            }
+            if(count==0)
+            {
+                el=nums[i];
+                count=1;
+            }
+        }
+        return el;
+    }
+};

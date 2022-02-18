@@ -1,0 +1,44 @@
+Problem: https://practice.geeksforgeeks.org/problems/populate-inorder-successor-for-all-nodes/1
+Time Complexity: O(n)
+Auxillary Space: O(h)
+Date: 28-10-2021
+Code:
+/*
+struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+    struct Node *next;
+
+    Node(int x)
+    {
+        data = x;
+        left = NULL;
+        right = NULL;
+        next = NULL;
+    }
+};
+*/
+class Solution
+{
+public:
+
+    void inorder(Node* root,Node* & prev)
+    {
+        if(!root) return;
+        inorder(root->left,prev);
+        if(prev!=nullptr)
+        {
+            prev->next=root;
+        }
+        prev=root;
+        inorder(root->right,prev);
+    }
+    void populateNext(Node *root)
+    {
+        //code here
+        Node * prev=nullptr;
+        inorder(root,prev);
+    }
+};

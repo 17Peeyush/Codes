@@ -1,0 +1,58 @@
+Problem: https://leetcode.com/problems/largest-component-size-by-common-factor/
+Time Complexity: O(n* sqrt(n))
+Auxillary Space: O(n)
+Date: 23-11-2021
+Code:
+class Solution {
+public:
+    vector<int>parent;
+     int findparent(int num)
+    {
+        if(parent[num]<0) return num;
+        return parent[num]=findparent(parent[num]);
+    }
+    void unions(int u,int v)
+    {
+        int up=findparent(u);
+        int vp=findparent(v);
+        if(up!=vp)
+        {
+            if(up<vp)
+            {
+                parent[vp]=up;
+            }
+            else
+            {
+                parent[up]=vp;
+            }
+        }
+    }
+    int largestComponentSize(vector<int>& nums) {
+       parent=vector<int>(100001,-1);
+         int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=2;j<=sqrt(nums[i]);j++)
+            {
+                if(nums[i]%j==0)
+                {
+                    unions(j,nums[i]);
+                    unions(j,nums[i]/j);
+                }
+            }
+        }
+        int c=0;
+        unordered_map<int,int>mp;
+        for(int i=0;i<n;i++)
+        {
+            int p=findparent(nums[i]);
+            if(mp.find(p)==mp.end())
+            {
+                mp[p]=0;
+            }
+            mp[p]++;
+            c=max(c,mp[p]);
+        }
+        return c;
+    }
+};

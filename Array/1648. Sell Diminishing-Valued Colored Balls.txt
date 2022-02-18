@@ -1,0 +1,60 @@
+Problem: https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
+Date: 15-02-2022
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+Code:
+#define ll long long
+#define MOD 1000000007
+class Solution {
+public:
+    int maxProfit(vector<int>& inventory, int orders) {
+       unordered_map<ll,ll>mp;
+       for(auto x: inventory)
+       {
+           mp[x]++;
+       }
+       priority_queue<pair<ll,ll>>q;
+        q.push({0,0});
+        for(auto x:mp)
+        {
+            q.push({x.first,x.second});
+        }
+        ll profit=0;
+        while(orders)
+        {
+            auto t1=q.top();
+            q.pop();
+            auto t2=q.top();
+            ll freq=t1.second;
+            ll numballs=(t1.first-t2.first)*freq;
+            if(orders<=numballs){
+                ll c=t1.first;
+                while(orders)
+                {
+                    if(orders-freq>0)// number of orders is more
+                    {
+                        profit+=(freq*c);
+                        orders-=freq;
+                        c--;
+                    }
+                    else
+                    {
+                        profit+=c*min((ll)orders,freq);
+                        return profit%MOD;
+                    }
+                }
+            }
+            else
+            {
+                ll n=t1.first,m=t2.first;
+                ll diff=((n+1)*n/2)-((m+1)*m/2);
+                profit+=(diff*freq);
+                orders-=numballs;
+                t2.second+=t1.second;
+                q.pop();
+                q.push(t2);
+            }
+        }
+        return profit%MOD;
+    }
+}; 

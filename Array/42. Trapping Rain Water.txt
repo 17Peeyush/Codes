@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/trapping-rain-water/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int trap(vector<int>& h) {
+      int l=h.size();
+        if(l==0) return 0;
+      int maxl[l],maxr[l];
+        maxl[0]=h[0];maxr[l-1]=h[l-1];
+        for(int i=1,j=l-2;i<l&&j>=0;i++,j--)
+        {
+             maxl[i]=max(h[i],maxl[i-1]);
+             maxr[j]=max(h[j],maxr[j+1]);
+        }
+        int water=0;
+        for(int i=0;i<l;i++)
+        {
+             if(h[i]<min(maxl[i],maxr[i]))
+                 water+=min(maxl[i],maxr[i])-h[i];
+        }
+        return water;
+    }
+};

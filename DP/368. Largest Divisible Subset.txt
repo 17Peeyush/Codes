@@ -1,0 +1,90 @@
+Problem:
+(1)
+Time Complexity: O(2^n)
+Auxillary Space: O(2^n)
+Date: 15-11-2021
+Note: This approach was not able to pass all the test cases. (TLE)
+Code:
+class Solution {
+public:
+    vector<int> find(vector<int>&nums,int i,vector<int>input){
+        if(i==0)
+        {
+            return input;
+        }
+        else if(input.size()==0){
+            vector<int>t1,t2;
+            t1=find(nums,i-1,input);
+            if(t1.size()>0&&t1[0]%nums[i-1]==0)
+            {
+                t1.insert(t1.begin(),nums[i-1]);
+                return t1;
+            }
+            input.push_back(nums[i-1]);
+            t2=find(nums,i-1,input);
+            if(t1.size()>t2.size())
+                return t1;
+            else return t2;
+        }
+        else if(input[input.size()-1]%nums[i-1]==0)
+        {
+            vector<int> t1=find(nums,i-1,input);
+            input.push_back(nums[i-1]);
+            vector<int>t2=find(nums,i-1,input);
+             if(t1.size()>t2.size())
+                return t1;
+            else return t2;
+        }
+        else
+        {
+            return find(nums,i-1,input);
+        }
+        return {};
+    }
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<int>input;
+        return find(nums,nums.size(),input);
+    }
+};
+
+(2)
+Time Complexity: O(n^2)
+Auxillary Space: O(n)
+Date: 15-11-2021
+Code:
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<int>dp(n,1);
+        if(n==1)
+            return nums;
+        int max=-1,idx=-1;
+        for(int i=1;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(nums[i]%nums[j]==0&& dp[i]<=dp[j]+1)
+                {
+                    dp[i]=dp[j]+1;
+                    if(dp[i]>max)
+                    {
+                        max=dp[i];
+                        idx=i;
+                    }
+                }
+            }
+        }
+        if(max==-1) return {nums[0]};
+        vector<int> ans;
+        int prev=nums[idx];
+        for(int i=idx;i>=0;i--){
+            if(dp[i]==max && prev%nums[i]==0){
+                ans.push_back(nums[i]);
+                max--;
+                prev=nums[i];
+            }
+        }
+        return ans;
+    }
+};

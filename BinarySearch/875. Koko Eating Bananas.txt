@@ -1,0 +1,55 @@
+Problem: https://leetcode.com/problems/koko-eating-bananas/
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+Date: 19-10-2021
+Code:
+class Solution {
+public:
+    int isValid(vector<int>piles,int h,int mid)
+    {
+        int n=piles.size();
+        int i=0,k=0;
+        while(i<n)
+        {
+            if(piles[i]>mid)
+            {
+                int q=piles[i]/mid;
+                piles[i]=piles[i]%mid;
+                k+=q;
+                if(!piles[i]) i++;
+            }
+            else
+            {
+                i++;
+                k++;
+            }
+            if(k>h) {
+                return false;}
+        }
+        return true;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int start=1;
+        int end=INT_MAX,n=piles.size();
+        for(int i=0;i<n;i++)
+        {
+            start=min(start,piles[i]);
+        }
+        int res=-1;
+        while(start<=end)
+        {
+            int mid=start+(end-start)/2;
+            if(isValid(piles,h,mid))
+            {
+                res=mid;
+                end=mid-1;
+            }
+            else
+            {
+                start=mid+1;
+            }
+        }
+        isValid(piles,h,3);
+        return res;
+    }
+};

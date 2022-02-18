@@ -1,0 +1,50 @@
+Problem: https://practice.geeksforgeeks.org/problems/unique-rows-in-boolean-matrix/1
+Time Complexity: O(m*n), where m is the number of rows and n is number of columns
+Auxillary Space: O(d*n), where d is the number of distinct rows
+Date: 15-10-2021
+Code:
+struct TrieNode{
+    vector<TrieNode*> binary;
+    bool endrow;
+    TrieNode()
+    {
+        binary=vector<TrieNode*>(2,nullptr);
+        endrow=false;
+    }
+};
+bool insert(vector<int>&temp,TrieNode* root){
+    TrieNode *p=root;
+    int n=temp.size();
+    for(int i=0;i<n;i++)
+    {
+        if(p->binary[temp[i]]==nullptr)
+        {
+            p->binary[temp[i]]=new TrieNode();
+        }
+        p=p->binary[temp[i]];
+    }
+    bool ans=p->endrow;
+    p->endrow=true;
+    return !ans;
+}
+
+vector<vector<int>> uniqueRow(int M[MAX][MAX],int row,int col)
+{
+//Your code here
+    vector<vector<int>>output;
+    TrieNode* root=new TrieNode();
+    for(int i=0;i<row;i++)
+    {
+      vector<int> temp(col);
+      for(int j=0;j<col;j++)
+      {
+          temp[j]=M[i][j];
+      }
+      bool print=insert(temp,root);
+      if(print)
+      {
+          output.push_back(temp);
+      }
+    }
+    return output;
+}

@@ -1,0 +1,36 @@
+Problem: https://www.geeksforgeeks.org/function-to-find-number-of-customers-who-could-not-get-a-computer/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Date: 27-10-2021
+Code:
+#include <bits/stdc++.h>
+int countCustomers(vector<int> &arr, int k)
+{
+    //    Write your code here
+    unordered_map<int,bool> mp; 
+    int unsatisfied=0;
+    for(auto x: arr)
+    {
+       if(mp.find(x)==mp.end())// first time
+       {
+           if(k>0) // computers are available
+           {
+               k--;
+               mp[x]=true;// x is using a computer
+           }
+           else // no computer available
+           {
+               mp[x]=false;
+               unsatisfied++;// customer not able to use computer
+           }
+       }
+        else // customer has already visited the cafe
+        {
+            if(mp[x])// customer was using a computer and now leaving
+            {
+                k++;// increase availabe computer count
+            }
+        }
+    }
+    return unsatisfied;
+}

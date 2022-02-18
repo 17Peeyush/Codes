@@ -1,0 +1,122 @@
+Problem: https://leetcode.com/problems/interval-list-intersections/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Date: 24-11-2021
+Code:
+(1) Using stack
+class Solution {
+public:
+    vector<int> findCommon(vector<int>&f,vector<int>&s){
+        if(f[1]>=s[0])
+        {
+            return {max(f[0],s[0]),min(f[1],s[1])};
+        }
+        return {};
+    }
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& fl, vector<vector<int>>& sl) {
+        if(fl.size()==0||sl.size()==0)
+        {
+            return {};
+        }
+        stack<vector<int>> s1,s2;
+        int n=fl.size(),m=sl.size();
+        vector<vector<int>>out;
+        int i=1,j=1;
+        s1.push(fl[0]);
+        s2.push(sl[0]);
+        while(s1.empty()==false&&s2.empty()==false)
+        {
+            vector<int>t;
+            auto f=s1.top();
+            auto s=s2.top();
+            if(f[1]<s[1])
+            {
+                t=findCommon(f,s);
+                s1.pop();
+                if(i!=n)
+                {
+                    s1.push(fl[i]);i++;
+                }
+            }
+            else if(f[1]==s[1])
+            {
+                t=findCommon(f,s);
+                s1.pop();
+                s2.pop();
+                if(i!=n)
+                {
+                    s1.push(fl[i]);
+                    i++;
+                }
+                if(j!=m)
+                {
+                    s2.push(sl[j]);
+                    j++;
+                }
+            }
+            else
+            {
+                t=findCommon(s,f);
+                s2.pop();
+                if(j!=m)
+                {
+                 s2.push(sl[j]);
+                    j++;
+                }
+            }
+            if(t.size())
+            {
+                out.push_back(t);
+            }
+        }
+        return out;
+    }
+};
+
+(2)
+class Solution {
+public:
+    vector<int> findCommon(vector<int>&f,vector<int>&s){
+        if(f[1]>=s[0])
+        {
+            return {max(f[0],s[0]),min(f[1],s[1])};
+        }
+        return {};
+    }
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& fl, vector<vector<int>>& sl) {
+        if(fl.size()==0||sl.size()==0)
+        {
+            return {};
+        }
+        int n=fl.size(),m=sl.size();
+        vector<vector<int>>out;
+        int i=0,j=0;
+        while(i!=n&&j!=m)
+        {
+            vector<int>t;
+            auto f=fl[i];
+            auto s=sl[j];
+            if(f[1]<s[1])
+            {
+                t=findCommon(f,s);
+                i++;
+            }
+            else if(f[1]==s[1])
+            {
+                t=findCommon(f,s);
+                i++;
+                j++;
+            }
+            else
+            {
+                t=findCommon(s,f);
+                j++;
+            }
+            if(t.size())
+            {
+                out.push_back(t);
+            }
+        }
+        return out;
+    }
+};                

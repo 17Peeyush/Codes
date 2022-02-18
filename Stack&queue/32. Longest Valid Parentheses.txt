@@ -1,0 +1,46 @@
+Problem: https://leetcode.com/problems/longest-valid-parentheses/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Date: 19-11-2021
+Aproach: 
+Remove all the valid brackets then we will be left with brackets which are invalid.
+If we find the difference between the invalid brackets we can get the length of valid brackets and the maximum will be our answer.
+Code:
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+         stack<pair<char,int>> st;
+        int i=0;
+        for(auto x: s)
+        {
+            if(st.empty())
+                st.push({x,i});
+            else if(x==')')
+            {
+                if(st.top().first=='(')
+                    st.pop();
+                else
+                    st.push({')',i});
+            }
+            else
+            {
+                st.push({'(',i});
+            }
+            i++;
+        }
+        int n=st.size();
+        vector<int> indx(n+1);
+        for(i=n-1;i>=0;i--)
+        {
+            indx[i]=st.top().second;
+            st.pop();
+        }
+        indx[n]=s.length();
+        int longest=indx[0]-0;
+        for(int i=1;i<n+1;i++)
+        {
+            longest=max(longest,(indx[i]-indx[i-1]-1));
+        }
+        return longest;
+    }
+}; 

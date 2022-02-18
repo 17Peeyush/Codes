@@ -1,0 +1,85 @@
+Problem: https://leetcode.com/problems/word-search-ii/
+Time Complexity: Insert and Search -> O(word_length) and O(m*n)
+Auxillary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words and O(m*n)
+Date: 09-10-2021
+Code:
+class Solution {
+public:
+    unordered_set<string>out;
+    int m,n;
+    struct TrieNode{
+    vector<TrieNode*> alpha;
+    bool end;
+    string word;
+    TrieNode()
+    {
+        alpha=vector<TrieNode*> (26,nullptr);
+        word="";
+        end=false;
+    }
+    };
+    TrieNode* buildTrie()
+    {
+        return new TrieNode();
+    }
+    void insert(TrieNode* root,string w)
+    {
+        TrieNode*p=root;
+        int n=w.length();
+        for(int i=0;i<n;i++)
+        {
+            if(p->alpha[w[i]-'a']==nullptr)
+            {
+                p->alpha[w[i]-'a']=new TrieNode();
+            }
+            p=p->alpha[w[i]-'a'];
+        }
+        p->end=true;
+        p->word=w;
+    }
+    bool isValid(int i,int j)
+    {
+        if(i>=0&&i<m&&j>=0&&j<n) return true;
+        return false;
+    }
+    void dfs(vector<vector<char>>& board,vector<vector<bool>>&visited,int i,int j,TrieNode*root)
+    {
+        if(visited[i][j]) return;
+        char ch=board[i][j];
+        visited[i][j]=true;
+           if(root->end)
+           {
+               out.insert(root->word);
+           }
+            if(isValid(i-1,j)&&root->alpha[board[i-1][j]-'a']!=nullptr)
+               dfs(board,visited,i-1,j,root->alpha[board[i-1][j]-'a']);
+            if(isValid(i+1,j)&&root->alpha[board[i+1][j]-'a']!=nullptr)
+               dfs(board,visited,i+1,j,root->alpha[board[i+1][j]-'a']);
+            if(isValid(i,j-1)&&root->alpha[board[i][j-1]-'a']!=nullptr)
+               dfs(board,visited,i,j-1,root->alpha[board[i][j-1]-'a']);
+            if(isValid(i,j+1)&&root->alpha[board[i][j+1]-'a']!=nullptr)
+               dfs(board,visited,i,j+1,root->alpha[board[i][j+1]-'a']);   
+        visited[i][j]=false;
+    }
+    
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        TrieNode* root=buildTrie();
+        for(auto x:words)
+        {
+            insert(root,x);
+        }
+        m=board.size();
+        n=board[0].size();
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                vector<vector<bool>>visited(m,vector<bool>(n,false));
+                if(root->alpha[board[i][j]-'a']!=nullptr)
+                dfs(board,visited,i,j,root->alpha[board[i][j]-'a']);
+            }
+        }
+        vector<string>output(out.begin(),out.end());
+        return output;
+    }
+};

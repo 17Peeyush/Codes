@@ -1,0 +1,82 @@
+Problem: https://leetcode.com/problems/unique-paths-iii/
+Time Complexity: O(4^(m*n))
+Auxillary Space: O(m*n)
+Date: 02-11-2021
+Code:
+class Solution {
+public:
+    int m,n,empty=0,count=0;
+    pair<int,int>end;
+    bool isValid(int i,int j)
+    {
+        if(i>=0&&i<m&&j>=0&&j<n) return true;
+        return false;
+    }
+    bool checkVisited(vector<vector<int>>&grid,vector<vector<bool>>&visited)
+    {
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==0 && visited[i][j]==false)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    void dfs(int i,int j,vector<vector<int>>&grid,vector<vector<bool>>&visited,int steps){
+        if(i==end.first && j==end.second)
+        {
+            if(checkVisited(grid,visited))
+            {
+                count++;
+            }
+            return;
+        }
+        if(grid[i][j]==-1||grid[i][j]==1) return;
+        if(visited[i][j]) return;
+        visited[i][j]=true;
+        int dx[]={0,0,-1,1};
+        int dy[]={1,-1,0,0};
+        for(int k=0;k<4;k++)
+        {
+            if(isValid(i+dx[k],j+dy[k]))
+            {
+                dfs(i+dx[k],j+dy[k],grid,visited,steps);
+            }
+        }
+        visited[i][j]=false;
+    }
+    int uniquePathsIII(vector<vector<int>>& grid) {
+        m=grid.size();
+        n=grid[0].size();
+        pair<int,int> start;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(!grid[i][j])
+                {
+                    empty++;
+                }
+                else
+                {
+                    if(grid[i][j]==1)
+                    {
+                        start={i,j};
+                        grid[i][j]=0;
+                    }
+                    else if(grid[i][j]==2)
+                    {
+                        end={i,j};
+                    }
+                }
+            }
+        }
+        vector<vector<bool>>visited(m,vector<bool>(n,false));
+        dfs(start.first,start.second,grid,visited,0);
+        return count;
+    }
+};

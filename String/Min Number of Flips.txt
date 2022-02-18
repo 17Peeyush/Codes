@@ -1,0 +1,31 @@
+Problem: https://practice.geeksforgeeks.org/problems/min-number-of-flips3210/1
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Date: 16-10-2021
+Code:
+int countFlip(char start,string &s)
+{
+    int flip=0;
+    int n=s.length();
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]!=start)
+        {
+            flip++;
+        }
+        if(start=='0')
+        {
+            start='1';
+        }
+        else
+        {
+            start='0';
+        }
+    }
+    return flip;
+}
+int minFlips (string s)
+{
+    // your code here
+    return min(countFlip('0',s),countFlip('1',s));
+}

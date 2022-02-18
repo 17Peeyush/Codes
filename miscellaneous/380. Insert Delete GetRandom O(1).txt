@@ -1,0 +1,45 @@
+Problem: https://leetcode.com/problems/insert-delete-getrandom-o1/
+Time Complexity: O(1)
+Auxillary Space: O(n)
+Date: 22-10-2021
+Code:
+class RandomizedSet {
+public:
+    vector<int>idx;
+    unordered_map<int,int>mp;
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        if(mp.find(val)!=mp.end())
+            return false;
+        idx.push_back(val);
+        int n=idx.size();
+        mp[val]=n-1;
+        return true;
+    }
+    
+    bool remove(int val) {
+        if(mp.find(val)==mp.end())
+            return false;
+        int n=idx.size(),cdx=mp[val];
+        idx[cdx]=idx[n-1];
+        mp[idx[cdx]]=cdx;
+        idx.pop_back();
+        mp.erase(val); 
+        return true;
+    }
+    
+    int getRandom() {
+        return idx[rand()%idx.size()];
+    }
+};
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet* obj = new RandomizedSet();
+ * bool param_1 = obj->insert(val);
+ * bool param_2 = obj->remove(val);
+ * int param_3 = obj->getRandom();
+ */

@@ -1,0 +1,33 @@
+Problem: https://leetcode.com/problems/prison-cells-after-n-days/
+Date: 14-02-2022
+Time Complexity: O(256)=>O(1)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int> prisonAfterNDays(vector<int>& cells, int n) {
+        vector<vector<int>> v;
+        vector<int>prev=cells;
+       while(n--)
+        {
+            vector<int>t(8,0);
+            for(int j=1;j<7;j++)
+            {
+                if(prev[j-1]^prev[j+1])
+                    t[j]=0;
+                else
+                    t[j]=1;
+            }
+            
+            if(v.size()&&t==v.front())
+               {int s=v.size();
+                return v[n%s];}
+            else
+            {
+                v.push_back(t);
+            }
+            prev=t;
+        }
+            return v.back();
+    }
+};

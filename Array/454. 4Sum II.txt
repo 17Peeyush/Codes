@@ -1,0 +1,27 @@
+Problem: https://leetcode.com/problems/4sum-ii/
+Date: 03-02-2022
+Time Complexity: O(n*n)
+Auxillary Space: O(n*n)
+Code:
+class Solution {
+public:
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+       unordered_map<int,int>mp1,mp2;
+        int count=0;
+        for(auto x: nums1){
+            for(auto y:nums2){
+                mp1[x+y]++;
+            }
+        }
+        for(auto x: nums3){
+            for(auto y:nums4){
+                if(mp1.find(-(x+y))!=mp1.end())
+                {
+                    count+=mp1[-(x+y)];
+                }
+            }
+        }
+        return count;
+        
+    }
+};
