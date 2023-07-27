@@ -1,0 +1,100 @@
+Problem: https://leetcode.com/problems/maximum-frequency-stack/
+Date: 19-03-2022
+Approach (1):
+Create heap with custom priority function which gives highest priority to frequency of element then to positon.
+Time Complexity: O(nlogn)
+Space Auxillary: O(n)
+Code:
+class FreqStack {
+public:
+    struct compare{
+        bool operator()(pair<int,pair<int,int>>&a,pair<int,pair<int,int>>&b){
+            if(a.first==b.first){
+                if(a.second.first<b.second.first){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if(a.first<b.first)
+                return true;
+            return false;
+        }
+    };
+    
+    int c=0;
+    unordered_map<int,int>freq;
+    priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,compare>q;
+    FreqStack() {
+        
+    }
+    
+    void push(int val) {
+        freq[val]++;
+        q.push({freq[val],{c,val}});
+        c++;
+    }
+    
+    int pop() {
+        auto x=q.top();
+        q.pop();
+        int val=x.second.second;
+        freq[val]--;
+        return val;
+    }
+};
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack* obj = new FreqStack();
+ * obj->push(val);
+ * int param_2 = obj->pop();
+ */
+
+Approach (2):
+Create different stack for different frequencies.
+Time Complexity: O(1)
+Auxillary Space: O(n)
+Code:
+class FreqStack {
+public:
+    unordered_map<int,stack<int>>mp;
+    unordered_map<int,int>freq;
+    int maxfreq=0;
+    FreqStack() {
+    }
+    
+    void push(int val) {
+        freq[val]++;
+        int currfreq=freq[val];
+        if(freq[val]>maxfreq){
+            stack<int>t;
+            mp[freq[val]]=t;
+            maxfreq=freq[val];
+        }
+        mp[freq[val]].push(val);
+        if(currfreq>maxfreq)
+            maxfreq=currfreq;
+    }
+    
+    int pop() {
+        int val=mp[maxfreq].top();
+        mp[maxfreq].pop();
+        freq[val]--;
+        if(mp[maxfreq].empty()){
+            // mp.erase(maxfreq);
+            maxfreq--;
+        }
+        return val;
+    }
+};
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack* obj = new FreqStack();
+ * obj->push(val);
+ * int param_2 = obj->pop();
+
+ 
+ */

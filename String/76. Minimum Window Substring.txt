@@ -1,0 +1,45 @@
+Problem: https://leetcode.com/problems/minimum-window-substring/
+Date: 04-04-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Approach: https://youtu.be/iwv1llyN6mo
+Code:
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        if(t.size()>s.size()) return "";
+        int count=0,mxlen=INT_MAX,ai=-1,aj=-1;
+        unordered_map<char,int>mp;
+        for(auto x: t){
+            mp[x]++;
+        }
+        count=mp.size();
+        int i=0,j=0,n=s.length();
+        while(j<n){
+            if(mp.find(s[j])!=mp.end()){
+                mp[s[j]]--;
+                if(mp[s[j]]==0){
+                    count--;
+                }
+            }
+            while(count==0){
+                if(j-i+1<mxlen){
+                    mxlen=j-i+1;
+                    ai=i;
+                    aj=j;
+                }
+                if(mp.find(s[i])!=mp.end()){
+                    mp[s[i]]++;
+                    if(mp[s[i]]>0){
+                        count++;
+                    }
+                }
+                i++;
+            }
+            j++;
+        }
+        if(ai==-1&&aj==-1)
+            return "";
+        return s.substr(ai,(aj-ai+1));
+    }
+};

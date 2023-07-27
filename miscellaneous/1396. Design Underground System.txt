@@ -1,0 +1,45 @@
+Problem: https://leetcode.com/problems/design-underground-system/
+Date: 24-04-2022
+Time Complexity: O(1)
+Auxillary Space: O(n)
+Code: 
+class UndergroundSystem {
+public:
+    unordered_map<int,pair<string,int>>mp;
+    unordered_map<string,int>data;
+    unordered_map<string,double>avg;
+    UndergroundSystem() {
+        
+    }
+    
+    void checkIn(int id, string stationName, int t) {
+        mp[id]={stationName,t};
+    }
+    
+    void checkOut(int id, string stationName, int t) {
+        string key=mp[id].first+">"+stationName;
+        int time=t-mp[id].second;
+        if(data.find(key)==data.end()){
+            data[key]=0;
+            avg[key]=0.0;
+        }
+        int n=data[key];
+        double navg=(avg[key]*n+time)/(double)(n+1);
+        data[key]=n+1;
+        // cout<<key<<"\t"<<navg<<endl;
+        avg[key]=navg;
+    }
+    
+    double getAverageTime(string startStation, string endStation) {
+        string key=startStation+">"+endStation;
+        return avg[key];
+    }
+};
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj->checkIn(id,stationName,t);
+ * obj->checkOut(id,stationName,t);
+ * double param_3 = obj->getAverageTime(startStation,endStation);
+ */

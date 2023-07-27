@@ -1,0 +1,79 @@
+Problem: https://leetcode.com/problems/simplify-path/
+Date: 14-03-2022
+Approach:
+Let us understand the question with an example:
+"/../xde//kl//../def/"
+Here first '/' is there so it will be in our answer as valid path starts with '/'.
+Then we get ".." as this means to go a directory up so we have to remove the previous directory but in this case we are in the root directory so we can't go a directory up. 
+Resultant path till now: "/"
+Then next character is '/' but mutiple '/' is not allowed so we will skip it.
+Next we get "xde" which is valid name so will append in the resultant path.
+Resultant path till now: "/xde"
+Then again we get '/' and a valid name so will append in the resultant path.
+Resultant path till now: "/xde/kl/"
+But now we get ".." which means to go a directory up so we will remove previous directory.
+Resultant path till now: "/xde"
+Now again we get a valid name "def" will append in resultant path and then '/' is also appended and we completely traversed our input path.
+Resultant path: "/xde/kl/"
+But in the question it is specified that resultant path should not end with '/' if it is not root directory only.
+So we will remove '/' from our resultant path and it will be our final answer.
+Final answer: "/xde/kl/"
+  
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    void poping(stack<string>&s){
+        while(!s.empty()&&s.top()!="/"){
+            s.pop();
+        }
+        if(s.empty()){
+            s.push("/");
+        }
+    }
+    string simplifyPath(string path) {
+        int n=path.length();
+        int i=0;
+        stack<string>st;
+        while(i<n){
+            if(path[i]=='/'){
+                // cout<<"in a\n";
+                if(st.empty()){
+                    st.push("/");
+                }
+                else if(st.top()!="/"){
+                    st.push("/");
+                }
+                i++;
+            }
+            else
+            {
+                string temp="";
+                // cout<<"in b\n";
+                while(i<n&&path[i]!='/'){
+                    temp+=path[i];
+                    i++;
+                }
+                if(temp==".."){
+                    if(!st.empty()){
+                        st.pop();
+                    }
+                    poping(st);
+                }
+                else if(temp!="."){
+                    st.push(temp);
+                }
+            }
+        }
+        if(st.top()=="/"&&st.size()>1){
+            st.pop();
+        }
+        string output="";
+        while(!st.empty()){
+            output=st.top()+output;
+            st.pop();
+        }
+        return output;
+    }
+};

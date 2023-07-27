@@ -1,0 +1,35 @@
+Problem: https://leetcode.com/problems/maximum-length-of-pair-chain/
+Date: 19-03-2022
+Time Complexity: O(n*n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int>dp;
+    int n;
+    int helper(vector<vector<int>>&pairs,int i){
+        if(i==n) return 0;
+        if(i==n-1) return 1;
+        if(dp[i]!=-1)
+            return dp[i];
+        int take=0,notake=0,j=i;
+        while(j<n&&pairs[i][1]>=pairs[j][0]){
+            j++;
+        }
+        if(j==n){
+            take=1;
+        }
+        else{
+            take=1+helper(pairs,j);
+        }
+        notake=helper(pairs,i+1);
+        return dp[i]=max(take,notake);
+    }
+    int findLongestChain(vector<vector<int>>& pairs) {
+        dp=vector<int>(1002,-1);
+        n=pairs.size();
+        sort(pairs.begin(),pairs.end());
+        int ans=helper(pairs,0);
+        return ans;
+    }
+};

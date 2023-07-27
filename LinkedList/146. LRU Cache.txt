@@ -1,0 +1,93 @@
+Problem: https://leetcode.com/problems/lru-cache/
+Date: 20-04-2022
+Time Complexity: O(1)
+Auxillary Space: O(capacity)
+Approach:
+We are creating a doubly linkedlist where node after head is recently used and the node before is least recently used i.e. will be removed first if use up all the capacity and try to insert new key value pair.
+Code:
+struct DLL{
+    int key;
+    int value;
+    struct DLL* prev;
+    struct DLL* next;
+    
+    DLL(){
+        this->key=0;
+        this->value=0;
+        prev=nullptr;
+        next=nullptr;
+    }
+    
+    DLL(int key,int value){
+        this->key=key;
+        this->value=value;
+        prev=nullptr;
+        next=nullptr;
+    }
+};
+class LRUCache {
+public:
+    DLL* head=new DLL();
+    DLL* tail=new DLL();
+    unordered_map<int,DLL*>mp;
+    int capacity;
+    LRUCache(int capacity) {
+        this->capacity=capacity;
+        head->next=tail;
+        tail->prev=head;
+    }
+    
+    void update(DLL* temp){
+        (temp->prev)->next=temp->next;
+        (temp->next)->prev=temp->prev;
+        temp->next=head->next;
+        (head->next)->prev=temp;
+        head->next=temp;
+        temp->prev=head;
+    }
+    
+    int get(int key) {
+        if(mp.find(key)!=mp.end()){
+            DLL*temp=mp[key];
+            int val=temp->value;
+            update(temp);
+            return val;
+        }
+        return -1;
+    }
+    
+    void put(int key, int value) {
+        if(mp.find(key)==mp.end()){
+            DLL* node=new DLL(key,value);
+            if(mp.size()<capacity){
+                node->next=head->next;
+                head->next->prev=node;
+                head->next=node;
+                node->prev=head;
+            }
+            else{
+                DLL*temp=tail->prev;
+                (temp->prev)->next=node;
+                node->next=tail;
+                tail->prev=node;
+                node->prev=temp->prev;
+                mp.erase(temp->key);
+                // free(temp);
+                update(node);
+            }
+            mp[key]=node;
+        }
+        else{
+        DLL*temp=mp[key];
+        temp->value=value;
+        update(temp);
+        }
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */

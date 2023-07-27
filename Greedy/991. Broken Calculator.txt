@@ -1,0 +1,61 @@
+Problem: https://leetcode.com/problems/broken-calculator/
+Date: 23-03-2022
+Approach 1: BFS
+Time Complexity: O(2^n), where n is the range between startvalue and target
+Auxillary Space: O(n)
+Note: This approach is not suitable as it will give TLE.
+Code:
+class Solution {
+public:
+    int brokenCalc(int startValue, int target) {
+        if(startValue==target) return 0;
+        queue<long long int>q;
+        int operations=0;
+        q.push(startValue);
+        unordered_set<int>s;
+        while(!q.empty()){
+            int size=q.size();
+            while(size--){
+                long long int num=q.front();
+                q.pop();
+                if(num*2==target)
+                {
+                    return operations+1;
+                }
+                else if(num-1==target){
+                    return operations+1;
+                }
+                if(s.find(num*2)==s.end()){
+                    s.insert(num*2);
+                    q.push(num*2);
+                }
+                if(s.find(num-1)==s.end()){
+                    s.insert(num-1);
+                    q.push(num-1);
+                }
+            }
+            operations++;
+        }
+        return operations;
+    }
+};
+
+Approach 2: Greedy try backwards from target to startvalue by converting multiply operation to divide and subtract one to add one.
+Time Complexity: O(log(target))
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int brokenCalc(int startValue, int target) {
+        int ans = 0;
+        while (target > startValue) {
+            ans++;
+            if (target % 2 == 1)
+                target++;
+            else
+                target /= 2;
+        }
+
+        return ans + startValue - target;
+    }
+};

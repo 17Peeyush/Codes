@@ -1,0 +1,32 @@
+Problem: https://practice.geeksforgeeks.org/problems/diagonal-sum-in-binary-tree/1/
+Date: 16-03-2022
+Approach: Taking the help of vertical distance and only increasing for the left child whereas right child inherit the same distance. In the end all the nodes having same vertical distance fall on the same diagonal.
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+/*Complete the function below
+Node is as follows:
+struct Node{
+    int data;
+    Node *left,*right;
+};
+*/
+int c;
+void diagonalsum(Node*root,int tag,vector<int>&ans){
+    if(root==nullptr)return;
+    if(c<tag)
+    {
+        c++;
+        ans.push_back(0);
+    }
+    ans[tag]+=root->data;
+    diagonalsum(root->left,tag+1,ans);
+    diagonalsum(root->right,tag,ans);
+}
+vector <int> diagonalSum(Node* root) {
+    // Add your code here
+    c=-1;
+    vector<int>ans;
+    diagonalsum(root,0,ans);
+    return ans;
+}

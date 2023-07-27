@@ -1,0 +1,51 @@
+Problem: https://leetcode.com/problems/smallest-string-with-swaps/
+Date: 27-04-2022
+Time Complexity: O(E+VlogV)
+Auxillary Space: O(E+V)
+Code:
+class Solution {
+public:
+    vector<vector<int>> g;
+    vector<bool>visited;
+    void component(int i,vector<int>&index,vector<char>&alpha,string&s){
+        if(!visited[i]){
+            visited[i]=true;
+            index.push_back(i);
+            alpha.push_back(s[i]);
+            for(auto x:g[i]){
+                if(!visited[x]){
+                    component(x,index,alpha,s);
+                }
+            }
+        }
+    }
+    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
+        int n=s.length();
+        visited=vector<bool>(n,false);
+        g=vector<vector<int>>(n,vector<int>());
+        if(pairs.size()==0)
+            return s;
+        //creating graph
+        for(auto x:pairs){
+            g[x[0]].push_back(x[1]);
+            g[x[1]].push_back(x[0]);
+        }
+        //finding component
+        for(int i=0;i<n;i++){
+            if(!visited[i]){
+                vector<int> index;
+                vector<char> alpha;
+                component(i,index,alpha,s);
+                if(index.size()>1){
+                    sort(index.begin(),index.end());
+                    sort(alpha.begin(),alpha.end());
+                    int m=index.size();
+                    for(int i=0;i<m;i++){
+                        s[index[i]]=alpha[i];
+                    }
+                }
+            }
+        }
+        return s;
+    }
+};

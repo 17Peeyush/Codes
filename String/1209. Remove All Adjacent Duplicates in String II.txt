@@ -1,0 +1,44 @@
+Problem: https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/
+Date: 10-03-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code: 
+class Solution {
+public:
+    string removeDuplicates(string s, int k) {
+        stack<pair<char,int>>st;
+        for(auto x: s)
+        {
+            if(st.empty())
+            {
+                st.push({x,1});
+            }
+            else if(st.top().first==x)
+            {
+                int t=st.top().second +1;
+                st.pop();
+                if(t<k){
+                    st.push({x,t});
+                }
+            }
+            else
+            {
+                st.push({x,1});
+            }
+        }
+        string out="";
+        while(!st.empty())
+        {
+            auto x=st.top();
+            st.pop();
+            int j=x.second;
+            string temp="";
+            for(;j>0;j--)
+            {
+                temp+=x.first;
+            }
+            out=temp+out;
+        }
+        return out;
+    }
+};

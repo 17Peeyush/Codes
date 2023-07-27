@@ -1,0 +1,38 @@
+Problem: https://practice.geeksforgeeks.org/problems/max-length-chain/1/
+Date: 20-03-2022
+Approach: Same as activity selection problem.
+Time Complexity: O(nlogn)
+Auxillary Space: O(n), space used in sorting
+Code:
+/*
+The structure to use is as follows
+struct val{
+	int first;
+	int second;
+};*/
+
+struct compare{
+    bool operator()(struct val &a,struct val &b)
+    {
+        if(a.second<=b.second)
+        {
+            return true;
+        }
+        return false;
+    }
+};
+int maxChainLen(struct val p[],int n)
+{
+    sort(p,p+n,compare());
+    int curr=INT_MIN;
+    int cl=0;
+    for(int i=0;i<n;i++)
+    {
+        if(curr<p[i].first)
+        {
+            cl++;
+            curr=p[i].second;
+        }
+    }
+    return cl;
+}

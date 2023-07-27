@@ -1,0 +1,41 @@
+Problem: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+Date: 15-03-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<pair<char,int>>st;
+        int n=s.length();
+        for(int i=0;i<n;i++){
+            if(s[i]==')'||s[i]=='('){
+                if(st.empty()){
+                    st.push({s[i],i});
+                }
+                else if(st.top().first=='(' && s[i]==')')
+                {
+                    st.pop();
+                }
+                else
+                {
+                    st.push({s[i],i});
+                }
+            }
+        }
+        while(!st.empty()){
+            int pos=st.top().second;
+            st.pop();
+            s[pos]=' ';
+        }
+        string output="";
+        for(auto x: s)
+        {
+            if(x!=' ')
+            {
+                output+=x;
+            }
+        }
+        return output;
+    }
+};

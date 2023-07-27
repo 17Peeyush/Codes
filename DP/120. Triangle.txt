@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/triangle/
+Time Complexity: O(n*m), where n is the number of rows and m is the number of max columns
+Auxillary Space: O(n*m)
+Code:
+class Solution {
+public:
+    vector<vector<int>>dp;
+    int helper(int &n,int i,int j,vector<vector<int>>&triangle){
+        if(dp[i][j]!=INT_MAX) return dp[i][j];
+        if(i+1==n){
+            dp[i][j]=triangle[i][j];
+        }
+        else{
+            dp[i][j]=min(helper(n,i+1,j,triangle),helper(n,i+1,j+1,triangle))+triangle[i][j];
+        }
+        return dp[i][j];
+    }
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n=triangle.size();
+        int m=triangle[n-1].size();
+        dp=vector<vector<int>>(n,vector<int>(m,INT_MAX));
+        helper(n,0,0,triangle);
+        return dp[0][0];
+    }
+};

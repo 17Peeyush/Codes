@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/sqrtx/
+Date: 17-07-2021
+Time Complexity: O(logn)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int mySqrt(int x) {
+        long long l=1,h=x,mid,sqrt;
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(mid*mid<=x)
+            {
+                sqrt=mid;
+                l=mid+1;
+            }
+            else
+            {
+                h=mid-1;
+            }
+        }
+        return sqrt;
+    }
+};

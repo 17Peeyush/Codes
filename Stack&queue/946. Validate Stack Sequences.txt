@@ -22,3 +22,33 @@ public:
         return false;
     }
 };
+
+Approach 2:
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        stack <int> stk;
+        int n = pushed.size();
+        int j = 0;
+        for(int i=0; i<n; i++){
+            if(pushed[i] != popped[j]){
+                stk.push(pushed[i]);
+            }
+                
+            else if (pushed[i] == popped[j]){
+                j++;
+            }
+            while (!stk.empty() && stk.top() == popped[j]){
+                stk.pop();
+j++;
+            }  
+            
+        }
+        while (j<n && stk.top() == popped[j]){
+                stk.pop();
+                j++;   
+        }
+        
+        return stk.empty();
+    }
+};

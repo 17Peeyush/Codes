@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/score-of-parentheses/
+Date: 21-03-2022
+Approach:
+Here we are taking a string stack and freely inserting opening brackets but as soon we encounter a closing bracket then we pop the elements until we get a opening brackets. During popping we are maintaining a innerscore which keeps adding the score of brackets of same depth and then if innerscore is greater than one that implies that "(" -- ")" the structure was something like this where "--" represents a set of valid brackets and "--" score should be multiplied by 2 as given in question.
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int scoreOfParentheses(string s) {
+        stack<string>st;
+        for(auto x:s){
+            if(x=='(')
+            {
+                st.push("(");
+            }
+            else if(x==')')
+            {
+                int innerscore=0;
+                while(!st.empty()&&st.top()!="(")
+                {
+                    innerscore+=stoi(st.top());
+                    st.pop();
+                }
+                st.pop();
+                if(!innerscore){
+                    st.push("1");
+                }
+                else{
+                    st.push(to_string(2*innerscore));
+                }
+            }
+        }
+        int totalscore=0;
+        while(!st.empty()){
+            totalscore+=stoi(st.top());
+            st.pop();
+        }
+        return totalscore;
+    }
+};

@@ -1,0 +1,59 @@
+Problem: https://practice.geeksforgeeks.org/problems/sort-a-linked-list/1/?page=13&company[]=Amazon&sortBy=submissions
+Date: 16-03-2022
+Time Complexity: O(nlogn)
+Auxillary Space: O(logn), recursive stack space
+Code:
+class Solution{
+  public:
+    Node* getMiddle(Node *head)
+    {
+        if(head==nullptr)
+            return head;
+        Node *s=head;
+        Node *f=head;
+        while(f->next!=nullptr&&f->next->next!=nullptr){
+            s=s->next;
+            f=f->next->next;
+        }
+        return s;
+    }
+    Node* sortedMerge(Node* head1, Node* head2)  
+    {  
+        if(head1==nullptr&&head2==nullptr) return nullptr;
+        else if(head1==nullptr) return head2;
+        else if(head2==nullptr) return head1;
+        Node * dummy =new Node(0);
+        Node *p=dummy;
+        while(head1!=nullptr&&head2!=nullptr){
+            if(head1->data<head2->data){
+                p->next=head1;
+                head1=head1->next;
+            }
+            else
+            {
+                p->next=head2;
+                head2=head2->next;
+            }
+            p=p->next;
+        }
+        if(head1!=nullptr){
+            p->next=head1;
+        }
+        if(head2!=nullptr){
+            p->next=head2;
+        }
+        return dummy->next;
+    }  
+    Node* mergeSort(Node* head) {
+        // your code here
+        if(head==nullptr || head->next==nullptr) return head;
+        Node *mid=getMiddle(head);
+        Node *fl=head;
+        Node *sl=mid->next;
+        mid->next=nullptr;
+        fl=mergeSort(fl);
+        sl=mergeSort(sl);
+        Node * finl=sortedMerge(fl,sl);
+        return finl;
+    }
+};

@@ -1,0 +1,64 @@
+Problem: https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
+Date: 14-03-2022
+
+Approach: Find the path from root to the given two nodes then find lowest common ancestor then from startnode replace the direction to 'U' indicating we traverse towards upward and from lca we append the corresponding direction to achieve the path from startvalue to destvalue.
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void getpath(TreeNode* root,int key,vector<pair<int,char>>&temp,bool&found,char step){
+        if(root==nullptr)
+            return;
+        else if(root->val==key)
+        {
+            temp.push_back({root->val,step});
+            found=true;
+            return;
+        }
+        temp.push_back({root->val,step});
+        getpath(root->left,key,temp,found,'L');
+        if(found)
+            return;
+        getpath(root->right,key,temp,found,'R');
+        if(found)
+            return;
+        temp.pop_back();
+        return;
+    }
+    string getDirections(TreeNode* root, int startValue, int destValue) {
+        vector<pair<int,char>>path1;
+        vector<pair<int,char>>path2;
+        bool found=false;
+        getpath(root,startValue,path1,found,'T');
+        found=false;
+        getpath(root,destValue,path2,found,'T');
+        int l=min(path1.size(),path2.size());
+        int i=0;
+        for(;i<l;i++)
+        {
+            if(path1[i]!=path2[i])
+               { break;}
+        }
+        string dir="";
+        for(int j=i;j<path1.size();j++){
+            dir+="U";
+        }
+        for(int j=i;j<path2.size();j++){
+            dir+=path2[j].second;
+        }
+        return dir;        
+    }
+};

@@ -1,0 +1,59 @@
+Problem: https://leetcode.com/problems/pacific-atlantic-water-flow/
+Date: 10-03-2022
+Approach: Instead of flowing water from cells towards 'Pacific' or 'Atlantic' consider water flowing from 'Pacific' or 'Atlantic' towards cells then condition will be water will flow in adjacent cells if its height is greater than current cell. We will use dfs for stimulation of flowing water for pacific start from first row and column and for 'Atlantic' last row and column will be considered. Finally we will get two grids 'Pacific' and 'Atlantic' with cells as true from which water flows from 'Pacific' and 'Atlantic' respectively and the cell which is true for both will be our answer.
+Time Complexity: O(m*n)
+Auxillary Space: O(m*n)
+Code:
+class Solution {
+public:
+    int m,n;
+    vector<vector<int>>dir={{-1,0},{0,-1},{0,1},{1,0}};
+    bool isvalid(int i,int j){
+        if(i>=0&&i<m&&j>=0&&j<n) return true;
+        return false;
+    }
+    void flowdfs(int i,int j,vector<vector<bool>>&grid,vector<vector<int>>&h){
+       if(grid[i][j])
+            return;
+       grid[i][j]=true;
+        for(auto x:dir){
+            if(isvalid(i+x[0],j+x[1])&&h[i+x[0]][j+x[1]]>=h[i][j])
+            {
+                flowdfs(i+x[0],j+x[1],grid,h);
+            }
+        } 
+    }
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        m=heights.size();
+        n=heights[0].size();
+        vector<vector<int>>result;
+        if(m==1||n==1)
+        {
+            for(int i=0;i<m;i++){
+                for(int j=0;j<n;j++){
+                    result.push_back({i,j});
+                }
+            }
+            return result;
+        }
+        vector<vector<bool>> pacific(m,vector<bool>(n,false));
+        vector<vector<bool>> atlantic(m,vector<bool>(n,false));
+        for(int j=0;j<n;j++)
+        {
+            flowdfs(0,j,pacific,heights);
+            flowdfs(m-1,j,atlantic,heights);
+        }
+        for(int i=0;i<m;i++)
+        {
+            flowdfs(i,0,pacific,heights);
+            flowdfs(i,n-1,atlantic,heights);
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(pacific[i][j]&atlantic[i][j])
+                    result.push_back({i,j});
+            }
+        }
+        return result;
+    }
+};

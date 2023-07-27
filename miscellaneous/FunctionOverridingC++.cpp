@@ -8,13 +8,13 @@ using namespace std;
 class A { //Parent class
     public:
     virtual void f1(int x){
-        cout<<"f1() of A"<<endl;
+        cout<<"f1() of A"<<x<<endl;
     }
 };
 class B: public A{ // class B (Child class) inheriting class A
     public:
     void f1(int y){
-        cout<<"f1() of B"<<endl;
+        cout<<"f1() of B"<<y<<endl;
     }
 };
 

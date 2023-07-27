@@ -1,0 +1,41 @@
+Problem: https://practice.geeksforgeeks.org/problems/kth-smallest-element5635/1/#
+Date: 15-03-2022
+Time Complexity: O(n^2) in worst case but O(n) in average case
+Auxillary Space: O(logn), recursive stack
+Code:
+class Solution {
+public:
+    int n;
+    int partition(vector<int>&A,int l,int h){
+    int pivot=A[h];
+    int i=l-1,j=l;
+    for(;j<h;j++){
+        if(A[j]<=pivot){
+            i++;
+            swap(A[i],A[j]);
+        }
+    }
+    swap(A[i+1],A[h]);
+    return i+1;
+}
+int quickselect(vector<int>&A,int l,int h,int k){
+    int p=partition(A,l,h);
+    if((p+1)==k){
+        return A[p];
+    }
+    int minK;
+    if((p+1)<k)
+    {
+        minK=quickselect(A,p+1,h,k);
+    }
+    else
+    {
+        minK=quickselect(A,l,p-1,k);
+    }
+    return minK;
+}
+    int findKthLargest(vector<int>& nums, int k) {
+        n=nums.size();
+        return quickselect(nums,0,nums.size()-1,k);
+    }
+};

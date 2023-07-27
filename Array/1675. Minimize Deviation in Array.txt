@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/minimize-deviation-in-array/
+Date: 19-02-2022
+Time Complexity: O(nlogn+mlogn) where n is the number of elements in the array and m is the number of times during execution current max element is even.
+Auxillary Space: O(n)
+Approach:
+Here first we are trying to reduce an operation that is division so we are multiplying all odd numbers by 2 and adding it into set.( Here now we don't have to worry that reduce the max element as we are increasing the minimum element if it is odd.
+Now to find the min deviation we are concentrating on maximum and minimum element as max possible value deviation will be their difference and we try to minimize it.
+In each iteration we take minimum and maximum element and calculate their difference and if the maximum element is even it can be reduced by dividing by 2 hence our deviation will also decrease in the next iteration, if the maximum element is odd then it can't be reduced so current deviation will be our minimum possible deviation.
+Code:
+class Solution {
+public:
+    int minimumDeviation(vector<int>& nums) {
+        set<int>s;
+        for(auto x:nums){
+            if(x%2!=0)
+            {
+                s.insert(2*x);
+            }
+            else
+            {
+                s.insert(x);
+            }
+        }
+        int diff=INT_MAX;
+        while(true){
+            int minel=*s.begin();
+            int maxel=*s.rbegin();
+            diff=min(diff,maxel-minel);
+            if(maxel%2!=0)
+            {
+                break;
+            }
+            s.erase(maxel);
+            s.insert(maxel/2);
+        }
+        return diff;
+    }
+};

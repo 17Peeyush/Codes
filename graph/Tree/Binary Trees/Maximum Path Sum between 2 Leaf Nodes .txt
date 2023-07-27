@@ -1,0 +1,44 @@
+Problem: https://www.geeksforgeeks.org/find-maximum-path-sum-two-leaves-binary-tree/
+Date: 21-03-2021
+Time Complexity: O(n)
+Auxillary Space: O(logn)
+Code:
+/*struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    int mx;
+    int helper(Node*root){
+        if(root==nullptr){
+            return 0;
+        }
+        int l=helper(root->left);
+        int r=helper(root->right);
+        if(root->left!=nullptr&&root->right!=nullptr){
+            mx=max(mx,l+r+root->data);
+            return max(l,r)+root->data;
+        }
+        else if(root->left!=nullptr){
+            return l+root->data;
+        }
+        return r+root->data;
+    }
+    int maxPathSum(Node* root)
+    {
+        mx=INT_MIN;
+        helper(root);
+        return mx;
+        // code here
+    }
+};

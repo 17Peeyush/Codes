@@ -1,0 +1,45 @@
+Problem: https://practice.geeksforgeeks.org/problems/sum-tree/1/
+Date: 09-03-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+/*Tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+// Should return true if tree is Sum Tree, else false
+class Solution
+{
+    public:
+    bool sum=true;
+    int traverse(Node*root){
+        if(!sum) 
+        {
+            return 0;
+        } 
+        else if(root==nullptr)
+        {
+            return 0;
+        }
+        int l=traverse(root->left);
+        int r=traverse(root->right);
+        if(root->left==nullptr&&root->right==nullptr)
+        {
+            return root->data;
+        }
+        if(l+r!=root->data){
+            sum=false;
+            return 0;
+        }
+        return l+r+root->data;
+    }
+    bool isSumTree(Node* root)
+    {
+         // Your code here
+         traverse(root);
+         return sum;
+    }
+};

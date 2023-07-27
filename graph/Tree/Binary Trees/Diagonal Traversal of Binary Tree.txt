@@ -1,0 +1,42 @@
+Problem: https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1/
+Date: 16-03-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+
+vector<int> diagonal(Node *root)
+{
+   // your code here
+   vector<int>output;
+   queue<Node*>q;
+   q.push(root);
+   q.push(nullptr);
+   while(!q.empty()){
+       Node*p=q.front();
+       q.pop();
+       if(p==nullptr){
+           q.push(nullptr);
+           if(q.front()==nullptr){
+               break;
+           }
+       }
+       else
+       {
+           while(p!=nullptr){
+               output.push_back(p->data);
+               if(p->left!=nullptr){
+                   q.push(p->left);
+               }
+               p=p->right;
+           }
+       }
+   }
+   return output;
+}

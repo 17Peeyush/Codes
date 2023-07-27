@@ -1,0 +1,43 @@
+Problem: https://leetcode.com/problems/partition-labels/
+Date: 02-03-2022
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Approach:
+First we are calculating the index of first and last occurence of each alphabet. Taking the first alphabet and taking its last occurence and defining a range that is first occurence and last occurence and iterate in this range and if we encounter another alphabet then check for its last occurence if it is greater than current upperbound of our range then we change the upper bound of our range. If we have iterated whole range that means all the alphabet in that range have been covered and a valid partition can be done.
+Code:
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        unordered_map<char,pair<int,int>>mp;
+        int n=s.length();
+        for(int i=0;i<n;i++){
+            if(mp.find(s[i])==mp.end()){
+                mp[s[i]]={i,i};
+            }
+            else
+            {
+                pair<int,int>p=mp[s[i]];
+                p.second=i;
+                mp[s[i]]=p;
+            }
+        }
+        vector<int>out;
+        int limit=0;
+        int i=0;
+        while(i<n){
+            limit=mp[s[i]].second;//8
+            int len=0;
+            for(;i<=limit;i++){
+                auto x=mp[s[i]];
+                if(limit<x.second)// s[i] last occurence compare
+                {
+                    limit=x.second;//last
+                }
+                len++;
+            }
+                out.push_back(len);
+        }
+        
+        return out;
+    }
+};

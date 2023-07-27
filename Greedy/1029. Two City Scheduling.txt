@@ -1,0 +1,49 @@
+Problem: https://leetcode.com/problems/two-city-scheduling/
+Date: 25-03-2022
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+Approach:
+First we classify costs of flying on the basis of least price. There arise three cases:
+Case 1: After classification we get equal number candidates flying to city 'a' and 'b' respectively.
+Case 2: More than half of the candidates are flying to city 'a' as cost to fly to city 'a' is less.
+Case 3: More than half of the candidates are flying to city 'b' as cost to fly to city 'b' is less.
+Case 1 is idle case but for case 2 and 3 we need to balance. 
+Best way to balance is to send those candidates to alternate city whose difference between the cost of flying to city 'a' and 'b' is minimum hence overallcost will be minimum.
+Code:
+class Solution {
+public:
+    int helper(vector<int>&t,vector<vector<int>>&costs,int diff){
+        int n=t.size();
+        for(int i=0;i<n;i++){
+            t[i]=abs(costs[t[i]][0]-costs[t[i]][1]);
+        }
+        sort(t.begin(),t.end());
+        int temp=0;
+        for(int i=0;i<diff;i++){
+            temp+=t[i];
+        }
+        return temp;
+    }
+    int twoCitySchedCost(vector<vector<int>>& costs) {
+        int fly=0,n=costs.size();
+        vector<int> a,b;
+        for(int i=0;i<n;i++){
+            if(costs[i][0]<costs[i][1]){
+                fly+=costs[i][0];
+                a.push_back(i);
+            }
+            else {
+                fly+=costs[i][1];
+                b.push_back(i);
+            }
+        }
+        int as=a.size(),half=n/2;
+        if((int)a.size()<(int)b.size()){
+            fly+=helper(b,costs,abs(half-as));
+        }
+        else if((int)a.size()>(int)b.size()){
+            fly+=helper(a,costs,abs(half-as));
+        }
+        return fly;
+    }
+};

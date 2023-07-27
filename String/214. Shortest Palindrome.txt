@@ -1,0 +1,84 @@
+Problem: https://leetcode.com/problems/shortest-palindrome/
+Date: 01-03-2022
+Approach 1: (TLE)
+Time Complexity: O(n^2)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+   bool ispalindrome(string s){
+         int i=0,j=s.length()-1;
+        while(i<j)
+        {
+            if(!iswalnum(s[i])) i++;
+            else if(!iswalnum(s[j])) j--;
+            else if(tolower(s[i])!=tolower(s[j])) return false;
+            else{i++;j--;}
+        }
+        return true;
+    }
+    string shortestPalindrome(string s) {
+        string temp="",out="";
+        int i=0,n=s.length(),largestpalindrome=-1;
+        for(;i<n;i++)
+        {
+            temp+=s[i];
+            if(ispalindrome(temp))
+            {
+                largestpalindrome=i;
+                out=temp;
+            }
+        }
+        for(largestpalindrome++;largestpalindrome<n;largestpalindrome++)
+        {
+            out+=s[largestpalindrome];
+            out=s[largestpalindrome]+out;
+        }
+        return out;
+    }
+};
+
+Approach 2: https://leetcode.com/problems/shortest-palindrome/discuss/1809251/Visualization-greatergreater-Text-oror-Think-yourself-along-with-the-solution
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int calLps(string & s){
+        int n=s.length();
+        vector<int> lps(n);
+        lps[0]=0;
+        int len=0,i=1;
+        while(i<n){
+            if(s[len]==s[i]){
+                lps[i]=len+1;
+                len++;
+                i++;
+            }
+            else
+            {
+                if(len!=0)
+                {
+                    len=lps[len-1];
+                }
+                else
+                {
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+        return lps[n-1];
+    }
+    string shortestPalindrome(string s) {
+        int n=s.length();
+        if(n==0) return "";
+        string r=s;
+        reverse(r.begin(),r.end());
+        string t=s+" "+r;
+        int i=calLps(t);
+        string out=r.substr(0,n-i);
+        out+=s;
+        return out;
+    }
+};
