@@ -1,0 +1,27 @@
+Problem: https://leetcode.com/problems/build-an-array-with-stack-operations/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Date: 3-11-2023
+class Solution {
+public:
+    vector<string> buildArray(vector<int>& target, int n) {
+        vector<string> action;
+        int i = 0 , j =1, m = target.size();
+        while(j<=n && i<m)
+        {
+            if(target[i]==j)
+            {
+                action.push_back("Push");
+                j++;
+                i++;
+            }
+            else if(target[i]>j)
+            {
+                action.push_back("Push");
+                action.push_back("Pop");
+                j++;
+            }
+        }
+        return action;
+    }
+};
