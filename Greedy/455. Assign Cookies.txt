@@ -1,0 +1,27 @@
+Problem:https://leetcode.com/problems/assign-cookies
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int satisfied =0;
+        int n=s.size(),m=g.size();
+        int i=0,j=0;
+        while(j<n&&i<m)
+        {
+            if(g[i]>s[j])
+            {
+                j++;
+            }
+            else
+            {
+                i++;
+                j++;
+                satisfied++;
+            }
+        }
+        return satisfied;
+    }
+};

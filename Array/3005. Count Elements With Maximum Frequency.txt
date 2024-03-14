@@ -1,0 +1,21 @@
+Problem: https://leetcode.com/problems/count-elements-with-maximum-frequency/description/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Go code:
+func maxFrequencyElements(nums []int) int {
+    freq :=make(map[int] int)
+    mxfreq :=0
+    for _,val :=range nums{
+        freq[val]++
+        if freq[val]>mxfreq{
+            mxfreq = freq[val]
+        }
+    }
+    res := 0
+    for _, val :=range freq{
+        if val == mxfreq{
+            res += mxfreq
+        }
+    }
+    return res
+}

@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/bag-of-tokens/
+Time Complexity: O(nlogn), n is total number of elements in tokens
+Auxillary Space: O(nlogn)
+class Solution {
+public:
+    int bagOfTokensScore(vector<int>& tokens, int power) {
+        int n = tokens.size(); 
+        if(!n) return 0;
+        sort(tokens.begin(),tokens.end());
+        if(tokens[0]>power) return 0;
+        int score =0, mxscore=0;
+        int l =0,h=n-1;
+        while(l<=h)
+        {
+            if(score){
+                if(tokens[l]<=power){
+                    score++;
+                    power-=tokens[l];
+                    l++;
+                }
+                else{
+                    score--;
+                    power+=tokens[h];
+                    h--;
+                }
+            }
+            else{
+                if(tokens[l]<=power){
+                    score++;
+                    power-=tokens[l];
+                    l++;
+                }
+            }
+            mxscore=max(mxscore,score);
+        }
+        return mxscore;
+    }
+};

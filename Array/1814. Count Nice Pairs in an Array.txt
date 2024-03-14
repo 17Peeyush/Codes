@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/count-nice-pairs-in-an-array
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Notes: Play with the equation atleast once.
+class Solution {
+public:
+    int MOD =1e9+7;
+    int getrev(int & num)
+    {
+        int res = 0;
+        int r;
+        while(num>0)
+        {
+            r=num%10;
+            res = res*10+r;
+            num = num/10;
+        }
+        return res;
+    }
+    int countNicePairs(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> rev(n);
+        for(int i=0;i<n;i++)
+        {
+            rev[i]=nums[i]-getrev(nums[i]);
+        }
+        int res =0;
+        unordered_map<int,int> mp;
+        for(int x: rev)
+        {
+            res = (res+mp[x])%MOD;
+            mp[x]++;
+        }
+        return res;
+    }
+};

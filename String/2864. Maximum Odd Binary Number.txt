@@ -1,0 +1,23 @@
+Problem: https://leetcode.com/problems/maximum-odd-binary-number/
+Time Complexity: O(n), n is the length of the string
+Auxillarty Space: O(n)
+func maximumOddBinaryNumber(s string) string {
+    count1 := 0
+    for _, val :=range s{
+        if '1'==val{
+            count1 ++
+        }
+    }
+    sLen := len(s)
+    res := make([]byte, sLen)
+    for i:=0;i<sLen;i++{
+        if count1 >1{
+            res[i]='1'
+            count1--
+        }else{
+            res[i]='0'
+        }
+    }
+    res[sLen-1]='1';
+    return string(res)
+}

@@ -1,0 +1,76 @@
+Problem:https://leetcode.com/problems/minimum-one-bit-operations-to-make-integers-zero/description
+Time Complexity: O(1)
+Auxillary Space: O(1)
+Approach:
+Description and tip:
+Transform the given integer n into 0.
+
+For any given operation you perform, you may only modify:
+-> The first bit
+=> The bit after the first 1 bit.
+(-> indicates first operation and =>indicates second operation)
+Example: n = 3
+n = [ 1, 1]
+[1,1] => [0,1] -> [0,0]
+ans = 2
+
+Example: n = 4
+n = [ 1,0,0]
+[ 1,0,0] -> [ 1,0,1] => [ 1,1,1] -> [ 1,1,0] => [ 0,1,0] -> [ 0,1,1] => [ 0,0,1] -> [ 0,0,0]
+ans = 7
+
+Example: n = 8
+n = [ 1,0,0,0]
+[ 1,0,0,0] -> [ 1,0,0,1] => [ 1,0,1,1] -> [ 1,0,1,0] => [ 1,1,1,0] -> [ 1,1,1,1] => [ 1,1,0,1] -> [ 1,1,0,0] => [ 0,1,0,0] -> [0,1,0,1] => [ 0,1,1,1] -> [0,1,1,0] => [0,0,1,0] -> [0,0,1,1] => [0,0,0,1] -> [0,0,0,0]
+ans = 15
+
+Tip
+When n=2^k, it needs 2^(k+1)-1 operations.
+
+Next Tip
+suppose n = 10 = [ 1,0,1,0]
+10 =[1,0,0,0] + [0,0,1,0]
+if n = [1,0,0,0] we must do 2^4 - 1 = 15 operations
+but operations for [0,0,1,0] is already done (2^2 -1)
+so total sum of operations is = (2^4-1)-(2^2-1) = 15-3 = 12
+
+Next Tip
+suppose n = 11 = [ 1,0,1,1]
+10 =[1,0,0,0] + [0,0,1,0] + + [0,0,0,1]
+if n = [1,0,0,0] we must do 2^4 - 1 = 15 operations
+but operations for [0,0,1,0] is already done (2^2 -1)
+*** and operations for [0,0,0,1] is already done (2^1 -1)
+so total sum of operations is = (2^4-1)-(2^2-1)+(2^1-1) = 15-3+1 = 13
+
+Code:
+class Solution {
+public:
+    int minimumOneBitOperations(int n) {
+        int power = 0;
+        int nres = 0;
+        int c=1;
+        while(n)
+        {
+            if(n&1==1)
+            {  
+                if(c)
+                { 
+                    nres +=(pow(2,power+1)-1);
+                    c=0;
+                }
+                else
+                {
+                    nres -=(pow(2,power+1)-1);
+                    c=1;
+                }
+            }
+            power++;
+            n=n>>1;
+        }
+        if(nres<0)
+        {
+            return -nres;
+        }
+        return nres;
+    }
+};

@@ -1,0 +1,51 @@
+Problem:https://leetcode.com/problems/find-the-winner-of-an-array-game
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Date: 05-11-2023
+class Solution {
+public:
+    int getWinner(vector<int>& arr, int k) {
+        deque<int> dq;
+        int maxInArray = INT_MIN;
+        // if(k==1)
+        // {
+        //     return max(arr[0],arr[1]);
+        // }
+        for(int x:arr)
+        {
+            maxInArray = max(maxInArray, x);
+            dq.push_back(x);
+        }
+        if(arr.size()<k)
+        {
+            return maxInArray;
+        }
+        int num, count =0;
+        num = dq.front();
+        dq.pop_front();
+        int maxi;
+        while(true)
+        {
+            maxi = max(num,dq.front());
+            if(maxi!=num)
+            {
+                count =1;
+                dq.push_back(dq.front());
+                num = maxi;
+                dq.pop_front();
+            }
+            else
+            {
+                count ++;
+                
+                dq.push_back(dq.front());
+                dq.pop_front();
+            }
+            if(count == k)
+                {
+                    break;
+                }
+        }
+        return num;
+    }
+};

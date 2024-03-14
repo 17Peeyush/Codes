@@ -1,0 +1,40 @@
+Problem: https://leetcode.com/problems/defuse-the-bomb/description/
+Time Complexity: O(n)
+Auxillary Space: O(n), if output array is considered, else O(1)
+Code :
+class Solution {
+public:
+    vector<int> decrypt(vector<int>& code, int k) {
+        int n=code.size();
+        vector<int> res(n,0); 
+        if(k==0)
+        {
+            return res;
+        }
+        else if(k>0)
+        {
+            int j=0, window =0;
+            while(j<k)
+            {
+                window+=code[j++];
+            }
+            for(int i =0;i<n;i++,j++){
+                window +=(-code[i]+code[j%n]);
+                res[i]=window;
+            }
+        }
+        else
+        {
+            int j=n-1, window =0;
+            while(k++)
+            {
+                window+=code[j--];
+            }
+            for(int i=n-1;i>=0;i--,j--){
+                window +=(-code[i]+code[(j+n)%n]);
+                res[i]=window;
+            } 
+        }
+        return res;
+    }
+};

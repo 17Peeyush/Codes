@@ -1,0 +1,22 @@
+Problem: https://leetcode.com/problems/binary-subarrays-with-sum/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        unordered_map<int,int>mp;//prefix sum , count
+        int prefixsum =0, count =0, n= nums.size();
+        for(int i=0;i<n;i++){
+            prefixsum+=nums[i];
+            if(prefixsum==goal)
+            {
+                count++;
+            }
+            if(mp.find(prefixsum-goal)!=mp.end()){
+                count+=mp[prefixsum-goal];
+            }
+            mp[prefixsum]++;
+        }
+        return count;
+    }
+};

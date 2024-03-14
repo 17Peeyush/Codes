@@ -1,0 +1,39 @@
+Problem:https://leetcode.com/problems/count-number-of-homogenous-substrings
+Time Complexity: O(n)
+Auxillary Space: O(n)
+#define MOD 1000000007
+class Solution {
+public:
+unordered_map<long,long> dp;
+    long helper(int n)
+{
+    long ans=0;
+    if(dp.find(n)!=dp.end())
+        return dp[n];
+    int m=n;
+    while(n>=1)
+    {
+        ans=(ans+n)%MOD;
+        n--;
+    }
+    return dp[m]=ans;
+}
+    int countHomogenous(string s) {
+        long result =0;
+        char c;
+        int n=s.length();
+        int i=0;
+        while(i<n)
+        {
+            c = s[i];
+            int count =0;
+            while(i<n && s[i]==c)
+            {
+                count ++;
+                i++;
+            }
+            result = (result + helper(count))%MOD;
+         }
+         return result;
+    }
+};
