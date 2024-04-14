@@ -1,0 +1,23 @@
+Problem: https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+func max(a,b int) int {
+    if a>b {
+        return a
+    }
+    return b
+}
+func maxDepth(s string) int {
+    count := 0
+    res := 0
+    for _,val :=range s{
+        if val == '('{
+            count ++
+            res = max(res,count)
+        } else if val ==')'{
+            count --
+        }
+    }
+    return res
+}

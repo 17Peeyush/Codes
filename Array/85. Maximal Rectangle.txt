@@ -1,0 +1,48 @@
+Problem: https://leetcode.com/problems/maximal-rectangle
+Time Complexity: O(k*row*col), where k is number of char =='1' in array and row and col is matrix dimension
+Auxillary Space: O(1)
+Approach:
+If I want array consitsting of only "1" then when I traverse matrix I will start search fo answer if I encounter "1". I found "1" then I will try to travse all possible reactangle I can form usinf the current "1" as (0,0)element of my rectangle. 
+
+(consider x and y as coordinates in 2d plane)
+
+Two checks for limiting dimension is when going right from starting index "x1" if the current index is "x2" and element is "0" then stop and for other rows also I know since I have encounter "0" at "x2" so my valid rectangle breadth will be in range (x1, x2 - 1). 
+
+In case of traversing rows if my starting index is "0" so I can't include current row, i.e started at "y1" and at "y2" encountered "0" then my length will be "y1" to "y2 -1".
+
+Area of rectangle = length * breadth
+Code:
+class Solution {
+public:
+    int row,col, res = 0;
+
+    void crosscheck(int x,int y,vector<vector<char>>&matrix)
+    {
+        int m= row-1,n= col -1, i,j,cr=0,cc;
+        for(i=x;i<=m&&matrix[i][y]=='1';){
+            cr++;
+            cc=0;
+            for(j=y;j<=n&&matrix[i][j]=='1';j++){
+                cc++;
+            }
+            n = min(n,(y+cc-1));
+            i++;
+            res = max(res,(cr*cc));
+        }
+    }
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        row = matrix.size();
+        col = matrix[0].size();
+        for(int i =0;i<row;i++)
+        {
+            for(int j =0;j<col;j++)
+            {
+                if(matrix[i][j]=='1')
+                {
+                    crosscheck(i,j, matrix);
+                }
+            }
+        }
+        return res;
+    }
+};

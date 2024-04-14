@@ -1,0 +1,75 @@
+Problem: https://leetcode.com/problems/find-k-pairs-with-smallest-sums/
+Time Complexity: O(nlogk)
+Auxillary Space: O(k)
+Approach: Here we are taking a max heap and will check its size as soon as it becomes 'k' then it means the extra element can't be our answer and we will pop it out. Since for finding the minimum 'k' we are using max heap so the max element will always be at the top and we will pop it if the size is greater than 'k'. Another optimisation which we did as soon while iterating we get a pair whose sum is more than the top of our priority queue, since the input array are in non-decreasing as the incoming pairs sum will be more than the current so we will break the inner iteration here.
+Code:
+class Solution {
+public:
+    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+        priority_queue<pair<int,pair<int,int>>> q;
+        int n=nums1.size(),m=nums2.size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                
+                if(q.size()<k){
+                    q.push({nums1[i]+nums2[j],{nums1[i],nums2[j]}});
+                }
+                else if(q.top().first>nums1[i]+nums2[j])
+                {
+                    q.pop();
+                    q.push({nums1[i]+nums2[j],{nums1[i],nums2[j]}});
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        vector<vector<int>>ans;
+        while(!q.empty())
+        {
+            auto x=q.top().second;
+            vector<int> vect1{x.first,x.second};
+            ans.push_back(vect1);
+            q.pop();
+        }
+        return ans;
+    }
+};
+Approach more optimized:
+If we are a element i,j so inorder to find the next smallest sum will be i+1,j or i,j+1 by this principle we are finding the sum and putting in priority queue and getting the smallest sum, but some of the index pair will be repeated so we will keep track of it by putting the index pairs in a set which we already put in priority queue.
+Code:
+class Solution {
+public:
+    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>> >q;
+        int n=nums1.size(),m=nums2.size();
+        set<pair<int,int>> visited;
+        vector<vector<int>> ans;
+        q.push({nums1[0]+nums2[0],{0,0}});
+        visited.insert({0,0});
+        int i,j;
+        while(k>0 && !q.empty())
+        {
+            auto x = q.top();
+                q.pop();
+            i=x.second.first;
+            j=x.second.second;
+            ans.push_back({nums1[i],nums2[j]});
+            if(i+1<n&&visited.find({i+1,j})==visited.end())
+            {
+                q.push({nums1[i+1]+nums2[j],{i+1,j}});
+                visited.insert({i+1,j});
+            }
+            if(j+1<m&&visited.find({i,j+1})==visited.end())
+            {
+                q.push({nums1[i]+nums2[j+1],{i,j+1}});
+                visited.insert({i,j+1});
+            }
+            k--;
+        }
+        return ans;
+    }
+};

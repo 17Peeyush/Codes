@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/merge-in-between-linked-lists/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func mergeInBetween(list1 *ListNode, a int, b int, list2 *ListNode) *ListNode {
+    var al,temp*ListNode
+    al = nil
+    //bl = nil
+    c := 0
+    temp = list1
+    for c != b+1 {
+        c++
+        if c==a{
+            al = temp
+        }
+        temp = temp.Next
+    }
+    al.Next = list2
+    for al.Next !=nil{
+        al=al.Next
+    }
+    al.Next = temp
+    return list1
+}

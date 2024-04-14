@@ -1,0 +1,28 @@
+Problem: https://leetcode.com/problems/number-of-students-unable-to-eat-lunch
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Approach:
+If there is mismatch in number of preferred sandwiches and students preference then there will be always some students who were unable to eat. So calculated the preferred sandwiches count and if any we exhaust that, then remaining students will be unable to eat.
+Code:
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches) {
+        int ps0 = 0, ps1 = 0;
+        for(int s: students){
+            if(s) ps1++;
+            else ps0++;
+        }
+        for(int sa: sandwiches){
+            if(sa)
+            {
+                if(ps1>0) ps1--;
+                else break;
+            }
+            else{
+                if(ps0>0) ps0--;
+                else break;
+            }
+        }
+        return ps1+ps0;
+    }
+};

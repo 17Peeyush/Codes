@@ -1,0 +1,29 @@
+Problem:
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Approach:
+I thought myself to be the kth person in the queue, and have to buy say 'X' tickets.
+I thought the minimum time that is garunteed to take is number of tickets I have to buy that is 'X'.
+
+Then I started thinking of people before me in the queue how much time each of them is constituting to total time.
+case1: If they have less tickets to buy then me then their individual time will be equal to number of tickets they have to buy. As soon they buy their ticket they will leave the line.
+case2: If they have to buy more tickets than me still I will buy my "X" tickets and leave the queue, so they at max can buy "X" tickets.
+
+For people after me in the queue the maximum number of time they can buy ticket befor me leaving the line is till I have not bought all the my tickets.
+case1 : If they have less number of tickets than me they will be able to buy their tickes.
+case2 : If they have more number of tickets but as soon as I buy my last ticket I will leave the line, so uptill then they can only buy "X-1" ticket.
+
+Code:
+func timeRequiredToBuy(tickets []int, k int) int {
+    cur := tickets[k]
+    min := func(a,b int)int{ if a<b{ return a}else{ return b}}
+    time := 0
+    for idx, val := range tickets{
+        if idx <=k{
+            time += min(val,cur)
+        } else{
+            time += min(val, cur -1)
+        }
+    }
+    return time
+}

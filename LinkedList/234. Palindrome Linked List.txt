@@ -1,0 +1,122 @@
+Problem: 
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Approach 1:
+Find the middle of linked list and reverse the first part and then traverse both the parts(first and second). If there is val mismatch then it is not a palindrome, else it is palindrome.
+Caution: Handling is required for even and odd length of linkedlist
+
+Code: (Go lang)
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+ func reverseList(head *ListNode) *ListNode {
+    if head == nil {
+        return nil
+    }
+    var p,c,n *ListNode
+    p=nil
+    c=head
+    n=c.Next
+    for n!= nil{
+        c.Next = p
+        p = c
+        c = n
+        n = c.Next
+    }
+    c.Next = p
+    return c
+}
+
+func isPalindrome(head *ListNode) bool {
+    if head.Next ==nil{
+        return true
+    }
+    var s,f *ListNode
+    dummy :=ListNode{
+        Val: -1,
+        Next: head,
+    }
+    s = &dummy
+    f = &dummy
+    for f!=nil && f.Next!=nil{
+        s=s.Next;
+        f=f.Next.Next;
+    }
+    if f == nil{
+        dummy.Val = s.Val
+        dummy.Next= s.Next
+        s.Next = &dummy
+    }
+    f=s.Next
+    s.Next = nil
+    s = reverseList(head)
+    for s!=nil && f!=nil{
+        if s.Val!=f.Val{
+            return false
+        }
+        s=s.Next
+        f=f.Next
+    }
+   
+    return true
+}
+
+Aproach 2:
+Using stack writing a recursive function that will traverse to the end of the linkedlist and will returning from recursion will compare the values.
+
+Code: (C++)
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int ans=0;
+    bool check=true;
+    ListNode* it;
+    void checkPalindrome(ListNode* head)
+    {
+        if(head->next!=nullptr)
+        {
+            checkPalindrome(head->next);
+        }
+        if(check)
+        {
+            if((it->next==head&&it->val==head->val)||head==it)
+            {
+                ans=1;
+                check=false;
+                return;
+            }
+            if(it->next==nullptr)
+            {
+                ans=0;
+                check=false;
+                return;
+            }
+            if(it->val!=head->val)
+            {
+                ans=0;
+                check=false;
+                return;
+            }
+            
+            it=it->next;
+        }
+    }
+    bool isPalindrome(ListNode* head) {
+        it=head;
+        checkPalindrome(head);
+        return ans!=0?true:false;
+    }
+};

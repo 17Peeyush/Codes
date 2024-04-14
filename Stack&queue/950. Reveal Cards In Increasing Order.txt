@@ -1,0 +1,35 @@
+Problem:https://leetcode.com/problems/reveal-cards-in-increasing-order/
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+Approach:
+Have to stimulate the given condition on the indexes and then store the order in which the indexes where cards are revealed. Then sorting the array and putting the sorted elements on the indexes which process first. For example :
+0 1 2 3 4 5 6 => these will be processed as: 0 2 4 6 3 1 5
+so if my sorted order is ABCDEF then : 0 1 2 3 4 5 6
+				       A F B E C G D , will be my order.
+Code:
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        sort(deck.begin(),deck.end());
+        int n = deck.size();
+        deque<int> q;
+        for(int i=0;i<n;i++)
+        {
+            q.push_back(i);
+        }
+        int i =0,id=-1;
+        vector<int>fin(n);
+        while(!q.empty())
+        {
+            id = q.front();
+            fin[id]=deck[i++];
+            q.pop_front();
+            if(!q.empty()){
+                id =q.front();
+                q.pop_front();
+                q.push_back(id);
+            }
+        }
+        return fin;
+    }
+};

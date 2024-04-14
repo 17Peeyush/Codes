@@ -1,0 +1,41 @@
+Problem: https://leetcode.com/problems/make-the-string-great
+Time Complexity:O(n)
+Auxillary Spae: O(n)
+Code:
+class Solution {
+public:
+    string makeGood(string s) {
+        stack<char> st;
+        int n = s.length();
+        int i =0;
+        while(i<n){
+            if(st.empty()){
+                st.push(s[i]);
+            }
+            else{
+                if((isupper(st.top())&&islower(s[i]))||(islower(st.top())&&isupper(s[i]))){
+                    if(st.top()==toupper(s[i])||toupper(st.top())==s[i]){
+                    st.pop();
+                    }
+                    else{
+                    st.push(s[i]);
+                }
+                }
+                
+                else{
+                    st.push(s[i]);
+                }
+            }
+            i++;
+        }
+        n = st.size();
+        string res(n,' ');
+        n--;
+        while(!st.empty()){
+            res[n]=st.top();
+            st.pop();
+            n--;
+        }
+        return res;
+    }
+};

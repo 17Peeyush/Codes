@@ -1,0 +1,24 @@
+Problem:https://leetcode.com/problems/find-the-pivot-integer/
+Time Complexity: O(n)
+Auxillary Spae: O(n)
+class Solution {
+public:
+    int pivotInteger(int n) {
+        unordered_map<int,int> pref;
+        int sum =0;
+        for(int i =1;i<=n;i++){
+            sum+=i;
+            pref[sum]=i;
+        }
+        sum =0;
+        for(int i=n;i>0;i--)
+        {
+            sum +=i;
+            if(pref.find(sum)!=pref.end()&&pref[sum]==i)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+};

@@ -55,3 +55,46 @@ public:
         return output;
     }
 };
+
+Same approach clean code:
+class Solution {
+public:
+    string removeKdigits(string nums, int k) {
+        
+        stack<char> st;
+        //removing a character if a find a character less than it to its right side.
+        for(char ch: nums){
+            while(!st.empty()&&st.top()>ch&&k){
+                k--;
+                st.pop();
+            }
+            st.push(ch);
+        }
+
+        // the number is already given in increasing order
+        while(k-- && !st.empty())
+        {
+            st.pop();
+        }
+
+        string output="";
+        while(!st.empty()){
+            output += st.top();
+            st.pop();
+        }
+        int n=output.length();
+        int i=n-1;
+        // suppose we have someting starting with zero in the output like: 00200 (input 100200, k=1)
+        while(i>=0&&output[i]=='0')
+        {
+            i--;
+        }
+        output = output.substr(0,i+1);
+        if(output.size()==0)
+        {
+            return "0";
+        }
+        reverse(output.begin(),output.end());
+        return output;
+    }
+};

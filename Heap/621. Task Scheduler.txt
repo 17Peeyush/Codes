@@ -1,0 +1,60 @@
+Problem:https://leetcode.com/problems/task-scheduler/
+Solution link: https://leetcode.com/problems/task-scheduler/solutions/4901137/brainstrom-with-me/
+Time Complexity: O(nlogn)
+Auxillary Space: O(1) space won't exceed more than O(26)~=O(1)
+Approach:
+By looking at example we take a decision to stimulate it and suppose there are five task : A,B,C,D,E we think that if we process them sequencially so we will be able to create gap between the identical tasks maximum. This is correct but will lead to a problem: 
+cool down (n)=1
+Freq of task: 6 1 1 1 1 1 1
+Task:         A B C D E F G
+If we arrange the task like our previous approach, our order: A->B->C->D->E->F->A->_->A->_->A->_->A->_->A (_=idle)
+Time taken: 15, but we can achieve a time less than current time by arranging the task in order:
+A->B->A->C->A->D->A->E->A->F->A->G
+Time taken: 12
+Here we can see as inorder to increase time between identical tasks (from first approach) we are trying to process the task sequentically but that can lead to a problem as shown above so we will process sequentically but as soon as most frequent task cooldown is completed we will process it.
+How it is achieved ?
+Frequency of a task will be a deciding factor so we will make a priority queue giving priority to max frequency, max heap). Then coming to cooldown period when we process a task 'X'(say)at time time 'c'=t1 so it's cooldown time will be 'c+n'=t2(say) so when our 'c' is equal to t2 then we can safely assume that now we can process 'X' now so we can add it again in priority. 
+Data structures: 
+Frequency: priority queue (maxheap)
+Cooldown track: queue
+Code:
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        vector<int>freq(26,0);
+        priority_queue<int>pq;
+        queue<pair<int,int>>q;
+        int c=0, temp =0;
+        for(char ch:tasks)
+        {
+            freq[ch-'A']++;
+        }
+        for(auto x: freq){
+            if(x){
+                pq.push(x); //filling non 0 task count in priority queue
+            }
+        }
+        while(!pq.empty()||!q.empty()){
+            if(!q.empty()){ //tasks are waiting in queue for its cooldown to get over
+                auto x = q.front();
+                if(x.second <= c){ // current time is greater than or equal to cooldown time 
+                    q.pop();
+                    pq.push(x.first); // agaim adding it in priority
+                }
+                else if(pq.empty()){ // All the task are waiting for their cooldown  
+                    c=x.second; 
+                    q.pop();
+                    pq.push(x.first);
+                }
+            }
+            temp = pq.top();
+            pq.pop();
+            c++; //current time is always increased after processing a task
+            temp--;
+            if(temp){ // Still identical task are present
+                q.push({temp, c+n});
+            }
+        }
+        return c;
+    }
+};
