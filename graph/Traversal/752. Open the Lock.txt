@@ -1,0 +1,75 @@
+Problem: https://leetcode.com/problems/open-the-lock/
+Time Complexity: O(10^4)
+Auxillary Space: O(10^4)
+Code:
+class Solution {
+public:
+    unordered_map<int,char> mp;
+    string plushelper(string str,int i)
+    {
+         if(str[i]=='9')
+        {
+            str[i]='0';
+        }
+        else
+        {
+            str[i]=mp[(str[i]-'0')+1];
+        }
+        return str;
+    }
+    string subhelper(string str,int i)
+    {
+        if(str[i]=='0')
+        {
+            str[i]='9';
+        }
+        else
+        {
+            str[i]=mp[(str[i]-'0')-1];
+        }
+        return str;
+    }
+    int openLock(vector<string>& deadends, string target) {
+        
+        char ch='0';
+        for(int i=0;i<10;i++,ch++)
+        {
+            mp[i]=ch;
+        }
+        unordered_set<string> dead(deadends.begin(),deadends.end());
+        if(dead.find("0000")!=dead.end()) return -1;
+        queue<pair<string,int>> q;
+        q.push({"0000",0});
+        dead.insert("0000");
+        int i=0,c;
+        string str, add,sub;
+        while(!q.empty()){
+            auto x=q.front();
+            str = x.first;
+            c = x.second;
+            q.pop();
+            if(str == target){
+                return c;
+            }
+            for(i=0;i<4;i++){
+                //plus case
+                add = plushelper(str,i);
+                if(dead.find(add)==dead.end())
+                {
+                    q.push({add,c+1});
+                    dead.insert(add);
+                }
+                //subtract case
+                sub = subhelper(str,i);
+                if(dead.find(sub)==dead.end())
+                {
+                    q.push({sub,c+1});
+                    dead.insert(sub);
+                }
+
+            }
+        }
+        
+        return -1;
+    }
+};

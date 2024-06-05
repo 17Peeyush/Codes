@@ -1,0 +1,85 @@
+Problem: https://leetcode.com/problems/minimum-cost-to-hire-k-workers (Google)
+Approach 1 (TLE): Here we fix one employee and check for other employees which we can select if we have already selected candidate. Here according to second condition:
+quality[selected]/quality[curr]= wage[selected]/wage[curr]
+=> To find the wage of current employee on the basis of selected employee
+wage[curr]=wage[selected]*quality[curr]/quality[selected]
+=> we are considering ratio as: wage[selected]/quality[selected] and iterate over the employees quality to find their wages and then with the help of heap we are finding minimum amount spent.
+
+Time Complexity: O(n*(n+nlogk)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    double mincostToHireWorkers(vector<int>& quality, vector<int>& wage, int k) {
+        int n= quality.size();
+        double res = INT_MAX,tres,t,ratio;
+        for(int i=0;i<n;i++){
+            ratio = double(wage[i])/double(quality[i]);
+            tres = wage[i];
+            priority_queue<double>q;
+            for(int j=0;j<n;j++){
+                if(i==j) continue;
+                t = ratio * quality[j];
+                if(t>=double(wage[j])){
+                    q.push(t);
+                    if(q.size()>k-1){
+                        q.pop();
+                    }
+                }
+            }
+            if(q.size()==k-1){
+                while(!q.empty()){
+                    tres+=q.top();
+                    q.pop();
+                }
+                res = min(res,tres);
+            }
+        }
+        return res;
+    }
+};
+
+Approach 2 (Modification of first):
+This approach is modification of first here condition 1 is taken here in above code we can see a line:
+t>=double(wage[j]), this condition signifies if the wage calculated on the basis of selected candidate is less than what curr candidate's min wage then we can't hire him. 
+==> ratio*quality[curr]>=wage[curr]
+==> (wage[selected]/quality[selected])*quality[curr]>=wage[curr]
+==> wage[selected]/quality[selected]>=wage[curr]/quality[curr]
+==> ratio_selected>=ratio_curr
+So we calculate ratio for all the employees and then store them in an array and sort it. We know now that we have to start selecting from kth candidate i.e k-1 index in array, and we can select only employees before our selected candidate.
+How we were calculating the wages for other employees is ratio* quaity[curr] if we take this fact in consideration then if we have accumulated min sum of quality then for amount we just have to multiply it with the current selected candidate ratio, that's what we are doing by calculating sum of qualities and in heap sorting suh that we have only min quality.
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    double mincostToHireWorkers(vector<int>& quality, vector<int>& wage, int k) {
+        int n= quality.size();
+        vector<pair<double,int>> w_ratio(n);
+        for(int i=0;i<n;i++)
+        {
+            w_ratio[i]={double(wage[i])/quality[i],quality[i]};
+        }
+        sort(w_ratio.begin(),w_ratio.end());
+        double res = INT_MAX,tres,t,ratio;
+        priority_queue<double>q;
+        double i_res = 0;
+        for(int i=0;i<k;i++){
+            i_res+=w_ratio[i].second;
+            q.push(w_ratio[i].second);
+        }
+        ratio = w_ratio[k-1].first;
+        res = ratio*i_res;
+        for(int i=k;i<n;i++){
+            ratio = w_ratio[i].first;
+            q.push(w_ratio[i].second);
+            i_res+=w_ratio[i].second;
+            if(q.size()>k){
+                i_res-=q.top();
+                q.pop();
+            }
+            res = min(res,ratio*i_res);
+        }
+        return res;
+    }
+};

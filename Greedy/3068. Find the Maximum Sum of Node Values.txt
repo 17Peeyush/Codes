@@ -1,0 +1,47 @@
+Problem: https://leetcode.com/problems/find-the-maximum-sum-of-node-values/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Appraoch:
+We will take help of few properties of xor:
+a^k^k=a
+a-->b-->c-->d
+We can propagate our changes of xor from 'a' to 'd'.
+1st-> a^k, b^k
+2nd-> (b^k)^k, c^k => b, c^k
+3rd-> (c^k)^k, d^k => c, d^k 
+Final change in values will be: a^k, b, c, d^k
+Similarly xor of elements by k ,their values can increase or decrease so for maximum we need:
+All the elements whose value is increased.
+Since the change will occur in pairs so it can give arise to 2 conditions:
+1=> If the nodes whose values are increasing are even.(ideal case)
+2=> If the nodes whose values are increasing are odd then we have again 2 conditions:
+	=> we should include the increased value as it is more than min decreased value.
+	eg: increased value: 5 , decreased value: 2
+	then by taking these pairs we can get total increase of 3, hence maximized the sum.
+	=> we should not include increased value as it is less than the decreased value.
+	eg: increased value: 1 , decreased value: 4
+	then by taking these pairs our total will be -3 that will not give maximum result so we will not include 	increased value. 
+Code:
+class Solution {
+public:
+    long long maximumValueSum(vector<int>& nums, int k, vector<vector<int>>& edges) {
+        long long sum =0, dec = INT_MAX;
+        int c=0;
+        for(int x: nums){
+            if((x^k)>x){
+                sum+=(x^k);
+                dec = min(dec,(long long)(x^k)-x); // It may be the case the increase in value less than the decrease in value
+                c++;
+            }
+            else
+            {
+                sum+=x;
+                dec= min(dec,(long long)x-(x^k));
+            }
+        }
+        if (c %2!=0){
+            sum-=dec;
+        }
+        return sum;
+    }
+};

@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/relative-ranks/
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& score) {
+        priority_queue<pair<int,int>>q;
+        int n = score.size();
+        unordered_map<int,string> mp;
+        vector<string>res(n);
+        for(int i=0;i<n;i++)
+        {
+            mp[i] = to_string(i+1);
+            q.push({score[i],i});
+        }
+        mp[0]="Gold Medal";
+        mp[1]="Silver Medal";
+        mp[2]="Bronze Medal";
+        int i =0;
+        while(!q.empty())
+        {
+            auto x = q.top();
+            q.pop();
+            res[x.second]=mp[i];
+            i++;
+        }
+        return res;
+    }
+};

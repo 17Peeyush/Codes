@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/minimum-number-of-operations-to-make-array-xor-equal-to-k/
+Time Complexity: O(1)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        int xorr= 0;
+        for(int x:nums)
+        {
+            xorr^=x;
+        }
+        int bitk =-1, bitx =-1,flip=0;
+        for(int i=31;i>=0;i--)
+        {
+            bitk = k>>i & 1;
+            bitx = xorr>>i & 1;
+            if(bitk!=bitx)
+            {
+                flip++;
+            }
+        }
+        return flip;
+    }
+};

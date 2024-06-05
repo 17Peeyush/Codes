@@ -1,0 +1,26 @@
+Problem:
+Time Complexity: O(2^n)
+Auxillary Space: O(2^n)
+Code:
+#define MOD 1000000007
+class Solution {
+public:
+    long long dp[100001][3][3];
+    long long solve(int n,int ac,int clc){
+        if(n==0) return 1;
+        if(dp[n][ac][clc]!=-1) return dp[n][ac][clc];
+        long long ans =0;
+        ans = (solve(n-1,ac,0)) % MOD;
+        if(ac<1)
+        ans = (ans%MOD+solve(n-1,ac+1,0)%MOD)%MOD;
+
+        if(clc<2)
+        ans =(ans%MOD+solve(n-1,ac,clc+1)%MOD)%MOD;
+        dp[n][ac][clc]=ans;
+        return ans;
+    }
+    int checkRecord(int n) {
+        memset(dp,-1,sizeof(dp));
+        return solve(n,0,0)%MOD;
+    }
+};

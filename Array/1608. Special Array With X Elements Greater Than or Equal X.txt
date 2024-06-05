@@ -1,0 +1,23 @@
+Problem: https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
+Time Complexity: O(n)
+Auxilary Space: O(1)
+Code:
+class Solution {
+public:
+    int specialArray(vector<int>& nums) {
+        int n= nums.size();
+        vector<int> arr(1001,0);
+        for(int x: nums){
+            arr[x]++;
+        }
+        for(int i=999;i>0;i--)
+        {
+            if(arr[i]+arr[i+1]==i)
+            {
+                return i;
+            }
+            arr[i]+=arr[i+1];
+        }
+        return -1;
+    }
+};

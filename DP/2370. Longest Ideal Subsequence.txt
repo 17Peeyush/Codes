@@ -1,0 +1,66 @@
+Problem:https://leetcode.com/problems/longest-ideal-subsequence/
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+Approach 1: TLE
+class Solution {
+public:
+    int kg,n;
+    unordered_map<string,int>dp;
+    //unordered_map<int>process;
+    int helper(char ch,int i, string&s)
+    {
+        if(i==n) return 0;
+        int res = 0;
+        string key =  string (1, ch)+to_string(i);
+        if(dp.find(key)!=dp.end())
+        {
+            return dp[key];
+        }
+        if(abs(ch - s[i])<=kg||ch=='#')
+        {
+            res = max(1+helper(s[i],i+1,s),helper(ch,i+1,s));
+        }
+        else
+        {
+            res = helper(ch,i+1,s);
+        }
+        return dp[key]=res;
+        //return res;
+    }
+    int longestIdealString(string s, int k) {
+        n=s.length();
+        kg= k;
+        return helper('#',0,s);
+    }
+};
+
+Approach 2:
+class Solution {
+public:
+    unordered_map<char,int>mp;
+    int helper(char ch,int &k)
+    {
+        int res =0;
+        for(char x='a';x<='z';x++)
+        {
+            if(abs(ch-x)<=k)
+            {
+                res = max(res, mp[x]);
+            }
+        }
+        return res;
+    }
+    int longestIdealString(string s, int k) {
+        int n=s.length();
+        int res =0;
+        for(int i=n-1;i>=0;i--)
+        {
+            mp[s[i]]=1+helper(s[i],k);
+            res = max(res,mp[s[i]]);
+        }
+        for(auto x:mp)
+        res = max(res,x.second);
+        return res;
+    }
+};

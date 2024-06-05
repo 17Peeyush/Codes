@@ -1,0 +1,23 @@
+Problem: https://leetcode.com/problems/smallest-missing-integer-greater-than-sequential-prefix-sum/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int missingInteger(vector<int>& nums) {
+        unordered_set<int> s;
+        for(int x: nums) s.insert(x);
+        int sum = nums[0];
+        int n= nums.size();
+        for(int i=1;i<n;i++){
+            if(nums[i]!=nums[i-1]+1){
+                break;
+            }
+            sum+=nums[i];
+        }
+        while(s.find(sum)!=s.end()){
+            sum++;
+        }
+        return sum;
+    }
+};

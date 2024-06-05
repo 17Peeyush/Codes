@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/distribute-coins-in-binary-tree
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Approach:
+Points to note in the question there is 'n' nodes and 'n' coins so in the end each node should have 1 coin. If a child have extra coins it will be pass it to parent and if the parent have more coins and its children don't have coins then parent node while fullfil the requirements of its child. If the childs also have sufficient coins then our parent node will pass the extra coins to its parents. 
+
+How we stimulate it?
+We traverse in post order traversal so we get to know whether my child needs coins or they have access. If children is null then its need is zero and my need will always be '1'. So we get the requirements from child if the value is negative then child is in need of coin and if positive if the child have excess coins. Whether the response from child is positive or negative then means there is flow of coins so we add this flow in our answer. If flow is not required then our child will return '0' so our answer won't change. After taking the requirement or excess coins from child parent with its coins after kepping '1' for itself pass it to its parents.
+Code (GoLang):
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+var ans int
+func abs(num int) int{
+    if num<0{
+        return num*(-1)
+    }
+    return num
+}
+func help(root *TreeNode) int{
+    if root == nil{
+        return 0
+    }
+    lv := help(root.Left)
+    rv := help(root.Right)
+    ans += abs(lv)+abs(rv)
+    return lv+rv+root.Val-1
+}
+func distributeCoins(root *TreeNode) int {
+    ans =0
+    help(root)
+    return ans
+}

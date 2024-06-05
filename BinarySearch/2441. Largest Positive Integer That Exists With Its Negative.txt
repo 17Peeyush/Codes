@@ -1,0 +1,52 @@
+Problem:https://leetcode.com/problems/largest-positive-integer-that-exists-with-its-negative/
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+Code:
+func abs(x int) int{
+    if x<0{
+        return -x
+    }
+    return x
+}
+func findMaxK(nums []int) int {
+    sort.Ints(nums)
+    l :=0
+    h :=len(nums)-1
+    res :=-1
+    if nums[l]>0{
+        return -1
+    }
+    for l<h{
+        if  abs(nums[l])==(nums[h]){
+            res = nums[h]
+            break
+        } else if  abs(nums[l])<(nums[h]){
+            h--
+            if nums[h]<0{
+                break
+            }
+        }else{
+            l++
+            if nums[l]>0{
+                break
+            }
+        }
+    }
+    return res
+}
+
+More optimized:
+func findMaxK(nums []int) int {
+	sort.Ints(nums)
+	i, j := 0, len(nums)-1
+	for i < j {
+		if nums[i]+nums[j] > 0 {
+			j--
+		} else if nums[i]+nums[j] < 0 {
+			i++
+		} else {
+			return nums[j]
+		}
+	}
+	return -1
+}

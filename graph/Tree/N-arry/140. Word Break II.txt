@@ -1,0 +1,66 @@
+Problem: https://leetcode.com/problems/word-break-ii/
+Time complexity: O(2^n), where n is number of words in 'wordDict'
+Space complexity:O(2^n+(26 * word_length * n)), where n is number of words in 'wordDict', (recursive stack + trie)
+
+Approach: First thing that came in my mind after reading the question, overlapping strings good example of trie. So I added all the words from the wordDict into my trie. Then remains the interation over the string s, I iterated over it and in each step I was checking if current element is end of a word. If it is then I have 2 choice first break the current word by adding a whitespace as it reached end of a word and then again start iterating for a new word. 2nd choice will be to check if it is the case of overlapping word as it can mark end of a word but if we more forward we will get another end of the superword. (example pen: word, penapple: superword (my termology))
+While iterating when we reach at 'n' and our current processed string is 'pen' :
+1. 'pen ' and search for new ord
+2. 'penapple' continue search to find the superword.
+Code:
+class Solution {
+public:
+    struct TrieNode{
+        vector<TrieNode*> alpha;
+        bool wordend;
+        TrieNode(){
+            alpha = vector<TrieNode*>(26,nullptr);
+            wordend = false;
+        }
+    };
+    TrieNode *root = new TrieNode();
+    void insert(string &word){
+        int m=word.size();
+        TrieNode *t = root;
+        for(int i=0;i<m;i++){
+            if(t->alpha[word[i]-'a']==nullptr){
+                t->alpha[word[i]-'a']=new TrieNode();
+            }
+            t = t->alpha[word[i]-'a'];
+        }
+        t->wordend= true;
+    }
+    vector<string>res;
+    int n;
+    void helper(int i, string &s, string temp, TrieNode * t){
+       if(i==n){
+           return;
+        }
+        while(i<n && t!= nullptr ){
+           if(t->alpha[s[i]-'a']!=nullptr)
+           { 
+                temp+=string (1, s[i]);
+                t=t->alpha[s[i]-'a'];
+                i++;
+                if(t->wordend){
+                    helper(i,s,temp+" ",root);
+                }
+            }
+            else{
+                break;
+            }
+           
+        }
+        if(i==n&&t->wordend){
+            res.push_back(temp);
+        }
+    }
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        n = s.size();
+        for(string word: wordDict){
+            insert(word);
+        }
+        string t="";
+        helper(0,s,t,root);
+        return res;
+    }
+};

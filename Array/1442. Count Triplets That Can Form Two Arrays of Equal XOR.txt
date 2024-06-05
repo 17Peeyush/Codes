@@ -1,0 +1,83 @@
+Problem: https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/
+Approach 1:https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/solutions/5239012/lets-do-it-in-amortized-o-n-time-complexity-worst-case-o-n-2/
+Time Complexity: O(n) amortized worst case O(n^2)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    int countTriplets(vector<int>& arr) {
+        unordered_map<int,vector<int>>mp;
+        int res =0, n= arr.size();
+        mp[0]={-1};
+        int txor =0;
+        for(int i=0;i<n;i++){
+            txor^=arr[i];
+            if(mp.find(txor)==mp.end()){
+                mp[txor]={i};
+            }
+            else
+            {
+                for(auto x: mp[txor])
+                {
+                    res+=(i-x-1);
+                }
+                mp[txor].push_back(i);
+            }
+        }
+        return res;
+    }
+};
+
+Approach 2:
+Time Complexity: O(n^3)
+Auxillary Space: O(1)
+Code1:
+class Solution {
+public:
+    int countTriplets(vector<int>& arr) {
+        int n= arr.size();
+        int lxor=0,rxor=0,count=0;
+        for(int i=0;i<n-1;i++){
+            int fj=i+1;
+            //lxor=0;
+            //rxor=0;
+            for(int j=i+1;j<n;j++){
+                lxor =0;
+                for(int k=i;k<j;k++){
+                    lxor^=arr[k];
+                }
+                rxor=0;
+                for(int k=j;k<n;k++){
+                    rxor^=arr[k];
+                    if(lxor==rxor)
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+};
+
+Code2: (better)
+class Solution {
+public:
+    int countTriplets(vector<int>& arr) {
+     int n = arr.size();
+     int count =0;
+     int lxor=0,rxor=0;
+     for(int i=0;i<n;i++){
+        lxor=0;
+        for(int j=i;j<n;j++){
+            lxor^=arr[j];
+            rxor=0;
+            for(int k=j+1;k<n;k++){
+                rxor^=arr[k];
+                if(lxor==rxor) count++;
+            }
+        }
+     }   
+     return count;
+    }
+};

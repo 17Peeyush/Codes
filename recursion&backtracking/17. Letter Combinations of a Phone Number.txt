@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+Time Complexity: O(3^n)(approx), where n is the length of digits string. 
+Auxillary Space: O(h), where h is height of recursive stack.
+Date: 04-01-2022
+Code:
+class Solution {
+public:
+    unordered_map<char,string>mp;
+    vector<string>total;
+    void helper(string &digits,int i,string out){
+        if(i>=digits.size())
+        {
+            total.push_back(out);
+        }
+        else
+        {
+            string curr=mp[digits[i]];
+            string temp;
+            for(int ci=0;ci<curr.size();ci++){
+                temp=out+curr[ci];
+                helper(digits,i+1,temp);
+            }
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+       if(!digits.size()) return total;
+        mp['2']="abc";
+        mp['3']="def";
+        mp['4']="ghi";
+        mp['5']="jkl";
+        mp['6']="mno";
+        mp['7']="pqrs";
+        mp['8']="tuv";
+        mp['9']="wxyz";
+        helper(digits,0,"");
+        return total;
+    }
+};

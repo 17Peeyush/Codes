@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/maximize-happiness-of-selected-children
+Time Complexity: O(klogn)
+Auxillary Space: O(k)
+Code:
+class Solution {
+public:
+    long long maximumHappinessSum(vector<int>& happiness, int k) {
+        priority_queue<int, vector<int>, greater<int>> q;
+        for(int x:happiness){
+            q.push(x);
+            if(q.size()>k){
+                q.pop();
+            }
+        }
+        long long res =0;
+        int t;
+        int i=k-1;
+        while(k--)
+        {
+            t=q.top();
+            if(t-i>0)
+            {
+                res+=(t-i);
+            }
+            i--;
+            q.pop();
+        }
+        return res;
+    }
+};

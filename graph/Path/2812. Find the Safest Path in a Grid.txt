@@ -1,0 +1,67 @@
+Problem: https://leetcode.com/problems/find-the-safest-path-in-a-grid
+Time Complexity: O(n^2logn)
+Auxilary Space: O(n^2)
+Approach: I tried to map each cell dsitance from its nearest theif. We achieve this by bfs by putting all the co-ordinates of the theives in the queue and adding distance to their surrounding cells(Manhattan distance). Once we get for each cell minimum distance from theives then we perform bfs from source to destination. We can say dijkstra always choosing the cell with the maximum distance.
+Code:
+class Solution {
+public:
+    int n;
+    bool valid(int i,int j){
+        if(i<0||i==n||j<0||j==n) return false;
+        return true;
+    }
+    int maximumSafenessFactor(vector<vector<int>>& grid) {
+        n=grid.size();
+        if(grid[0][0]==1||grid[n-1][n-1]==1) return 0;
+        vector<vector<int>> dist(n,vector<int>(n,INT_MAX));
+        queue<pair<int,int>> q;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j])
+                {
+                    dist[i][j]=0;
+                    q.push({i,j});
+                }
+            }
+        }
+        //preprocessing distance from the theives
+        pair<int,int>t;
+        int ti,tj,ct;
+        int dir[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
+        while(!q.empty()){
+            t=q.front();
+            ct = dist[t.first][t.second];
+            q.pop();
+            for(int i=0;i<4;i++){
+                ti=t.first +  dir[i][0];
+                tj=t.second +  dir[i][1];
+                if(valid(ti,tj)&&ct+1<dist[ti][tj]){
+                    dist[ti][tj]=ct+1;
+                    q.push({ti,tj});
+                }
+            }
+        }
+
+        //traversing from top left to top right via bfs as we need shortest distance :)
+        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>> pq;
+        vector<vector<bool>>visited(n,vector<bool>(n,false));
+        int res = INT_MAX;
+        pair<int,pair<int,int>>pt;
+        pq.push({dist[0][0],{0,0}});
+        visited[0][0]=true;
+        while(!pq.empty()){
+            pt=pq.top(); pq.pop();
+            res = min(res, pt.first);
+            if(pt.second.first==n-1&&pt.second.second==n-1) break;
+            for(int i=0;i<4;i++){
+                ti=pt.second.first +  dir[i][0];
+                tj=pt.second.second +  dir[i][1];
+                if(valid(ti,tj)&&!visited[ti][tj]){
+                    visited[ti][tj]=true;
+                    pq.push({dist[ti][tj],{ti,tj}});
+                }
+            }
+        }
+        return res;
+    }
+};

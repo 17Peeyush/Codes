@@ -1,0 +1,63 @@
+Problem: https://leetcode.com/problems/number-of-steps-to-reduce-a-number-in-binary-representation-to-one
+Time Complexity : O(n)
+Auxillary Space: O(n)
+Approach: https://leetcode.com/problems/number-of-steps-to-reduce-a-number-in-binary-representation-to-one/solutions/5224133/a-conversation-between-me-and-linklist-can-you-solve-it-by-using-linked-list/
+Code:
+class Solution {
+public:
+    struct ListNode{
+        int val;
+        ListNode* next;
+        ListNode(){
+            val =0;
+            next = nullptr;
+        }
+        ListNode(int v){
+            val =v;
+            next = nullptr;
+        }
+    };
+    void sum(ListNode * root){
+        ListNode *t = root;
+        ListNode *c = nullptr;
+        while(t&&t->val==1){
+            c=t;
+            t->val = 0;
+            t=t->next;
+        }
+        if(t==nullptr){
+            c->next = new ListNode(1);
+        }
+        else{
+            t->val = 1;
+        }
+    }
+    int numSteps(string s) {
+        int n=s.size();
+        ListNode * root = new ListNode();
+        ListNode * t= root;
+        ListNode *c = nullptr;
+        // creating new link list
+        for(int i= n-1;i>=0;i--){
+            t -> val = s[i]-'0';
+            t -> next = new ListNode();
+            c= t;
+            t = t -> next;
+        }
+        c ->next = nullptr;
+        int steps =0,carry;
+        t = root;
+        while(t!=nullptr &&t->next != nullptr)
+        {
+            if(t-> val == 0){
+                steps ++;
+                t = t-> next;
+            }
+            else{
+                sum(t);
+                steps++;
+            }
+        }
+        return steps;
+    }
+};

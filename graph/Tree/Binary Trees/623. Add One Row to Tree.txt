@@ -1,0 +1,60 @@
+Problem: https://leetcode.com/problems/add-one-row-to-tree/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        TreeNode * temp;
+        if(depth==1){
+            temp = new TreeNode(val);
+            temp ->left = root;
+            return temp;
+        }
+        queue<TreeNode *>q;
+        int cur_depth =1;
+        q.push(root);
+       
+        while(!q.empty() &&cur_depth+1!= depth){
+            int t = q.size();
+            while(t --){
+                temp = q.front();
+                cout<<"val:"<<temp->val<<endl;
+                q.pop();
+                if(temp ->left!=nullptr){
+                    q.push(temp->left);
+                }
+                if(temp ->right!=nullptr){
+                    q.push(temp->right);
+                }
+            }
+            cur_depth++;
+        }
+        TreeNode* l, *r;
+        while(!q.empty())
+        {
+            temp = q.front();
+            q.pop();
+            l = temp->left;
+            r = temp->right;
+
+            temp->left = new TreeNode(val);
+            temp->left->left=l;
+        
+            temp->right = new TreeNode(val);
+            temp->right->right=r;
+        }
+        return root;
+    }
+};

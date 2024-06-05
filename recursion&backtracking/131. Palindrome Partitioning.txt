@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/palindrome-partitioning
+Time Complexity: O(n.2^n)
+Auxillary Space: O(n)
+Date: 05-01-2022
+Code:
+class Solution {
+public:
+    vector<vector<string>>output;
+    bool ispalindrome(string s){
+        for(int i=0,j=s.length()-1;i<=j;i++,j--){
+            if(s[i]!=s[j])
+                return false;
+        }
+        return true;
+    }
+    
+    void helper(vector<string>temp,string s){
+        if(s.length()==0){
+            output.push_back(temp);
+            return;
+        }
+        for(int i=0;i<s.length();i++){
+            string firstpart=s.substr(0,i+1);
+            if(ispalindrome(firstpart)){
+                temp.push_back(firstpart);
+                string secondpart=s.substr(i+1);
+                helper(temp,secondpart);
+                temp.pop_back();
+            }
+        }
+    }
+    
+    vector<vector<string>> partition(string s) {
+        if(s.length()==0) return output;
+        vector<string>temp;
+        helper(temp,s);
+        return output;
+    }
+};

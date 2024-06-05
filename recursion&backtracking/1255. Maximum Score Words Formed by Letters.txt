@@ -1,0 +1,60 @@
+Problem:https://leetcode.com/problems/maximum-score-words-formed-by-letters/description/
+Solution: https://leetcode.com/problems/maximum-score-words-formed-by-letters/solutions/5200298/solve-it-yourself-see-acceptance-rate/
+Code:
+class Solution {
+public:
+    unordered_map<char,int> gmp;
+    vector<unordered_map<char,int>> fwords;
+    int n, gres=0;
+
+    int isPossible(int &i,vector<int>&score){
+        int tscore =0;
+        for(auto x: fwords[i]){
+            if(gmp[x.first]<x.second)
+            {
+                return 0;
+            }
+        }
+        for(auto x: fwords[i]){
+            tscore += (x.second*score[x.first-'a']);
+            gmp[x.first]-=x.second;
+        }
+        return tscore;
+    }
+
+    void revert(int &i){
+        for(auto x: fwords[i]){
+            gmp[x.first]+=x.second;
+        }
+    }
+
+    void helper(int i ,int cres, vector<int>&score){
+        if(i==n){
+            gres = max(gres,cres);
+            return;
+        }
+        //cout<<"! taken";
+        helper(i+1,cres,score);
+        int sum =0;
+        if(sum=isPossible(i,score)){
+           // cout<<"taken";
+            helper(i+1, sum+cres,score);
+            revert(i);
+        }
+    }
+    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
+        n= words.size();
+        fwords = vector<unordered_map<char,int>>(n,unordered_map<char,int>());
+        for(int i=0;i<n;i++){
+            for(char ch: words[i]){
+                fwords[i][ch]++;
+            }
+        }
+
+        for(char ch: letters){
+            gmp[ch]++;
+        }
+        helper(0,0,score);
+        return gres;
+    }
+};
