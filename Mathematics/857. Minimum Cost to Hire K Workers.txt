@@ -6,7 +6,7 @@ wage[curr]=wage[selected]*quality[curr]/quality[selected]
 => we are considering ratio as: wage[selected]/quality[selected] and iterate over the employees quality to find their wages and then with the help of heap we are finding minimum amount spent.
 
 Time Complexity: O(n*(n+nlogk)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:
@@ -49,7 +49,7 @@ t>=double(wage[j]), this condition signifies if the wage calculated on the basis
 So we calculate ratio for all the employees and then store them in an array and sort it. We know now that we have to start selecting from kth candidate i.e k-1 index in array, and we can select only employees before our selected candidate.
 How we were calculating the wages for other employees is ratio* quaity[curr] if we take this fact in consideration then if we have accumulated min sum of quality then for amount we just have to multiply it with the current selected candidate ratio, that's what we are doing by calculating sum of qualities and in heap sorting suh that we have only min quality.
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

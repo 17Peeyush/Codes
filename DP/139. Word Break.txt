@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/word-break/
 Approach:
 Time Complexity: O(n^2)
-Auxillary Space: O(n+m), here n is the length of the string and m is the length of wordDict
+Auxiliary Space: O(n+m), here n is the length of the string and m is the length of wordDict
 Here first we have created list of words starting with same alphabet.
 Then we check from starting index 'i' if words starting from alphabet at index 'i' is a substring from index i then, we can partition the string and move forward.
 We will now check the same for the next index where the previous word ended.

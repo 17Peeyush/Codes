@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/unique-paths-iii/
 Time Complexity: O(4^(m*n))
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Date: 02-11-2021
 Code:
 class Solution {

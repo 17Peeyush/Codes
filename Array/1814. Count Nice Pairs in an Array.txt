@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/count-nice-pairs-in-an-array
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Notes: Play with the equation atleast once.
 class Solution {
 public:

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/binary-tree-maximum-path-sum/
 Time Complexity: O(n)
-Auxillary Space: O(h), h is the height of binary tree
+Auxiliary Space: O(h), h is the height of binary tree
 Code:
 /**
  * Definition for a binary tree node.

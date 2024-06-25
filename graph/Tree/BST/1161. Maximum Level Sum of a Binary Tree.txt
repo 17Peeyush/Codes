@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
 Time Complexity: O(n), where n is the number of nodes in the binary tree
-Auxillary Space: O(l), where l is the number of levels in the binary tree
+Auxiliary Space: O(l), where l is the number of levels in the binary tree
 Code:
 /**
  * Definition for a binary tree node.

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/remove-k-digits/
 Date: 18-02-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach: We try to find first decreasing pairs of number then remove the number with higher value from left to right because leftmost digit is most significant digit and rightmost is the least significant digit.
 There may a case arise that all the digits in given number is already sorted in increasing order then we will remove the last 'k' digits to get the answer.
 Code:

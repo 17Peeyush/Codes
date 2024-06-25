@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/
 Time Complexity: O(n+60)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 02-01-2022
 Code:
 class Solution {

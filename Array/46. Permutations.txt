@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/permutations/
 Time Complexity: O(n*n!)
-Auxillary Space: O(h), where h is the height of recursive (tree) stack
+Auxiliary Space: O(h), where h is the height of recursive (tree) stack
 Code:
 class Solution {
 public:

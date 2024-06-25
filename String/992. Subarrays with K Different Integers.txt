@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/subarrays-with-k-different-integers/
 Date: 03-03-2022
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code: 
 class Solution {
 public:

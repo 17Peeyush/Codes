@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/partition-labels/
 Date: 02-03-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 First we are calculating the index of first and last occurence of each alphabet. Taking the first alphabet and taking its last occurence and defining a range that is first occurence and last occurence and iterate in this range and if we encounter another alphabet then check for its last occurence if it is greater than current upperbound of our range then we change the upper bound of our range. If we have iterated whole range that means all the alphabet in that range have been covered and a valid partition can be done.
 Code:

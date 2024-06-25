@@ -22,7 +22,7 @@ grid[i][j] is either 0 or 1.
 
 Approach:
 Time  Complexity: O(r*c)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Iterate through the whole matrix and if a block which is an island is found call dfs on it to discover its adjacent block which are islands.
 Leetcode
 (If we are on a land square and explore every square connected to it 4-directionally (and recursively squares connected to those squares, and so on),

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/three-equal-parts/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Here we are first checking the number of ones the array if the total number of ones is divisible by 3 then only it is possible to divide the array into three parts.
 Now we are traversing thearray from right to left in order to capture the pattern.
 Now we have to the pattern then we are starting from left after the leading zeros are exhausted and we try to match the pattern.

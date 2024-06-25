@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/spiral-matrix/
 Time Complexity: O(nm) where n and m are number of rows and columns respectively.
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
  vector<int> spiralOrder(vector<vector<int>>&  matrix) {
         int t=0,d=matrix.size()-1,l=0,r=matrix[0].size()-1;

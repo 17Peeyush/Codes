@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/word-ladder/
 Approach:
 Time Complexity: O(n*n*k),n is length of word, k is the number of elements in wordlist
-Auxillary Space: O(k) k is the number of elements in wordlist
+Auxiliary Space: O(k) k is the number of elements in wordlist
 Code:
 int ladderLength(string bw, string ew, vector<string>& wl) {
         unordered_set<string>st(wl.begin(),wl.end());

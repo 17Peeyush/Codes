@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/sqrtx/
 Date: 17-07-2021
 Time Complexity: O(logn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

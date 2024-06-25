@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/largest-component-size-by-common-factor/
 Time Complexity: O(n* sqrt(n))
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 23-11-2021
 Code:
 class Solution {

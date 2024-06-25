@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/count-primes/
 Approach: The Sieve of Eratosthenes
 Time Complexity: O(nloglogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

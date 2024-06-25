@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/maximize-happiness-of-selected-children
 Time Complexity: O(klogn)
-Auxillary Space: O(k)
+Auxiliary Space: O(k)
 Code:
 class Solution {
 public:

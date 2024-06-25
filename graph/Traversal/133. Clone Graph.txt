@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/clone-graph/
 Date: 13-02-2022
 Time Complexity: O(n+m), where n is the number of nodes and m is the number of edges.
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /*
 // Definition for a Node.

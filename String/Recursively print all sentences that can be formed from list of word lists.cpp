@@ -1,7 +1,7 @@
 /*
     Problem: https://www.geeksforgeeks.org/recursively-print-all-sentences-that-can-be-formed-from-list-of-word-lists/
     Time Complexity : O(m*n)
-    Auxillary Space : O(m+n)
+    Auxiliary Space : O(m+n)
     Date: 27-10-2021
     
 */

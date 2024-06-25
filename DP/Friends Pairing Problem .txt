@@ -2,7 +2,7 @@ Problem: https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425
 Approach:
 Here we have 2 option either we make pair or remain single. (Implementing it)
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution
 {

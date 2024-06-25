@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/01-matrix/
 Approach:
 BFS
 Time Complexity: O(m*n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Here we are storing all the index of element equals to 0 in a queue and converting all the elements to infinity.
 Now we are calculating the minimum distance of neighbouring elements of elementsequal to 0 and adding them in the queue.
 Now each will calculate the minimum distance for each of its four neighbours.

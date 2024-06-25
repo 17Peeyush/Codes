@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/wildcard-matching/
 Time Complexity: O(m*n)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Date: 03-10-2021
 Code:
 class Solution {

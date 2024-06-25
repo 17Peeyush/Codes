@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/next-greater-element-iii
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Approach:
 In order to make the next largest from the current number intitutively see changing from the right end will least impact our answer and we can get the next largest number from our current number. We traverse and try to find the index which we can replace that is one whose right element is greater than it. As soon as we identify this index then we sort the elements after this index and then for optimal answer we traverse from index to end of array(number) and swap it with the first element greater then our index element.
 Code:

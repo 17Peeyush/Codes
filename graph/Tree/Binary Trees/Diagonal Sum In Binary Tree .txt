@@ -2,7 +2,7 @@ Problem: https://practice.geeksforgeeks.org/problems/diagonal-sum-in-binary-tree
 Date: 16-03-2022
 Approach: Taking the help of vertical distance and only increasing for the left child whereas right child inherit the same distance. In the end all the nodes having same vertical distance fall on the same diagonal.
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /*Complete the function below
 Node is as follows:

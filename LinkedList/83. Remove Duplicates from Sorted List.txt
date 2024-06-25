@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 
 Code:
 ListNode* deleteDuplicates(ListNode* head) {

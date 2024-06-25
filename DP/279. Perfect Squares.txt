@@ -2,7 +2,7 @@ Problem:
 Approach:
 (1) Similar to Coin change problem: Minimum number of coins to get a change of sum S
 Time Complexity: O(n*s), where s is the number of squares less than 10^4
-Auxillary Space: O(n*s)
+Auxiliary Space: O(n*s)
 Code:
 class Solution {
 public:
@@ -63,7 +63,7 @@ public:
 
 Approach (2):Legendre's three-square theorem
 Time Complexity: O(sqrt(n))
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 In mathematics, Legendre's three-square theorem states that a natural number can be represented as the sum of three squares of integers
  n=x^{2}+y^{2}+z^{2}
 if and only if n is not of the form n = 4^a(8b + 7) for nonnegative integers a and b.

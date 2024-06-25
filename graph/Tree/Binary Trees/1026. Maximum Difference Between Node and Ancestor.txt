@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/
 Time Complexity: O(n), where n is the number of nodes in the binary tree.
-Auxillary Space: O(h), where h is the height of binary tree.
+Auxiliary Space: O(h), where h is the height of binary tree.
 Date: 31-12-2021
 Code:
 /**

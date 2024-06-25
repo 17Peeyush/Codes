@@ -1,7 +1,7 @@
 Problem:
 Approach:
 Time Complexity: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Here we are using binary search. We try to get possible by calculating mid which will give possible ans(capacity).
 We try to split the array so that its each part is in capacity and if it is possible then we increase capacity else decrease capacity.
 Code:

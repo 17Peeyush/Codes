@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/minimum-path-sum/
 Time Complexity: O(m*n)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Code:
 class Solution {
 public:

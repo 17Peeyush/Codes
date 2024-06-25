@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/delete-node-in-a-bst/
 Time Complexity: O(n)
-Auxillary Space: O(1), not considering recursive stack size, O(n) if size of recursive stack is taken into consideration.
+Auxiliary Space: O(1), not considering recursive stack size, O(n) if size of recursive stack is taken into consideration.
 Date: 14-10-2021
 Code:
 /**

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/binary-tree-right-side-view/
 Time Complexity: O(n)
-Auxillary Space: O(l), where l is the maximum number of nodes in a level
+Auxiliary Space: O(l), where l is the maximum number of nodes in a level
 Code:
 class Solution {
 public:

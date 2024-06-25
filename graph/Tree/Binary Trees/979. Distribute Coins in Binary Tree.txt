@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/distribute-coins-in-binary-tree
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 Points to note in the question there is 'n' nodes and 'n' coins so in the end each node should have 1 coin. If a child have extra coins it will be pass it to parent and if the parent have more coins and its children don't have coins then parent node while fullfil the requirements of its child. If the childs also have sufficient coins then our parent node will pass the extra coins to its parents. 
 

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/find-k-pairs-with-smallest-sums/
 Time Complexity: O(nlogk)
-Auxillary Space: O(k)
+Auxiliary Space: O(k)
 Approach: Here we are taking a max heap and will check its size as soon as it becomes 'k' then it means the extra element can't be our answer and we will pop it out. Since for finding the minimum 'k' we are using max heap so the max element will always be at the top and we will pop it if the size is greater than 'k'. Another optimisation which we did as soon while iterating we get a pair whose sum is more than the top of our priority queue, since the input array are in non-decreasing as the incoming pairs sum will be more than the current so we will break the inner iteration here.
 Code:
 class Solution {

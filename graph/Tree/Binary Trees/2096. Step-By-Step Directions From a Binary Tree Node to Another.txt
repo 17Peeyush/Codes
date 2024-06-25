@@ -4,7 +4,7 @@ Date: 14-03-2022
 Approach: Find the path from root to the given two nodes then find lowest common ancestor then from startnode replace the direction to 'U' indicating we traverse towards upward and from lca we append the corresponding direction to achieve the path from startvalue to destvalue.
 
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /**
  * Definition for a binary tree node.

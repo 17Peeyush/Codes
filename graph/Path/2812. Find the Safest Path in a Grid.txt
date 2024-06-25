@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/find-the-safest-path-in-a-grid
 Time Complexity: O(n^2logn)
-Auxilary Space: O(n^2)
+Auxiliary Space: O(n^2)
 Approach: I tried to map each cell dsitance from its nearest theif. We achieve this by bfs by putting all the co-ordinates of the theives in the queue and adding distance to their surrounding cells(Manhattan distance). Once we get for each cell minimum distance from theives then we perform bfs from source to destination. We can say dijkstra always choosing the cell with the maximum distance.
 Code:
 class Solution {

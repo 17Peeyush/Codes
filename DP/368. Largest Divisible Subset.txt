@@ -1,7 +1,7 @@
 Problem:
 (1)
 Time Complexity: O(2^n)
-Auxillary Space: O(2^n)
+Auxiliary Space: O(2^n)
 Date: 15-11-2021
 Note: This approach was not able to pass all the test cases. (TLE)
 Code:
@@ -50,7 +50,7 @@ public:
 
 (2)
 Time Complexity: O(n^2)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 15-11-2021
 Code:
 class Solution {

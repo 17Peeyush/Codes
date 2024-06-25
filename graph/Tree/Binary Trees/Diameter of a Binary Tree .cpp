@@ -2,7 +2,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/diameter-of-binary-tree/1
 Date: 21-03-2022
 Time Complexity: O(n)
-Auxillary Space: O(logn)
+Auxiliary Space: O(logn)
 */
 #include <bits/stdc++.h>
 using namespace std;

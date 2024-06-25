@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 func max(a,b int) int {
     if a>b {

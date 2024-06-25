@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/split-array-largest-sum/
 Time Complexity: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Here we are finding the maximum slipt value by using binary search. If slipt is possible in m parts then we search for lower value.
 If split is not possible then we search for a higher value for which split is possible.
 Code:

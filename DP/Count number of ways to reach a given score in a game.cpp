@@ -3,7 +3,7 @@ Count number of ways to reach a given score in a game
 Problem: https://www.geeksforgeeks.org/count-number-ways-reach-given-score-game/
 Date: 25-03-2022
 Time Complexity: exponential
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 */
 #include <iostream>
 #include <bits/stdc++.h>

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/path-sum-ii/
 Time Complexity: O(n), where n is the number of nodes in the tree
-Auxillary Space: O(h), where h is the height of the tree
+Auxiliary Space: O(h), where h is the height of the tree
 Code:
 class Solution {
 public:

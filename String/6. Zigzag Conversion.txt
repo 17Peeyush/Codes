@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/zigzag-conversion/
 Date: 12-12-2021
 (1)
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:
@@ -40,7 +40,7 @@ public:
 
 (2)
 Time Complexity: O(n)
-Auxillary Space: O(n), if considering returning string otherwise O(1)
+Auxiliary Space: O(n), if considering returning string otherwise O(1)
 Code:
 class Solution {
 public:

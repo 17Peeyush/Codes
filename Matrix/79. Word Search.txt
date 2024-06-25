@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/word-search/
 Time Complexity: O(m*n*k)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Code:
 class Solution {
 public:

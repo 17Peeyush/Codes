@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/
 Approach:
 Time Complexity: O(n*n+log(h)) where h is the height of the bst
-Auxillary space: O(n)
+Auxiliary space: O(n)
 Here we are observing a pattern that there is a fixed order for inputing elements of left sub tree and right subtree.
 But there is no order bewtween the elements of left subtree and right subtree.
 The root remain constant in order.

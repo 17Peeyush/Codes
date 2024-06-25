@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/reorder-data-in-log-files/
 Time Complexity: O(nklogk) , where n is the total log and k is number of letter log
-Auxillary Space: O(klogk)
+Auxiliary Space: O(klogk)
 Date: 23-09-2021
 Code:
 class Solution {

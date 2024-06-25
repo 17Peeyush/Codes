@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/minimum-knight-moves/
 Companies: Citadel, Facebook, Microsoft, LinkedIn, Indeed, Amazon, Google, IMC, Expedia, Nvidia
 Approach: (BFS)
 Time Complexity: O(k^8), where k is the number of steps to reach the desired position
-Auxillary Space: O(k^8), where k is the number of steps to reach the desired position
+Auxiliary Space: O(k^8), where k is the number of steps to reach the desired position
 Code:
 class Solution {
 public:

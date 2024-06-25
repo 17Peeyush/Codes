@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/defuse-the-bomb/description/
 Time Complexity: O(n)
-Auxillary Space: O(n), if output array is considered, else O(1)
+Auxiliary Space: O(n), if output array is considered, else O(1)
 Code :
 class Solution {
 public:

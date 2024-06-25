@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/score-after-flipping-matrix/
 Time Complexity: O(r*c), where r is row and c is col
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Appraoch: in order to maximize our answer we need most significant bit to be 1 so for each row first column we will check whether it is 1 or not and flip the row if it is '0'. Then we move to columns in order to maximize columns we need to find if current column has more numbers of '0's or '1's. If '1's then we don't need to flip the row but if it is '0's then we will flip the row inorder to find the maximum answer.
 Code:
 class Solution {

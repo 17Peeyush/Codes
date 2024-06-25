@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/sum-root-to-leaf-numbers/
 Time Complexity: O(n)
-Auxillary Space: O(h), where h is the height of tree
+Auxiliary Space: O(h), where h is the height of tree
 Code:
 class Solution {
 public:

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/implement-strstr/
 Approach:Implemented KMP (Knuth-Morris-Pratt)
 Time Complexity: O(m+n), where m and n are the length of pattern and text respectively.
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
  vector<int>createlps(string pat)
 {

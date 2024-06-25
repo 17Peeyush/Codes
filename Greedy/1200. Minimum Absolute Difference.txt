@@ -1,6 +1,6 @@
 Problem:
 Time complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
         sort(arr.begin(),arr.end());

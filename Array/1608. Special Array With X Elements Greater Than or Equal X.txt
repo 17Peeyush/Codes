@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
 Time Complexity: O(n)
-Auxilary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

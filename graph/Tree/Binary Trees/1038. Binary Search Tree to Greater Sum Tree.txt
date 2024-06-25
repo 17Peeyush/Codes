@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
 Time Complexity: O(n), where n is the number of nodes in the binary tree.
-Auxillary Space: O(1), ignoring the size of recursive stack
+Auxiliary Space: O(1), ignoring the size of recursive stack
 Code:
 /**
  * Definition for a binary tree node.

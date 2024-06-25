@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/count-elements-with-maximum-frequency/description/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Go code:
 func maxFrequencyElements(nums []int) int {
     freq :=make(map[int] int)

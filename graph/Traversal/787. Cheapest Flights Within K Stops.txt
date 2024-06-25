@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/cheapest-flights-within-k-stops/
 Time Complexity: O(v+e)
-Auxillary Space: O(e)
+Auxiliary Space: O(e)
 Note: This approach is contributed by ZX007PI
 Simple Bfs but for corner cases we are checking if the we have surpassed the k stops then we are checking if the cost of current node if already less than the current cost.
 Code:

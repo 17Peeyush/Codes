@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/valid-palindrome/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 bool isPalindrome(string s) {
         int i=0,j=s.length()-1;

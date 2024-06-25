@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/replace-words
 Company: Google, Uber
 Time Complexity: O(dw+n), d size of dictionary,w average size of words, n length of sentence
-Auxillary Space: O(dw.26)=O(dw)
+Auxiliary Space: O(dw.26)=O(dw)
 Code:
 class Solution {
 public:

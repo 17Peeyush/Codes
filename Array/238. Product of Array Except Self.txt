@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/product-of-array-except-self/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 27-11-2021
 Code:
 class Solution {

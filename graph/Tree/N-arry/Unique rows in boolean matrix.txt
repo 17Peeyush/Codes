@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/unique-rows-in-boolean-matrix/1
 Time Complexity: O(m*n), where m is the number of rows and n is number of columns
-Auxillary Space: O(d*n), where d is the number of distinct rows
+Auxiliary Space: O(d*n), where d is the number of distinct rows
 Date: 15-10-2021
 Code:
 struct TrieNode{

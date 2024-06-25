@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/palindrome-partitioning
 Time Complexity: O(n.2^n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 05-01-2022
 Code:
 class Solution {

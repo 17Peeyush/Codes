@@ -1,6 +1,6 @@
 Problem:
 Time Complexity: O(2^n)
-Auxillary Space: O(2^n)
+Auxiliary Space: O(2^n)
 Code:
 #define MOD 1000000007
 class Solution {

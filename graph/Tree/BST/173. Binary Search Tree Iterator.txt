@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/binary-search-tree-iterator/
 Date: 20-04-2022
 Time Complexity: O(1) (Average)
-Auxillary Space: O(h), h is the height of the bst
+Auxiliary Space: O(h), h is the height of the bst
 Code:
 /**
  * Definition for a binary tree node.

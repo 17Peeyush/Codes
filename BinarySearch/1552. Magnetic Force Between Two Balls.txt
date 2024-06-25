@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/magnetic-force-between-two-balls
 Companies: Amazon, Roblox
 Time Complexity: O(nlogn)
-Auxillary Space: O(logn), sorting
+Auxiliary Space: O(logn), sorting
 Approach: Will check with the help of binary search whether we can place 'm' balls with 'x' magnetic force between them. The 'x' we are finding from binary search. (Binary search on answer)
 Code:
 class Solution {

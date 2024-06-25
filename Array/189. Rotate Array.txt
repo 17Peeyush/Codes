@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/rotate-array/
 Approach:
 1)
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 We are creating another temporary array then storing the shifted value for an index 'i'.
 In the end copying the shifted value to original array. 
 Code:
@@ -27,7 +27,7 @@ void rotate(vector<int>& nums, int k) {
 
 2)
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Spliting the array into two parts: 
 	First part: Array from index '0' to 'n-k-1'
 	Second part: Array from index 'n-k' to 'n-1'

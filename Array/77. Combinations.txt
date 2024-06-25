@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/combinations/
 Time Complexity:for loop can run for a maximum of n times with each backtrack with the maximum iteration of NcK times. i.e: overall time complexity will be O(N* C(n, K)).
-Auxillary Space: O(k* C(n, K))(as we have total C(n, K) possible answer each having a size of k )
+Auxiliary Space: O(k* C(n, K))(as we have total C(n, K) possible answer each having a size of k )
 Date: 03-10-2021
 Code:
 class Solution {

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/implement-trie-prefix-tree/
 Time Complexity: Insert and Search -> O(word_length) 
-Auxillary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words
+Auxiliary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words
 Date: 08-10-2021
 Code:
 struct TrieNode

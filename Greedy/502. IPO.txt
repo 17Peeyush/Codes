@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/ipo/
 Companies: Amazon, Microsoft, Gameskraft, Zeta, Salesforce, Google
 Time Complexity: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

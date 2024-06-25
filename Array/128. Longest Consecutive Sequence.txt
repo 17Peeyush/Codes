@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/longest-consecutive-sequence/
 Approach: 
 (1)
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 We have sorted the array then check linearly for consecutive elements.
 
 Code:
@@ -33,7 +33,7 @@ int longestConsecutive(vector<int>& nums) {
 
 (2)
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 We have stored the elements of array in set. Now for each element 'e' we search that e-1 is present in the set.
  case 1:
         If 'e'-1 is not present then that means if consecutive numbers streak including 'e' will start from 'e'.

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/subarray-sums-divisible-by-k/
 Time Complexity: O(1)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

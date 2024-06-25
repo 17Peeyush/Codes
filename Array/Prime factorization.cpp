@@ -1,7 +1,7 @@
 /*
     Problem: Prime factorization of a number
     Time Complexity: O(nlog(logn))+ O(logn)
-    Auxillary Space: O(n)
+    Auxiliary Space: O(n)
     Date: 07-11-2021
 */
 

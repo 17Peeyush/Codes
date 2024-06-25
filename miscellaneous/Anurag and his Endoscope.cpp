@@ -2,7 +2,7 @@
 Problem: https://www.hackerearth.com/problem/algorithm/question-7-4/
 Date: 09-04-2022
 Time Complexity: O(m*n)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 */
 #include <bits/stdc++.h>
 #include <iostream>

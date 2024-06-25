@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/implement-queue-using-stacks/
 Date: 11-03-2022
 Time Complexity: O(1) (Amortized: performing n operations will take overall O(n) time even if one of those operations may take longer.)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class MyQueue {
 public:

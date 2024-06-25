@@ -1,7 +1,7 @@
 /*
 Problem: https://www.geeksforgeeks.org/greedy-algorithm-to-find-minimum-number-of-coins/
 Time Complexity: O(n)
-Auxillary Space: O(n) */
+Auxiliary Space: O(n) */
 #include <bits/stdc++.h>
 #include <iostream>
 

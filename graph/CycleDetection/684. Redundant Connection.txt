@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/redundant-connection/
 Approach: Use Union Find to detect cycle.
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
  int findparent(int n,vector<int>&parent)
     {

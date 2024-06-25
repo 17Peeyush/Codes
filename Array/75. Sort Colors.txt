@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/sort-colors/
 Approach: Implementation of Dutch National Flag problem
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 void sortColors(vector<int>& nums) {
         int low=0,mid=0,high=nums.size()-1;

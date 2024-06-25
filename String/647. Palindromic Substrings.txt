@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/palindromic-substrings/
 Time Complexity: O(n*n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 10-10-2021
 Here we are considering the fact that each element is the middle of a string and checking its neighbours if they are equal then it is palindromic substring.
 Two cases which we take into consideration when the string length is odd then we need to check start looking the neighbours including that element.

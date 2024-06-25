@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/swap-nodes-in-pairs/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 /**
  * Definition for singly-linked list.

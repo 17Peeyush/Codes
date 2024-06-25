@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/contiguous-array/ 
 Date: 04-02-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 Here if we take value of 0 to be -1 then calculate cumulative sum then at certain instance we will get same sum this implies that the sum in between have cancelled each other hence equal number of 0 and 1 is present in that block.
 eg:

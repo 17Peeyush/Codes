@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/container-with-most-water/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 19-11-021
 Code:
 class Solution {

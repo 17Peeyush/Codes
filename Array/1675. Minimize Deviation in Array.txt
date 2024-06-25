@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/minimize-deviation-in-array/
 Date: 19-02-2022
 Time Complexity: O(nlogn+mlogn) where n is the number of elements in the array and m is the number of times during execution current max element is even.
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 Here first we are trying to reduce an operation that is division so we are multiplying all odd numbers by 2 and adding it into set.( Here now we don't have to worry that reduce the max element as we are increasing the minimum element if it is odd.
 Now to find the min deviation we are concentrating on maximum and minimum element as max possible value deviation will be their difference and we try to minimize it.

@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/assign-cookies
 Time Complexity: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 class Solution {
 public:
     int findContentChildren(vector<int>& g, vector<int>& s) {

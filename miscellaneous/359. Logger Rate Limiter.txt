@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/logger-rate-limiter/
 Companies: Google, Atlassian, Oracle, Netflix, Amazon, Bloomberg, Square, Twilio
 Time Complexity: O(1)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Logger {
 private:

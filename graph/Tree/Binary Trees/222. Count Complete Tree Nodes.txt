@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/count-complete-tree-nodes/
 Time Complexity: O(n)
-Auxillary Space: O(h)
+Auxiliary Space: O(h)
 Date: 24-10-2021
 Code:
 /**

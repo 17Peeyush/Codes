@@ -3,7 +3,7 @@ Date: 19-03-2022
 Approach (1):
 Create heap with custom priority function which gives highest priority to frequency of element then to positon.
 Time Complexity: O(nlogn)
-Space Auxillary: O(n)
+Space Auxiliary: O(n)
 Code:
 class FreqStack {
 public:
@@ -55,7 +55,7 @@ public:
 Approach (2):
 Create different stack for different frequencies.
 Time Complexity: O(1)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class FreqStack {
 public:

@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/reveal-cards-in-increasing-order/
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 Have to stimulate the given condition on the indexes and then store the order in which the indexes where cards are revealed. Then sorting the array and putting the sorted elements on the indexes which process first. For example :
 0 1 2 3 4 5 6 => these will be processed as: 0 2 4 6 3 1 5

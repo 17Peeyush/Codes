@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/odd-even-linked-list/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 02-12-2021
 Code:
 /**

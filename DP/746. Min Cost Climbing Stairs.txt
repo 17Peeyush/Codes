@@ -3,7 +3,7 @@ Approach :
 (1)
 For a step 'i' we are considering the minimum cost between the step 'i+1' and 'i+2'.
 Time Complexity: O(2^n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
  int d[1001];
     int minCost(int i,int n,vector<int>&cost)
@@ -22,7 +22,7 @@ Code:
 (2)
 Tabulation of solution (1)
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
  int minCostClimbingStairs(vector<int>& cost) {
         int dp[1005];
@@ -38,7 +38,7 @@ Code:
 (3)
 Same approach but constant space complexity.
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 int minCostClimbingStairs(vector<int>& cost) {
         int n=cost.size();

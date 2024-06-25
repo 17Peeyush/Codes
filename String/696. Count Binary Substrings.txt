@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/count-binary-substrings/
 Approach: Group By character
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 
 Intuition
 We can convert the string s into an array groups that represents the length of same-character contiguous blocks within the string.

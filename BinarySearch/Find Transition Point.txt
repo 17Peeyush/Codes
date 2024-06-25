@@ -1,7 +1,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/find-transition-point-1587115620/1/
 Date: 15-03-2022
 Time Complexity: O(logn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 int transitionPoint(int arr[], int n) {
     int l=0,h=n-1;

@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /*
 struct Node

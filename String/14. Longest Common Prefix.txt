@@ -1,6 +1,6 @@
 Problem: 
 Time Complexity: O(n*k), where k is the length of lcp and n is size of vector
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
  string longestCommonPrefix(vector<string>& s) {
         int n=s.size();

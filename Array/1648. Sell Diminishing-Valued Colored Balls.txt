@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
 Date: 15-02-2022
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 #define ll long long
 #define MOD 1000000007

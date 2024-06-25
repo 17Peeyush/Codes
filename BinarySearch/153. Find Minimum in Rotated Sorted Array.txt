@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 Approach
 Time Complexity: O(logn), where n is the number of elements in the array.
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Suppose we have a rotated array [4,5,6,7,0,1,2,3] here all element are greater than their previous element but the minimum element is less than both its neighbours.
 We used binary search to find the element that satisfies the above condition. We alaways try to move towards unsorted part of array. 
 Code:

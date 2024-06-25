@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/spiral-matrix-ii/
 Time Complexity: O(n*n) where n is number of rows and columns
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 vector<vector<int>> generateMatrix(int n) {
         vector<vector<int>> v(n,vector<int>(n));

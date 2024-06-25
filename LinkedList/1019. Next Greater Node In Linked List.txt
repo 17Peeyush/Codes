@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/next-greater-node-in-linked-list/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 03-10-2021
 Code:
 /**

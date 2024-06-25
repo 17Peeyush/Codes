@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/binary-tree-pruning/
 Time Complexity: O(n), where n is the number of nodes
-Auxillary Space: O(h), used by stack where h is the height of the binary tree
+Auxiliary Space: O(h), used by stack where h is the height of the binary tree
 Code:
  bool removing(TreeNode* root)
     {

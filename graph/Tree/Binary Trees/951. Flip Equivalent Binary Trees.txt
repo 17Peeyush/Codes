@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/flip-equivalent-binary-trees/
 Time Complexity: O(min(n1,n2)), where n1,n2 are lengths of the root1 and root2.
-Auxillary Space: O(min(h1,h2)), where h1,h2 are heights of the root1 and root2.
+Auxiliary Space: O(min(h1,h2)), where h1,h2 are heights of the root1 and root2.
 Code:
 /*
  * Definition for a binary tree node.

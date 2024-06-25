@@ -1,7 +1,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/inorder-successor-in-bst/1
 Date: 15-09-2021
 Time Complexity: O(h), where h is the height of the bst.
-Auxillary Complexity: O(h), here space is consider of recursive stack.
+Auxiliary Complexity: O(h), here space is consider of recursive stack.
 Code:
 class Solution{
   public:

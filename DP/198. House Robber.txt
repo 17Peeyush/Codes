@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/house-robber/
 Approach (1) Recursion + memoization
 Time Complexity: O(2^n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:
@@ -40,7 +40,7 @@ public:
 
 Approach (2) Tabular Method:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/k-th-smallest-prime-fraction
 Time Complexity: O(n^2logk)
-Auxillary Space: O(k)
+Auxiliary Space: O(k)
 Code:
 class Solution {
 public:

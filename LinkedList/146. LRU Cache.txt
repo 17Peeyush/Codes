@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/lru-cache/
 Date: 20-04-2022
 Time Complexity: O(1)
-Auxillary Space: O(capacity)
+Auxiliary Space: O(capacity)
 Approach:
 We are creating a doubly linkedlist where node after head is recently used and the node before is least recently used i.e. will be removed first if use up all the capacity and try to insert new key value pair.
 Code:

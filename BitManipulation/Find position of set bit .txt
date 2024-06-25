@@ -1,6 +1,6 @@
 Problem:https://practice.geeksforgeeks.org/problems/find-position-of-set-bit3706/1
 Time Complexity: O(1)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 int findPosition(int N) {
         // code here

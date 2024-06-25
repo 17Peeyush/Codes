@@ -21,7 +21,7 @@ Your function should return the maximum number of groups that can be created.
 
 
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 
 */
 #include <bits/stdc++.h>

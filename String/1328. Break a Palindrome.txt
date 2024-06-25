@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/break-a-palindrome/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 23-09-2021
 Code:
 class Solution {

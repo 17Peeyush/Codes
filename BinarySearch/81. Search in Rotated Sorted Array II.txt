@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
 Approach:
 Time Complexity: O(logn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 We are performing binary search and if mid is equal to target then true.
 Otherwise we are checking a special case if the value at low, mid and high are same then we can't determine which side of the mid is the sorted part so we increase low and high.
 eg:[1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1]

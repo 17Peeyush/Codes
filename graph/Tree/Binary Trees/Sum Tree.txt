@@ -1,7 +1,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/sum-tree/1/
 Date: 09-03-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /*Tree node
 struct Node

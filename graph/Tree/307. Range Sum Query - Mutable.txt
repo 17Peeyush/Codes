@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/range-sum-query-mutable/
 Time Complexity: O(logn)
-Auxillary Space: O(4*n)
+Auxiliary Space: O(4*n)
 Code:
 class NumArray {
 public:

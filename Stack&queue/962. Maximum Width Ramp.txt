@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/maximum-width-ramp/
 Companies: Google, Amazon
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

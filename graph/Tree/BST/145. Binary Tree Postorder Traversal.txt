@@ -2,7 +2,7 @@ Problem:https://leetcode.com/problems/binary-tree-postorder-traversal/
 
 Approach:Two stack method
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 vector<int> postorderTraversal(TreeNode* root) {
         if(root==nullptr) return {};

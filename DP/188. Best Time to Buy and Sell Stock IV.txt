@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
 Time Complexity: O(n*k), where n is the number of stocks and k is the number of transaction
-Auxillary Space: O(n*k)
+Auxiliary Space: O(n*k)
 Code:
 class Solution {
 public:

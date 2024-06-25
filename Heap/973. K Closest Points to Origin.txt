@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/k-closest-points-to-origin/
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 22-09-21
 Code:
 class Solution {

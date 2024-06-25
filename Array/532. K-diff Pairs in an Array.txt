@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/k-diff-pairs-in-an-array/
 Date: 09-02-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

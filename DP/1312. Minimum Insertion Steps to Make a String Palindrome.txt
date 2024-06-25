@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
 Time Complexity: O(n*n)
-Auxillary space: O(n*n)
+Auxiliary space: O(n*n)
 Date: 16-10-2021
 Here we find the longest palindromic subsequence and if we get that we know number of characters which are not following palindrome pattern and add that many characters.
 Code:

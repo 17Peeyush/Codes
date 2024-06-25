@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/meeting-rooms/description/
 Companies: Apple, Google, Amazon, Palo Alto Networks, Bloomberg, eBay, Facebook
 Time Complexity: O(nlogn)
-Auxillary Space: O(logn), taking into consideration the space used in sorting
+Auxiliary Space: O(logn), taking into consideration the space used in sorting
 Code:
 class Solution {
 public:

@@ -1,7 +1,7 @@
 Problem:https://leetcode.com/problems/find-median-from-data-stream/
 Approach:
 Time Complexity: If we omit the way how stream was read, complexity of median finding is O(nlogn), as we need to read the stream, and due to heap insertions/deletions.
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are taking two heaps one is min and other one is max.
 We are trying to get the median by manipulating the insertion in both heaps such that when at any instance the number of elements is even then median will be top of both heap divided by 2.
 If the number of elements are odd then top of heap which is having more elements.

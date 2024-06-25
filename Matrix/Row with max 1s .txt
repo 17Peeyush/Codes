@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/row-with-max-1s0023/1
 Time Complexity: O(n+m)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
 	    // code here

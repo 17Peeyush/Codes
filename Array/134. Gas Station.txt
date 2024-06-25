@@ -1,7 +1,7 @@
 Problem:
 Date: 21-01-2022
 Time Complexity: O(n*n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:
@@ -38,7 +38,7 @@ public:
 };
 
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

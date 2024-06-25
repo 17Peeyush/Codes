@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/delete-leaves-with-a-given-value
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /**
  * Definition for a binary tree node.

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/bag-of-tokens/
 Time Complexity: O(nlogn), n is total number of elements in tokens
-Auxillary Space: O(nlogn)
+Auxiliary Space: O(nlogn)
 class Solution {
 public:
     int bagOfTokensScore(vector<int>& tokens, int power) {

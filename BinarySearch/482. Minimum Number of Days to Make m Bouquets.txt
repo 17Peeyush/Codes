@@ -6,7 +6,7 @@ From this statement came to an inferene we will use binary search on answer.
 I created a ordered_map and then did binary search by taking always the element that was in bloomDay array.
 In binary search the condition was a helper function that gives true or false that on particular that day if we can make 'm' bouquets or not.
 Time Complexity: O(nlogn)
-Auxillary Space: O(nlogn)
+Auxiliary Space: O(nlogn)
 Code:
 class Solution {
 public:

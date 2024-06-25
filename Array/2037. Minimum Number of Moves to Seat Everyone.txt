@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/minimum-number-of-moves-to-seat-everyone
 Companies: Adobe
 Time Complexities: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Approach: The smallest positioned student will go to the smallest positioned chair, and then the next smallest positioned student will go to the next smallest positioned chair, and so on.
 Code:
 func abs( num int) int{

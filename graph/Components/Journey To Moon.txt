@@ -1,6 +1,6 @@
 Problem: https://www.hackerrank.com/challenges/journey-to-the-moon/problem
 Time Complexity: O(V+E)
-Auxillary Space: O(E)
+Auxiliary Space: O(E)
 1)
 Code:
 void dfs(vector<vector<int>>&g,vector<bool>&visited,int &c,int node)

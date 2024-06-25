@@ -19,7 +19,7 @@ s and t consist only of lowercase English letters.
 Approach
 1) DP
 Time Complexity: O(n*m) where 'n' is the length of string 's' and 'm' is the length of string 't'.
-Auxillary Space: O(n*m)
+Auxiliary Space: O(n*m)
 The Longest Common Subsequence of the two string will be equal to the string s then we can say it is subquence of 't'.
 We can check it directly if length of s is equal to length of lcs then 's' is the subsequence of 't'.
 

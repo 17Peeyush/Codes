@@ -2,7 +2,7 @@ Problem: https://practice.geeksforgeeks.org/problems/max-length-chain/1/
 Date: 20-03-2022
 Approach: Same as activity selection problem.
 Time Complexity: O(nlogn)
-Auxillary Space: O(n), space used in sorting
+Auxiliary Space: O(n), space used in sorting
 Code:
 /*
 The structure to use is as follows

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/network-delay-time/
 Time Complexity: O(v+eloge)
-Auxillary Space: O(e)
+Auxiliary Space: O(e)
 Code:
 class Solution {
 public:

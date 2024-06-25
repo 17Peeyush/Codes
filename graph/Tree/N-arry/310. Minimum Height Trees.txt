@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/minimum-height-trees/
 Time Complexity: O(n), where n is number of nodes in graph 
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

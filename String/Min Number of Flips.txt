@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/min-number-of-flips3210/1
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 16-10-2021
 Code:
 int countFlip(char start,string &s)

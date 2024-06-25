@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/binary-subarrays-with-sum/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 class Solution {
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {

@@ -1,7 +1,7 @@
 Problem: https://www.geeksforgeeks.org/find-maximum-path-sum-two-leaves-binary-tree/
 Date: 21-03-2021
 Time Complexity: O(n)
-Auxillary Space: O(logn)
+Auxiliary Space: O(logn)
 Code:
 /*struct Node
 {

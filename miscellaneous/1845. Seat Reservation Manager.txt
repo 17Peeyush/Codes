@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/seat-reservation-manager/description
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 class SeatManager {
 public:
 

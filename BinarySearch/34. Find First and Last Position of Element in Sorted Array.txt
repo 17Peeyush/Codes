@@ -1,7 +1,7 @@
 https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 Approach:
 Time Complexity: O(n)
-Auxillary space: O(1)
+Auxiliary space: O(1)
 We are performing binary search if we find the number then we search on its left side of array for first occurence and right side for the last occurence of the number.
 Code:
 int binarySearch(int l,int h,int n,vector<int>&arr,int flag)// flag->0==last occurence

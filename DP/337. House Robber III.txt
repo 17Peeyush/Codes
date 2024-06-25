@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/house-robber-iii/
 Time Complexity: O(2^n)
-Auxillary Space: O(h) , h is the height of recursive tree
+Auxiliary Space: O(h) , h is the height of recursive tree
 Date: 05-12-2021
 Code:
 (1)

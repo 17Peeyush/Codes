@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/merge-in-between-linked-lists/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 /**
  * Definition for singly-linked list.
  * type ListNode struct {

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/smallest-string-with-swaps/
 Date: 27-04-2022
 Time Complexity: O(E+VlogV)
-Auxillary Space: O(E+V)
+Auxiliary Space: O(E+V)
 Code:
 class Solution {
 public:

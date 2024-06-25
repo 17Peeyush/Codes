@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/next-greater-element-i/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Using stack and traversing the array from the right side.
 Storing -1 for an element if stack is empty.
 If stack top is greater than current element it is the next larger number.

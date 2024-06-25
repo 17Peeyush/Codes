@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/last-moment-before-all-ants-fall-out-of-a-plank/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 4-11-2023
 Solution: Even if ants are colliding then they are turning into opposite direction from that point, which is equivalent to if no collision happened they would have moved in similar fashion.
 #include <bits/stdc++.h>

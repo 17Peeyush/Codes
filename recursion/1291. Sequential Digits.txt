@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/sequential-digits/
 Date: 23-01-2022
 Time Complexity: O(n*n)
-Auxillary Space: O(n) height of recursive stack
+Auxiliary Space: O(n) height of recursive stack
 Code:
 class Solution {
 public:

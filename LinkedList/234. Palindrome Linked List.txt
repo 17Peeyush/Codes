@@ -1,6 +1,6 @@
 Problem: 
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Approach 1:
 Find the middle of linked list and reverse the first part and then traverse both the parts(first and second). If there is val mismatch then it is not a palindrome, else it is palindrome.
 Caution: Handling is required for even and odd length of linkedlist

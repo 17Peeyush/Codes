@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/
 Date: 04-04-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach: Finding depth of each subtree we will get our answer from the subtree which have more depth so we move towards the subtree having max depth. Once we encounter a root whose both left and right subtree have same depth then it will be our answer.
 Code:
 /**

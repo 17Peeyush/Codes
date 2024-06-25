@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/minimum-window-substring/
 Date: 04-04-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach: https://youtu.be/iwv1llyN6mo
 Code:
 class Solution {

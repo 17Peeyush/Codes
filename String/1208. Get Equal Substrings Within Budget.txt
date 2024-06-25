@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/get-equal-substrings-within-budget/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach: Here we are converting it to a standard question by taking the difference of the elements of 's' and 't' and storing it in an array then we have an array of integers. Then question boils down to sliding window that with max capacity what is the maximum length of the subarray that can  be formed.
 Code:
 class Solution {

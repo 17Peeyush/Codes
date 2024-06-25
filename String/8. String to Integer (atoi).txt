@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/string-to-integer-atoi/
 Date: 14-01-2021
 Time Complexity: O(n)
-Auxillary Space: O(m), where m is the length of integer
+Auxiliary Space: O(m), where m is the length of integer
 Code:
 class Solution {
 public:

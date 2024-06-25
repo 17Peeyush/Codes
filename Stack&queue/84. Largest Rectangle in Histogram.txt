@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/largest-rectangle-in-histogram/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here for a given index we are calculating how much it can expand towards its left and right by calculating nearest smaller element to left (in ls array),
 and nearest smaller element to right(in rs array).
 After that we are calculating for each index the boundary to which it can expand and multiply by its height to calculate the area.

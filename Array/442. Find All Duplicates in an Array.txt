@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/find-all-duplicates-in-an-array/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 06-10-2021
 Code:
 class Solution {

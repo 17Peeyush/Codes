@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/move-zeroes
 Approach:
 (1)
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 A two-pointer approach could be helpful here. The idea would be to have one pointer for iterating the array and another pointer that just works on the non-zero elements of the array.
 
 Code:
@@ -21,7 +21,7 @@ void moveZeroes(vector<int>& nums) {
 
 (2)
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 We are taking two pointers 'i' and 'j' and i stops at index which have element as 0 and 'j' stops at index which have non zero element.
 If 'j' is greater than 'i' that means non zero element is on the right side of zero so we swap them.
 If 'j' is less than 'i' that means non zero element is on left size of zero element so we increment 'j' so it searches on the right of 'i' (zero element).

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/3sum/
 Approach:
 Time Complexity: O(n*n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(),nums.end());

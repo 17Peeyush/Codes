@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/longest-palindromic-substring/
 Approach:
 Time Complexity: O(n^2), where n is the length of the string
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Let us consider 2 cases:
 Case 1: string= "abccb"
 		 01234 

@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/largest-3-same-digit-number-in-string/description
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 class Solution {
 public:
     string largestGoodInteger(string num) {

@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/finding-the-numbers0215/1#
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are first calculating the xor of all elements then our xor will contain the two unique numbers xor (a^b).
 Now we check for the left most set bit as it will tell that a's that bit is either 1 and b's that bit is 0 or vice versa.
 On that bit position we divide the array in two part one which have that bit set and other that don't have that bit set.

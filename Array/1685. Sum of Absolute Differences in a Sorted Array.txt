@@ -2,7 +2,7 @@ Problem:
 Approach:
 (1)
 Time Complexity: O(n*n), where n is the number of elements in the array
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Note: This approach was not able to pass all the test cases. (TLE)
 Code:
 vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
@@ -21,7 +21,7 @@ vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
     }
 (2)
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Here we are first calculating total sum.
 Then for each element we are calculating left sum (sum of all the element to the left of current element including current element).
 Then subtracting current element number of times the number of element in left sum.

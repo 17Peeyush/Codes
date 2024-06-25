@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/the-earliest-moment-when-everyone-become-
 Companies: Google, Expedia
 Note: If 'm' operations, either union or find, are applied to 'n' elements, the total run time is O(m.α(n)), where α(n) is inverse Ackermann Function.
 Time Complexity: O(mlogm + n + mα(n))
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

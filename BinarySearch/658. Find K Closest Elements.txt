@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/find-k-closest-elements/
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here in this approach we have used max heap to have a track of max difference and we are only retaining the elements with minimum absolute difference from x. 
 In the end we are returning the left element in the heap by storing its element in a array.
 Code:
@@ -27,7 +27,7 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
 
 2)
 Time Complexity: O(n)
-Auxillary Space: O(1), if not considering the vector which is returned.
+Auxiliary Space: O(1), if not considering the vector which is returned.
 Starting with 2 pointers one at the first index '0' and one at the last index 'n-1'.
 Minimizing the size of array based on the values of absolute difference of x with elements at the 2 pointers.
 If at any point of time size of array becomes equal to k we return that subarray.

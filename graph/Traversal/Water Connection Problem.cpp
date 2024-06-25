@@ -2,7 +2,7 @@
 Problem: https://www.geeksforgeeks.org/water-connection-problem/
 Approach:
 Time Complexity: O(n+p), where n is number of houses and p is number of pipes
-Auxillary Space: O(n+p)
+Auxiliary Space: O(n+p)
 */
 #include <bits/stdc++.h>
 #include <iostream>

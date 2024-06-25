@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/find-common-characters/
 Time Complexity: O(n*k), where n is size of array and k is average length of the elements of array. 
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

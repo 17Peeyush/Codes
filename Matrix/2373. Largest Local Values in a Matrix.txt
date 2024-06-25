@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/largest-local-values-in-a-matrix
 Time Complexity: O(n*n)
-Auxillary Space: O(n*n)
+Auxiliary Space: O(n*n)
 Code:
 class Solution {
 public:

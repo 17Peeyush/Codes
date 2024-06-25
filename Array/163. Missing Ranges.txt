@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/missing-ranges/description/
 Companies: Google, Facebook, Tiktok, ByteDance, Uber, Avito
 Time Complexity: O(n)
-Auxillary Space: O(1), if we ignore the space consumed by the input and output).
+Auxiliary Space: O(1), if we ignore the space consumed by the input and output).
 Code:
 class Solution {
 public:

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/moving-average-from-data-stream/
 Companies: Facebook, Google, ZScaler, Spotify, Apple, Amazon, Arista Networks
 Time Complexity: O(1)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class MovingAverage {
 public:

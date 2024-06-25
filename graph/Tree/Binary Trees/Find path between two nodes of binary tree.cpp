@@ -1,7 +1,7 @@
 /*
 Date: 14-03-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 */
 #include <bits/stdc++.h>
 #include <iostream>

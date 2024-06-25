@@ -1,7 +1,7 @@
 Problem:https://leetcode.com/problems/task-scheduler/
 Solution link: https://leetcode.com/problems/task-scheduler/solutions/4901137/brainstrom-with-me/
 Time Complexity: O(nlogn)
-Auxillary Space: O(1) space won't exceed more than O(26)~=O(1)
+Auxiliary Space: O(1) space won't exceed more than O(26)~=O(1)
 Approach:
 By looking at example we take a decision to stimulate it and suppose there are five task : A,B,C,D,E we think that if we process them sequencially so we will be able to create gap between the identical tasks maximum. This is correct but will lead to a problem: 
 cool down (n)=1

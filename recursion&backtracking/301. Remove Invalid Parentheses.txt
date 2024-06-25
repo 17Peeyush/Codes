@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/remove-invalid-parentheses/
 Time Complexity: O(2^n)+O(n)
-Auxillary Sapce: O(n)
+Auxiliary Sapce: O(n)
 Date: 25-10-2021
 (1)
 Here we are checking for each parentheses whether after removing it we are getting a valid sequence of brackets.
@@ -77,7 +77,7 @@ public:
 
 (2)
 Time Complexity: O(2^n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 25-10-2021
 Here first we are calculating the number of invalid brackets (say x) then only after stimulation of removable of 'x' number of bracket we are checking the given sequence validity.
 Code:

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/word-search-ii/
 Time Complexity: Insert and Search -> O(word_length) and O(m*n)
-Auxillary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words and O(m*n)
+Auxiliary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words and O(m*n)
 Date: 09-10-2021
 Code:
 class Solution {

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/minimum-domino-rotations-for-equal-row/
 Date: 20-03-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 struct candidate{
         int top;
@@ -56,7 +56,7 @@ struct candidate{
 
 Approach 2:
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

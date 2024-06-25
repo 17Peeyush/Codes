@@ -1,7 +1,7 @@
 Problem: https://www.geeksforgeeks.org/calculate-square-of-a-number-without-using-and-pow/
 Approach:
 Time Complexity: O(1)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 For a given number `num` we get square of it by multiplying number as `num * num`. 
 Now write one of `num` in square `num * num` in terms of power of `2`. Check below examples.
 

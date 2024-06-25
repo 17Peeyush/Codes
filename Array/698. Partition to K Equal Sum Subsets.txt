@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
 Time Complexity: O(k^(n)), where N is the length of nums, and k is as given.
-Auxillary Space: O(n), the space used by recursive calls to search in our call stack.
+Auxiliary Space: O(n), the space used by recursive calls to search in our call stack.
 Code:
 class Solution {
 public:

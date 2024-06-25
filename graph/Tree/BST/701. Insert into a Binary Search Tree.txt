@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/insert-into-a-binary-search-tree/
 Date: 12-01-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /**
  * Definition for a binary tree node.

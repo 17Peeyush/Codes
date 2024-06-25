@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/pacific-atlantic-water-flow/
 Date: 10-03-2022
 Approach: Instead of flowing water from cells towards 'Pacific' or 'Atlantic' consider water flowing from 'Pacific' or 'Atlantic' towards cells then condition will be water will flow in adjacent cells if its height is greater than current cell. We will use dfs for stimulation of flowing water for pacific start from first row and column and for 'Atlantic' last row and column will be considered. Finally we will get two grids 'Pacific' and 'Atlantic' with cells as true from which water flows from 'Pacific' and 'Atlantic' respectively and the cell which is true for both will be our answer.
 Time Complexity: O(m*n)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Code:
 class Solution {
 public:

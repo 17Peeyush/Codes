@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/word-ladder-ii/
 Approach:
 (1)
 Time Complexity: O(26*n*l) , where n is the number of words, l is the length of each word
-Auxillary Space: O(l), l is the size of recursive stack
+Auxiliary Space: O(l), l is the size of recursive stack
 Note: This approach did not pass all test cases. (TLE)
 Code:
 vector<vector<string>> out;
@@ -54,7 +54,7 @@ vector<vector<string>> out;
 
 (2)
 Time Complexity: O(26*n*l+ve), where n is the number of words, l is the length of each word, v is the vertices of graph created and e is the edges
-Auxillary Space: O(n*l)
+Auxiliary Space: O(n*l)
 Code:
  vector<vector<string>> out;
     void dfs(string bw,string ew,unordered_map<string,vector<string>>adj,vector<string>tin)

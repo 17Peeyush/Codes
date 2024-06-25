@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/array-of-doubled-pairs/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are sorting the input and storing the frequency of each element in a map.
 Then traversing the map if the current element is positive then checking if 2*current element is present in the map.
 POSITIVE NUMBER CASE:

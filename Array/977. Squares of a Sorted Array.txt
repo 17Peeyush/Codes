@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/squares-of-a-sorted-array/description
 Time Complexity: O(nlogn)
-Auxillary Space: O(nlogn)
+Auxiliary Space: O(nlogn)
 func sortedSquares(nums []int) []int {
     size := len(nums)
     res := make([] int, size)

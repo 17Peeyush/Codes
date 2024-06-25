@@ -2,7 +2,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/count-all-possible-paths-from-top-left-to-bottom-right3011/1/
 Date: 21-03-2022
 Time Complexity: O(m*n)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 */
 // Initial Template for C++
 #include <bits/stdc++.h>

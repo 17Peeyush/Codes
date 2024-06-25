@@ -19,7 +19,7 @@ s consists only of lowercase English letters.
 Approach:
 1)
 Time  Complexity: O(n*n) where n is the length of the word
-Auxillary Space : O(n*n)
+Auxiliary Space : O(n*n)
 We reverse the original string and find the longest common subsequence it will be equal to longest palindromic subsequence.
 
 Code:

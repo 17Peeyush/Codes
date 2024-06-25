@@ -1,6 +1,6 @@
 Problem: 
 Time Complexity: O(n), n is number of nodes
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 
 Code:
 /**

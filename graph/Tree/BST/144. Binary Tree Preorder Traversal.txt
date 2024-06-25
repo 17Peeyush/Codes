@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/binary-tree-preorder-traversal/
 
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 vector<int> preorderTraversal(TreeNode* root) {
         if(root==nullptr) return {};

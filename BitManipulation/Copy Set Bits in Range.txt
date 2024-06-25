@@ -1,6 +1,6 @@
 Problem:https://practice.geeksforgeeks.org/problems/copy-set-bits-in-range0623/1
 Time Complexity: O(r-l) which is approximately O(1)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 int setSetBit(int x, int y, int l, int r){
         while(l<=r)

@@ -1,7 +1,7 @@
 /*
 Problem: https://practice.geeksforgeeks.org/problems/count-number-of-hops-1587115620/1/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 */
 #include <bits/stdc++.h>
 using namespace std;

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/count-of-matches-in-tournament
 Time Complexity: O(logn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 class Solution {
 public:
     int numberOfMatches(int n) {

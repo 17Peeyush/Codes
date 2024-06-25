@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/combination-sum/
 Time Complexity: exponential
-Auxillary Space: exponential
+Auxiliary Space: exponential
 Date: 19-11-2021
 Code:
 class Solution {

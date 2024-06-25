@@ -3,7 +3,7 @@ Codeforces Round #752 (Div. 2)
 B. XOR Specia-LIS-t
 Link: https://codeforces.com/problemset/problem/1604/B
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Approach:
 Let 'n' be the number of elements in the array.
 If 'n' is even then we can split the array into n parts and LIS for each part will be 1, XOR of 1 even number of times result in 0. So answer is yes.

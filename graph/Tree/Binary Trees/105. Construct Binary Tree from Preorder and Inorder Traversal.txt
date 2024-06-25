@@ -1,7 +1,7 @@
 Problem:https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 Approach:
 Time Complexity: O(n)
-Auxillary space: O(n)
+Auxiliary space: O(n)
 Algorithm
 1)Build a hashmap to record the relation of value -> index for inorder, so that we can find the position of root in constant time.
 2)Initialize an integer variable preorderIndex to keep track of the element that will be used to construct the root.

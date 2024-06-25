@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/add-one-row-to-tree/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /**
  * Definition for a binary tree node.

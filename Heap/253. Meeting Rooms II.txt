@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/meeting-rooms-ii
 Companies: Facebook, Amazon, Microsoft, Google, Snapchat, Oracle, Bloomberg, Apple, ServiceNow, Nordstrom, Tiktok, IBM, Yandex, Salesforce, eBay, Pinterest, Miro, Uber, Walmart Labs, PayPal, Visa, Cruise Automation, Goldman Sachs, Splunk, ByteDance
 Approach 1:
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:
@@ -33,7 +33,7 @@ public:
 
 Approach2:
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

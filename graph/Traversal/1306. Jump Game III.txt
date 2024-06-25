@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/jump-game-iii/
 Time Complexity: O(n+2*n)
-Auxillary Space: O(n+2*n)
+Auxiliary Space: O(n+2*n)
 Date: 09-12-2021
 Code:
 (1) Created a graph then applied nfs on it.
@@ -45,7 +45,7 @@ public:
 
 (2)
 Time Complexity: O(n)
-Auxillary Space: O(n), if considering recursive stack else O(1)
+Auxiliary Space: O(n), if considering recursive stack else O(1)
 Code:
 class Solution {
 public:

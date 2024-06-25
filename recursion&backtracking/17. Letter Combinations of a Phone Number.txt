@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 Time Complexity: O(3^n)(approx), where n is the length of digits string. 
-Auxillary Space: O(h), where h is height of recursive stack.
+Auxiliary Space: O(h), where h is height of recursive stack.
 Date: 04-01-2022
 Code:
 class Solution {

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/smallest-missing-integer-greater-than-sequential-prefix-sum/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

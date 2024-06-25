@@ -1,7 +1,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/sort-a-linked-list/1/?page=13&company[]=Amazon&sortBy=submissions
 Date: 16-03-2022
 Time Complexity: O(nlogn)
-Auxillary Space: O(logn), recursive stack space
+Auxiliary Space: O(logn), recursive stack space
 Code:
 class Solution{
   public:

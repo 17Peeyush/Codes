@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/path-with-maximum-gold
 Time Complexity:O(m⋅n⋅4^g), g is number of gold cells
-Auxillary Space: O(g)
+Auxiliary Space: O(g)
 Code:
 class Solution {
 public:

@@ -5,7 +5,7 @@ is bipartite using graph traversal algorithms. The idea is to color the starting
 If at some point of the search we notice that two adjacent nodes have the same color, this means that the graph is not bipartite.
 Otherwise the graph is bipartite and one coloring has been found.
 Time Complexity: O(V+E), where V is the vertices in the graph and E is the edges.
-Auxillary Space: The space complexity for DFS is O(h) where h is the maximum height of the tree.
+Auxiliary Space: The space complexity for DFS is O(h) where h is the maximum height of the tree.
 Code:
   bool isBipartite(vector<vector<int>>&g,int node,vector<int>&color,int colour)
     {

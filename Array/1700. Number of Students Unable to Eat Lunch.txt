@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/number-of-students-unable-to-eat-lunch
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Approach:
 If there is mismatch in number of preferred sandwiches and students preference then there will be always some students who were unable to eat. So calculated the preferred sandwiches count and if any we exhaust that, then remaining students will be unable to eat.
 Code:

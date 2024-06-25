@@ -3,7 +3,7 @@ Approach:For each group, fill it with value index and remember it's size as area
 Then for each 0, look at the neighboring group ids seen and add the area of those groups, plus 1 for the 0 we are toggling. This gives us a candidate answer, and we take the maximum.
 To solve the issue of having potentially no 0, we take the maximum of the previously calculated areas.
 Time Complexity: O(n*n)
-Auxillary Space: O(n*n)
+Auxiliary Space: O(n*n)
 Code:
  
          void dfs(int i,int j,vector<vector<int>>&grid,vector<vector<bool>>&visited,int id,int &c)

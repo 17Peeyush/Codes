@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/search-in-rotated-sorted-array/
 Approach:
 Time Complexity: O(logn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 We find the minimum element in that array will will give us the position(index) say 'i' of partition.
 So elements from '0' to 'i-1'(part A)  are sorted and from 'i' to 'n-1'(part B) are sorted. 
 We check in which part can possibily our target number can exist and find it by binary search.

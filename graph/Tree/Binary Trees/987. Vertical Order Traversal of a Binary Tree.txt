@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
 Approach: 
 Time Complexity: O(n*nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Assigning vd(vertical distance) '0' to root and then from left child vd will be vd-1 andd for right child vd will vd+1.
 We will do this for all the nodes and nodes having same vd will come together. 
 Code:

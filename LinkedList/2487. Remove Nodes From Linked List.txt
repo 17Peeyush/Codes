@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/remove-nodes-from-linked-list/
 Time Complexity: O(n)
-Auxillary Space: O(n) Recursive stack
+Auxiliary Space: O(n) Recursive stack
 Code:
 /**
  * Definition for singly-linked list.

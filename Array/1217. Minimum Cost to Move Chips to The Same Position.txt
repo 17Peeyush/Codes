@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 06-12-2021
 Code:
 class Solution {

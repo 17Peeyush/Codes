@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/
 Approach 1:https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/solutions/5239012/lets-do-it-in-amortized-o-n-time-complexity-worst-case-o-n-2/
 Time Complexity: O(n) amortized worst case O(n^2)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:
@@ -30,7 +30,7 @@ public:
 
 Approach 2:
 Time Complexity: O(n^3)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code1:
 class Solution {
 public:

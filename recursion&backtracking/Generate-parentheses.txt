@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/generate-parentheses/
 Approach: Recursive
 Time Complexity: O(2^n)
-Auxillary Space: O(1) if ignoring recursive stack size
+Auxiliary Space: O(1) if ignoring recursive stack size
 We have 2 choice either add "(" or ")". If adding "("or ")" voilates any condition  we return from that call:
 condition 1: The number of opening bracket is always less than equal to number of closing bracket.
 condition 2: Generate opening, closing brackets equal to given number.

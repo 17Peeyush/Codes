@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/iterator-for-combination/
 Time Complexity: O(2^n)
-Auxillary Space: O(h) where h is the height of recursive tree.
+Auxiliary Space: O(h) where h is the height of recursive tree.
 Date: 14-11-2021
 Code:
 class CombinationIterator {

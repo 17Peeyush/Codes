@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/design-add-and-search-words-data-structure/
 Date: 28-01-2022
 Time Complexity: Insert and Search -> O(N*word_length)
-Auxillary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words
+Auxiliary Space: O(ALPHABET_SIZE * word_length * N), where N is the number of words
 Code:
 class WordDictionary {
 public:

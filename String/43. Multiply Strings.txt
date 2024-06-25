@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/multiply-strings/solution/
 Time Complexity: O(m*m+mn)
-Auxillary Space: O(m*m+mn)
+Auxiliary Space: O(m*m+mn)
 Date: 07-11-2021
 Code:
 class Solution {

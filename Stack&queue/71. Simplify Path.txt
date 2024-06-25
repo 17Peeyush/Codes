@@ -20,7 +20,7 @@ So we will remove '/' from our resultant path and it will be our final answer.
 Final answer: "/xde/kl/"
   
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/recover-binary-search-tree/
 (1)
 Time Complexity: O(n), where n is the number of nodes in the bst
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 14-10-2021
 Code:
 /**
@@ -52,7 +52,7 @@ public:
 
 (2)
 Time Complexity: O(n)
-Auxillary Space: O(logn)
+Auxiliary Space: O(logn)
 Code:
 /**
  * Definition for a binary tree node.

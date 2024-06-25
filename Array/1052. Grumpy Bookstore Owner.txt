@@ -3,7 +3,7 @@ Companies: Walmart Labs, EPAM System, Google, Nutanix
 Approach:
 The maximum customers when we can satisfy if the store owner is not grumpy for the duration when maximum number of cautomers comes. We first find all satified customers and then we are left with unsatisfied customers. Then we use duration minutes as our window and find the window which has the largest number of unsatisfied customers and we satisfy them in order to satisfy the maximum customers.
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

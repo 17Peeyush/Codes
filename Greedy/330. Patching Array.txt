@@ -12,7 +12,7 @@ Then again we will add another element '4' as soon '4' is added reach=3+4=7 we c
 Now our curr_element = 5 which is less than reach that means we can create it since we have it will help to extend our reach. reach+=curr_element =>reach = 12 
 Now similar case for curr_element = 10
 Time Complexity: O(m+logn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

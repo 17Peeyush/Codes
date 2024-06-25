@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/permutation-in-string/
 Date: 11-02-2022
 Time Complexity: O(m), where m is the length of string s2
-Auxillary Space: O(26) ~ O(1)
+Auxiliary Space: O(26) ~ O(1)
 Code:
 class Solution {
 public:

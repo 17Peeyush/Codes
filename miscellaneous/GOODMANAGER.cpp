@@ -1,7 +1,7 @@
 /*
 Problem: https://www.codechef.com/SRIB03/problems/GUDMGR
 Time Complexity: O(n!*n)
-Auxillary Space: O(n), size of recursive stack
+Auxiliary Space: O(n), size of recursive stack
 */
 
 

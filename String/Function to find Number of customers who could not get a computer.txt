@@ -1,6 +1,6 @@
 Problem: https://www.geeksforgeeks.org/function-to-find-number-of-customers-who-could-not-get-a-computer/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 27-10-2021
 Code:
 #include <bits/stdc++.h>

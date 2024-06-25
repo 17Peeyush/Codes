@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/surrounded-regions/
 Time Complexity: O(m*n)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Date: 01-11-2021
 Code:
 class Solution {

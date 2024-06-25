@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/number-of-steps-to-reduce-a-number-in-binary-representation-to-one
 Time Complexity : O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach: https://leetcode.com/problems/number-of-steps-to-reduce-a-number-in-binary-representation-to-one/solutions/5224133/a-conversation-between-me-and-linklist-can-you-solve-it-by-using-linked-list/
 Code:
 class Solution {

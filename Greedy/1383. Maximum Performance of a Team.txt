@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/maximum-performance-of-a-team/
 Approach:
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Keep track of the engineers by their efficiency in decreasing order.
 Starting from one engineer, to build a team, it suffices to bring K-1 more engineers who have higher efficiencies as well as high speeds.
 

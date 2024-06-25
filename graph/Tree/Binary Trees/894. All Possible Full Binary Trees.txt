@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/all-possible-full-binary-trees/solution/
 Time Complexity: O(2^n)
-Auxillary Space: O(2^n)
+Auxiliary Space: O(2^n)
 Date: 26-10-2021
 Code: 
 /**

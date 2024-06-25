@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/isomorphic-strings/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are storing the mapping from 's' to 't' and we are checking that no element can occurr with second mapping with other element.
 Code:
  bool isIsomorphic(string s, string t) {
@@ -26,7 +26,7 @@ Code:
     }
 
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Here we are taking 2 array of size 128(printable ascii).
 We are using the fact in isomorphic string if a character is mapped to another then if in string 's' it is coming 'k' times at index 'i' then in 't' it should come 'k' times at index 'i'. 
 Code:

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/distinct-subsequences/
 Date: 28-03-2022
 Time Complexity: O(m*n)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Code:
 class Solution {
 public:

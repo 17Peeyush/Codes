@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 /*
 // Definition for a Node.

@@ -1,7 +1,7 @@
 Problem:
 Approach: Two pointers
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 We start traversing matrix M from [0,N-1].
 If in matrix M[i][j]==1 then it means 'i' knows 'j'.
 Here we are considering two facts:

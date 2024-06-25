@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/two-city-scheduling/
 Date: 25-03-2022
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 First we classify costs of flying on the basis of least price. There arise three cases:
 Case 1: After classification we get equal number candidates flying to city 'a' and 'b' respectively.

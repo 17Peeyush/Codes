@@ -1,6 +1,6 @@
 Problem:https://practice.geeksforgeeks.org/problems/max-and-min-products3347/1#
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
  vector<long long int> getMaxandMinProduct(long long int arr[], long long int n)
     {

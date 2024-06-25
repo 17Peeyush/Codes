@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/longest-valid-parentheses/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 19-11-2021
 Aproach: 
 Remove all the valid brackets then we will be left with brackets which are invalid.

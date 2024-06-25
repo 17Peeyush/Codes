@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

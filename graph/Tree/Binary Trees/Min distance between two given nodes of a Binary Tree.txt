@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/min-distance-between-two-given-nodes-of-a-binary-tree/1
 Time Complexity: O(n), n is the number of nodes in the binary tree.
-Auxillary Space: O(h), size of recursive stack.
+Auxiliary Space: O(h), size of recursive stack.
 Date: 06-10-2021
 Code:
 /*A binary tree node

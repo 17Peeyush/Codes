@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/subarray-sum-equals-k/
 Approach
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are taking a fact into consideration that while calculating cumulative sum from say 'i' to 'l' aur sum is 's1' and there exist 'j' such that 'i'<'j'<'l',
 And sum of 'i' to 'j' is equal to 's1-k' i.e. sum of from 'j+1' to 'l' will be equal to 'k' hence count of subarray with sum equal to 'k' increments.
 Code:

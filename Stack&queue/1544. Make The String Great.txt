@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/make-the-string-great
 Time Complexity:O(n)
-Auxillary Spae: O(n)
+Auxiliary Spae: O(n)
 Code:
 class Solution {
 public:

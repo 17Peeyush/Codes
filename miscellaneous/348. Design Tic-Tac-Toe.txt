@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/design-tic-tac-toe/
 Companies: Facebook, Microsoft, Databricks, Amazon, Atlassian, TikTok, Apple, Yahoo, Two Sigma, Tesla, Google
 Time Complexity: O(1) for each call for move
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class TicTacToe {
 public:

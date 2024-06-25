@@ -1,7 +1,7 @@
 Problem:https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
 Approach: https://ayoubomari.medium.com/kth-smallest-element-in-sorted-matrix-b20400cf878e
 Time Complexity: O(klogk)
-Auxillary Space: O(n*n)
+Auxiliary Space: O(n*n)
 Code:
  int kthSmallest(vector<vector<int>>& matrix, int k) {
         int n=matrix.size();
@@ -30,7 +30,7 @@ Code:
 
 (2)
 Time Complexity: O(n*n+klog(n*n))
-Auxillary Space: O(n*n)
+Auxiliary Space: O(n*n)
 Code:
  int kthSmallest(vector<vector<int>>& matrix, int k) {
        priority_queue<int,vector<int>,greater<int>>q;

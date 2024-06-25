@@ -3,7 +3,7 @@ https://leetcode.com/problems/valid-parenthesis-string/discuss/1318181/2-Approac
 Approach: 
 Time Complexity: O(n*3^n) where n is the length of the string. For each asterisk we try 3 different values. Thus, we could be checking the validity of up to 3^n strings. 
 Then, each check of validity is O(n).
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 For each asterisk, let's try both possibilities.
 Note: This approach will not pass all the test cases.(TLE)
 Code:
@@ -59,7 +59,7 @@ Hence we can't have a valid string, but if asterisk is not empty then we can con
 In the end after applying all operations if the open stack is empty then we have string which can be converted to valid pairs of brackets.
  
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 bool checkValidString(string s) {
         stack<int>open,asterisk;
         int n=s.length();

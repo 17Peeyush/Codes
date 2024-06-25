@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/merge-bsts-to-create-single-bst/
 Approach:
 Time Complexity: O(n) 
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here first we traverse the trees vector and for each particular bst we try to merge it with another bst which has same root->val equal to one of the leaves value.
 Now we try to combining the current root leave by new bst by assigning left and right of new root then  we also check for valid bst for its child.
 It may be possible that the after merging the new subtree it is not following the property of bst.

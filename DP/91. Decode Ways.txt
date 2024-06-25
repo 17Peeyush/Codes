@@ -2,7 +2,7 @@ Problem:
 Approach: 
 (1) Recursion
 Time Complexity: O(2^n)
-Auxillary Space: O(h) where h is the height of recursive tree
+Auxiliary Space: O(h) where h is the height of recursive tree
 Note: This approach was not able to pass all the test cases. (TLE)
 Here we are chechking single character and 2 consecutive character.
 If any one of them is leading to a valid decoded string then we increment 'c' which is number of valid decoded string.
@@ -34,7 +34,7 @@ Code:
 
 (2) Recursion + Memoziation
 Time Complexity: O(2^n)
-Auxillary Space: O(n) n is the number of character in the string.
+Auxiliary Space: O(n) n is the number of character in the string.
 Code:
 int dp[102];
     int numDecode(int i,string s,int c)

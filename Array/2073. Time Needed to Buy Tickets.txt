@@ -1,6 +1,6 @@
 Problem:
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Approach:
 I thought myself to be the kth person in the queue, and have to buy say 'X' tickets.
 I thought the minimum time that is garunteed to take is number of tickets I have to buy that is 'X'.

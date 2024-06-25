@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/reverse-words-in-a-string/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Used stack to store words then poped the stack elements getting elements in reverse order.
 Code:
 string reverseWords(string s) {

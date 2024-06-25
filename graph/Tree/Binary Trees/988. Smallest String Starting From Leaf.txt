@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/smallest-string-starting-from-leaf/
 Time Complexity: O(n)
-Auxillary Space: O(n), stack space used 
+Auxiliary Space: O(n), stack space used 
 Code:
 /**
  * Definition for a binary tree node.

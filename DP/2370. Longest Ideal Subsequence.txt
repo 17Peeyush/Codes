@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/longest-ideal-subsequence/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 Approach 1: TLE
 class Solution {

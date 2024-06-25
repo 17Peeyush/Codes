@@ -1,7 +1,7 @@
 /*
 Problem: https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1
 Time Complexity: O(nlogn)
-Auxillary Space: O(m) , where m is the maximum value of deadline
+Auxiliary Space: O(m) , where m is the maximum value of deadline
 */
 #include <bits/stdc++.h>
 #include <iostream>

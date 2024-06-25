@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/nth-node-from-end-of-linked-list/1
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 10-10-2021
 Code:
 /* struct Node {

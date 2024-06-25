@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/minimum-number-of-operations-to-make-array-xor-equal-to-k/
 Time Complexity: O(1)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

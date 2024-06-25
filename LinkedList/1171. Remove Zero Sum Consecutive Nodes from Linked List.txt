@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/description/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 We will use prefixsum to solve the problem. If while iterating the linkedlist we find prefixsum and store in map, if we encounter the same prefix-sum again that means that the elements sum in between results to zero and we have to remove them. This can be simply done by rearranging the pointer but this will lead us to another problem our map will be inconsistent as it will have some node prefix-sum which we have removed from the linkedlist. We also those prefixsum enteries from the map and vola.
 Code:

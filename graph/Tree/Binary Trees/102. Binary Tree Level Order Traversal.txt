@@ -3,7 +3,7 @@ Approach: Used a queue to perform bfs and an additional parameter in queue which
 Root of the tree is at level 0 for root child the level is 1 and so on.
 Time Complexity: O(n) where n is the number of nodes in the binary tree
 The number of leaf nodes in a full binary tree with n nodes is equal to (n+1)/2
-Auxillary Space: O((n+1)/2) used queue
+Auxiliary Space: O((n+1)/2) used queue
 Code:
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {

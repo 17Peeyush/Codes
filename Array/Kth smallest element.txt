@@ -1,7 +1,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/kth-smallest-element5635/1/#
 Date: 15-03-2022
 Time Complexity: O(n^2) in worst case but O(n) in average case
-Auxillary Space: O(logn), recursive stack
+Auxiliary Space: O(logn), recursive stack
 Code:
 class Solution {
 public:

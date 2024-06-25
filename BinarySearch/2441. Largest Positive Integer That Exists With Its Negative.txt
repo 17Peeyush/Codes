@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/largest-positive-integer-that-exists-with-its-negative/
 Time Complexity: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 func abs(x int) int{
     if x<0{

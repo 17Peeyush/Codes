@@ -2,7 +2,7 @@ Problem:https://leetcode.com/problems/binary-tree-inorder-traversal/
 
 Aproach:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code: 
 vector<int> inorderTraversal(TreeNode* root) {
      if(root==NULL)

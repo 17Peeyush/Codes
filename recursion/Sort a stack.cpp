@@ -4,7 +4,7 @@ Date: 20-03-2022
 Approach: We will create two recursive function assuming first will sort the stack provided and second recursive function will take an element and insert at appropriate 
 level in the stack. 
 Time Complexity: O(n*n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 */
 
 #include<bits/stdc++.h>

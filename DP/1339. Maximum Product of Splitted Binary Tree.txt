@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/
 Time Complexity: O(n)
-Auxillary Space: O(h), where h is the tree
+Auxiliary Space: O(h), where h is the tree
 Code:
 /**
  * Definition for a binary tree node.

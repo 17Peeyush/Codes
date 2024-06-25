@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
 Date: 27-01-2022
 Time Complexity: O(n*32)=> O(n)
-Auxillary Space: O(sizeof(digit)*32*n)=>O(n)
+Auxiliary Space: O(sizeof(digit)*32*n)=>O(n)
 Code:
 class Solution {
 public:

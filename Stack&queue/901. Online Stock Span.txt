@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/online-stock-span/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are using stack to keep track of the stocks and their indexes.
 If the top of the stack is less than price of today's stock it will be included in span of stock.
 If the top of the stack is greater than price of today's stock it will not be included but all the elements between (inclusive today's) today's and stok top will be included.

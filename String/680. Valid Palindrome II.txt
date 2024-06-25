@@ -2,7 +2,7 @@ Problem:
 https://leetcode.com/problems/valid-palindrome-ii/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 We start checking from starting and end of the string that the characters are same.
 If we find at any instance the character are not same then our current state is "a######b" here 2 conditions arises whether we have to delete 'a' or 'b':
 So we first take the string "######b" and check with it is palindromic in nature if its is not palindrome then we check for "a######b".

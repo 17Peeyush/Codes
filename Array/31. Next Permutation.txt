@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/next-permutation/
 Time Complexity: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:
@@ -40,7 +40,7 @@ Here we are first finding the element's index say 'index' which is not following
 Then we reverse the elements after the index.
 Then we find the element which is just greater than the element at the index.
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

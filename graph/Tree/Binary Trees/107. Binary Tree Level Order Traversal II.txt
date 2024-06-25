@@ -6,7 +6,7 @@ Use a stack or reverse the vectir in which level order traversal is stored.
 
 Time Complexity: O(n) where n is the number of nodes in the binary tree
 The number of leaf nodes in a full binary tree with n nodes is equal to (n+1)/2
-Auxillary Space: O((n+1)/2) used queue
+Auxiliary Space: O((n+1)/2) used queue
 
 Code:
  vector<vector<int>> levelOrderBottom(TreeNode* root) {

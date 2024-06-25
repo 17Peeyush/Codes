@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/design-file-system
 Companies: DoorDash, Microsoft, Atlassian, Coinbase, Airbnb
 Time Complexity: O(n), to add one path that contains n substring
-Auxillary Space: O(n), to add one path that contains n substring
+Auxiliary Space: O(n), to add one path that contains n substring
 Code:
 class FileSystem {
 public:

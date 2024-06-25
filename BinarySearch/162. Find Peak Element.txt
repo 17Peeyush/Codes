@@ -6,7 +6,7 @@ In other cases we are checking for an element say at index 'mid' if it is greate
 If it is not greater than its neghbour then we search in that side of mid's neighbour which is than element at mid.   
 
 Time Complexity: O(logN), where N is the numbder of elements in the array.
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 
 Code:
  int findPeakElement(vector<int>& nums) {

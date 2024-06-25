@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/rotate-list/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 21-09-2021
 Code:
 /**

@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/kth-largest-element-in-bst/1
 Time Complexity: O(n), where n is the number of nodes in bst.
-Auxillary Space: O(h), where h is the height of the bst.
+Auxiliary Space: O(h), where h is the height of the bst.
 Code:
 /*The Node structure is defined as
 struct Node {

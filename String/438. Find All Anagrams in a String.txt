@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/find-all-anagrams-in-a-string/
 Date: 02-02-2022
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

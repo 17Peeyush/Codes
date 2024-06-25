@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 Time Complexity: O(n), n is the number of nodes in the bst.
-Auxillary Space: O(h), h is the height of the bst.
+Auxiliary Space: O(h), h is the height of the bst.
 Code:
 /**
  * Definition for a binary tree node.

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/build-an-array-with-stack-operations/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 3-11-2023
 class Solution {
 public:

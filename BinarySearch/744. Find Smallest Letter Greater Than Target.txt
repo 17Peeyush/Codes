@@ -3,7 +3,7 @@ Approach:
 Using binary search if we find the target element we return the next(distinct) element.
 If we find an element greater than target it may be possible solution but we search for smaller alphabet until we find an alphabet smaller than or equal to target. 
 Time Complexity: O(logn), where n is the number of elements in the array.
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 char nextGreatestLetter(vector<char>& letters, char target) {
       int l=0,h=letters.size()-1,n=letters.size();

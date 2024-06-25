@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/check-completeness-of-a-binary-tree/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 25-10-2021
 Code:
 /**

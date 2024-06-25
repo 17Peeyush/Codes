@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/number-of-ways-to-split-a-string/
 Time complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 23-09-2021
 Code:
 class Solution {

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/merge-k-sorted-lists/
 Time Complexity: O(nklogk)
-Auxillary Space: O(k)
+Auxiliary Space: O(k)
 Code:
 class Comparator{
     public:

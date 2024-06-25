@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Date: 10-10-2021
 Code:
 /**

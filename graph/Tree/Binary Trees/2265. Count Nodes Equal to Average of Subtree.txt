@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Date: 2-11-2023
 /**
  * Definition for a binary tree node.

@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/kth-largest-element-in-a-stream/
 Date: 12-02-2022
 Time Complexity: O(nlogk)
-Auxillary Space: O(k)
+Auxiliary Space: O(k)
 Code:
 class KthLargest {
 public:

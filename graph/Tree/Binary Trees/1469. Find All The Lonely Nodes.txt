@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/find-all-the-lonely-nodes/
 Companies: Microsoft
 Time Complexity: O(n)
-Auxillary Space: O(n), taking recursive stack space in consideration
+Auxiliary Space: O(n), taking recursive stack space in consideration
 Code:
 /**
  * Definition for a binary tree node.

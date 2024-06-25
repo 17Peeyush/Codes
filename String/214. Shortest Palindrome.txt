@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/shortest-palindrome/
 Date: 01-03-2022
 Approach 1: (TLE)
 Time Complexity: O(n^2)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:
@@ -40,7 +40,7 @@ public:
 
 Approach 2: https://leetcode.com/problems/shortest-palindrome/discuss/1809251/Visualization-greatergreater-Text-oror-Think-yourself-along-with-the-solution
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

@@ -1,7 +1,7 @@
 Problem:
 (1)
 Time Complexity: O(2^n)
-Auxillary Space: O(2^n)
+Auxiliary Space: O(2^n)
 Date: 17-10-2021
 Code: (Recursion)
 class Solution {
@@ -33,7 +33,7 @@ public:
 
 (2)
 Time Complexity: O(2^n)
-Auxillary Space: O(2^n)
+Auxiliary Space: O(2^n)
 Code:
 class Solution {
 public:
@@ -74,7 +74,7 @@ Here we are calculating once from left to right side the maximum profitr which w
 Similarly we calculate from right to left if we have to sell today what will be the maximum profit we can make.
 In the end we are calculating the summition of left and right value which will give us maximum profit.
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

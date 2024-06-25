@@ -9,7 +9,7 @@ Input2: Id used
 Output: Return the label of the intern to whom the given password belongs to.
 
 Time Complexity: O(n*k), where n is the number of interns and k is days of internship
-Auxillary Space: O(n*k)
+Auxiliary Space: O(n*k)
 */
 #include <bits/stdc++.h>
 #include <iostream>

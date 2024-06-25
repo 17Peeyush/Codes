@@ -2,7 +2,7 @@ Problem:https://leetcode.com/problems/sliding-window-maximum/
 Approach:
 (1)
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are storing element and their index in max heap. Then taking into consideration the top i.e. max element if it is inside the range of index of current window. (i-k)
 Code:
   vector<int> maxSlidingWindow(vector<int>& nums, int k) {
@@ -28,7 +28,7 @@ Code:
 (2)
 Dequeue
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Here we are using dequeue and always maintaining deque in descending order so that we can get the maxium of a window by accessing front of dequeue.
 In each iteration we are checking if the maximum element is in the range of window otherwise it is poped.
 And while inserting we are inserting from back so that descending order can be maintained. 

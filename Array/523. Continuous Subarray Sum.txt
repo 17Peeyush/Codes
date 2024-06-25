@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/continuous-subarray-sum/
 Companies: Facebook, Google, Yandex, Amazon, Apple, TikTok, Adobe, Bloomberg
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Approach:
 Let us have an example array: a, b, c, d, e
 lets say (c+d+e)%k==0 then if we calculate the prefix sum it will be something like:

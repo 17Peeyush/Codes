@@ -1,7 +1,7 @@
 Problem: https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1/
 Date: 16-03-2022
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 /* A binary tree node
 struct Node

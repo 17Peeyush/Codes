@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1
 Time Complexity: O(n)
-Auxillary space: O(n)
+Auxiliary space: O(n)
 Code:
 class Solution
 {

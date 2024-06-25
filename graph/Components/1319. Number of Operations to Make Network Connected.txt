@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/number-of-operations-to-make-network-connected/
 Time Complexity: O(n)
-Auxillary Space: O(n*n)
+Auxiliary Space: O(n*n)
 In order for all(n) the nodes to be connected i.e. there should be atleast n-1 edges. 
 If there are sufficient number of edges we check for the number of components using dfs.
 Code:

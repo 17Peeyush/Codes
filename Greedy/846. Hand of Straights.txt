@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/hand-of-straights
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Company: Google
 Approach: Stimulating by taking a ordered map and for each group getting the start element and finding if groupSize consecutive elements are present or not.
 eg: [1,2,3,2,3,4] => [1,2,3],[2,3,4]

@@ -1,7 +1,7 @@
 https://leetcode.com/problems/maximum-units-on-a-truck/
 Approach:
 Time Complexity: O(nlogn)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Here we need to find the maximum number of boxes. So inorder to maximize the number of boxes we first choose the box type which can contain maximum number of boxes.
 Calculate the number of boxes untill we exceed the capacity of truck.
 Code:

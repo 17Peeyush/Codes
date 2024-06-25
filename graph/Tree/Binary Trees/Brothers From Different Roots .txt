@@ -1,6 +1,6 @@
 Problem: https://practice.geeksforgeeks.org/problems/brothers-from-different-root/1
 Time Complexity: O(n+m)
-Auxillary Space: O(m)
+Auxiliary Space: O(m)
 Date: 05-10-2021
 Code:
 /*Structure of the Node of the BST is as

@@ -1,7 +1,7 @@
 Problem: https://www.hackerrank.com/challenges/floyd-city-of-blinding-lights/problem
 Approach: Implemented Flyod-Warshall algorithm
 Time Complexity: O(N^3), where N is the number of nodes in the graph
-Auxillary Space: O(N^2)
+Auxiliary Space: O(N^2)
 Code:
 #include <bits/stdc++.h>
 #define INF 10009

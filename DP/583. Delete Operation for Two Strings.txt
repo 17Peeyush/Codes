@@ -17,7 +17,7 @@ word1 and word2 consist of only lowercase English letters.
 
 Approach:
 Time  Complexity: O(n*m) where n,m is length ofstring word1, word2 respectively.
-Auxillary  Space: O(n*m)
+Auxiliary  Space: O(n*m)
 As from example 1 we try to find the longest common sequence from both words.
 Then we are coverting word1 to lcs by deleting extra alphabets. [word1.length-lcs]
 Then we are converting lcs to word2 by inserting remaining alphabets.[word2.length-lcs]

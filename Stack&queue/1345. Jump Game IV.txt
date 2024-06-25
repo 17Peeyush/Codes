@@ -1,7 +1,7 @@
 Problem:
 Date: 15-01-2022
 Time Complexity: O(n^2)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class Solution {
 public:

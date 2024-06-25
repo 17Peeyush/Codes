@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/reverse-linked-list/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Suppose we have a link list :
 1->2->3->4->5->null
 step1: null<-1  2->3->4->5->null

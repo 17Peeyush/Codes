@@ -1,7 +1,7 @@
 Problem:https://leetcode.com/problems/invert-binary-tree/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
  TreeNode* invertTree(TreeNode* root) {
         if(root==nullptr) return nullptr;

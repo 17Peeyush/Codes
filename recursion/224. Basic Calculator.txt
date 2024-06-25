@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/basic-calculator/
 Time Comlexity: O(n), where n is the length of string
-Auxillary Space: O(h), where h is number of '(' brackets in string
+Auxiliary Space: O(h), where h is number of '(' brackets in string
 Code:
 class Solution {
 public:

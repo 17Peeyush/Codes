@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/min-stack/
 Time Complexity: O(1) getting min element
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 class MinStack {
 public:
@@ -37,7 +37,7 @@ public:
 
 Approach 2:
 Time Complexity: O(1)
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 stack<long long int>st;
     long long int  min;

@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/divide-array-into-arrays-with-max-difference
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 class Solution {
 public:
     vector<vector<int>> divideArray(vector<int>& nums, int k) {

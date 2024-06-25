@@ -25,7 +25,7 @@ Constraints:
 0 <= nums[i] <= 100
 Approach 1:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Code:
 vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
         vector<int> out; // output vector
@@ -47,7 +47,7 @@ vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
     }
 Approach 2:
 Time Complexity: O(nlogn)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 int findBS(int target,vector<int>&nums,int l,int h)
     {
         int res=-1;

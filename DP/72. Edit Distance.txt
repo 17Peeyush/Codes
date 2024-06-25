@@ -1,6 +1,6 @@
 Problem: https://leetcode.com/problems/edit-distance/
 Time Complexity: O(3^m)
-Auxillary Space: O(m*n)
+Auxiliary Space: O(m*n)
 Date: 24-10-2021
 Code:
 class Solution {

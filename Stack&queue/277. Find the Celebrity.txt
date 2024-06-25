@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/find-the-celebrity/
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Company: Microsoft,LinkedIn,Amazon,DoorDash,Toast
 Approach:
 2 key points to note:

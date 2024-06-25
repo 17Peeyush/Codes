@@ -1,7 +1,7 @@
 /*
     Problem: https://www.geeksforgeeks.org/replace-every-element-with-the-least-greater-element-on-its-right/
     Time Complexity: O(n*n), in case of skewed bst(arr is sorted)
-    Auxillary Space: O(n)
+    Auxiliary Space: O(n)
     Date: 28-10-2021
 */
 #include <bits/stdc++.h>

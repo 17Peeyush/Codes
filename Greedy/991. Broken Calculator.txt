@@ -2,7 +2,7 @@ Problem: https://leetcode.com/problems/broken-calculator/
 Date: 23-03-2022
 Approach 1: BFS
 Time Complexity: O(2^n), where n is the range between startvalue and target
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 Note: This approach is not suitable as it will give TLE.
 Code:
 class Solution {
@@ -42,7 +42,7 @@ public:
 
 Approach 2: Greedy try backwards from target to startvalue by converting multiply operation to divide and subtract one to add one.
 Time Complexity: O(log(target))
-Auxillary Space: O(1)
+Auxiliary Space: O(1)
 Code:
 class Solution {
 public:

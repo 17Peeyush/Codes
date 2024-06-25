@@ -1,7 +1,7 @@
 Problem:https://leetcode.com/problems/validate-binary-search-tree/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(h), size of recursive stack where h is the height of the BST
+Auxiliary Space: O(h), size of recursive stack where h is the height of the BST
 Here we are taking two variable minv and maxv with acts as boundary for each node.
 For root we have minv defined as LLONG_MIN and for root maxv defined as LLONG_MAX. 
 But for each subtree we are again changing the value of minv and maxv and checking for left child have less value than the parent and right child should have greater value than parent.

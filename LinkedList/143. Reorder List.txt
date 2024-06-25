@@ -1,6 +1,6 @@
 Problem:https://leetcode.com/problems/reorder-list/
 Time Complexity: O(n), where n is the number of nodes in the list list
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 We have simply implemented the condition that was given in the question with the help of dequeue.
 Code:
 void reorderList(ListNode* head) {

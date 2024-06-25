@@ -1,7 +1,7 @@
 Problem: https://leetcode.com/problems/candy/
 Approach:
 Time Complexity: O(n)
-Auxillary Space: O(n)
+Auxiliary Space: O(n)
 First we are creating another candy array with holds count of candies given to each child.
 We have initialized candy array as it was stated that each child gets atleast one candy.
 Now we traverse candy from left to right and increase the candy of a child if its rating is greater than its left neighbour.

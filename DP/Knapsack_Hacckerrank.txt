@@ -44,7 +44,7 @@ int main()
 
 2)Unbounded Knapsack DP
 Time Complexity: O(n*k)
-Auxillary Space: O(n*k)
+Auxiliary Space: O(n*k)
 Code:
 void unboundedKnapsack(int k, vector<int> arr) {
     int n=arr.size();
