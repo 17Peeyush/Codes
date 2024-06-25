@@ -1,0 +1,37 @@
+Problem: https://leetcode.com/problems/grumpy-bookstore-owner/
+Companies: Walmart Labs, EPAM System, Google, Nutanix
+Approach:
+The maximum customers when we can satisfy if the store owner is not grumpy for the duration when maximum number of cautomers comes. We first find all satified customers and then we are left with unsatisfied customers. Then we use duration minutes as our window and find the window which has the largest number of unsatisfied customers and we satisfy them in order to satisfy the maximum customers.
+Time Complexity: O(n)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int minutes) {
+        int satisfy = 0;
+        int n = customers.size();
+        for(int i=0;i<n;i++){
+            if(!grumpy[i]){
+                satisfy+=customers[i];
+                customers[i]=0;
+            }
+        }
+        int winsum =0, possible=0;
+        int i=0,j=0;
+        while(i<n)
+        {
+            if(i-j<minutes){
+                winsum+=customers[i];
+                i++;
+            }
+            else
+            {
+                possible = max(possible, winsum);
+                winsum-=customers[j];
+                j++;
+            }
+        }
+        possible = max(possible,winsum);
+        return satisfy+possible;
+    }
+};

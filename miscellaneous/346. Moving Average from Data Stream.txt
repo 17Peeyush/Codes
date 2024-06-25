@@ -1,0 +1,31 @@
+Problem: https://leetcode.com/problems/moving-average-from-data-stream/
+Companies: Facebook, Google, ZScaler, Spotify, Apple, Amazon, Arista Networks
+Time Complexity: O(1)
+Auxillary Space: O(n)
+Code:
+class MovingAverage {
+public:
+    queue<int>q;
+    int gsize;
+    double sum;
+    MovingAverage(int size) {
+        gsize = size;
+        sum = 0;
+    }
+    
+    double next(int val) {
+        if(q.size()==gsize){
+            sum -= q.front();
+            q.pop();
+        }
+        sum += val;
+        q.push(val);
+        return sum / q.size();
+    }
+};
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * MovingAverage* obj = new MovingAverage(size);
+ * double param_1 = obj->next(val);
+ */

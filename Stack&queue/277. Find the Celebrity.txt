@@ -1,0 +1,49 @@
+Problem:https://leetcode.com/problems/find-the-celebrity/
+Time Complexity: O(n)
+Auxillary Space: O(n)
+Company: Microsoft,LinkedIn,Amazon,DoorDash,Toast
+Approach:
+2 key points to note:
+1. If A knows B then A can't be celebrity and B is possible celebrity
+2. If A doesn't knows B then B can't be the celebrity and A can be possible celebrity
+Filling all people in stack we follow the above two rules and then one left in the end may be a celebrity(say 'n').
+So we cross check by asking all people from (1 to n-1) if they knows 'n' and 'n' should not know them.
+Code:
+/* The knows API is defined for you.
+      bool knows(int a, int b); */
+
+class Solution {
+public:
+    int findCelebrity(int n) {
+        stack<int> people;
+        for(int i=0;i<n;i++)
+        {
+            people.push(i);
+        }
+        int t1,t2;
+        while(people.size()!=1)
+        {
+            t1 = people.top(); people.pop();
+            t2 = people.top(); people.pop();
+            if(knows(t1,t2)) // if t1 knows t2 then t1 can't be celebrity but t2 can be celebrity
+            {
+                people.push(t2);
+            }
+            else // if t2 is not known then t2 can't be celebrity
+            {
+                people.push(t1);
+            }
+        }
+        t1 = people.top();
+        for(int i=0;i<n;i++)
+        {
+            if(t1!=i){
+                if(!(!knows(t1,i)&&knows(i,t1)))
+                {
+                    return -1;
+                }
+            }
+        }
+        return t1;
+    }
+};

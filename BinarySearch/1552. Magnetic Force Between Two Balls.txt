@@ -1,0 +1,47 @@
+Problem: https://leetcode.com/problems/magnetic-force-between-two-balls
+Companies: Amazon, Roblox
+Time Complexity: O(nlogn)
+Auxillary Space: O(logn), sorting
+Approach: Will check with the help of binary search whether we can place 'm' balls with 'x' magnetic force between them. The 'x' we are finding from binary search. (Binary search on answer)
+Code:
+class Solution {
+public:
+    // can we place m balls mid distance apart
+    bool maxforce(int &mid, vector<int>&position, int m){
+        int n = position.size();
+        int curr = position[0];
+        m--;
+        for(int i=1;i<n;i++)
+        {
+            if(curr+mid<=position[i])
+            {
+                m--;
+                curr = position[i];
+            }
+        }
+        if(m<1)
+        {
+            return true;
+        }
+        return false;
+    }
+    int maxDistance(vector<int>& position, int m) {
+        sort(position.begin(),position.end());
+        int n = position.size();
+        int l = 0, h = position[n-1], mid;
+        int res = 0;
+        while(l<=h)
+        {
+            mid = l + (h-l)/2;
+            if(maxforce(mid, position,m)){
+                res = max(res,mid);
+                l = mid+1;
+            }
+            else
+            {
+                h = mid-1;
+            }
+        }
+        return res;
+    }
+};

@@ -1,0 +1,200 @@
+Problem: https://leetcode.com/problems/design-file-system
+Companies: DoorDash, Microsoft, Atlassian, Coinbase, Airbnb
+Time Complexity: O(n), to add one path that contains n substring
+Auxillary Space: O(n), to add one path that contains n substring
+Code:
+class FileSystem {
+public:
+    
+    struct TrieNode{
+        unordered_map<string, TrieNode*> mp;
+        int val;
+        TrieNode(){}
+        TrieNode(int val){
+            this->val = val;
+        }
+    };
+    TrieNode * root;
+    unordered_set<string> present;
+    FileSystem() {
+        root = new TrieNode();
+    }
+    void getpaths(string path, vector<string>&v){
+        int n= path.size();
+        string temp;
+        for(int i=1;i<n;i++){
+            temp ="";
+            while(i<n&&path[i]!='/'){
+                temp+=string(1,path[i]);
+                i++;
+            }
+            v.push_back(temp);
+        }
+    }
+
+    bool createPath(string path, int value) {
+       TrieNode *p =root;
+       if(present.find(path)!=present.end()){
+        return false;
+       }
+       vector<string> paths;
+       getpaths(path,paths);
+       int n=paths.size(), i;
+       for(i=0;i<n-1;i++){
+        if(p->mp.find(paths[i])==p->mp.end()){
+            return false;
+        }
+        else{
+            p = p->mp[paths[i]];
+        }
+       }
+       p->mp[paths[i]]= new TrieNode(value);
+       present.insert(path);
+       return true;
+    }
+    
+    int get(string path) {
+       vector<string> paths;
+       getpaths(path,paths);
+       int val = -1, n = paths.size();
+       TrieNode *p = root;
+       for(int i=0;i<n;i++){
+        if(p->mp.find(paths[i])==p->mp.end()){
+            return -1;
+        }
+        else{
+            p=p->mp[paths[i]];
+            val = p->val;
+        }
+       }
+       return val;
+    }
+};
+
+/**
+ * Your FileSystem object will be instantiated and called as such:
+ * FileSystem* obj = new FileSystem();
+ * bool param_1 = obj->createPath(path,value);
+ * int param_2 = obj->get(path);
+ */
+
+
+More Optimized code (own):
+class FileSystem {
+public:
+    
+    struct TrieNode{
+        unordered_map<string, TrieNode*> mp;
+        TrieNode(){}
+    };
+    TrieNode * root;
+    unordered_map<string,int> present;
+    FileSystem() {
+        root = new TrieNode();
+    }
+    void getpaths(string path, vector<string>&v){
+        int n= path.size();
+        string temp;
+        for(int i=1;i<n;i++){
+            temp ="";
+            while(i<n&&path[i]!='/'){
+                temp+=string(1,path[i]);
+                i++;
+            }
+            v.push_back(temp);
+        }
+    }
+
+    bool createPath(string path, int value) {
+       if(present.find(path)!=present.end()){
+        return false;
+       }
+       TrieNode *p =root;
+       vector<string> paths;
+       getpaths(path,paths);
+       int n=paths.size(), i;
+       for(i=0;i<n-1;i++){
+        if(p->mp.find(paths[i])==p->mp.end()){
+            return false;
+        }
+        else{
+            p = p->mp[paths[i]];
+        }
+       }
+       p->mp[paths[i]]= new TrieNode();
+       present[path]=value;
+       return true;
+    }
+    
+    int get(string path) {
+        if(present.find(path)==present.end()){
+        return -1;
+       }
+       return present[path];
+    }
+};
+
+/**
+ * Your FileSystem object will be instantiated and called as such:
+ * FileSystem* obj = new FileSystem();
+ * bool param_1 = obj->createPath(path,value);
+ * int param_2 = obj->get(path);
+ */
+
+Further Optimized (Other reference):
+class FileSystem {
+public:
+    unordered_map<string,int>m;
+    FileSystem() {
+        m[""]=0;
+    }
+    
+    bool createPath(string path, int value) {
+        if(m.find(path)!=m.end()){
+
+            return false;
+        }
+        string parent;
+        for(int i=path.length()-1;i>=0;i--){
+            if(path[i]=='/'){
+                parent= path.substr(0,i);
+                break;
+            }
+        }
+        cout<<parent<<endl;
+        if(m.find(parent)==m.end()){
+                return false;
+            }
+        m[path]=value;
+        return true;
+    }
+
+    //  vector<int> splitPath(string path) {
+
+    //     vector<string>ans;
+    //     string s='';
+    //     for(int i=1;i<path.length();i++) {
+    //         if(path[i]!='/'){
+    //             s=s+path[i];
+    //         }
+    //         else{
+    //             ans.push_back(s);
+    //             s='';
+    //         }
+    //     }
+    //     return ans;
+
+    //  }
+
+    int get(string path) {
+        if(m.find(path)!=m.end())return m[path];
+        return -1;
+    }
+};
+
+/**
+ * Your FileSystem object will be instantiated and called as such:
+ * FileSystem* obj = new FileSystem();
+ * bool param_1 = obj->createPath(path,value);
+ * int param_2 = obj->get(path);
+ */

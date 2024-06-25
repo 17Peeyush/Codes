@@ -1,0 +1,29 @@
+Problem: leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
+Companies: Uber, Google, Amazon, Facebook, Microsoft, PhonePe, Nutanix, eBay
+Approach:
+Here we will be creating a window by taking two pointers and with the help of multiset we will keep track of elements that are inside of the window. As soon as by inserting some element our condition will break, we will move forward the start pointer untill the condition is satisfied and start is less than equal to end pointer.
+
+Multiset datastructure : can contain mulitple occurance of same element and that in sorted fashion and retrieval of data is fast. 
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int limit) {
+        multiset<int> s; // sorted, multiple occurence of same element, O(1) retrieval
+        int i=0,j=0,n=nums.size();
+        int len = 0;
+        while(j<n)
+        {
+            s.insert(nums[j]);
+            while((*s.rbegin()-*s.begin())>limit)
+            {
+                s.erase(s.find(nums[i]));
+                i++;
+            }
+            len = max(len, j-i+1);
+            j++;
+        }
+        return len;
+    }
+};

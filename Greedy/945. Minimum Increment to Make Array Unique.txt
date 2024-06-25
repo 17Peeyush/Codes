@@ -1,0 +1,48 @@
+Problem: https://leetcode.com/problems/minimum-increment-to-make-array-unique/
+Companies: Google, Amazon, Tiktok, Coursera
+Approach (1):
+Our first strategy to make every element in the array unique is to identify the duplicates, which we can do more efficiently by sorting the array. If an element is a duplicate of the one before it, we increment it just enough to make it larger. The total number of increments will be the minimum number of moves needed to make each character unique.
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int minIncrementForUnique(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int increment =0;
+        int n = nums.size();
+        for(int i=1;i<n;i++){
+            if(nums[i]<=nums[i-1])
+            {
+                increment+=(nums[i-1]-nums[i])+1;
+                nums[i] = nums[i-1]+1;
+            }
+        }
+        return increment;
+    }
+};
+
+Approach (2):
+Time Complexity: O(n+maxfreq)
+Auxillary Space: O(n+maxfreq)
+Taking frequency of each element and if the frequency is more than '1' then by taking one we more forward with extra element that we need to make unique. To ensure minimum number of moves we always try for smallest next unique element i.e curr_el+1.
+If we find that element we add extra frequency to its frequency and in next turn we keep only one and pass extra frequency to next elements.
+Code:
+class Solution {
+public:
+    int minIncrementForUnique(vector<int>& nums) {
+        map<int,int> mp;
+        for(int x:nums){
+            mp[x]++;
+        }
+        int increment = 0, extra =0;
+        for(auto x:mp){
+            if(x.second>1){
+                extra = x.second -1;
+                increment+=extra;
+                mp[x.first+1]+=extra;
+            }
+        }
+        return increment;
+    }
+};

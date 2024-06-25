@@ -1,0 +1,40 @@
+Problem: https://leetcode.com/problems/find-all-the-lonely-nodes/
+Companies: Microsoft
+Time Complexity: O(n)
+Auxillary Space: O(n), taking recursive stack space in consideration
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> res;
+    void traverse(TreeNode* root, bool sibling)
+    {
+        if(root==nullptr) return;
+        if(sibling==false) // I am lonely
+        {
+            res.push_back(root->val);
+        }
+        sibling = true;
+        if(root->left==nullptr||root->right==nullptr)
+        {
+            sibling = false;
+        }
+        traverse(root->left,sibling);
+        traverse(root->right,sibling);
+    }
+    vector<int> getLonelyNodes(TreeNode* root) {
+        bool sibling = true;
+        traverse(root, sibling);
+        return res;
+    }
+};

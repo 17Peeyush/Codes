@@ -1,0 +1,75 @@
+Problem: https://leetcode.com/problems/replace-words
+Company: Google, Uber
+Time Complexity: O(dw+n), d size of dictionary,w average size of words, n length of sentence
+Auxillary Space: O(dw.26)=O(dw)
+Code:
+class Solution {
+public:
+    struct TrieNode{
+        vector<TrieNode*> alpha;
+        bool isWord;
+        TrieNode(){
+            alpha = vector<TrieNode*>(26,nullptr);
+            isWord = false;
+        }
+    };
+
+    TrieNode * root;
+    void insert(string w){
+        int n=w.size();
+        TrieNode *p= root;
+        for(int i=0;i<n;i++){
+            if(p->alpha[w[i]-'a']==nullptr){
+                p->alpha[w[i]-'a']=new TrieNode();
+            }
+            p=p->alpha[w[i]-'a'];
+        }
+        p->isWord = true;
+    }
+    
+    string findShort(string parent){
+        string t="";
+        TrieNode *p = root;
+        int n = parent.size();
+        for(int i=0;i<n;i++){
+            if(p->alpha[parent[i]-'a']!=nullptr){
+                p=p->alpha[parent[i]-'a'];
+                t+=parent[i];
+                if(p->isWord)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                t = parent;
+                break;
+            }
+        }
+        return t;
+    }
+
+    string replaceWords(vector<string>& dictionary, string sentence) {
+        root = new TrieNode();
+        for(string st: dictionary){
+            insert(st);
+        }
+        sentence+=" ";
+        string res ="";
+        int n = sentence.size();
+        string temp;
+        for(int i=0;i<n;i++){
+            while(sentence[i]!=' '){
+                temp+=sentence[i];
+                i++;
+            }
+            res+=findShort(temp);
+            if(i!=n-1)
+            {
+                res+=" ";
+            }
+            temp ="";
+        }
+        return res;
+    }
+};

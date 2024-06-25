@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/patching-array
+Companies: Uber, Flipkart, Google
+Approach: https://www.youtube.com/watch?v=K2IomuIFbPg
+Let us understand it with an example:
+we have:[1,5,10]
+so we will have a variable reach that denotes the maximum number we can get by combined sum of elements.
+We start iterating currently reach=0, our first element is just 1 greater than the reach ideal case.
+We move forward by incrementing the reach by adding first element: reach =1, idx=1
+Now the current element is less than the reach. So another example suppose we have 1,5,_ ,_,9 we can create 6(1+5) , but we can't have 7, 8 any of them. if we add '7' then we can create '8'(1+7) but if we add '8' we can't have '7'. So from this observation we always try to add smallest missing number.
+Currently reach=1, curr_el=5 so we will add new element that will be reach+1=2 and since '2' is added to array now our reach will become '3'(1+2)(reach+=reach+1).
+Then again we will add another element '4' as soon '4' is added reach=3+4=7 we can even create 5(1+4), 6(2+4), 7(3,4).
+Now our curr_element = 5 which is less than reach that means we can create it since we have it will help to extend our reach. reach+=curr_element =>reach = 12 
+Now similar case for curr_element = 10
+Time Complexity: O(m+logn)
+Auxillary Space: O(1)
+Code:
+class Solution {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        int count = 0;
+        long reach = 0;
+        int m = nums.size();
+        int i=0;
+        while(reach<n){
+            if(i<m&&nums[i]<=reach+1){
+                reach+=nums[i];
+                i++;
+            }
+            else{
+                reach+=(reach+1);
+                count++;
+            }
+        }
+        return count;
+    }
+};

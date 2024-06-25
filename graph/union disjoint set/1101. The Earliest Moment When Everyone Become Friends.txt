@@ -1,0 +1,57 @@
+Problem: https://leetcode.com/problems/the-earliest-moment-when-everyone-become-friends/
+Companies: Google, Expedia
+Note: If 'm' operations, either union or find, are applied to 'n' elements, the total run time is O(m.α(n)), where α(n) is inverse Ackermann Function.
+Time Complexity: O(mlogm + n + mα(n))
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int> parent;
+    int find(int n){
+        if(parent[n]<0){
+            return n;
+        }
+        return parent[n]=find(parent[n]);
+    }
+    int unionElement(int x,int y){
+        int px = find(x);
+        int py = find(y);
+        int total =0;
+        if(px!=py)
+        {
+            if(parent[px]<parent[py])
+            {
+                // Adding the child count increase
+                parent[px]+=parent[py];
+                //Assigning y's new parent
+                parent[py]=px;
+                total =-parent[px];
+            }
+            else{
+                parent[py]+=parent[px];
+                parent[px]=py;
+                total = -parent[py];
+            }
+        }
+        else
+        {
+            total = -parent[px];
+        }
+        return total;
+    }
+    int earliestAcq(vector<vector<int>>& logs, int n) {
+        parent = vector<int>(n,-1);
+        sort(logs.begin(),logs.end());
+        long timest = 0;
+        bool flag = false;
+        int count =0;
+        for(auto x: logs){
+            timest = x[0];
+            count = unionElement(x[1],x[2]);
+            if(count == n){
+                return timest;
+            }
+        }
+        return -1;
+    }
+};

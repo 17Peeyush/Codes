@@ -1,6 +1,14 @@
 Problem: https://leetcode.com/problems/continuous-subarray-sum/
+Companies: Facebook, Google, Yandex, Amazon, Apple, TikTok, Adobe, Bloomberg
 Time Complexity: O(n)
 Auxillary Space: O(n)
+Approach:
+Let us have an example array: a, b, c, d, e
+lets say (c+d+e)%k==0 then if we calculate the prefix sum it will be something like:
+index:   0 1 2 3 4 
+elements:a b c d e
+prefix sum(in pair with index):{0,a},{1,a+b},{2,a+b+c},{3,a+b+c+d},{4,a+b+c+d+e}
+If we find the reminder of prefix sum then: let say (a+b)%k==x then (a+b+c+d+e)%k==x since (c+d+e)%k=0. So by taking in account if for prefix sum we get same remainder 2 times then there is guaranteed a subarray that is divisible by k.
 Code:
 class Solution {
 public:

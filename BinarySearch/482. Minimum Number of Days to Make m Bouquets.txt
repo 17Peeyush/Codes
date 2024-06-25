@@ -1,0 +1,89 @@
+Problem: https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
+Companies: Amazon, Navi, Google, Bloomberg, TikTok
+Approach:
+If we can make m or more bouquets at day x, then we can still make m or more bouquets at any day y > x.
+From this statement came to an inferene we will use binary search on answer.
+I created a ordered_map and then did binary search by taking always the element that was in bloomDay array.
+In binary search the condition was a helper function that gives true or false that on particular that day if we can make 'm' bouquets or not.
+Time Complexity: O(nlogn)
+Auxillary Space: O(nlogn)
+Code:
+class Solution {
+public:
+    unordered_set<int>notagain;
+    bool helper(int m, int &ws, int day, vector<int>&bd)
+    {
+        notagain.insert(day);
+        int n=bd.size(), cs =0;
+        for(int i=0;i<n&&m>0;)
+        {
+            if(bd[i]<=day){
+                cs = 0;
+                while(i<n&&bd[i]<=day&&cs<ws){
+                    cs++;i++;
+                }
+                if(cs==ws)
+                {
+                    m--;
+                }
+            }
+            else
+            {
+                i++;
+            }
+        }
+        if(m) return false;
+        return true;
+    }
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        long long potential = static_cast<long long>(m) * static_cast<long long>(k);
+        int n = bloomDay.size();
+        if((long)n<potential)
+        {
+            return -1;
+        }
+        map<int,int> mp;
+        for(int d: bloomDay){
+            mp[d]++;
+        }
+        int resday;
+        int s = mp.size();
+        map<int,int>::iterator it=mp.end();
+        it--;
+        int l = mp.begin()->first, h=it->first ,mid;
+        while(l<=h)
+        {
+            mid = l+(h-l)/2;
+            it = mp.find(mid);
+            if(it==mp.end())
+            {
+                it = mp.lower_bound(mid);
+                if(it != mp.begin())
+                {
+                    it --;
+                }
+            }
+            if(notagain.find(it->first)!=notagain.end()){
+                break;
+            }
+            if(helper(m,k,it->first,bloomDay))
+            {
+                resday = it->first;
+                if(it!=mp.begin())
+                {
+                    it --;
+                }
+                h = it->first;
+            }
+            else
+            {
+                if(it!=mp.end())
+                {
+                    it++;
+                }
+                l = it->first;
+            }
+        }
+        return resday;
+    }
+};

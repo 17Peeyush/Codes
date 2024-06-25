@@ -1,0 +1,80 @@
+Problem: https://leetcode.com/problems/design-tic-tac-toe/
+Companies: Facebook, Microsoft, Databricks, Amazon, Atlassian, TikTok, Apple, Yahoo, Two Sigma, Tesla, Google
+Time Complexity: O(1) for each call for move
+Auxillary Space: O(n)
+Code:
+class TicTacToe {
+public:
+    vector<pair<int,int>> r,c;
+    pair<int,int>ld,rd;
+    int ng;
+    TicTacToe(int n) {
+        ng = n;
+        r = vector<pair<int,int>>(n,{0,0});
+        c = vector<pair<int,int>>(n,{0,0});
+        ld={0,0};
+        rd={0,0};
+    }
+    
+    int move(int row, int col, int player) {
+        if(player == 1)
+        {
+            //updated rows and olumn
+            r[row].first++;
+            c[col].first++;
+            if(r[row].first==ng||c[col].first==ng)
+            {
+                return player;
+            }
+            if(row==col) //left diagonal case
+            {
+                ld.first++;
+                if(ld.first==ng)
+                {
+                    return player;
+                }
+            }
+            if(row+col==(ng-1)) //right diagonal case
+            {
+                rd.first++;
+                if(rd.first==ng)
+                {
+                    return player;
+                }
+            }
+        }
+        else
+        {
+             //updated rows and olumn
+            r[row].second++;
+            c[col].second++;
+            if(r[row].second==ng||c[col].second==ng)
+            {
+                return player;
+            }
+            if(row==col) //left diagonal case
+            {
+                ld.second++;
+                if(ld.second==ng)
+                {
+                    return player;
+                }
+            }
+            if(row+col==(ng-1)) //right diagonal case
+            {
+                rd.second++;
+                if(rd.second==ng)
+                {
+                    return player;
+                }
+            }
+        }
+        return 0;
+    }
+};
+
+/**
+ * Your TicTacToe object will be instantiated and called as such:
+ * TicTacToe* obj = new TicTacToe(n);
+ * int param_1 = obj->move(row,col,player);
+ */
