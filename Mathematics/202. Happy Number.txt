@@ -1,0 +1,22 @@
+Problem: https://leetcode.com/problems/happy-number/description/
+Companies: Google
+Time Complexity: O(nlogn)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    bool isHappy(int n) {
+        int sum;
+	while((n/10)!=0){
+        sum = 0;
+        while(n){
+            sum += (n%10)*(n%10); 
+            n = n/10; // n=0
+            }
+        n = sum; 
+    }
+        if(n==1||n==7) return true;
+        return false;
+
+    }
+};

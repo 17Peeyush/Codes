@@ -1,0 +1,88 @@
+Problem: https://leetcode.com/problems/minimum-area-rectangle-ii/description/
+Companies: Google
+Approach 1: Here we are running three for loop to find three different points and to check if these points create lines that are perpendicular to each other we are using pythagorus theorem. Once we have these points then with the help of diagonal we are calculating fourth point. Once we have the four point we check whether that point exists in the input if yes then we compare its area with our result.
+Note: How fourth co-ordinate is calculated: We have a rectangle ABCD 
+A(x1,y1)     B(x2,y2)
+ _____________
+ |           |
+ |___________|
+D(x4,y4)     C(x3,y3)
+AC= BD, these wil be creating two diagonals AC and BD and they both will itersect at the mid point;
+center_x = (x1+x3)/2 =(x2+x4)/2 --------1
+center_y = (y1+y3)/2 =(y2+y4)/2 --------2
+since we know x1,x2,x3 and we want to find x4 then from equation 1:
+(x1+x3)/2=(x2+x4)/2 => x1+x3 = x2+x4=>x1+x3-x2 = x4 similary from second equation we can find y4.
+Time Complexity: O(nlogn+n^3), n is the number of elements in points vector
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    double dist(const vector<int>&a, const vector<int>&b){
+        return (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1]);
+    }
+    double minAreaFreeRect(vector<vector<int>>& points) {
+        set<vector<int>>s(points.begin(),points.end());
+        double minarea = INT_MAX;
+        int n = points.size();
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                for(int k=j+1;k<n;k++){
+                    if(dist(points[k],points[i])+dist(points[j],points[i])==dist(points[k],points[j])){
+                        int x = points[j][0]+ points[k][0]-points[i][0];
+                        int y = points[j][1]+ points[k][1]-points[i][1];
+                        if(s.find({x,y})!=s.end()){
+                            minarea = min(minarea, sqrt((dist(points[k],points[i])*dist(points[j],points[i]))));
+                        }
+                    }
+                }
+            }
+        }
+        if(minarea == INT_MAX) minarea = 0;
+        return minarea;
+    }
+};
+
+Approach 2: We know each rectangle has 2 diagonals and both the diagonals meet at same point say (center_x, center_y), if we find these center and length of diagonals then the points having same centers and length of diagonals will create a rectangle. We will create a map and store the center_x and center_y and length of the diagonals and corresponding to it 2 points that formed that diagonals. Then when we have a list of pair of points then taking 2 pair of points will form a rectangle and we will calculate the area.
+Time Complexity: O(nlogn+n^2)
+Auxillary Space: O(n)
+Code:
+class Solution {
+public:
+    double dist(const vector<int>&a, const vector<int>&b){
+        return (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1]);
+    }
+    double minAreaFreeRect(vector<vector<int>>& points) {
+        map<vector<double>,vector<pair<vector<int>,vector<int>>>> diagonal;
+        int n = points.size();
+        for(int i=0;i<n;i++){
+            for(int j =i+1;j<n;j++){
+                double center_x = (double)(points[i][0]+points[j][0])/2.0;
+                double center_y = (double)(points[i][1]+points[j][1])/2.0;
+                double length = dist(points[i],points[j]);
+                if(diagonal.find({center_x,center_y,length})==diagonal.end()){
+                    diagonal[{center_x,center_y,length}]=vector<pair<vector<int>,vector<int>>>();
+                }
+                diagonal[{center_x,center_y,length}].push_back({points[i],points[j]});
+            }
+        }
+        double minarea = INT_MAX;
+        for(auto d: diagonal){
+            if(d.second.size()>1){
+                int m = d.second.size();
+                for(int i=0;i<m;i++){
+                    for(int j=i+1;j<m;j++){
+                        vector<int> p1,p2,p3,p4;
+                        p1 = d.second[i].first;
+                        p2 = d.second[i].second;
+                        p3 = d.second[j].first;
+                        p4 = d.second[j].second;
+                        double area = sqrt(dist(p1,p3)*dist(p1,p4));
+                        minarea = min(minarea,area);
+                    }
+                }
+            }
+        }
+        if(minarea == INT_MAX) minarea =0;
+        return minarea;
+    }
+};

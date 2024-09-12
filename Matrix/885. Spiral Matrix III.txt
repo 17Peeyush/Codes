@@ -1,0 +1,61 @@
+Problem: https://leetcode.com/problems/spiral-matrix-iii/editorial/
+Time Complexity: O(max(rows,cols) ^2)
+We fill the traversed matrix with the values on the simulated path. However, we might also move out of the matrix during traversal. The total distance covered depends on max(rows,cols)^2.
+Auxiliary Space: O(rows*cols), if we include the output array
+Code:
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        int n = rows*cols;
+        int dir[4][2]={{0,1},{1,0},{0,-1},{-1,0}};
+        vector<vector<int>>res;
+        res.push_back({rStart,cStart});
+        int step=1;
+        int cdir=0;
+        while(res.size()<n){
+            //east
+            for(int i=0;i<step;i++){
+                rStart+=dir[cdir][0];
+                cStart+=dir[cdir][1];
+                if(0<=rStart && rStart<rows && 0<=cStart && cStart<cols)
+                {
+                    res.push_back({rStart,cStart});
+                }
+            }
+            cdir=(cdir+1)%4;
+            //south
+             for(int i=0;i<step;i++){
+                rStart+=dir[cdir][0];
+                cStart+=dir[cdir][1];
+                if(0<=rStart && rStart<rows && 0<=cStart && cStart<cols)
+                {
+                    res.push_back({rStart,cStart});
+                }
+            }
+            step++;
+            //west
+            cdir=(cdir+1)%4;
+             for(int i=0;i<step;i++){
+                rStart+=dir[cdir][0];
+                cStart+=dir[cdir][1];
+                if(0<=rStart && rStart<rows && 0<=cStart && cStart<cols)
+                {
+                    res.push_back({rStart,cStart});
+                }
+            }
+            //north
+            cdir=(cdir+1)%4;
+             for(int i=0;i<step;i++){
+                rStart+=dir[cdir][0];
+                cStart+=dir[cdir][1];
+                if(0<=rStart && rStart<rows && 0<=cStart && cStart<cols)
+                {
+                    res.push_back({rStart,cStart});
+                }
+            }
+            step++;
+            cdir=(cdir+1)%4;
+        }
+        return res;
+    }
+};

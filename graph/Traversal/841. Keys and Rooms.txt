@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/keys-and-rooms/
+Time Complexity: O(n) where n is number of elements 
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int c=0;
+    void dfs(int i, vector<vector<int>>&rooms,vector<bool>&visited)
+    {
+        visited[i] = true;
+        c++;
+        for(auto x: rooms[i])
+        {
+            if(!visited[x]){
+                dfs(x,rooms,visited);
+            }
+        }
+    }
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        int n = rooms.size();
+        vector<bool>visited(n,false);
+        dfs(0,rooms,visited);
+        return n==c;
+    }
+};

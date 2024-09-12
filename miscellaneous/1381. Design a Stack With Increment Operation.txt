@@ -1,0 +1,77 @@
+Problem: https://leetcode.com/problems/design-a-stack-with-increment-operation/description/
+Companies: Google
+Time Complexity: O(1) for all the functions
+Auxiliary Space: O(n) 
+Code:
+struct Dlist{
+	int val;
+	int increment;
+	Dlist *prev, *next;
+	Dlist(){
+        prev = nullptr;
+        next = nullptr;
+    }
+	Dlist(int val){
+        this->val = val;
+        this-> increment =0;
+        prev =nullptr;
+        next = nullptr;
+    }
+};
+
+class CustomStack {
+private:
+    Dlist * dummy; 
+    Dlist *head;
+    unordered_map<int, Dlist*>mp;
+    int curr_size;
+    int max_size;
+
+public:
+    CustomStack(int maxSize) {
+        dummy = new Dlist();
+        max_size = maxSize;
+	    head=dummy;
+        curr_size =0;
+    }
+    
+    void push(int x) {
+        if(curr_size==max_size) return;
+        head->next = new Dlist(x);
+        Dlist *t = head;
+        head=head->next;
+        head->prev=t;
+        curr_size++;
+        mp[curr_size] = head;
+
+    }
+    
+    int pop() {
+        if(head==dummy) return -1;
+        Dlist* t = head->prev;
+        int value=head->val+ head->increment;
+        t->increment+= head->increment;
+        mp[curr_size] = nullptr;
+        t->next = nullptr;
+        head = t;
+        curr_size--;
+        return value;
+    }
+    
+    void increment(int k, int val) {
+        if(curr_size<k){
+            head->increment+=val;
+            return;
+        }
+        Dlist * t = mp[k];
+        t->increment+=val;
+    }
+};
+
+/**
+ * Your CustomStack object will be instantiated and called as such:
+ * CustomStack* obj = new CustomStack(maxSize);
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * obj->increment(k,val);
+ */ 

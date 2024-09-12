@@ -1,0 +1,49 @@
+Problem: https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/description/
+Time Complexity: O(m*n+nlogn)
+Auxiliary Space: O(n*n)
+Code:
+class Solution {
+public:
+    void floydWarshall(vector<vector<long>>& g, const int& n){
+        for(int k=0;k<n;k++){
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    if(g[i][j]>g[i][k]+g[k][j]){
+                        g[i][j]=g[i][k]+g[k][j];
+                    }
+                }
+            }
+        }
+    }
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+        vector<vector<long>> g(n,vector<long>(n,INT_MAX));
+        for(int i=0;i<n;i++)g[i][i]=0;
+        for(auto x: edges){
+            g[x[0]][x[1]]=x[2];
+            g[x[1]][x[0]]=x[2];
+        }
+        floydWarshall(g,n);
+        int mcount = INT_MAX;
+        unordered_map<long,set<int>>mp;
+        for(int i=0;i<n;i++)
+        {
+            int count =0;
+            for(int j=0;j<n;j++){
+                if(g[i][j]<=distanceThreshold){
+                    count++;
+                }
+            }
+            if(mcount>count){
+                mcount = count;
+                if(mp.find(mcount)==mp.end()){
+                    mp[mcount] = set<int>();
+                    mp[count].insert(i);
+                }
+            }
+            else if(mcount==count){
+                mp[count].insert(i);
+            }
+        }
+        return *mp[mcount].rbegin();
+    }
+};

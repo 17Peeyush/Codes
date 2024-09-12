@@ -1,0 +1,20 @@
+Problem: https://leetcode.com/problems/check-if-the-sentence-is-pangram/description/
+Companies: Google
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        vector<bool> check(26,false);
+        int count =0;
+        for(char ch: sentence){
+            if(check[ch-'a']==false){
+                count++;
+                if(count==26) return true;
+                check[ch-'a']= true;
+            }
+        }
+        return false;
+    }
+};

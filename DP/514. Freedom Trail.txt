@@ -1,0 +1,43 @@
+Problem: https://leetcode.com/problems/freedom-trail/description/
+Companies: Google
+Approach: Here we find all the indexes of the all the characters and then if we are at character x and we want to go to character y then we will try for each y in the ring taking the minimum distance required to get to y ( clockwise and anticlockwise).
+Time Complexity: O(n^2*k),here n is length of ring and k is length of key
+Auxiliary Space: O(n*k)
+Code:
+class Solution {
+public:
+    unordered_map<char,vector<int>>mp;
+    string gring,gkey;
+    int rl,kl;
+    int dp[101][101];
+    int helper(int ri, int ki){
+        if(ki==kl){
+            return 0;
+        }
+        if(dp[ri][ki]!=-1){
+            return dp[ri][ki];
+        }
+        int res = INT_MAX;
+        int dist;
+        for(int x: mp[gkey[ki]]){
+            dist = min(abs(x-ri),rl-abs(x-ri));
+            res = min(res,(1+helper(x,ki+1)+dist));
+        }
+        return dp[ri][ki]=res;
+    }
+    int findRotateSteps(string ring, string key) {
+        int n = ring.size();
+        memset(dp,-1,sizeof(dp));
+        gring = ring;
+        gkey = key;
+        rl = ring.size();
+        kl = key.size();
+        for(int i=0;i<n;i++){
+            if(mp.find(ring[i])==mp.end()){
+                mp[ring[i]]= vector<int>();
+            }
+            mp[ring[i]].push_back(i);
+        }
+        return helper(0,0);
+    }
+}; 

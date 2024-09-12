@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/total-cost-to-hire-k-workers/description/
+Time complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    long long totalCost(vector<int>& costs, int k, int candidates) {
+        priority_queue<pair<int, int>, vector<pair<int, int>>, std::greater<pair<int, int>>> q;
+        int n = costs.size();
+        int l=0,r=n-1;
+        long long ctc=0;
+        while(l<candidates && l<n){
+            q.push({costs[l],l});
+            l++;
+        }
+        while(r>=n-candidates && r>=l){
+            q.push({costs[r],r});
+            r--;
+        }
+        while(k--){
+            auto [cost,idx]=q.top();
+            q.pop();
+            ctc+=cost;
+            if(idx<l){
+                if(l<=r){
+                    q.push({costs[l],l});
+                    l++;
+                }
+            }else{
+                if(r>=l){
+                    q.push({costs[r],r});
+                    r--;
+                }
+            }
+        }
+        return ctc;
+    }
+};

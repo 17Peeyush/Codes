@@ -1,0 +1,27 @@
+Problem: https://leetcode.com/problems/pass-the-pillow/
+Approach: With 'n' people to reach from one end to another it will take 'n-1' time.
+Total number of traversal from one direction to another cn be calculated as: time/(n-1)
+When our total number of traversal is even we are moving forward else we are moving backward.
+With the help of remainder we can find which person is holding the pillow.
+Time Complexity: O(1)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int passThePillow(int n, int time) {
+        if(time ==0){
+            return 1;
+        }
+        int q = time/(n-1); 
+        int mod = time%(n-1); 
+        if(q%2!=0)
+        {
+            return n-mod; 
+        }
+        else
+        {
+            return mod+1;
+        }
+        return -1;
+    }
+};

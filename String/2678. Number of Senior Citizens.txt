@@ -1,0 +1,18 @@
+Problem: https://leetcode.com/problems/number-of-senior-citizens/
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int countSeniors(vector<string>& details) {
+        int count =0;
+        string age="";
+        for(string s: details){
+            age = s.substr(11,2);
+            if(60<stoi(age)){
+                count++;
+            }
+        }
+        return count;
+    }
+};

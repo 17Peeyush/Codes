@@ -1,0 +1,111 @@
+Problem: https://leetcode.com/problems/number-of-atoms/description/
+Approach: Here we first preprocessed the given information, when we encounter opening parantheses we put it on stack and move ahead until we find its corresponding closing paranthese and then I calculate the multipler factor for these pair of paranthese. Store these 3 things with the index of opening paranthese.
+Out map looks like:
+key-> opening paranthese index, value-> vector<int>(3),
+v[0]-> closing paranthese index
+v[1]-> the index where I can resume processing string for current level
+v[2]-> the multiplier factor
+Once we have these details for our input to be in the out format we will add paranthese and 1 multiplier factor to out given string.
+We will recursively iterate our formula when I encounter a opening paranthese I then I will call a recursive function to handle the contents of that paranthese and I start traversing from where the paranthese closed and digit skipped. (V[1] will give me that index). 
+The function which we called to handle the parnathese encountered will give a map with elements adjusted after the multiplier which we will add it to our current level.
+Time Complexity: O(nlogn+n^2), n is number of elements in the formula eg: H, Mg->n=2, nlogn for sorting, n^2 in worst case repeatedly all n n elements are in brackets
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    unordered_map<int,vector<int>>mp; //[0,1,2] 0-> where corresponding '(', 1-> where to resume processing, 2-> multiplier
+    void getPositions(const string &s){
+        stack<int> st;
+        int i=0;
+        int n = s.size();
+        while(i<n){
+            if(s[i]=='('){
+                st.push(i);
+                mp[i]=vector<int>();i++;
+            }
+            else if(s[i]==')'){
+                int t = st.top(); st.pop();
+                mp[t].push_back(i);
+                i++;
+                string dig="";
+                while(i<n&&isdigit(s[i])){
+                    dig+=s[i];
+                    i++;
+                }
+                if(dig=="")
+                {
+                    dig="1";
+                }
+                mp[t].push_back(i);// where to resume
+                mp[t].push_back(stoi(dig)); //digit value
+            }else
+            {
+                i++;
+            }
+        }
+    }
+    map<string,int> helper(int i,int n,const string & s){
+        map<string, int> freq, inner;
+        string temp="";
+        while(i<n){
+            if(s[i]=='('){
+                if(temp!="")
+                {
+                    freq[temp]++;
+                    temp="";
+                }
+                inner = helper(i+1,mp[i][0]+1,s);
+                for(auto x:inner){
+                    freq[x.first]+=x.second*mp[i][2];
+                }
+                i=mp[i][1];
+            }
+            else if(s[i]==')'){
+                if(temp!="")
+                {
+                    freq[temp]++;
+                    temp="";
+                }
+                i++;
+            }
+            else if(s[i]>='A'&&s[i]<='Z'){
+                if(temp!=""){
+                    freq[temp]++;
+                    temp="";
+                }
+                temp+=s[i];
+                if(i+1==n)
+                {
+                    freq[temp]++;
+                }
+                else if(i+1<n && (s[i+1]>='A'&&s[i+1]<='Z')){
+                    freq[temp]++;
+                    temp="";
+                }
+                i++;
+            }
+            else if(isdigit(s[i])){
+                string dig ="";
+                while(i<n&&isdigit(s[i])){
+                    dig+=s[i];i++;
+                }
+                freq[temp] += stoi(dig);
+                temp="";
+            }
+            else{
+                temp+=s[i];i++;
+            }
+        }
+        return freq;
+    }
+    string countOfAtoms(string formula) {
+        formula = "("+formula+")1";
+        getPositions(formula);
+        map<string,int> cm = helper(0,formula.size(),formula);
+        string res ="";
+        for(auto x: cm){
+            res+=x.first+(x.second>1?to_string(x.second):"");
+        }
+        return res;
+    }
+};

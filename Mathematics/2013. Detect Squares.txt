@@ -1,0 +1,35 @@
+Problem: https://leetcode.com/problems/detect-squares/description/
+Companies: Google
+Approach: In order to store multiple occurrance of co-ordiantes and constant lookup we will use multiset. Now for our query point we will try to find the point which will be its diagonal (distance of x coordinate is equal to the distance of y coordinate) then that point is valid point and now with the help of that point we will try to find another 2 points and get the count of square by multiplying their frequency.
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class DetectSquares {
+public:
+    multiset<vector<int>> points;
+    DetectSquares() {
+        
+    }
+    
+    void add(vector<int> point) {
+        points.insert(point);
+    }
+    
+    int count(vector<int> point) {
+        int numrec=0;
+        for(auto x: points){
+            if(x!=point){
+                if(abs(point[0]-x[0])==abs(point[1]-x[1])){
+                    numrec+=points.count({x[0],point[1]})*points.count({point[0],x[1]});
+                }
+            }
+        }
+        return numrec;
+    }
+};
+/**
+ * Your DetectSquares object will be instantiated and called as such:
+ * DetectSquares* obj = new DetectSquares();
+ * obj->add(point);
+ * int param_2 = obj->count(point);
+ */

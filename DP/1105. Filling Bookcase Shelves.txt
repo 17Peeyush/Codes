@@ -1,0 +1,29 @@
+Problem: https://leetcode.com/problems/filling-bookcase-shelves/description/
+Approach: Here for each book we are considering whether it will be added in same shelf or it will start with new shelf. If a box is already placed and another book can be placed on the same shelf then we will consider it's height and reduce the shelf width capacity to accomodate more books. If we are not considering the current book can't be placed on the same shelf then we are placing it on new shelf and adding our height till now to the height returned by current book.S 
+Time Complexity: O(2^n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int shw, n;
+    int arr[1001];
+    int helper(int i, vector<vector<int>>&books){
+        if(i==n) return 0;
+        if(arr[i]!=-1) return arr[i];
+        int curwidth = shw;
+        int mxh =0, res=INT_MAX;
+        for(int j=i;j<n;j++){
+            if(books[j][0]>curwidth) break;
+            curwidth-=books[j][0];
+            mxh=max(mxh,books[j][1]);
+            res = min(res, mxh+helper(j+1,books));
+        }
+        return arr[i]=res;
+    }
+    int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
+        n = books.size();
+        memset(arr,-1,sizeof(arr));
+        shw = shelfWidth;
+        return helper(0,books);
+    }
+};

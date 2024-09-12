@@ -1,0 +1,53 @@
+Problem: https://leetcode.com/problems/split-bst/description/,
+(free) https://www.naukri.com/code360/problems/split-bst_1376434?leftPanelTabValue=PROBLEM
+Companies: Google
+Approach: We will use the property of BST that elements in the left subtree will be less than the root and elements in the right subtree will be greater than the root. Then while traversing the tree at every root we will take a decision:
+-> if the root val is greater than the target value then it means that elements in the right subtree will be greater than the target and we won't be spilting right subtree. We will only split left subtree.
+-> if the root val is less than or equal to the target then the all nodes of left subtree will be less than the target then we won't be spliting it our split will in the right subtree.
+At each node level, we will return an vector where the first element will the root of subtree where each node which contains elements less than equal to the target, and second element will contain the root of subtree where each node is greater than the target. 
+Our base condition will be when we reach a null node then we will return a vector of null values.
+For each node we return our array with root stated above.
+Time Complexity: O(n)
+Auxiliary Space: O(h), where h is the height of the tree
+Code:
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+        
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+vector<TreeNode<int>* > splitBST (TreeNode<int>* root, int target)
+{
+    // Write your code here.
+    if(root == nullptr){
+        return {nullptr, nullptr};
+    }
+    vector<TreeNode<int>*> temp;
+    if(root ->val >target){
+        temp = splitBST(root->left, target); // [s,l]
+        root->left = temp[1];
+        temp[1]=root;
+    }
+    else{// if(root->val <= target){
+        temp = splitBST(root->right,target);
+        root->right = temp[0];
+        temp[0]=root; // [root, temp[1]]
+    }
+    return temp;
+
+}

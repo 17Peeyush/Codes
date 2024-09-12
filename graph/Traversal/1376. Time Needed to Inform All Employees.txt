@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/time-needed-to-inform-all-employees/description/
+Companies: Google
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        vector<vector<pair<int,int>>> adj(n,vector<pair<int,int>>());
+        for(int i=0;i<n;i++){
+            if(manager[i]!=-1){
+                adj[manager[i]].push_back({i,informTime[i]});
+            }
+        }
+        int totalTime =0;
+        pair<int,int> t;
+        queue<pair<int,int>> q;
+        q.push({headID, informTime[headID]});
+        int curr=0;
+        while(!q.empty()){
+            t = q.front();
+            q.pop();
+            totalTime = max(totalTime, t.second);
+            for(auto x: adj[t.first]){
+                q.push({x.first, x.second+t.second});
+            }
+        }
+        return totalTime;
+    }
+};

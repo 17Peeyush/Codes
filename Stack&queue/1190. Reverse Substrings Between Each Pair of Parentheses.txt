@@ -1,0 +1,84 @@
+Problem: https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/description/
+Companies: Meta, Microsoft
+Approach 1: Here we are simply traversing and keeping track of elements that wil fall inside my current pair of parentheses and I reverse them. Since order of reversal don't play a part so we go from left to right.
+Time Complexity: O(n^2)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    string reverseParentheses(string s) {
+        int n = s.size();
+        stack<int>st;
+        string ans ="";
+        for(int i=0;i<n;i++){
+            if(s[i]=='(')
+            {
+
+                st.push(ans.size());
+            }
+            else if(s[i]==')'){
+                int leave = st.top();
+                st.pop();
+                reverse(ans.begin()+leave,ans.end());
+            }
+            else{
+                ans+=s[i];
+            }
+        }
+        return ans;
+        
+    }
+};
+
+Approach2: Wormhole Teleportation technique
+Wormholes/Jumping: This concept metaphorically represents moving from one parenthesis to its matching pair in a bidirectional manner, effectively reversing characters between matched pairs without directly using the reverse function.
+With the help of stack making a pair of opening and closing parantheses.
+Then We are more in dir say 1 that indenticates left to right as soon we encounter '(' that means that elements inside these paranthese needs to be reverse so we go to the corresponding ')' parantheses and start traversing by chaning the direction from left to right to right to left. Again we encounter '(' bracket then it means direction needs to be changed so we will again toogle the direction.
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    string reverseParentheses(string s) {
+        stack<int>st;
+        int n = s.size();
+        unordered_map<int,int>mp;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='(')
+            {
+                st.push(i);
+            }
+            else if(s[i]==')')
+            {
+                mp[i]=st.top();
+                mp[st.top()]=i;
+                st.pop();
+            }
+        }
+        int dir =1; //1-> , -1<-
+        int i = 0;
+        string ans="";
+        while(i<n&&i>=0)
+        {
+            if(s[i]=='('|| s[i]==')')
+            {
+                i=mp[i];
+                dir =dir*(-1);
+            }
+            else
+            {
+                ans+=s[i];
+            }
+            if(dir>0)
+            {
+                i++;
+            }
+            else
+            {
+                i--;
+            }
+        }
+        return ans;
+    }
+};

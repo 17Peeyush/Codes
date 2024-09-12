@@ -1,0 +1,64 @@
+Problem: https://leetcode.com/problems/longest-absolute-file-path/
+Companies: Google
+Approach: We will use stack in order to maintain the depth of repositories. '\t' will tell the depth of current directory. If the depth of current directory is more than the next depth then we pop the elements from the stack.
+Note: Length is only valid if we find a file so checking this by '.' finding if we encountered dot.
+Time Complexity: O(n)
+Auxillary Space: O(d), where d is the maximum depth of directory
+Code:
+class Solution {
+public:
+
+    int getCumulative(stack<int>&st){
+        if(st.empty())
+        {
+            return 0;
+        }
+        return st.top();
+    }
+    int lengthLongestPath(string input) {
+        stack<int>st;
+        int ml = 0;
+        int n = input.size();
+        int temp=0;
+        bool dot = false;
+        int tcc =0, tc;
+        int i=0;
+        int cumulative =0;
+        int slash = 0;
+        while(i<n){
+            temp=0;
+            dot = false;
+            while(i<n&&input[i]!='\n')
+            {
+                temp++;
+                if(input[i]=='.')
+                    dot = true;
+                i++;
+            }
+            cumulative = getCumulative(st);
+            //cout<<"pushing:"<<temp<<"\t"<<cumulative+temp.size()<<endl;
+            st.push(cumulative+temp);
+            slash=st.size()-1;
+            if(dot)
+                ml = max(ml,st.top()+slash);
+            i++;
+            while(i<n&&input[i]=='\t'){
+                tc++;
+                i++;
+            }
+            if(i>=n) break;
+            if(tcc == tc){ // insame directory
+                st.pop();
+            }
+            else if(tcc>tc){
+                int move_back = tcc-tc+1;
+                while(move_back--){
+                    st.pop();
+                }
+            }
+            tcc = tc;
+            tc = 0;
+        }
+        return ml;
+    }
+};

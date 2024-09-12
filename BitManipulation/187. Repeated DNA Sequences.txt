@@ -1,0 +1,40 @@
+Problem: https://leetcode.com/problems/repeated-dna-sequences/
+Companies: Google
+Appraoch: Here we for each 10 length substring we created a hash and checked if it exisited then incremented its count. As soon as a hash count becomes 2 we add it in our result array.
+Time Complexity: O(n*10)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    unordered_map<char,int>chr;
+    int encode(int i,string&s){
+        int en=0;
+        int width =10;
+        while(width--){
+            en=en<<3|(chr[s[i]]);
+            i++;
+        }
+        return en;
+    }
+    vector<string> findRepeatedDnaSequences(string s) {
+        int n = s.size();
+        if(n<=10) return {};
+        chr['A']=0;
+        chr['C']=1;
+        chr['G']=2;
+        chr['T']=3;
+        unordered_map<int,int>mp;
+        vector<string> res;
+        int t;
+        for(int i=0;i<=n-10;i++)
+        {
+            t = encode(i,s);
+            mp[t]++;
+            if(mp[t]==2)
+            {
+                res.push_back(s.substr(i,10));
+            }
+        }
+        return res;
+    }
+};

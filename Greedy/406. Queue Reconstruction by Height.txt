@@ -1,0 +1,29 @@
+Problem: https://leetcode.com/problems/queue-reconstruction-by-height/description/
+Companies: Google
+Approach: Here we sort according to ascending order of height and for same height based on their increasing order of number of people that are in front of them. Once we have sorted array we put the smallest element to their correct place. For current element we store the number of elements in front of it in a variable count. Then we start traversing the result array which is initialized to '-1' indicating vacant spot. If we get an element that is smaller than current we ignore, but if we get an element that is greater than or equal to current element then we will decrement our count to take into consideration that an element with greater or equal value is in front of us. Once the value of count is '0' then it means we have skipped that many places and fulfilled the condition and we will add current value as soon we find an vacant spot. If our count is not equal to '0' and we encounter a vacant spot then it means we will skip it so in future another element should come at that place.
+Time Complexity: O(n^2+nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+        sort(people.begin(),people.end());
+        int n = people.size();
+        vector<vector<int>> q(n,vector<int>(2,-1));
+        int count =0;
+        for(int i=0;i<n;i++){
+            count = people[i][1];
+            for(int j=0;j<n;j++){
+                if(count==0){
+                    if(q[j][0]==-1){
+                        q[j]=people[i];
+                        break;
+                    }
+                }else if(q[j][0]>=people[i][0] || q[j][0]==-1){
+                    count --;
+                }
+            }
+        }
+        return q;
+    }
+};

@@ -1,0 +1,95 @@
+Problem: https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable
+Companies: Google, Uber
+Approach:
+In order to solve this problem we have to build 2 different graphs to differentiate the information of Alice and Bob.  Then greedily I will be choosing the type 3 edges as both Alice and Bob can traverse using it. 
+Then when I pick Alice and Bob's respective edges and try to add it in their graph. If they already have a path to the nodes that these edges connect then we can conclude this is an extra edge.
+Will find the connected components using union and disjoint set.
+Time Complexity: O(eloge+nlogn), where e is the number of edges and n is number of nodes, eloge(sorting), nlogn(union-find)
+Auxiliary Space: O(n)
+Code:
+class DSU{
+    private:
+    int n;
+    vector<int> parent;
+    int find(int i){
+        if(parent[i]<0)
+        {
+            return i;
+        }
+        return parent[i]=find(parent[i]);
+    }
+    public:
+    DSU(int n)
+    {
+        this->n = n;
+        parent = vector<int>(n+1,-1);
+    }
+
+    bool disjointUnion(int u,int v){ //Return false if edges u and v are already connect, otherwise true
+        int pu = find(u);
+        int pv = find(v);
+        if(pu==pv){
+            return false;
+        }
+        else if(parent[pu]<parent[pv]){
+            parent[pu]+=parent[pv];
+            parent[pv]=pu;
+        }
+        else{
+            parent[pv]+=parent[pu];
+            parent[pu]=pv;
+        }
+        return true;
+    }
+    bool allTraversed(){
+        for(int i=1;i<=n;i++){
+            if(parent[i]==(-n)){
+                return true;
+            }
+        }
+        return false;
+    }
+};
+class Solution {
+public:
+struct compareVectors{
+    bool operator()(const vector<int>& a, const vector<int>& b) {
+        // Assuming both vectors have the same size for simplicity
+        if(a[0]>b[0]) return true;
+        return false;  // Compare lexicographically (element by element)
+    }
+};
+
+    int maxNumEdgesToRemove(int n, vector<vector<int>>& edges) {
+        sort(edges.begin(),edges.end(),compareVectors());
+        DSU alice(n);
+        DSU bob(n);
+        int alice_extra =0;
+        int bob_extra =0;
+        int blue_extra =0;
+        for(auto x: edges){
+            if(x[0]==3){
+                if(alice.disjointUnion(x[1],x[2])){
+                    bob.disjointUnion(x[1],x[2]);
+                }
+                else{
+                    blue_extra++;
+                }
+            }
+            else if(x[0]==1){
+                if(!alice.disjointUnion(x[1],x[2])){
+                    alice_extra++;
+                }
+            }
+            else{
+                if(!bob.disjointUnion(x[1],x[2])){
+                    bob_extra++;
+                }
+            }
+        }
+        if(!(alice.allTraversed()&&bob.allTraversed())){
+            return -1;
+        }
+        return (alice_extra+bob_extra+blue_extra);
+    }
+};

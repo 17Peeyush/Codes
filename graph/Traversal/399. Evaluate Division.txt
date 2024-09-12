@@ -1,0 +1,56 @@
+Problem: https://leetcode.com/problems/evaluate-division/description/
+Compaines: Google
+Approach: Here to find a/c, we are given a/b,b/c so if we multiply this we will get a/c. We are getting it by forming the weighted graph where a connects to b by edge weight (w) where w is equal to a/b. Once we have created graph finding division between two values is equal to traversing from one node to another and multiplying the weights.
+Time Complexity: O(n+qm),n is number of equations, q is no of queries, m is number of nodes in graph
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    unordered_map<string, unordered_map< string,double>>mp;
+    double ans;
+    void dfs(string src, string dest, unordered_set<string> &visited, double val){
+        /*if(visited.find(src)!=visited.end()){
+            return;
+        }*/
+        if(src == dest){
+            ans = val;
+            return;
+        }
+        visited.insert(src);
+        for(auto x: mp[src])
+        {
+            if(visited.find(x.first)==visited.end())
+            {
+                dfs(x.first,dest,visited,val*x.second);
+            }
+        }
+    }
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        
+        int n = equations.size();
+        for(int i=0;i<n;i++){
+            if(mp.find(equations[i][0]) == mp.end()){
+                mp[equations[i][0]]= unordered_map<string,double>();
+            }
+            if(mp.find(equations[i][1])==mp.end()){
+                mp[equations[i][1]]=unordered_map<string,double>();
+            }
+            mp[equations[i][0]].insert({equations[i][1],values[i]});
+            mp[equations[i][1]].insert({equations[i][0], 1.0/values[i]});
+        }
+
+        vector<double> res;
+        int m = queries.size();
+        for(int i=0;i<m;i++){
+            unordered_set<string> visited;
+            ans =-1;
+            if(mp.find(queries[i][0]) == mp.end() || mp.find(queries[i][1])==mp.end()){
+                res.push_back(ans);
+                continue;
+            }
+            dfs(queries[i][0],queries[i][1],visited,1.0);
+            res.push_back(ans);
+        }
+        return res;
+    }
+};

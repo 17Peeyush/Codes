@@ -1,0 +1,68 @@
+Problem: https://leetcode.com/problems/fraction-addition-and-subtraction/
+Time Complexity: O(n log(min(a,b))), where a and b are numbers which we encounter while solving fraction (gcd time complexity)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int get_gcd(int a, int b){
+        if(b==0) return a;
+        return get_gcd(b,a%b);
+    }
+    void evaluate(stack<pair<int,int>>&st){
+        while(st.size()>1){
+            auto f1 = st.top();st.pop();
+            auto f2 = st.top();st.pop();
+            int numerator = (f1.first*f2.second)+(f2.first*f1.second);
+            int denominator = (f1.second*f2.second);
+            int gcd = get_gcd(abs(numerator),abs(denominator));
+            numerator/=gcd;
+            denominator/=gcd;
+            st.push({numerator,denominator});
+        }
+        auto f= st.top(); st.pop();
+        int gcd=get_gcd(abs(f.first),abs(f.second));
+        st.push({f.first/gcd,f.second/gcd});
+    }
+    void parseInput(stack<pair<int,int>>&st,string & expression){
+        int n = expression.size();
+        string numerator="", denominator="";
+        int i=n-1;
+        bool numflag =false;
+        while(i>=0){
+            if(expression[i]=='+' || expression[i]=='-')
+            {
+                if(expression[i]=='-')
+                {
+                    st.push({-1*stoi(numerator),stoi(denominator)});
+                }
+                else{
+                    st.push({stoi(numerator),stoi(denominator)});
+                }
+                //cout<<"Fraction: "<< st.top().first<<"/"<<st.top().second<<endl;
+                numerator = "";
+                denominator = "";
+                numflag = false;
+            }
+            else if(expression[i]=='/'){
+                numflag = true;
+            }else{
+                if(numflag){
+                    numerator = expression[i] + numerator;
+                }else{
+                    denominator = expression[i] + denominator;
+                }
+            }
+            i--;
+        }
+    }
+    string fractionAddition(string expression) {
+        if(expression[0]!='+' && expression[0]!='-'){
+            expression = "+" + expression;
+        }
+        stack<pair<int,int>> numbers;
+        parseInput(numbers,expression);
+        evaluate(numbers);
+        string sign = numbers.top().first*numbers.top().second<0? "-":"";
+        return sign+to_string(abs(numbers.top().first))+"/"+to_string(abs(numbers.top().second));
+    }
+};

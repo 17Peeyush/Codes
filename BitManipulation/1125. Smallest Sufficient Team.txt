@@ -1,0 +1,61 @@
+Problem: https://leetcode.com/problems/smallest-sufficient-team
+Companies: Google, Amazon
+Approach: Convert required skills to number by mapping each skill to an index and bits on those index will be one. Then for each people we will generate a number based on their skills as bits are one when they have certain index. Then for each people we will start considering taking them and then only select those people with skills that are not covered upto yet.
+Time Complexity: O(m*2^m), where m is number of people
+Auxiliary Space: O(m)
+Code:
+class Solution {
+public:
+    int minreq, reqskill;
+    vector<int> res;
+    void helper(int i,int currskill, vector<int>&temp,vector<int>&p_skill)
+    {
+        if(currskill == reqskill){
+            if(minreq>(int)temp.size()){
+                res = temp;
+                minreq = temp.size();
+            }
+            return;
+        }
+        if(res.size()!=0&&temp.size()+1>res.size()){ // This is help us stopping earlier than iterating unnecessary calls
+                return;
+        }
+        int sktoc = reqskill ^ currskill; //skill to cover
+        for(int j=i+1;j<p_skill.size();j++)
+        {
+            int sk = p_skill[j];
+            if(sk&sktoc)
+            {
+                temp.push_back(j);
+                helper(j,currskill|sk,temp,p_skill);
+                temp.pop_back();
+            }
+        }
+    }
+    vector<int> smallestSufficientTeam(vector<string>& req_skills, vector<vector<string>>& people) {
+        unordered_map<string,int>mp;
+        int n = req_skills.size();
+        int m = people.size();
+        reqskill=0;
+        for(int i=0;i<n;i++){
+            mp[req_skills[i]]=i;
+            reqskill = reqskill | (1<<i);
+        }
+        vector<int>p_skill(m,0);
+        for(int i=0;i<m;i++){
+            int cskill =0;
+            for(auto x: people[i]){
+                cskill = cskill | (1<<mp[x]);
+            }
+            p_skill[i]=cskill;
+        }
+        minreq=INT_MAX;
+        for(int i=0;i<m;i++)
+        {
+            vector<int> temp;
+            temp.push_back(i);
+            helper(i,p_skill[i],temp,p_skill);
+        }
+        return res;
+    }
+};

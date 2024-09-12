@@ -1,0 +1,34 @@
+Problem: https://leetcode.com/problems/stone-game-ii
+Time Complexity: O(n^3)
+Auxiliary Space: O(n^2)
+Code:
+class Solution {
+public:
+    unordered_map<string,int>dp;
+    int n;
+    int helper(int i, int player, int M, vector<int>&piles){ //alice->0, bob->1
+        if(i==n) return 0;
+        string key = to_string(i)+","+to_string(player)+","+to_string(M);
+        if(dp.find(key)!=dp.end())
+        {
+            return dp[key];
+        }
+        int res = player?INT_MAX:-1;
+        int score =0;
+        for(int x=1;x<=min(2*M,n-i);x++){
+            score+=piles[i+x-1];
+            if(player){
+                res = min(res, helper(i+x,0,max(x,M),piles));
+            }
+            else{
+                res = max(res, score+helper(i+x,1,max(x,M),piles));
+            }
+        }
+        return dp[key]=res;
+
+    }
+    int stoneGameII(vector<int>& piles) {
+        n = piles.size();
+        return helper(0,0,1,piles);
+    }
+};

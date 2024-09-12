@@ -1,0 +1,85 @@
+Problem: https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/
+Companies: Amazon
+Approach 1: (Multi set)
+Note: TLE
+Here simply sorted the array and removed duplicates. Took a array of multiset(sorted,multiple occurances,fast retrieval), can take set too. Started inserting elements in set if difference between min and max element of the set have difference atmost k.(Considered our new element in comparison). If our curr element can't be inserted in any existing set then we will create a new set and insert element in that set. Number of set  is the number of subsequence.
+Important: Why sorting is required?
+example: arr =[16,8,17,0,3,20], k=10
+if we start creating a subsequences: [16,8,17] , [0,3], [20] here wrong subsequences were created.
+actual subsequence: [8,0,3],[16,17,20], hence sorting is required to associate element with correct groups.
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int partitionArray(vector<int>& nums, int k) {
+        set<int> s(nums.begin(),nums.end());
+        if(k==0){
+            return s.size();
+        }
+        vector<multiset<int>>g;
+        g.push_back(multiset<int>({*s.begin()}));
+        int subsequence = 1;
+        int n = nums.size();
+        bool flag;
+        int l,h;
+        for(auto x:s){
+            flag = true;
+            for(int j=0;j<g.size();j++){
+                l= min(x,*g[j].begin());
+                h= max(x,*g[j].rbegin());
+                if(h-l<=k){
+                    g[j].insert(x);
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                g.push_back(multiset<int>({x}));
+                subsequence++;
+            }
+        }
+        return subsequence;
+    }
+};
+
+Approach 2: Using a set to get a unique elements in sorted fashion then from current element say(start) traversing till the elements are less than 'start+k', if we encounter an element that is greater than 'start+k' then we can say we need a new subsequence.
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int partitionArray(vector<int>& nums, int k) {
+        set<int>s({nums.begin(),nums.end()});
+        int n = s.size();
+        if(k==0)
+            return n;
+        int start = *s.begin();
+        int subseq = 1;
+        for(auto x:s){
+            if(x-start>k){
+                start = x;
+                subseq++;
+            }
+        }
+        return subseq;
+    }
+};
+
+Better code: (less time taken)
+Code:
+class Solution {
+public:
+    int partitionArray(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        int start = nums[0];
+        int subseq = 1;
+        for(auto x:nums){
+            if(x-start>k){
+                start = x;
+                subseq++;
+            }
+        }
+        return subseq;
+    }
+};

@@ -1,0 +1,33 @@
+Problem: https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/
+Companies: Google
+Approach: Here we will find the number of connected components. From one component of size 'm' we can remove m-1 stones. So if we have 'k' connected components in total so total number of stones which we can't remove is 'k'. So the question boils down to if we have 'n' stones and 'k' connected components then we can remove 'n-k' stones. Here we try to union rows and columns as (0,0) is connected to both '0' row and '0' columns similarly (1,5) is connected to '1' row and '5' columns so all the elements in this row and columns will be connected. We used dfs to find the connected components.
+Time Complexity: O(nlogn+n^n.k), where n is number of nodes and k is the number of connected components
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    void dfs(int idx, vector<vector<int>>&stones, vector<bool>&visited){
+        visited[idx]= true;
+        int n = stones.size();
+        int r = stones[idx][0];
+        int c = stones[idx][1];
+        for(int i=0;i<n;i++){
+            if(i!=idx && (stones[i][0]==r||stones[i][1]==c)&&!visited[i]){
+                dfs(i,stones,visited);
+            }
+        }
+    }
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size();
+        sort(stones.begin(),stones.end());
+        vector<bool> visited(n,false);
+        int components =0;
+        for(int i=0;i<n;i++){
+            if(!visited[i]){
+                dfs(i,stones,visited);
+                components++;
+            }
+        }
+        return n-components;
+    }
+};

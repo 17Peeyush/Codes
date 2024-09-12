@@ -1,0 +1,40 @@
+Problem: https://leetcode.com/problems/detonate-the-maximum-bombs/description/
+Companies: Google
+Time Complexity: O(n*n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    double distance(const vector<int>&a,const vector<int>&b){
+	    return sqrt((double)(a[0]-b[0])*(double)(a[0]-b[0])+(double)(a[1]-b[1])*(double)(a[1]-b[1]));
+    }
+   
+    int dfs(int i, vector<vector<int>>&adj, vector<bool>&visited){
+        visited[i]=true;
+        int count =0;
+        for(auto x: adj[i]){
+            if(!visited[x]){
+                count+=dfs(x,adj,visited);
+            }
+        }
+        return count+1;
+    }
+
+    int maximumDetonation(vector<vector<int>>& bombs) {
+        int n = bombs.size();
+        int detonated = 0;
+        vector<vector<int>>adj(n,vector<int>());
+        for(int i=0;i<n;i++){
+            for(int j =0;j<n;j++){
+                if(i!=j && distance(bombs[i],bombs[j])<=(double)bombs[i][2]){
+                    adj[i].push_back(j);
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            vector<bool> visited(n,false);
+            detonated = max(detonated, dfs(i,adj,visited));
+        }
+        return detonated;
+    }
+};

@@ -1,0 +1,60 @@
+Problem: https://leetcode.com/problems/find-the-minimum-and-maximum-number-of-nodes-between-critical-points/
+Time Complexity: O(n)
+Auxiliary Space; O(n)
+Note: Can be solved in O(1) Auxiliary Space if we keep track of only two critical points to get the minimum distance and for max we need only the first and last critical point.
+Code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+        ListNode *p, *c,*n;
+        int mind = INT_MAX;
+        vector<int>pos;
+        vector<int> res ={-1,-1};
+        int count = 1;
+        p = head;
+        if(head->next!=nullptr){
+            c = head->next;
+        }else
+        {
+            return res;
+        }
+        if(c->next!=nullptr){
+            n = c->next;
+        }else
+        {
+            return res;
+        }
+        while(n!=nullptr){
+            if(p->val>c->val && n->val>c->val){
+                pos.push_back(count);
+            }
+            else if(p->val<c->val&&n->val<c->val){
+                pos.push_back(count);
+            }
+            count++;
+            p=c;
+            c=n;
+            n=n->next;
+        }
+        int m = pos.size();
+        if(m==0||m==1){
+            return res;
+        }
+        res[1]=pos[m-1]-pos[0];
+        for(int i=0;i<m-1;i++){
+            mind = min(pos[i+1]-pos[i],mind);
+        }
+        res[0]= mind;
+        return res;
+    }
+};

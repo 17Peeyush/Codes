@@ -1,0 +1,87 @@
+Problem: https://leetcode.com/problems/finding-mk-average/
+Companies: Google
+Approach: We take three multiset to keep track of 'k' largest and smallest elements and rest of the elements will be in middle. Then we were simply populating the first elements in largest or smallest sets, once they have a size of 'k' then we are filling the middle set. We are keeping track of sum of elements in middle set and hence can give average in O(1).
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class MKAverage {
+private:
+int m,k,n;
+long long sum;
+queue<int>q;
+multiset<int> smallest, middle,largest;
+public:
+    MKAverage(int m, int k) {
+        this->m=m;
+        this->k=k;
+        n=m-(2*k);
+        sum=0;
+    }
+    void balance(){
+        int el;
+        while (smallest.size() > k) {
+            el = *smallest.rbegin();
+            smallest.erase(prev(smallest.end()));
+            middle.insert(el);
+            sum += el;
+        }
+        while (largest.size() > k) {
+            el = *largest.begin();
+            largest.erase(largest.begin());
+            middle.insert(el);
+            sum += el;
+        }
+        while (smallest.size() < k && middle.size()) {
+            el = *middle.begin();
+            middle.erase(middle.begin());
+            sum -= el;
+            smallest.insert(el);
+        }
+        while (largest.size() < k && middle.size()) {
+            el = *middle.rbegin();
+            middle.erase(prev(middle.end()));
+            sum -= el;
+            largest.insert(el);
+        }
+    }
+
+    void addElement(int num) {
+        if(smallest.empty() || *(smallest.rbegin())>=num){
+            smallest.insert(num);
+        }else if(largest.empty() || *(largest.begin())<=num){
+            largest.insert(num);
+        }else{
+            middle.insert(num);
+            sum+=num;
+        }
+        if(q.size()==m){
+            int front = q.front();
+            q.pop();
+            if(smallest.find(front)!=smallest.end()){
+                smallest.erase(smallest.find(front));
+            }
+            else if(middle.find(front)!=middle.end()){
+                middle.erase(middle.find(front));
+                sum-=front;
+            }
+            else{
+                largest.erase(largest.find(front));
+            }
+        }
+        q.push(num);
+        balance();
+    }
+    
+    int calculateMKAverage() {
+        if(q.size()<m) return -1;
+        //cout<<sum<<endl;
+        return sum/n;
+    }
+};
+
+/**
+ * Your MKAverage object will be instantiated and called as such:
+ * MKAverage* obj = new MKAverage(m, k);
+ * obj->addElement(num);
+ * int param_2 = obj->calculateMKAverage();
+ */

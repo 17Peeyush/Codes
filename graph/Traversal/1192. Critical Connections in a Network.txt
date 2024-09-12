@@ -1,0 +1,48 @@
+Problem: https://leetcode.com/problems/critical-connections-in-a-network/
+Companies: Google, Amazon
+Approach: Tarjan's algorithm to find the bridges in the graph
+Here we have two extra components from dfs discover time and lowest time. Discover time is the time at which a node is discovered and lowest time is the shortest time to reach a node. We Traverse the graph and keep track of lowest and discovered time. If there is a cycle then at some point of time while iterating the edge list we will see visited adjacent nodes that are not parent with lowest time less than current node that means we can reach those node via different path hence they can't be the bridge. When we encounter such node we update our lowest time equal to their time. If after completing dfs for a node its lowest time is more than the parent node then that means there is no other way to reach it without going through the parent, hence it is a bridge. If parent lowest time is greater than equal to current node then it means there is a path from current node to its parent's ancestors and hence removing this edge won't create a bridge.
+Time Complexity: O(v+2e)
+Auxiliary Space: O(v)
+Code:
+class Solution {
+public:
+    vector<int> disc,low;
+    vector<vector<int>>g;
+    vector<vector<int>> bridges;
+    vector<bool>visited;
+    void dfs(int node, int t, int parent){
+        disc[node]=t;
+        low[node]=t;
+        visited[node]=true;
+        for(auto x: g[node]){
+            if(x==parent) continue;
+            if(visited[x]){
+                if(low[x]<low[node]){
+                    low[node]=low[x];
+                }
+            }else{
+                dfs(x,t+1,node);
+                if(t<low[x]){
+                    bridges.push_back({node,x});
+                }
+                low[node] = min(low[x],low[node]);
+               /* else{
+                    low[node]=low[x];
+                }*/
+            }
+        }
+    }
+    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {
+        disc = vector<int>(n,-1);
+        low = vector<int>(n,-1);
+        visited = vector<bool>(n,false);
+        g = vector<vector<int>>(n,vector<int>());
+        for(auto x: connections){
+            g[x[0]].push_back(x[1]);
+            g[x[1]].push_back(x[0]);
+        }
+        dfs(0,0,-1);
+        return bridges;
+    }
+};

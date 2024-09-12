@@ -1,0 +1,24 @@
+Problem: https://leetcode.com/problems/sum-of-digits-of-string-after-convert/
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    string getDigitSum(string num){
+        int sum=0;
+        for(auto x: num){
+            sum+=x-'0';
+        }
+        return to_string(sum);
+    }
+    int getLucky(string s, int k) {
+        string num="";
+        for(char x:s){
+            num+=to_string((x-'a')+1);
+        }
+        while(k--){
+            num =getDigitSum(num);
+        }
+        return stoi(num);
+    }
+};

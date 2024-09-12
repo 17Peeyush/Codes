@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/divide-two-integers/description/
+Time Complexity :O(log(a)*log(b))
+The time complexity of the given code is O(log(a) * log(b)). This is because in the first while loop, we're checking if a is greater than or equal to b, which requires O(log(a)) time since in each iteration a is reduced roughly by a factor of two or more. The inner while loop is responsible for finding the largest shift of b that a can handle, which will execute at most O(log(b)) times, as shifting b left by one doubles its value, and cnt increases until a is no longer greater than b shifted by count + 1. Therefore, these two loops combined yield the time complexity mentioned.
+
+Space Complexity: O(1)
+The space complexity of the given code is O(1). Only a fixed number of integer variables sign, tot, and cnt are used, which do not depend on the size of the input. Hence, the space used is constant.
+Approach: One way is in a while loop we keep subtracting the divisor from dividend until the dividend is less than the divisor. But for very large number we will get TLE. But using the same concept instead of subtracting only one multiple of divisor at a time we subtract with the largest multiple of divisor in powers of 2. ie example:
+dividend = 7x
+divisor = x
+7=> 4,2,1 then we can first we can subtract: 7x - 4x
+second: (3x)-2x
+third: (x) -x
+So in this way we are moving with up in logarithmic time.
+Code:
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        int sign = (dividend <0) ^ (divisor <0)? -1:1;
+        long a = abs(dividend);
+        long b = abs(divisor);
+        long count =0,q=0;
+        while(a>=b){
+            count =0;
+            while(a>=(b<<(count+1))){
+                count++;
+            }
+            q+=1<<count;
+            a = a -(b<<count);
+        }
+        if(q==(1<<31)&& sign<0){
+            return INT_MIN;
+        }
+        else if(q==(1<<31)&&sign>0){
+            return INT_MAX;
+        }
+        return q*sign;
+    }
+};

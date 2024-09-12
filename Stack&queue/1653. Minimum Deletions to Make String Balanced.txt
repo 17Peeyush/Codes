@@ -1,0 +1,31 @@
+Problem: https://leetcode.com/problems/minimum-deletions-to-make-string-balanced/description/
+Approach: Here discrepancy occurs when we encounter 'ba' i.e. a after b that we can't allow so we are assuming one deletion will happen although we are not sure which one to delete 'a' or 'b' as if there are more number of 'a' to the left then it is benefical to delete 'b' otherwise 'a'. In order to tackle this we are using stack and if we encounter 'a' while top of the stack is 'b' then we are poping b and moving forward i.e skipping 'a'. Then if the number of a is less then 'b' will remain at the top of stack, else stack will be empty and again we will fill the stack and after 'a' will can easily fill 'b'. If we again encounter 'a' after 'b' then we will assume deletion of the minimum left elements and move forward.
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int minimumDeletions(string s) {
+        stack<int>st;
+        int n =s.size();
+        int del =0;
+        int i=0;
+        while(i<n){
+            if(st.empty()){
+                st.push(s[i]);
+            }else if(st.top()=='b'&&s[i]=='a'){
+                st.pop();
+                del++;
+            }else{
+                st.push(s[i]);
+            }
+            i++;
+        }
+        return del;
+    }
+};
+
+
+Approach 2: Another approach can be for each index we are try it as the partition index i.e, the left of the index will be all 'a's and right to it will be all 'b's. Then for each index we will see for the index for which the number of deletion required is minimum will be our answer. So we will keep track in 2 arrays for each element the number of 'a's to its left and number of 'b's to its right.
+Time Complexity: O(n)
+Auxiliary Space: O(n)

@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/range-sum-of-sorted-subarray-sums/
+Time Complexity: O(n^2 log right)
+Auxiliary Space: O(right)
+Code:
+class Solution {
+public:
+    const long long MOD = 1e9+7;
+    int rangeSum(vector<int>& nums, int n, int left, int right) {
+        priority_queue<int>q;
+        q.push(nums[0]);
+        //converting to prefix array
+        for(int i=1;i<n;i++){
+            nums[i]+=nums[i-1];
+            q.push(nums[i]);
+            if(q.size()>right){
+                q.pop();
+            }
+        }
+        //generating subarray sum for all the other pairs
+        for(int i=1;i<n;i++){
+            for(int j =i;j<n;j++){
+                q.push((nums[j]-nums[i-1]%MOD));
+                if(q.size()>right){
+                    q.pop();
+                }
+            }
+        }
+        long long sum =0;
+        int diff = right-left+1;
+        while(diff--){
+            sum=(sum%MOD+q.top()%MOD)%MOD;
+            q.pop();
+        }
+        return (int) sum;
+    }
+};

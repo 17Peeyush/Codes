@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/number-of-recent-calls
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class RecentCounter {
+public:
+    queue<int> time;
+    RecentCounter() {
+        
+    }
+    
+    int ping(int t) {
+        int val;
+        while(!time.empty()){
+            val = time.front();
+            if(val<t-3000){
+                time.pop();
+            }
+            else{
+                break;
+            }
+        }
+        time.push(t);
+        return time.size();        
+    }
+};
+
+/**
+ * Your RecentCounter object will be instantiated and called as such:
+ * RecentCounter* obj = new RecentCounter();
+ * int param_1 = obj->ping(t);
+ */

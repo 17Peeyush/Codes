@@ -1,0 +1,33 @@
+Problem: https://leetcode.com/problems/count-sub-islands
+Time Complexity: O(m*n)
+Auxiliary Space: O(m*n)
+Code:
+class Solution {
+public:
+    int rows, cols;
+    int dir[4][2] ={{-1,0},{1,0},{0,-1},{0,1}}; //t,d,l,r
+    bool dfs(int i, int j, vector<vector<int>>&grid1, vector<vector<int>>&grid2, vector<vector<bool>>&visited){
+        if(i<0 || j<0 || i>=rows || j>=cols|| grid2[i][j]==0 || visited[i][j]) return true;
+        bool res = true;
+        visited[i][j]=true;
+        if(grid1[i][j]==0) res = false;
+        for(auto x: dir){
+            res = dfs(i+x[0],j+x[1],grid1,grid2,visited)&& res;
+        }
+        return res;
+    }
+    int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+        rows = grid1.size();
+        cols = grid1[0].size();
+        int count = 0;
+        vector<vector<bool>>visited(rows,vector<bool>(cols,false));
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(grid2[i][j]==1 && !visited[i][j] &&dfs(i,j,grid1,grid2,visited)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};

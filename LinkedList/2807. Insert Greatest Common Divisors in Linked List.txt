@@ -1,0 +1,35 @@
+Problem: https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list
+Time Complexity: O(nlogn)
+Auxiliary Space: O(logk) recursive stack size while calculating gcd (k=min(a,b))
+Code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int getGcd(int a,int b){
+        if(a<b) return getGcd(b,a);
+        if(b==0) return a;
+        return getGcd(b,a%b);
+    }
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        ListNode *first=head, *second=head->next;
+        int gcd;
+        while(first!=nullptr && second!=nullptr){
+            gcd = getGcd(first->val,second->val);
+            ListNode* node = new ListNode(gcd);
+            node->next=second;
+            first->next=node;
+            first=second;
+            second=second->next;
+        }
+        return head;
+    }
+};

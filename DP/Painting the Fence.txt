@@ -1,0 +1,59 @@
+Problem: https://www.geeksforgeeks.org/problems/painting-the-fence3727/1
+Approach 1:
+Time Complexity: O(n*k)
+Auxiliary Space: O(n*k)
+Code:
+class Solution{
+    public:
+    const long long MOD = 1e9+7;
+    int fence,colours;
+    unordered_map<string,long long>mp;
+    long long helper(int prev, int conti, int i){
+        if(i==fence) return 1;
+        long long count =0;
+        string key = to_string(prev)+","+to_string(conti)+","+to_string(i);
+        if(mp.find(key)!=mp.end()){
+            return mp[key];
+        }
+        for(int j=0;j<colours;j++){
+            if(j==prev){
+                if(conti<2)
+                    count=count+(helper(prev,conti+1,i+1)%MOD);
+            }
+            else{
+                count= count%MOD +helper(j,1,i+1)%MOD;   
+            }
+        }
+        return mp[key]=count%MOD;
+    }
+    long long countWays(int n, int k){
+        // code here
+        fence = n;
+        colours = k;
+        return (k%MOD*helper(0,1,1)%MOD)%MOD;
+    }
+};
+
+Approach 2: Here for 1 fence we can paint it with 'k' colours for 2 fence we have two choice the fence have same colour or different colour. Then same colour we have 'k*1' and for different colour we have 'k*(k-1)', so we don't colour both the fence as same colour. If we extend this logic for 3 fence, for fence 'k*(k-1)' have different colour so we can paint the last colour once again so we won't be violating atmost 2 consecutive colour condition. And for different colour we can again pain with total ways *(k-1) so no two colour comes consecutively.
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution{
+    public:
+    const long long MOD = 1e9+7;
+    long long countWays(int n, int k){
+        // code here
+        if(n==0) return 0;
+        if(n==1) return k;
+        long long same, diff, total;
+        same = k;
+        diff = k*(k-1);
+        total = same+diff;
+        for(int i=3;i<=n;i++){
+            same = diff%MOD;
+            diff = (total%MOD *(k-1)%MOD)%MOD;
+            total = (same%MOD + diff%MOD)%MOD;
+        }
+        return total % MOD;
+    }
+};

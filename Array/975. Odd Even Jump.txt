@@ -1,0 +1,160 @@
+Problem: https://leetcode.com/problems/odd-even-jump/description/
+Companies: Google
+Approach: For each element we determine that via odd or even jump can we reach the end element of the array. Then for each element we find the index where we will reach after odd jump and from that index if we are reaching to end of array via even index then true. We are calculating the jumps from end of the array this way we will keep track of the elements and in constant time we can get answer that from index 'i' can I reach the end of arrya via odd or even jump.
+
+Note: The calculation of odd and even jump index can be found via maintaining a monotonic stack.
+Optimization will be using a sorted map, and updating the index of element that are not unique as it is given if we have two potential index then we will be using smaller index.
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    map<int,int>mp;
+    bool oddcheck(int i, vector<bool>&odd, vector<bool>&even, vector<int>&arr){
+        int n = arr.size();
+        auto it = mp.lower_bound(arr[i]);
+        if(it==mp.end()){
+            return false;
+        }
+        else if(even[it->second]){
+            return true;
+        }
+        return false;
+    }
+    bool evencheck(int i, vector<bool>&odd, vector<bool>&even, vector<int>&arr){
+        auto it = mp.upper_bound(arr[i]);
+        int idx,val;
+        if(it!=mp.begin())
+        {
+            it--;
+        }
+        else
+        {
+            return false;
+        }
+        if(odd[it->second]){
+            return true;
+        }
+        return false;
+    }
+    int oddEvenJumps(vector<int>& arr) {
+        int n = arr.size();
+        vector<bool> odd(n,false), even(n,false);
+        odd[n-1]=true;
+        even[n-1]=true;
+        int count = 1;
+        mp.insert({arr[n-1],n-1});
+        for(int i=n-2;i>=0;i--){
+            if(oddcheck(i,odd,even,arr)){
+                odd[i]=true;
+                count ++;
+            }
+            if(evencheck(i,odd,even,arr)){
+                even[i]=true;
+            }
+            mp[arr[i]]=i;
+        }
+        return count;
+    }
+};
+
+Time Complexity: O(n^2)
+Auxiliary Space: O(n)
+Note: This approach was giving TLE.
+Code:
+class Solution {
+public:
+    int getSmallestGreatest(int idx, vector<int>&arr){ //odd
+        int n = arr.size();
+        stack<int> st;
+        int index =-1;
+        for(int i=idx+1;i<n;i++){
+            if(arr[idx]<=arr[i]){
+                if(arr[idx]==arr[i]){
+                    return i;
+                }
+                else if(st.empty()){
+                    st.push(i);
+                }else if(arr[st.top()]<=arr[i]){
+                    continue;
+                }else{
+                    while(!st.empty()&&arr[st.top()]>arr[i]){
+                        st.pop();
+                    }
+                    st.push(i);
+                }
+            }
+        }
+        if(!st.empty()){
+            index = st.top();
+        }
+        return index;
+    }
+
+    int getLargestSmallest(int idx, vector<int>&arr){ //even
+        int n = arr.size();
+        stack<int> st;
+        int index =-1;
+        for(int i=idx+1;i<n;i++){
+            if(arr[idx]>=arr[i]){
+                if(arr[idx]==arr[i]){
+                    return i;
+                }
+                else if(st.empty()){
+                    st.push(i);
+                }else if(arr[st.top()]>=arr[i]){
+                    continue;
+                }else{
+                    while(!st.empty()&&arr[st.top()]<arr[i]){
+                        st.pop();
+                    }
+                    st.push(i);
+                }
+            }
+        }
+        if(!st.empty()){
+            index = st.top();
+        }
+        return index;
+    }
+
+    bool oddcheck(int i, vector<bool>&odd, vector<bool>&even, vector<int>&arr){
+        int n = arr.size();
+        i = getSmallestGreatest(i, arr);
+        if(i==-1){
+            return false;
+        }
+        else if(even[i]){
+            return true;
+        }
+        return false;
+    }
+    bool evencheck(int i, vector<bool>&odd, vector<bool>&even, vector<int>&arr){
+        i = getLargestSmallest(i, arr);
+        if(i==-1){
+            return false;
+        }else if(odd[i]){
+            return true;
+        }
+        return false;
+    }
+    int oddEvenJumps(vector<int>& arr) {
+        int n = arr.size();
+        vector<bool> odd(n,false), even(n,false);
+        odd[n-1]=true;
+        even[n-1]=true;
+        int count = 1;
+        int index,j;
+        int c=0;
+        for(int i=n-2;i>=0;i--){
+            if(oddcheck(i,odd,even,arr)){
+                odd[i]=true;
+                count ++;
+            }
+            if(evencheck(i,odd,even,arr)){
+                even[i]=true;
+            }
+        }
+        return count;
+    }
+};

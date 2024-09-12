@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/
+Approach 1: We will generate all substrings and check if satisfies our condition then we will increment the count substring present.
+Another optimisation will be as soon as we find a substring that has all the three characters then the array to the right will also be valid if we include this substring so this will be our answer.
+Time Complexity: O(n^2)
+Auxiliary Space: O(1)
+
+Appraoch 2: Here also same thought process if we found a substring that has all the characters, then if we take all the elements to the left of the first occurance of the character then we can find all substrings.
+example: aabac
+so we can see latest position of a= 3, b= 2, c= 4 then we can say the from 4 to 2 we got a substring and if we consider this substring we can append the left characters to make a new valid substring.
+This approach keeps track of the latest indexes of the characters and as soon we find all the characters are present we take all the elements to the left into consideration for substring and add it to our result.
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int count =0;
+        int n = s.size();
+        unordered_map<char,int> mp;
+        mp['a']=-1; mp['b']=-1;mp['c']=-1;
+        for(int i =0;i<n;i++){
+            mp[s[i]]=i;
+            if(mp['a']!=-1&&mp['b']!='-1'&&mp['c']!=-1)
+            {
+                count += min(min(mp['a'],mp['b']),mp['c'])+1;
+            }
+        }
+        return count;
+    }
+};

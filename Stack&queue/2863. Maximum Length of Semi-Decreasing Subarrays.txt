@@ -1,0 +1,31 @@
+Problem: https://leetcode.com/problems/maximum-length-of-semi-decreasing-subarrays/
+You are given an integer array nums.
+Return the length of the longest semi-decreasing subarray of nums, and 0 if there are no such subarrays.
+A subarray is a contiguous non-empty sequence of elements within an array.
+A non-empty array is semi-decreasing if its first element is strictly greater than its last element.
+Input: nums = [7,6,5,4,3,2,1,6,10,11]
+Output: 8
+Companies: Google, TikTok
+Approach: For longest semi-decreasing subarray if our start index of subarray have large value then, finding possibility of elements less than the start index is more. So we will be taking elements that are possible candidate for start index in increasing order(monotonic stack). Now will iterate from the end of the array if current element is less than the top of the stack then we have a valid pair of indexes and will calculate the length of the subarray.
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int maxSubarrayLength(vector<int>& nums) {
+        int n = nums.size(), res =0;
+        stack<int> st;
+        for(int i=0;i<n;i++){
+            if(st.empty()||nums[i]>nums[st.top()]){
+                st.push(i);
+            }
+        }
+        for(int i=n-1;i>=0;i--){
+            while(!st.empty() && nums[i]<nums[st.top()]){
+                res = max(res, i-st.top()+1);
+                st.pop();
+            }
+        }
+        return res;
+    }
+};

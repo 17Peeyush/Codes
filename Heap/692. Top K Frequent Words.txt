@@ -1,0 +1,44 @@
+Problem: https://leetcode.com/problems/top-k-frequent-words/
+Companies: Google
+Time Complexity: O(n+nlogk)
+Auxiliary Space: O(n)
+Code:
+#define ppi pair<int,string>
+class Solution {
+public:
+    struct compare{
+        bool operator()(const ppi&a, const ppi&b){
+            if(a.first==b.first){
+                if(a.second<b.second){
+                    return true;
+                }
+                return false;
+            }
+            else if(a.first>b.first){
+                return true;
+            }
+            return false;
+        }
+    };
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string, int> mp;
+        for(string word: words){
+            mp[word]++;
+        }
+        priority_queue<ppi,vector<ppi>,compare> q;
+        for(auto x: mp){
+            q.push({x.second,x.first});
+            if(q.size()>k){
+                q.pop();
+            }
+        }
+        int n=q.size();
+        vector<string> res(n);
+        for(int i=n-1;i>=0;i--){
+            ppi x = q.top();
+            res[i]=x.second;
+            q.pop();
+        }
+        return res;
+    }
+};

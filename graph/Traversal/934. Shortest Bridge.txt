@@ -1,0 +1,66 @@
+Problem: https://leetcode.com/problems/shortest-bridge/
+Companies: Google
+Approach: First we iterate in the grid to find one island as soon as we get the first '1' we will call dfs to find the boundary of our first island. Then we will call bfs to find the distance between the second island as soon we get the second island, the number of cycles of bfs will be our bridge distance.
+Time Complexity: O(r*c)
+Auxiliary Space: O(r*c)
+Code:
+class Solution {
+public:
+    int r,c;
+    queue<vector<int>>q;
+    bool valid(int i,int j){
+        if(i<0 || i>=r || j<0 || j>=c) return false;
+        return true;
+    }
+    vector<vector<int>>dir={{-1,0},{1,0},{0,-1},{0,1}};//t,b,l,r
+    void dfs(vector<vector<int>>&grid, int i,int j, int& colour, vector<vector<bool>>&visited){
+        grid[i][j]=colour;
+        if(colour==2){
+            q.push({i,j});
+        }
+        visited[i][j]=true;
+        for(auto x: dir){
+            if(valid(i+x[0],j+x[1])&&grid[i+x[0]][j+x[1]]==1 && !visited[i+x[0]][j+x[1]]){
+                dfs(grid, i+x[0],j+x[1],colour, visited);
+            }
+        }
+    }
+    int shortestBridge(vector<vector<int>>& grid) {
+       r = grid.size();
+       c = grid[0].size();
+       vector<vector<bool>>visited(r,vector<bool>(c,false));
+       int island=2;
+       int i,j;
+       bool sig=false;
+       for(i=0;i<r;i++){
+        for( j=0;j<c;j++){
+            if(grid[i][j]==1 && !visited[i][j]){
+                sig = true;
+                dfs(grid,i,j,island,visited); 
+                break;
+            }
+        }
+        if(sig) break;
+       }
+       int bridge=0;
+       int t;
+       while(!q.empty()){
+            t = q.size();
+            bridge++;
+            while(t--){
+                auto f = q.front();
+                q.pop();
+                for(auto x: dir){
+                    if(valid(f[0]+x[0],f[1]+x[1])&&grid[f[0]+x[0]][f[1]+x[1]]!=2 && !visited[f[0]+x[0]][f[1]+x[1]]){
+                        if(grid[f[0]+x[0]][f[1]+x[1]]==1) {
+                           return bridge-1;
+                        }
+                        visited[f[0]+x[0]][f[1]+x[1]]=true;
+                        q.push({f[0]+x[0],f[1]+x[1]});
+                    }
+                }
+            }
+       }
+       return bridge;
+    }
+};

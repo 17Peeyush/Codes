@@ -1,0 +1,69 @@
+Problem: https://leetcode.com/problems/snapshot-array/description/
+Companies: Google
+Approach: 
+Took a array 'ss' to store the values after a element is modified and we took a snapshort. Then we took a set to keep track of elements that are getting modified between each consecutive snapshort. A array to keep track of changes that each index undergo and is getting updated. If the snapshort is not taken and we set a index 'n' number of times so if snapshort is taken only the last value that was changed will be added in snapshort.
+Time Complexity: 
+SnapshortArray: O(nlogn) , set: O(1), snap: O(k), where k is the number of elements that got updated, get: O(logm) m is the number of snapshorts
+Auxiliary Space: O(nm), n is number of elements in array and m is the number of snapshorts
+Code:
+class SnapshotArray {
+public:
+    vector<vector<pair<int,int>>> ss;
+    int gsnap_id;
+    vector<int>curr;
+    unordered_set<int>change;
+    SnapshotArray(int length) {
+        ss = vector<vector<pair<int,int>>>(length,vector<pair<int,int>>());
+        curr = vector<int>(length,0);
+        gsnap_id =0;
+        for(int i=0;i<length;i++)
+        {
+            change.insert(i);
+        }
+    }
+    
+    void set(int index, int val) {
+        curr[index] = val;
+        if(change.find(index)==change.end()){
+            change.insert(index);
+        }
+    }
+    
+    int snap() {
+        for(auto x: change){
+            ss[x].push_back({gsnap_id,curr[x]});
+        }
+        change.clear();
+        gsnap_id++;
+        return gsnap_id-1;
+    }
+    
+    int bs(vector<pair<int,int>>&v, int id, int h){
+        int l=0, mid=0, res =-1;
+        while(l<=h){
+            mid = (l+h)/2;a
+            if(v[mid].first==id){
+                return v[mid].second;
+            }
+            else if(v[mid].first<id){
+                res = v[mid].second;
+                l = mid+1;
+            }else{
+                h = mid-1;
+            }
+        }
+        return res;
+    }
+    int get(int index, int snap_id) {
+        int n = ss[index].size();
+        return bs(ss[index],snap_id,n-1);
+    }
+};
+
+/**
+ * Your SnapshotArray object will be instantiated and called as such:
+ * SnapshotArray* obj = new SnapshotArray(length);
+ * obj->set(index,val);
+ * int param_2 = obj->snap();
+ * int param_3 = obj->get(index,snap_id);
+ */

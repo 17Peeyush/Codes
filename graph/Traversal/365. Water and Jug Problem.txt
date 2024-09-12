@@ -1,0 +1,105 @@
+Problem:
+Companies: Google
+Approach 1: Here we will traverse between states we have 6 states:
+1-> empty x
+2-> empty y
+3-> full x
+4-> full y
+5-> swap water x->y
+6-> swap water y->x
+With the help of bfs we will traverse these state and at any point the water in the jugs is equal to our target we will return true.
+Time Complexity: O(xy)
+Auxiliary Space: O(xy)
+Code:
+class Solution {
+public:
+
+
+    bool canMeasureWater(int x, int y, int target) {
+        queue<pair<int,int>>q;
+        q.push({0,0});
+        set<pair<int,int>>s; //visited
+        int operation[4][2] ={{x,0},{0,y},{-x,0},{0,-y}};
+        pair<int,int> t;
+        while(!q.empty()){
+            auto f = q.front(); q.pop();
+            if(f.first== target || f.second== target) return true;
+            if(f.first+f.second == target) return true;
+            for(int i=0;i<4;i++){
+                t = f;
+                t.first += operation[i][0];
+                t.second +=operation[i][1];
+                if(t.first<0 || t.second<0 || t.first>x||t.second>y) {// invalid
+                    continue;
+                }
+                if(s.find(t)==s.end()){
+                    q.push(t);
+                    s.insert(t);
+                }
+            }
+    // swapping case
+            t = f;
+            //x->y
+            int watertransfer;
+            watertransfer = y - t.second;
+            if(watertransfer>t.first){
+                t.second+=t.first;
+                t.first =0;
+            }else{
+                t.second+=watertransfer;
+                t.first-=watertransfer;
+            }
+            if(s.find(t)==s.end()&&!(t.first<0 || t.second<0 || t.first>x||t.second>y)){
+                q.push(t);
+                s.insert(t);
+            }
+            //y->x
+            watertransfer = x - t.first;
+            if(watertransfer>t.second){
+                t.first+=t.second;
+                t.second =0;
+            }else{
+                t.first+=watertransfer;
+                t.second-=watertransfer;
+            }
+            f.first = t.second;
+            f.second = t.first;
+            t= f;
+            if(s.find(t)==s.end()&&!(t.first<0 || t.second<0 || t.first>x||t.second>y)){
+                q.push(t);
+                s.insert(t);
+            }
+        }
+    return false;
+    }
+};
+
+Code 2: Same idea but instead of taking different jugs we are directly stimulating by taking total waters in the jugs.
+class Solution {
+public:
+    bool canMeasureWater(int x, int y, int target) {
+        queue<int>q;
+        unordered_set<int> visited;
+        vector<int> steps {-x,x,-y,y};
+        q.push(0);
+        visited.insert(0);
+        int total;
+        while(!q.empty()){
+            int cur = q.front();
+            q.pop();
+            for(auto w: steps)
+            {
+                total = cur+w;
+                //cout<<total<<endl;
+                if(total == target)
+                    return true;
+                else if(visited.find(total)==visited.end() && 0<=total&& total<=x+y){
+                    //cout<<"p: "<<total<<endl;
+                    q.push(total);
+                    visited.insert(total);
+                }
+            }
+        }
+        return false;
+    }
+};

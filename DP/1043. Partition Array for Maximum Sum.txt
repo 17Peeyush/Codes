@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/partition-array-for-maximum-sum/description/
+Time Complexity: O(n^3)
+Auxiliary Space: O(n^2)
+class Solution {
+public:
+    int window;
+    int dp[505][505];
+    int getMax(vector<int>&arr,int i,int j){
+        int mx = arr[i];
+        for(;i<=j;i++){
+            mx=max(arr[i],mx);
+        }
+        return mx;
+    }
+    int solve(vector<int>&arr, int i, int j){
+        if(i==j) return arr[i];
+        int localmx = INT_MIN;
+        if(j-i+1<=window){
+            localmx = getMax(arr,i,j);
+            return dp[i][j]=localmx*(j-i+1);
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        for(int k=i,w=0;k<j&&w<window;k++,w++){
+            int temp = solve(arr,i,k)+solve(arr,k+1,j);
+            localmx = max(temp,localmx);
+        }
+        return dp[i][j]=localmx;
+    }
+    int maxSumAfterPartitioning(vector<int>& arr, int k) {
+        window = k;
+        memset(dp,-1,sizeof(dp));
+        return solve(arr,0,arr.size()-1);
+    }
+};

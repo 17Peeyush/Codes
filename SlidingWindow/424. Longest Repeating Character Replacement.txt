@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/longest-repeating-character-replacement/
+Companies: Google
+Approach: One approach will be creating all substring and check the condition that non unique characters in the substring is not more than 'k' but time complexity will be O(n^2) that we don't want. We can optimise it with the help of sliding window. We will have a counter that will have the count of each character within our window. Another variable will be mxcount which will store the maximum occurance of out character. Now we will start traversing and increasing our window at any instance when our window size is greater than the maximum occuring character plus 'k' number of characters which we can replace then it is not a valid window so we will shorten our window by increment the start pointer till our condition is satisfied.
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+
+    int getMax(const vector<int>&v){
+        int mx =0;
+        for(auto x: v)
+        {
+            mx = max(mx,x);
+        }
+        return mx;
+    }
+    int characterReplacement(string s, int k) {
+        vector<int> counter(26,0);
+        int mxcount =0;
+        int n = s.size();
+        int longest =0;
+        int r=0,l=0;
+        while(r<n){
+            counter[s[r]-'A']++;
+            mxcount = getMax(counter);
+            while(((r-l+1)>mxcount+k)){
+                counter[s[l]-'A']--;
+                l++;
+            }
+            longest = max(longest, (r-l+1));
+            r++;
+        }
+        return longest;
+    }
+};

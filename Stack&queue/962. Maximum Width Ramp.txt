@@ -1,5 +1,8 @@
 Problem: https://leetcode.com/problems/maximum-width-ramp/
 Companies: Google, Amazon
+Approach: https://youtu.be/BZLiOg96sEA
+For condition nums[i]<=nums[j] and i<j,
+Ideal case is we select the smallest possible values of 'i' as starting index of the subarray. So we will only be putting elements in stack in order such that stack top will have the minimum values. Then from the end of the array I will iterate and check if the current value is greater than the stack top then we can say we have identified two valid values for i,j so will calculate their distance.
 Time Complexity: O(n)
 Auxiliary Space: O(n)
 Code:

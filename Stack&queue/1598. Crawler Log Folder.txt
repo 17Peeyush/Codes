@@ -1,0 +1,26 @@
+Problem: https://leetcode.com/problems/crawler-log-folder/
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int minOperations(vector<string>& logs) {
+        stack<string>st;
+        for(string s: logs)
+        {
+            if(s=="../")
+            {
+                if(!st.empty())
+                {
+                    st.pop();
+                }
+            }
+            else if(s=="./"){}
+            else
+            {
+                st.push(s);
+            }
+        }
+        return st.size();
+    }
+};

@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/description/
+Approach: Find the smallest rowSum or colSum, and let it be x. Place that number in the grid, and subtract x from rowSum and colSum. Continue until all the sums are satisfied.
+Time complexity: O(r*c+rlogr)
+Auxiliary Space: O(r*c+r), if we consider output 2d array also, else r 
+Code:
+class Solution {
+public:
+    vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
+        int r = rowSum.size();
+        int c = colSum.size();
+        vector<vector<int>>res(r,vector<int>(c,0));
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+        for(int i=0;i<r;i++){
+            q.push({rowSum[i],i});
+        }
+        while(r--)
+        {
+            int id = q.top().second;
+            q.pop();
+            if(id==-1) break;
+            int sum = rowSum[id];
+            for(int j=0;j<c;j++)
+            {
+                if(colSum[j]==0){
+                    continue;
+                }
+                else if(colSum[j]>=sum)
+                {
+                    res[id][j]=sum;
+                    colSum[j]-=sum;
+                    rowSum[id] = 0;
+                    break;
+                }else{
+                    res[id][j]=colSum[j];
+                    sum-=colSum[j];
+                    colSum[j]=0;
+                }
+            }
+        }
+        return res;
+    }
+};

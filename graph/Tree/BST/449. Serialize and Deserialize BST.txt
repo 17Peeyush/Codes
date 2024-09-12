@@ -1,0 +1,63 @@
+Problem: https://leetcode.com/problems/serialize-and-deserialize-bst/
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+private:
+    int n;
+    void preorder(TreeNode* root, string&key){
+        if(root == nullptr) return;
+        key+=to_string(root->val)+" ";
+        preorder(root->left,key);
+        preorder(root->right,key);
+    }
+    TreeNode* dfs(int&i,vector<int>&nodes, int l, int r){
+        if(i>=n) return nullptr;
+        if(l>nodes[i] || nodes[i]>r) return nullptr;
+        TreeNode* root = new TreeNode(nodes[i]);
+        i++;
+        root->left = dfs(i,nodes,l,root->val);
+        root->right = dfs(i,nodes,root->val,r);
+        return root;
+    }
+public:
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if(root==nullptr) return "";
+        string key="";
+        preorder(root,key);
+        return key;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        if(data=="") return nullptr;
+        stringstream s(data);
+        vector<int> numbers;
+        string num;
+        while(s>>num){
+           numbers.push_back(stoi(num));
+        }
+        //for(auto x: numbers) cout<<x<<".";
+        n = numbers.size();
+        int i=0;
+        return dfs(i,numbers,INT_MIN,INT_MAX);
+        return nullptr;
+    }
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec* ser = new Codec();
+// Codec* deser = new Codec();
+// string tree = ser->serialize(root);
+// TreeNode* ans = deser->deserialize(tree);
+// return ans;

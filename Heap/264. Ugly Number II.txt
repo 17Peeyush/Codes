@@ -1,0 +1,28 @@
+Problem: https://leetcode.com/problems/ugly-number-ii/
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        priority_queue<long long,vector<long long>,greater<long long>>q;
+        q.push(1);
+        int arr[3]={2,3,5};
+        unordered_set<long long> s;
+        long long count =0,t;
+        while(true){
+            t = q.top();
+            q.pop();
+            count++;
+            if(count == n){
+                break;
+            }
+            for(int x: arr){
+                if(s.insert(t*x).second){ //element inserted successfully
+                    q.push(t*x);
+                }
+            }
+        }
+        return (int)t;
+    }
+};

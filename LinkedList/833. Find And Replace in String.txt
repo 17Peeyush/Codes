@@ -1,0 +1,70 @@
+Problem: https://leetcode.com/problems/find-and-replace-in-string/description/
+Companies: Google
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    
+    struct List{
+        string val, finval;
+        List* next;
+        List* finnext; 
+        List(string val)
+        {
+        this->val = val;
+        this->finval = val;
+        next = nullptr;
+        finnext = nullptr;
+        }
+        List(){}
+    };
+    unordered_map<int, List*> mp;
+    int n;
+
+    pair<List *, bool> helper(int i, string s){
+        if(i+s.size()>n) return {nullptr, false};
+        List * t = mp[i];
+        int j=0, m = s.size();
+        bool flag = true; 
+        while(t!=nullptr&&j<m){
+            if(t->val !=string(1,s[j])){
+            return {nullptr, false};
+            }
+            t= t->next;
+            j++;
+        }
+        if(j!=m) return {nullptr,false};
+        return {t,true};
+    }
+
+    string findReplaceString(string s, vector<int>&indices, vector<string>&sources, vector<string>& targets){
+        List *dummy, *t;
+        n = s.size();
+        dummy = new List();
+        t = dummy;
+        for(int i=0;i<n;i++){
+            mp[i]= new List(string(1,s[i]));
+            t->next = mp[i];
+            t->finnext = mp[i];
+            t=t->next;
+        }
+        int k = indices.size();
+        for(int i=0;i<k;i++){
+            pair<List *,bool>r = helper(indices[i], sources[i]);
+            if(r.second){
+                t = mp[indices[i]];
+                t -> finval = targets[i]; //abcde 
+                t->finnext = r.first;
+            }
+        }
+        string result ="";
+        t=dummy->next;
+        while(t){
+            result+=t->finval;
+            t=t->finnext;
+        }
+        return result;
+    }
+
+};

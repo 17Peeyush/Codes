@@ -1,0 +1,76 @@
+Problem: https://leetcode.com/problems/di-string-match/description/
+Companies: Google
+Approach: In problrm it is given when we encounter "I" then perm[i]<perm[i+1], and if we encounter "D" then perm[i]>perm[i+1], so inorder to satisfy this strictly greater than and less than, keep track of smallest and largest value, when we encounter "I" i put the smallest value presents this gaurantees the next value will always be greater than current and similarly for "D" I put the largest value present so next value will always be less than current. We chnge the smallest and largest value when we have used it once.
+Time Complexity: O(n)
+Auxiliary Space: O(n), if we consider returning answer array
+Code:
+class Solution {
+public:
+    /*vector<int>res;
+    bool cont = true;
+    void helper(int curr, int i, const int&n, const string &s, vector<int>choose,vector<int>temp){
+        if(cont){return;}
+        if(i==n)
+        {
+            res = temp;
+            cout<<"in";
+            cont = false;
+        }
+        if( s[i]=='D')
+        {
+            for(auto x: choose)
+            {
+                if(x<curr){
+                    temp.push_back(x);
+                    helper(x,i+1,n,s,choose,temp);
+                    temp.pop_back();
+                }
+            }
+        }
+        else
+        {
+            for(auto x: choose)
+            {
+                if(x>curr){
+                    temp.push_back(x);
+                    helper(x,i+1,n,s,choose,temp);
+                    temp.pop_back();
+                }
+            }
+        }
+    }
+    vector<int> diStringMatch(string s) {
+        int n = s.size();
+        vector<int> choose(n);
+        for(int i=0;i<n;i++){
+            choose[i]=i;
+        }
+        vector<int>temp;
+        if(s[0]=='D')
+        {
+            temp.push_back(n+1);
+            helper(n+1,0,n,s,choose,temp);
+        }
+        else
+        {
+            temp.push_back(0);
+            helper(0,0,n,s,choose,temp);
+        }
+        return res;
+    }*/
+    vector<int> diStringMatch(string s) {
+        int n = s.size();
+        vector<int> res(n+1);
+        int l =0, h=n;
+        for(int i=0;i<n;i++){
+            if(s[i]=='D'){
+                res[i]=h--;
+            }
+            else{
+                res[i]=l++;
+            }
+        }
+        res[n]=l;
+        return res;
+    }
+};

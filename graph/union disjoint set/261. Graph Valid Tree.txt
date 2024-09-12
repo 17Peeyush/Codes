@@ -1,0 +1,52 @@
+Problem: https://leetcode.com/problems/graph-valid-tree, https://www.geeksforgeeks.org/problems/is-it-a-tree/
+Approach: The question boils down to finding if there are no cycles in the graph and all the nodes and edges creates only one connected components. If there are multiple components then it can't be called a valid tree. This can be solved using dfs and bfs for cycle detection in undirected graph, since edge list is only given it was easier to solve it using union find. For any edge if we find the same parents then it means there is a cycle in the graph.
+Time Complexity: O(v+e)
+Auxiliary Space: O(v)
+Code:
+class Solution {
+  public:
+    vector<int>parent;
+    int findParent(int x){
+        if(parent[x]<0)
+        {
+            return x;
+        }
+        return parent[x]=findParent(parent[x]);
+    }
+    bool unionByWeight(int u, int v){
+        int pu = findParent(u);
+        int pv = findParent(v);
+        if(pu!=pv)
+        {
+            if(parent[pu]<parent[pv])
+            {
+                parent[pu]+=parent[pv];
+                parent[pv]=pu;
+            }
+            else{
+                parent[pv]+=parent[pu];
+                parent[pu]=pv;
+            }
+            return true;
+        }
+        return false;
+    }
+    int isTree(int n, int m, vector<vector<int>> &adj) {
+        // code here
+        parent = vector<int>(n,-1);
+        for(auto x: adj){
+            if(!unionByWeight(x[0],x[1])){
+                return 0;
+            }
+        }
+        int c=0;
+        for(int i=0;i<n;i++) // checking if there are not multiple components
+        {
+            if(parent[i]<0) c++;
+            if(c>1)
+                return 0; 
+        }
+        return 1;
+    }
+};
+

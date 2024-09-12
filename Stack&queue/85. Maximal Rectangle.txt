@@ -1,0 +1,79 @@
+Problem: https://leetcode.com/problems/maximal-rectangle/description/
+Approach: We are breaking this problem into maximum area histogram. Here the sum of columns from current row gives the height of building and if for a particular row say 'r' and column 'c' if value of [r-1][c] is some number k but for [r][c] it is '0' then we can't include as a building can't exist without ground floor. Rest is the logic of finding largest area of histogram. 
+How to find largest area of histogram:
+For a current index 'idx' we will see how far we can extend it, condition for extend the neighbouring elements should ahve height greater than or equal to value at 'idx'. We find the index of elements which are neareast smaller to left and right for current current and then area is  length* breadth. (h[idx]*(extend till right - extend till left)
+Time Complexity: O(m.n^2), m is number of rows and n is number of columns
+Auxiliary Space: O(n)
+Code:
+class HistArea {
+public:
+    vector<int> NSL(const vector<int>&arr){
+        int n = arr.size();
+        vector<int> nslArr(n);
+        stack<pair<int,int>> st;
+        st.push({INT_MIN,-1});
+        for(int i=0;i<n;i++){
+            if(st.top().first<arr[i]){
+                nslArr[i]=st.top().second;
+            }else{
+                while(st.top().first>=arr[i]){
+                    st.pop();
+                }
+                nslArr[i]=st.top().second;
+            }
+            st.push({arr[i],i});
+        }
+        return nslArr;
+    }
+
+    vector<int> NSR(const vector<int>&arr){
+        int n = arr.size();
+        vector<int> nsrArr(n);
+        stack<pair<int,int>> st;
+        st.push({INT_MIN,n});
+        for(int i=n-1;i>=0;i--){
+            if(st.top().first<arr[i]){
+                nsrArr[i]=st.top().second;
+            }else{
+                while(st.top().first>=arr[i]){
+                    st.pop();
+                }
+                nsrArr[i]=st.top().second;
+            }
+            st.push({arr[i],i});
+        }
+        return nsrArr;
+    }
+    int largestRectangleArea(vector<int>& heights) {
+        vector<int> left = NSL(heights);
+        vector<int> right = NSR(heights);
+        int n = heights.size();
+        int area = 0;
+        for(int i=0;i<n;i++){
+            area=max(area, heights[i]*(right[i]-left[i]-1));
+        }
+        return area;
+    }
+};
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int area =0;
+        int m = matrix[0].size();
+        int n = matrix.size();
+        HistArea h;
+        vector<int> sum(m,0);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(matrix[i][j]=='0'){
+                    sum[j]=0;
+                }
+                else{
+                    sum[j]++;
+                }
+            }
+            area = max(area,h.largestRectangleArea(sum));
+        }
+        return area;
+    }
+};

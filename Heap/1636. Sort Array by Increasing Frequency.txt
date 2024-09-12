@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/sort-array-by-increasing-frequency/description/
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    struct compare{
+        bool operator()(const pair<int,int>&a, const pair<int,int>&b){
+            if(a.first==b.first){
+                return a.second<b.second;
+            }
+            else if(a.first>b.first){
+                return true;
+            }
+            return false;
+        }
+    };
+    vector<int> frequencySort(vector<int>& nums) {
+        unordered_map<int,int>mp;
+        for(int x: nums){
+            mp[x]++;
+        }
+        priority_queue<pair<int,int>,vector<pair<int,int>>,compare>q;
+        for(auto x:mp){
+            q.push({x.second,x.first});
+        }
+        int n= nums.size(), i=0;
+        while(!q.empty()){
+            auto x = q.top();q.pop();
+            int t = x.first;
+            while(t--){
+                nums[i]=x.second;
+                i++;
+            }
+        }
+        return nums;
+    }
+};

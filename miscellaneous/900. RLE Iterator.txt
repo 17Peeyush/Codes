@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/rle-iterator/description/
+Companies: Google
+Time Complexity: O(n), Constructor we are copying encoded array and in next function worst case scenrio we have to traverse whole array
+Auxiliary Space: O(n)
+Code:
+class RLEIterator {
+public:
+    vector<int>encoded;
+    int len, curr;
+
+    RLEIterator(vector<int>& encoding) {
+        this->encoded = encoding;
+        len = encoded.size();
+        curr = 0; 
+    }
+    
+    int next(int n) {
+        if(curr>=len){
+            return -1;
+        }
+            if(encoded[curr]<n)
+        {
+            n-=encoded[curr];
+            curr+=2;
+            return next(n);	
+        }
+        else{
+            encoded[curr] -=n;
+            return encoded[curr+1];
+        }
+        return -1;
+    }
+};
+
+/**
+ * Your RLEIterator object will be instantiated and called as such:
+ * RLEIterator* obj = new RLEIterator(encoding);
+ * int param_1 = obj->next(n);
+ */

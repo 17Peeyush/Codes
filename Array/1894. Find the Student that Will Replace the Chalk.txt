@@ -1,0 +1,19 @@
+Problem: https://leetcode.com/problems/find-the-student-that-will-replace-the-chalk
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int chalkReplacer(vector<int>& chalk, int k) {
+        long long chalk_req =0;
+        for(auto x:chalk)
+            chalk_req+=x;
+        k = k%chalk_req;
+        int n = chalk.size();
+        for(int i=0;i<n;i++){
+            k-=chalk[i];
+            if(k<0) return i;
+        }
+        return -1;
+    }
+};

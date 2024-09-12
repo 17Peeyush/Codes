@@ -1,0 +1,115 @@
+Problem: https://leetcode.com/problems/next-closest-time/description/
+Given a time represented in the format "HH:MM", form the next closest time by reusing the current digits. There is no limit on how many times a digit can be reused.
+You may assume the given input string is always valid. For example, "01:34", "12:09" are all valid. "1:34", "12:9" are all invalid.
+Example 1:
+
+Input: time = "19:34"
+Output: "19:39"
+Explanation: The next closest time choosing from digits 1, 9, 3, 4, is 19:39, which occurs 5 minutes later.
+It is not 19:33, because this occurs 23 hours and 59 minutes later.
+Example 2:
+
+Input: time = "23:59"
+Output: "22:22"
+Explanation: The next closest time choosing from digits 2, 3, 5, 9, is 22:22.
+It may be assumed that the returned time is next day's time since it is smaller than the input time numerically.
+
+Companies: Google, Amazon
+
+Approach 1: Simulate the clock going forward by one minute. Each time it moves forward, if all the digits are allowed, then return the current time.
+Time Complexity: O(1), max:24*60
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    string nextClosestTime(string time) {
+        int h1 = time[0]-'0';
+        int h2 = time[1]-'0';
+        int m1 = time[3]-'0';
+        int m2 = time[4]-'0';
+        unordered_set<int> nums({h1,h2,m1,m2});
+        int total_minutes = (h1*10+h2)*60+(m1*10+m2);
+        int count;
+        string res ="";
+        while(true){
+            total_minutes=(total_minutes+1)%(24*60);
+            vector<int> digit{((total_minutes/60)/10),((total_minutes/60)%10),((total_minutes%60)/10),((total_minutes%60)%10)};
+            count =0;
+            for(int d: digit){
+                if(nums.find(d)!=nums.end())
+                {
+                    count++;
+                }
+            }
+            if(count==4){
+                res =( digit[0]==0?"0":to_string(digit[0]))+to_string(digit[1])+":"+(digit[2]==0?"0":to_string(digit[2]))+to_string(digit[3]);
+                break;
+            }
+        }
+        return res;
+    }
+};
+
+Approach 2: Building form the allowed digits the combination of 4 digits and check if it is valid time. If valid then it we will try to find the smallest time that is greater than the starting time. If the time is like, 23:59 then our answer will lie on the next day so our answer will be the smallest time that is smaller than the starting time.
+Time Compexity: O(1), max:4*4*4*4
+Auxiliary Space: O(n), n is number of valid sequence
+Code:
+class Solution {
+public:
+    vector<vector<int>> variation;
+    void findall(int i,vector<int>&nums,vector<int>temp,int &n){
+        if(i==n){
+            if(valid(temp)){
+                variation.push_back(temp);
+            }   
+            return;
+        }
+        for(auto x: nums){
+            temp.push_back(x);
+            findall(i+1,nums,temp,n);
+            temp.pop_back();
+        }
+    }
+
+    bool valid(vector<int>d){
+        int hours = d[0]*10+d[1];
+        if(hours>=24) return false;
+        int minutes = d[2]*10+d[3];
+        if(minutes>=60) return false;
+        return true;
+    }
+
+    string nextClosestTime(string time) {
+        int h1 = time[0]-'0';
+        int h2 = time[1]-'0';
+        int m1 = time[3]-'0';
+        int m2 = time[4]-'0';
+        vector<int> nums{h1,h2,m1,m2};
+        int n=4;
+        vector<int>t;
+        findall(0,nums,t,n);
+        int total_minutes = (h1*10+h2)*60+(m1*10+m2);
+        int result = INT_MAX, result2 = total_minutes;
+        int ctime;
+        string res="";
+        for(auto d:variation){
+            ctime = (d[0]*10+d[1])*60+(d[2]*10+d[3]);
+            if(ctime>total_minutes&&ctime<result)
+            {
+                result = ctime;
+                t = d;
+            }
+            else if(ctime<total_minutes&&ctime<result2)
+            {
+                result2 = ctime;
+            }
+        }
+        if(t.size()==0)
+        {
+            t={(result2/600),(result2/60)%10,(result2%60)/10,(result2%60)%10};
+        }
+        res = (t[0]==0?"0":to_string(t[0]))+to_string(t[1])+":"+(t[2]==0?"0":to_string(t[2]))+to_string(t[3]);
+        return res;
+    }
+};
+

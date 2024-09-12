@@ -1,0 +1,54 @@
+Problem: https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/
+Companies: Google
+Approach: Here we will find the number of connected components. From one component of size 'm' we can remove m-1 stones. So if we have 'k' connected components in total so total number of stones which we can't remove is 'k'. So the question boils down to if we have 'n' stones and 'k' connected components then we can remove 'n-k' stones. Here we try to union rows and columns as (0,0) is connected to both '0' row and '0' columns similarly (1,5) is connected to '1' row and '5' columns so all the elements in this row and columns will be connected. We keep track of columns by converting them to negative index. Then performig union find to find connected components.
+Time Complexity: O(v+e), v->vertex, e->edges
+Auxiliary Space: O(v)
+Code:
+class Solution {
+public:
+    unordered_map<int,int>parent;
+    unordered_map<int,int>rank;
+    int count;
+    int getParent(int u){
+        if(parent[u]==u) return u;
+        return parent[u]=getParent(parent[u]);
+    }
+
+    void doUnion(int u,int v){
+        int up = getParent(u);
+        int vp = getParent(v);
+        if(up==vp) {
+            return;
+        }
+        else if(rank[up]>rank[vp]){
+            rank[up]+=rank[vp];
+            rank[vp]=1;
+            parent[vp]=up;
+        }
+        else{
+            rank[vp]+=rank[up];
+            rank[up]=1;
+            parent[up]=vp;
+        }
+        count--;
+    }
+
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size();
+        int r,c;
+        for(int i=0;i<n;i++){
+            r = stones[i][0];
+            c = -(stones[i][1]+1);
+            parent[r]=r;
+            parent[c]=c;
+        }
+        for(auto x: parent){
+            rank[x.first]++;
+        }
+        count = parent.size();
+        for(auto x:stones){
+            doUnion(x[0],-(x[1]+1));
+        }
+        return n-count;
+    }
+};

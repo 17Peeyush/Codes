@@ -1,0 +1,21 @@
+Problem: https://leetcode.com/problems/2-keys-keyboard/description/
+Companies: Google
+Time Complexity: O(2^n) for each state we have 2 possibility.
+Auxiliary Space: O(2^n), recursive stack size
+Code:
+class Solution {
+public:
+    int minSteps(int n){
+        if(n==1||n==0) return 0;
+        return helper(n,1,1,1);	
+    }
+    int helper(int n, int steps, int copied,int curr){
+        if(n==curr) return steps;
+        else if(n<curr) return INT_MAX;
+        int ch1 = helper(n, steps+1,copied,curr+copied);
+        copied = curr;
+        int ch2 =helper(n, steps+2,copied,curr+copied);
+        return min(ch1,ch2);
+    }
+
+};

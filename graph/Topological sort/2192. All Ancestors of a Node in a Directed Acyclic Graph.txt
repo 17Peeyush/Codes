@@ -1,0 +1,55 @@
+Problem: https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/
+Companies: Palantir technologies, Oracle, Google
+Approach1: Topological sort
+Time Complexity: O(n+m,n.nlogn), n is number of nodes, topological sort(n+m) worst case(n.n+m)
+Auxiliary Space: O(n.n+m)
+Code:
+class Solution {
+public:
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<int>degree(n);
+        vector<vector<int>> adj(n,vector<int>());
+        for(auto x: edges){
+            degree[x[1]]++;
+            adj[x[0]].push_back(x[1]);
+        }
+        vector<set<int>> res(n,set<int>());
+        queue<int>q;
+        for(int i=0;i<n;i++){
+            if(degree[i]==0){
+                q.push(i);
+            }
+        }
+        int t;
+        while(!q.empty())
+        {
+            t = q.front();
+            q.pop();
+            for(auto x: adj[t]){
+                degree[x]--;
+                if(res[t].size())
+                {
+                    for(auto y:res[t]){
+                        res[x].insert(y);
+                    }
+                }
+                res[x].insert(t);
+                if(degree[x]==0)
+                {
+                    q.push(x);
+                }
+            }
+        }
+        vector<vector<int>> result(n,vector<int>());
+        for(int i=0;i<n;i++){
+            for(auto x: res[i])
+            {
+                result[i].push_back(x);
+            }
+        }
+        return result;
+    }
+};
+
+Approach 2: Reverse the graph and traversal
+Approach 3: Dfs from nodes and as we traverse a node we add the starting node as the ancestor.

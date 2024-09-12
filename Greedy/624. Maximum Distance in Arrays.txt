@@ -1,0 +1,33 @@
+Problem: https://leetcode.com/problems/maximum-distance-in-arrays/
+Approach: In order to maximize the absolute difference we will take the maximum element of an array and minimum array of different array. So we find the maximum and second maximum in all the arrays and minimum and second minimum in all the arrays. It may be the case we find the maximum element from all arrays in array at index 'i' and smallest element form all arrays in array at index 'i' then we can't consider as both the values needs to be in different arrays. That is why we are keeping track of indexes of smallest and largest elements. If they have same index then we will try to pair them with second of different (max to second min) and ( second max to min).
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& arrays) {
+        int diff =0;
+        int n=arrays.size();
+        int min1=INT_MAX,min2=INT_MAX,mi1=-1,mi2=-1,max1=INT_MIN,max2=INT_MIN,mx1=-1,mx2=-1,m;
+        for(int i=0;i<n;i++)
+        {
+            m = arrays[i].size();
+            if(arrays[i][0]<=min1){
+                min2 = min1; mi2 = mi1;
+                min1 = arrays[i][0]; mi1=i;
+            }else if(arrays[i][0]<=min2){
+                min2 = arrays[i][0];
+                mi2 = i;
+            }
+            if(arrays[i][m-1]>=max1){
+                max2 = max1; mx2 = mx1;
+                max1 = arrays[i][m-1]; mx1 = i;
+            }else if(arrays[i][m-1]>=max2){
+                max2 = arrays[i][m-1];
+                mx2 =i;
+            }
+        }
+        if(mi1!=mx1) return max1-min1;
+        return max(max1-min2,max2-min1);
+    }
+};

@@ -1,0 +1,47 @@
+Problem: https://leetcode.com/problems/accounts-merge
+Companies: Google
+Time Complexity: O(uelogue), u is user and e is his emails, worst case all email belongs to same user
+Auxiliary Space: O(ue)
+Code:
+class Solution {
+public:
+    unordered_map<string,vector<string>>mp;
+    unordered_set<string>visited;
+
+    void dfs(string node, vector<string>&temp){
+        visited.insert(node);
+        temp.push_back(node);
+        for(auto x: mp[node]){
+            if(visited.find(x)==visited.end()){
+                dfs(x,temp);
+            }
+        }
+    }
+
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        int n = accounts.size();
+        for(int i=0;i<n;i++){
+            if(mp.find(accounts[i][1])==mp.end()){
+                mp[accounts[i][1]]=vector<string>();
+            }
+            for(int j=2;j<accounts[i].size();j++){
+                mp[accounts[i][1]].push_back(accounts[i][j]);
+                if(mp.find(accounts[i][j])==mp.end()){
+                    mp[accounts[i][j]]=vector<string>();
+                }
+                mp[accounts[i][j]].push_back(accounts[i][1]);
+            }
+        }
+        vector<vector<string>>res;
+        for(int i=0;i<n;i++){
+            if(visited.find(accounts[i][1])==visited.end()){
+                vector<string> temp;
+                temp.push_back(accounts[i][0]);
+                dfs(accounts[i][1],temp);
+                sort(temp.begin()+1,temp.end());
+                res.push_back(temp);
+            }
+        }
+        return res;
+    }
+};

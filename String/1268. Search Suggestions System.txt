@@ -1,0 +1,43 @@
+Problem: https://leetcode.com/problems/search-suggestions-system/description/
+Approach: Sort the list for lexicographically order. Firstly we have to sort the given product list in lexicographical order (in ascending order).Reason: First we will check for the 1st char of the searchword (ex : "mouse") , make a list of the products that start with 'm' , and I will simply choose first 3 products in the new product list that start with 'm' (I will explain later how to make a new list in a way that reduces our time and memory complexity of code) .
+After this instead of searching the complete product list for prefix "mo" , I will only search for 2nd char equal to 'o' in the product list that already start with 'm' (since a word that does start with 'm' cannot have 'mo' as its prefix) , this way I will not have to do extra searching, and again make a new product list from the previous list that 'o' in 2nd place, and simply choose first 3 products from the latest list.
+I will repeat these steps again and again for all prefix of searchword from 'm' to 'mouse'. 
+Time Complexity: O(m*n*k) where m is searchWord length and n is numbr of products and k si average length of each product
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        sort(products.begin(),products.end());
+        vector<vector<string>> res;
+        int n = searchWord.size();
+        char ch;
+        vector<string> match = products;
+        for(int i=0;i<n;i++){
+            vector<string> tres;
+            ch = searchWord[i];
+            for(auto x: match){
+                if(i<x.size())
+                {
+                    if(x[i]==ch){
+                        tres.push_back(x);
+                    }
+                }
+            }
+            if(tres.size()==0)
+            {
+                for(i;i<n;i++){
+                    res.push_back({});
+                }
+                return res;
+            }
+            vector<string> selected;
+            for(int j=0;j<min((int)tres.size(),3);j++){
+                selected.push_back(tres[j]);
+            }
+            res.push_back(selected);
+            match = tres;
+        }
+        return res;
+    }
+};

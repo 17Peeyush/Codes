@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/balanced-binary-tree/description/
+Companies: Google
+Approach: Here we created a helper function to get the height of any tree when given its root. Now for checking whether our binary tree is balanced for not we are using post order traversal so we don't repeat the calculation of height, if at some lower level only we find that the tree is not balanced.
+Time Complexity: O(n*h)
+Auxiliary Space: O(n)
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+#define MAX_INT 10000
+class Solution {
+public:
+
+    int height(TreeNode* root){
+        if(root==nullptr) return 0;
+        int l = height(root->left);
+        int r = height(root->right);
+        return max(l,r)+1;
+    }
+    bool isBalanced(TreeNode* root) {
+        if(root==nullptr) return true;
+        bool cont = isBalanced(root->left)&isBalanced(root->right);
+        if(!cont) return false;
+        int lh =height(root->left);
+        int rh = height(root->right);
+        return (abs(lh-rh)<=1);
+    }
+};

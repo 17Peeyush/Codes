@@ -1,0 +1,76 @@
+Problem: https://leetcode.com/problems/spiral-matrix-iv/
+Time Complexity: O(m*n)
+Auxiliary Space: O(m*n)
+Code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+        int t=0,d=m-1,l=0,r=n-1;
+        int dir=0;
+        vector<vector<int>> matrix(m,vector<int>(n,-1));
+	    int i; 
+        ListNode* start = head;
+        while(t<=d && l<=r && start!=nullptr)
+        {
+            if(dir==0)
+            {
+                for(i=l;i<=r;i++)
+                {   
+                    if(start!=nullptr){
+                        matrix[t][i] = start->val;
+                        start=start->next;
+                    }
+                    else return matrix;
+                }
+                t++;
+            }
+            else if(dir==1)
+            {
+                for(i=t;i<=d;i++){
+                    if(start!=nullptr)
+                    {
+                        matrix[i][r] = start->val;
+                        start=start->next;
+                    }
+                    else return matrix;
+                }
+                r--;
+            }
+            else if(dir==2)
+            {
+                for(i=r;i>=l;i--)
+                {
+                    if(start!=nullptr){
+                        matrix[d][i] = start->val;
+                        start=start->next;
+                    }
+                    else return matrix;
+                }
+                d--;
+            }
+            else if(dir==3)
+            {
+                for(int i=d;i>=t;i--){
+                    if(start!=nullptr){
+                        matrix[i][l] = start->val;
+                        start=start->next;
+                    }
+                    else return matrix;
+                }
+                l++;
+            }
+            dir=(dir+1)%4;
+        }
+        return matrix;
+    }
+};

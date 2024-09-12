@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/
+Companies: Google
+Time Complexity: O(ri+(r+i)), r is number of recipes and i is average ingredients for a recipe, O(ri) for constructing graph, and (r+i) for topological sort
+Auxiliary Space: O(r+i)
+Code:
+class Solution {
+public:
+    vector<string> findAllRecipes(vector<string>& recipes, vector<vector<string>>& ingredients, vector<string>& supplies) {
+        unordered_map<string,vector<string>> g;
+        unordered_map<string, int> degree;
+        unordered_set<string> rec(recipes.begin(),recipes.end());
+        queue<string> q;
+        int n = recipes.size();
+        for(string sup: supplies){
+            g[sup] = vector<string>();
+            q.push(sup);
+        }
+        for(int i=0;i<n;i++){
+            for(string ing: ingredients[i]){
+                g[ing].push_back(recipes[i]);
+                degree[recipes[i]]++;
+            }
+        }
+        string t;
+        vector<string> res;
+        while(!q.empty()){
+            t =q.front();
+            if(rec.find(t)!=rec.end()){
+                res.push_back(t);
+            }
+            q.pop();
+            for(auto x:g[t])
+            {
+                degree[x]--;
+                if(degree[x]==0){
+                    q.push(x);
+                }
+            }
+        }
+        return res;
+    }
+};

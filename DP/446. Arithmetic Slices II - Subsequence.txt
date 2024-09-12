@@ -1,0 +1,29 @@
+Problem: https://leetcode.com/problems/arithmetic-slices-ii-subsequence/
+Companies: Google
+Approach: Here if we are at index 'j' then we are keeping track of number of arithmetic subsequences with difference 'diff' are ending here. Then for any index 'i' which is greater than 'j' , j<i we can count the arithmetic sequence as we find the difference of diff(nums[j]-nums[i]) and then if at 'j' we find any subsequence ending at 'j' with difference diff, then we found new element in that sequence.
+Time Complexity: O(n*n), n is number of elements in the array
+Auxiliary Space: O(n*n*k), where k is average size of each unordered map
+Code:
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int n = nums.size();
+        vector<unordered_map<int,int>> dp (n,unordered_map<int,int>());
+        long long count =0,diff;
+        for(int i=1;i<n;i++){
+            for(int j=0;j<i;j++){
+                diff = (long long)nums[j]-(long long)nums[i];
+                if(diff<=INT_MIN || diff>=INT_MAX) continue;
+                if(dp[j].find(diff)==dp[j].end()){
+                    dp[i][diff]+=1;
+                }
+                else
+                {
+                    count+=dp[j][diff];
+                    dp[i][diff]+=(dp[j][diff]+1);
+                }
+            }
+        }
+        return count;
+    }
+};

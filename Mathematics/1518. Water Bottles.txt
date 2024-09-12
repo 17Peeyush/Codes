@@ -1,0 +1,18 @@
+Problem: https://leetcode.com/problems/water-bottles/
+Time Complexity: O(logm numBottles), m is the base which is equal to numExchange 
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int numWaterBottles(int numBottles, int numExchange) {
+        int drink = 0;
+        int empty = 0;
+        while(empty<numExchange && numBottles!=0){
+            drink += numBottles; 
+            empty +=numBottles;
+            numBottles = empty / numExchange; 
+            empty = empty % numExchange; 
+        }
+        return drink;
+    }
+};

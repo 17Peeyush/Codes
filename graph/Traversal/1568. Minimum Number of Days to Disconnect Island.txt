@@ -1,0 +1,61 @@
+Problem: https://leetcode.com/problems/minimum-number-of-days-to-disconnect-island
+Approach: First we traverse the given grid to find the number of islands (components). If we find '0' or more than '1' islands then we don't need to remove land in order to change number of islands. Then we will keep changing one land to water and then find the number of islands. If by doing so we create more than '1' island then '1' will be the answer. Then we only need to remove 2 land pieces to create an extra island.
+Proof suppose we have a square island so if we take one corner island it is already covered with water from 2 sides if we remove 2 sides which were land we are able to isolate it and create an extra island.
+Time Complexity: O((m*n)^2)
+Auxiliary Space: O(m*n)
+Code:
+class Solution {
+public:
+    int dir[4][2]={{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    int n,m;
+    bool isValid(int &i, int &j){
+        if(i>=0&&i<n && j>=0&&j<m) return true;
+        return false;
+    }
+    void dfs(vector<vector<int>>& grid, int i, int j,vector<vector<bool>>& visited) {
+        visited[i][j] = true;
+        for (auto &d : dir) {
+            int x = i + d[0];
+            int y = j + d[1];
+            if (isValid(x, y) && grid[i][j]!=0&& !visited[x][y]) {
+                dfs(grid, x, y, visited);
+            }
+        }
+    }
+    int countIsland(vector<vector<int>>& grid) {
+        vector<vector<bool>> visited(n, vector<bool>(m, false));
+        int islandCount = 0;
+    //cout<<"START\n";
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!visited[i][j] && grid[i][j] == 1) {
+                   // cout<<"i"<<i<<" j "<<j<<endl;
+                    dfs(grid, i, j, visited);
+                    islandCount++;
+                }
+            }
+        }
+        //cout<<"END\n";
+        return islandCount;
+    }
+    int minDays(vector<vector<int>>& grid) {
+        n = grid.size();
+        m = grid[0].size();
+        int islands = countIsland(grid);
+        //cout<<islands;
+        if(islands==1){
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++){
+                    if(grid[i][j]==1){
+                        grid[i][j] =0;
+                        int count = countIsland(grid);
+                        if(count!=1) return 1;
+                        grid[i][j]=1;
+                    }
+                }
+            }
+            return 2;
+        }
+        return 0;
+    }
+};

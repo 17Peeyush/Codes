@@ -1,0 +1,24 @@
+Problem: https://leetcode.com/problems/reverse-integer/
+Companies: Google
+Approach: Here before adding our last digit we are adding if our current reversed number is not greater than the INT_MAX/10 or is less than INT_MIN/10, if it satisfies this condition then if we add next digit it is bound to go overflow. Similarly if we compare the reversed number and INT_MAX, INT_MIN divided by 10 if they are equal then if our last digit is greater than INT_MAX last digit we will get integer overflow and similarly for INT_MIN case.
+Time Complexity: O(1)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int reverse(int x) {
+        int digit =0,r;
+        while(x){
+            r=x%10;
+            x=x/10;
+            if(digit>INT_MAX/10 || digit==INT_MAX/10 && r>INT_MAX%10){
+                return 0;
+            }
+            if(digit<INT_MIN/10 || digit==INT_MIN/10 && r<INT_MIN%10){
+                return 0;
+            }
+            digit = (digit*10)+r;
+        }
+        return digit;
+    }
+};

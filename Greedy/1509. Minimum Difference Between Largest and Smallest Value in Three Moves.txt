@@ -1,0 +1,26 @@
+Problem: https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/
+Companies: Amazon, Google, Oracle, Facebook
+Time Complexity: O(nlogn)
+Auxiliary Space: O(logn), space used while sorting
+Code:
+class Solution {
+public:
+    int minDifference(vector<int>& nums) {
+        int n = nums.size();
+        if(n<=4) return 0;
+        sort(nums.begin(),nums.end());
+        int diff = INT_MAX;
+        //case 1: remove first three elements
+        diff = min(diff,(nums[n-1]-nums[3]));
+        //case 2: remove last three elements
+        diff = min(diff,(nums[n-4]-nums[0]));
+        //case3: remove 1 from front and 2 from back
+        diff = min(diff,(nums[n-3]-nums[1]));
+        //case4: remove 2 from front and 1 from back
+        diff = min(diff,(nums[n-2]-nums[2]));
+
+        return diff;
+        
+    }
+};
+

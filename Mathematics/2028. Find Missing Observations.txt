@@ -1,0 +1,41 @@
+Problem: https://leetcode.com/problems/find-missing-observations/
+Approach: We will calculate the required sum,
+->the total sum is mean*(total number of elements),total number of elements = m+n
+->then we can get the sum of m elements from rolls array.
+required sum = totalsum - rollssum
+Then we check if the sum required is valid or not as our dice can give us answer in range 1 to 6 the sum that is possible to achieve is n(1 to 6). If the sum is in this range then we can simply divide the sum into n equal parts and then we will increment some equals if the sum is not completely divisible by 'n'.
+
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
+        long rollsum  =0;
+        for(auto x: rolls){
+            rollsum+=x;
+        }
+        int m = rolls.size();
+        long totalsum = mean *(m+n);
+        long requiredsum = totalsum - rollsum;
+        if(requiredsum>=n && requiredsum <= n*6){
+            int eachel = requiredsum/n;
+            int remainder = requiredsum % n;
+            vector<int> temp(n,eachel);
+            int i=0,canadd;
+            while(remainder>0&&i<n){
+                canadd=(6-temp[i]);
+                if(remainder>canadd){
+                    temp[i]=6;
+                    remainder-=canadd;
+                }else{
+                    temp[i]+=remainder;
+                    remainder=0;
+                }
+                i++;
+            }
+            return temp; 
+        }
+        return {};
+    }
+};

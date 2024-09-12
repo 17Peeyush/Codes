@@ -1,0 +1,19 @@
+Problem: https://leetcode.com/problems/number-of-arithmetic-triplets/description/
+Companies: Google
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int arithmeticTriplets(vector<int>& nums, int diff) {
+        unordered_set<int> s(nums.begin(),nums.end());
+        int count =0;
+        for(auto x: s){
+            if(s.find(x+diff)!=s.end() && s.find(x+diff+diff)!=s.end())
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+};

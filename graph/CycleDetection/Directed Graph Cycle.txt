@@ -1,0 +1,44 @@
+Problem: https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1
+Approach: In order to find cycle in undirected graph we will simply traverse via dfs and if we encounter a node that is not parent and is visited then it means cycle is present in the graph. In case of directed graph this is not true.
+Suppose we have a path 'A'->'B'->'C' and another path 'A'->'D'->'C" if we traverse 'A' and once we will go to 'B' and then 'C' and mark it visited, when we traverse different path 'A'->'D'->'C' we will find 'C' as visited and conclude cycle is present, althought it is not true in this case. So we will keep track of path if a node is visited and also lies in same path then we can surely say cycle is present.
+Time Complexity: O(v+e)
+Auxiliary Space: O(v)
+Code:
+class Solution {
+  public:
+    vector<bool> visited, path;
+    bool cycle = false;
+    void dfs(int node,vector<int> adj[],vector<bool>&visited,vector<bool>&path){
+        
+        if(visited[node] && path[node])
+        {
+            cycle = true;
+            return;
+        }
+        if(visited[node])
+            return;
+        if(cycle) return;
+        visited[node]=true;
+        path[node]=true;
+        for(auto x:adj[node]){
+            dfs(x,adj,visited,path);
+        }
+        path[node]=false;
+    }
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int v, vector<int> adj[]) {
+        // code here
+        /*for(auto x: *adj){
+            g[x[0]].push_back(x[1]);
+        }*/
+        visited = vector<bool>(v,false);
+        path = vector<bool>(v,false);
+        for(int i=0;i<v;i++){
+            if(!visited[i]){
+                dfs(i,adj,visited,path);
+                if(cycle) return true;
+            }
+        }
+        return cycle;
+    }
+};

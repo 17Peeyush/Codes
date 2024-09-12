@@ -1,0 +1,88 @@
+Problem: https://leetcode.com/problems/find-k-th-smallest-pair-distance/
+Approach: (Binary Search + Sliding window)
+Here first we are sorting our array so we can find the smallest absolute difference pairs. Then we are with the help of binary search taking an absolute value and finding how many pairs we have. If for any value 'v' we have less than 'k' pairs then that value can't be our answer. Then we will increment our low pointer. If for a value it is more than 'k' then it mid be our answer so now we look for any possible answer less than current value. If found then that might be our potential answer else current high value will be our answer.
+Example: For an array arr[] the range of absolute value will be '0' to max element in arr
+Then suppose for values v1<v2<v3,k1<k2<k3
+for v1: number of pairs came 'k1' (k1<k)
+for v3: number of pairs came 'k3' (k3>k) => then v3 can be potential answer, but we check for correct answer
+for v3: number of pairs came 'k2',
+then-> if(k2>k) then our answer will be v2
+but if (k2<k) then we can surely say our answer will be v3.
+
+How to find number of pairs: 'v' abs diff less than equal to v
+If we have sorted arr [n1,n2,n3,n3,n4] so in starting we will keep our pointers 'L' and 'R' at n1 then it will be valid:
+count =0;
+arr[R]-arr[L] = n1-n1 =0<v- count +=(R-L)(0)
+increment R, R->n2
+arr[R]-arr[L]=n2-n1 <v =>count +=(R-L)(1)
+increment R, R->n3
+arr[R]-arr[L]=n3-n1<v(say) => count+=(R-L)=2((n1,n3),(n2,n3)) thats how we can track the number of pairs generated
+if n3-n1>v then we will increment our left pointer till the absolute difference of values at left and right pointer is less than equal to 'v'.
+ 
+Time Complexity: O(nlogn+klogn), k is valid range of valid absolute difference between 2 elements
+Auxiliary Space: O(logn) used in recursive stack
+Code:
+class Solution {
+public:
+    int helper(vector<int>&nums, int diff){
+        int count =0;
+        int n = nums.size();
+        int l=0,r=0;
+        while(r<n){
+            if(nums[r]-nums[l]<=diff){
+                count+=(r-l);
+                r++;
+            }else{
+                l++;
+            }
+        }
+        return count;
+    }
+    int smallestDistancePair(vector<int>& nums, int k) {
+        int maxel = INT_MIN;
+        sort(nums.begin(),nums.end());
+        maxel = nums[nums.size()-1];
+        int l=0,h=maxel,mid, count;
+        while(l<h){
+            mid = l +(h-l)/2;
+            count = helper(nums,mid);
+            if(count<k){
+                l=mid+1;
+            }
+            else{
+                h=mid;
+            }
+        }
+        return h;
+    }
+};
+
+Approach2:
+Here we know that absolute difference will always be in the range 0 to max element in the array. So we create bucket for each element and then generate all the pairs and increment their count. Then we interate the bucket array and find in which bucket our kth element lies and return that bucket value.
+Time Complexity: O(n^2)
+Auxiliary Space: O(k) k is valid range of valid absolute difference between 2 elements
+Code:
+class Solution {
+public:
+    int smallestDistancePair(vector<int>& nums, int k) {
+        int n  = nums.size();
+        int maxel=INT_MIN;
+        for(auto x: nums){
+            maxel = max(maxel,x);
+        }
+        vector<int> bucket(maxel+1,0);
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                bucket[abs(nums[i]-nums[j])]++;
+            }
+        }
+        int rsum=0;
+        for(int i=0;i<=maxel;i++){
+            rsum+=bucket[i];
+            if(rsum>=k){
+                return i;
+            }
+        }
+        return -1;
+    }
+};

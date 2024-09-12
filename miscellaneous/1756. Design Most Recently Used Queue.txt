@@ -1,0 +1,126 @@
+Problem: https://leetcode.com/problems/design-most-recently-used-queue/description/
+Design a queue-like data structure that moves the most recently used element to the end of the queue.
+Implement the MRUQueue class:
+MRUQueue(int n) constructs the MRUQueue with n elements: [1,2,3,...,n].
+int fetch(int k) moves the kth element (1-indexed) to the end of the queue and returns it.
+Input:
+["MRUQueue", "fetch", "fetch", "fetch", "fetch"]
+[[8], [3], [5], [2], [8]]
+Output:
+[null, 3, 6, 2, 2]
+
+Approach: Used Square root decomposition(Square root decomposition is a method used in algorithms to optimize range query and update operations on arrays. It involves dividing the array into blocks, typically of size around sqrt{N}, where N is the array size. Each block is preprocessed to allow efficient query responses. This approach reduces the time complexity of range queries from (O(N)) to O(sqrt(N)), making it suitable for problems requiring frequent range operations.)
+
+Then after dividing our 'n' elements to sqrt blocks we will access only the block that is associated with current query.
+example: if we have 5 blocks and if our query lies in block 5 then we will only access elements in block 5.
+if query is in block 3 then we will access 3rd block and get the element from it and remove from 3rd block linked list. Move one element from next block so only block 4,5 will be affected and in the end append the removed element to the end of the linked list.
+If the element lies in first block (worst case) then also we will be modifying sqrt(n) blocks. 
+Time Complexity: O(n) for MRUQueue and O(sqrt(n)) for each fetch call
+Auxiliary Space: O(n)
+Code:
+class MRUQueue {
+public:
+    struct Node{
+        int val;
+        Node* next;
+        Node(int val){
+            this->val = val;
+            next = nullptr;
+        }
+    };
+    vector<pair<Node*,Node*>> blocks;
+    int nb, bs; //number of blocks, blocks size
+
+    pair<Node*,Node*> getList(int &j, int bs, int&n){
+        Node *dummy = new Node(-1);
+        Node *t = dummy;
+        while(bs--&&j<=n){
+            t->next = new Node(j);
+            t = t->next;
+            j++;
+        }
+        return {dummy,t};
+    }
+    MRUQueue(int n) {
+        bs = ceil(sqrt(n)); // square-root decomposition
+        nb = ceil(n/(double)bs);
+        //cout<<"bs:"<<bs<<" nb:"<<nb<<endl;
+        blocks = vector<pair<Node*,Node*>>(nb+1);
+        for(int i=1,j=1;i<=nb;i++){
+            pair<Node*,Node*> t =getList(j,bs,n);
+            //cout<<t.first->val<<"\t"<<t.second->val<<endl;
+            blocks[i]=t;
+        }
+    }
+    
+    void normalize(int b){
+        if(b==nb){
+            return;
+        }
+        //cout<<"noramlize :"<<b<<endl;
+        Node * next_head = blocks[b+1].first, *tail = blocks[b].second;
+        int value = next_head->next->val;
+        tail->next = new Node(value);
+        blocks[b].second = tail->next;
+        if(next_head->next->next==nullptr)
+        {
+            next_head->next = nullptr;
+            blocks[b+1].second = next_head;
+        }
+        else
+        {
+            next_head->next=next_head->next->next;
+        }
+        normalize(b+1);
+    }
+
+    void appendInEnd(int value){
+        blocks[nb].second->next = new Node(value);
+        blocks[nb].second = blocks[nb].second->next;
+    }
+
+    int fetch(int k) {
+        int blocknum = ceil(k/(double)bs);
+        int item = k%bs==0? bs: k%bs;
+        //cout<<"blocknum: "<<blocknum<<" item: "<<item<<endl;
+        Node *head = blocks[blocknum].first, *tail = blocks[blocknum].second;
+        int i=0;
+        Node * t = head;
+        while(i+1!=item){
+            t=t->next;
+            i++;
+        }
+        int val_append = t->next->val;
+        if(t==head){ //first value
+            //val_append = t->val;
+            if(t->next->next == nullptr){
+                blocks[blocknum].second = head;
+                head->next = nullptr;
+            }
+            else
+            {
+                head->next = head->next->next;
+            }
+        }
+        else if(t->next ==tail){
+            //val_append = t->next->val;
+            tail = t;
+            t->next = nullptr;
+            blocks[blocknum].second = t;
+        }
+        else
+        {
+            //val_append = t->next->val;
+            t->next = t->next->next;
+        }
+        normalize(blocknum);
+        appendInEnd(val_append);
+        return val_append;
+    }
+};
+
+/**
+ * Your MRUQueue object will be instantiated and called as such:
+ * MRUQueue* obj = new MRUQueue(n);
+ * int param_1 = obj->fetch(k);
+ */

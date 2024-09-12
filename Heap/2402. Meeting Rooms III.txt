@@ -1,0 +1,55 @@
+Problem: https://leetcode.com/problems/meeting-rooms-iii/
+Companies: Google
+Approach: Here we first sort the meeting in ascending order of their start time, first come first serve basis for rooms. We will create two priority queues one to store the current available rooms and second will store a pair <t,r> ,'t' the time when meeting room 'r' becomes available again. Then we will be starting with the current time = 0 and then check for each the meeting time if current is less than or equal to meeting time then we check if any meeting rooms are available then we will assign this meeting room and push its completion time and room in another priority_queue. If there are no rooms available then we will wait until any one room is empty and start processing.
+Time Complexity: O(mlogm + m*logr), where m is number of meetings and r is the number of rooms
+Auxiliary Space: O(r)
+Code:
+#define pii pair<long,int>
+class Solution {
+public:
+    int mostBooked(int n, vector<vector<int>>& meetings) {
+        vector<int>rooms(n,0);
+        int croom;
+        priority_queue<int,vector<int>,greater<int>>avail_rooms;
+        for(int i=0;i<n;i++){
+            avail_rooms.push(i);
+        }
+        priority_queue<pii,vector<pii>,greater<pii>>avail;
+        long ctime=0;
+        int m = meetings.size();
+        sort(meetings.begin(),meetings.end());
+        for(int i=0;i<m;i++){
+            if(ctime<meetings[i][0]){
+                ctime = meetings[i][0];
+            }
+            if(!avail.empty()){ // checking if any room is getting available
+                while(!avail.empty() && avail.top().first<=ctime){
+                    avail_rooms.push(avail.top().second);
+                    avail.pop();
+                }
+            }
+            if(!avail_rooms.empty()){ // rooms are avilable
+                croom = avail_rooms.top();
+                avail_rooms.pop();
+                avail.push({ctime+(meetings[i][1]-meetings[i][0]),croom});
+                rooms[croom]++;
+            }
+            else{ //rooms are not available, wait till a meeting gets over
+                ctime = avail.top().first;
+                while(!avail.empty() && avail.top().first<=ctime){
+                    avail_rooms.push(avail.top().second);
+                    avail.pop();
+                }
+                i--; // so we don't skip the current meeting
+            }
+        }
+        int max_meeting =0, room_no=-1;
+        for(int i=0;i<n;i++){
+            if(max_meeting<rooms[i]){
+                max_meeting = rooms[i];
+                room_no = i;
+            }
+        }
+        return room_no;
+    }
+};

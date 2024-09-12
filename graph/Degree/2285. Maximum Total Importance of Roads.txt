@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/maximum-total-importance-of-roads/
+Companies: HRT
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    long long maximumImportance(int n, vector<vector<int>>& roads) {
+        unordered_map<int,int> indegree;
+        for(auto x: roads){
+            indegree[x[0]]++;
+            indegree[x[1]]++;
+        }
+        vector<pair<int,int>> road_deg(n);
+        int i =0;
+        for(auto x: indegree){
+            road_deg[i]={x.second,x.first};
+            i++;
+        }
+        sort(road_deg.begin(),road_deg.end());
+        i=1;
+        for(auto x: road_deg){
+            indegree[x.second]=i;
+            i++;
+        }
+        long long sum =0;
+        for(auto x: roads){
+            sum+=indegree[x[0]]+indegree[x[1]];
+        }
+        return sum;
+    }
+};

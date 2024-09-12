@@ -1,0 +1,67 @@
+Problem: https://leetcode.com/problems/text-justification
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+class Solution {
+public:
+    string getlastline(vector<string>&line, int len,int maxWidth){
+        int num = line.size();
+        int space = maxWidth -len;
+        string temp="";
+        if(num==1){
+            temp+=line[0];
+            temp+=string(space,' ');
+        }
+        else{
+            int extra = space -(num-1);
+            int b=1;
+            for(int j=0;j<num-1;j++){
+                temp+=line[j];
+                temp+=string(b,' ');
+            }
+            temp+=line[num-1];
+            temp+=string(extra,' ');
+        }
+        return temp;
+    }
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> line;
+        int len =0, n= words.size(),i=0,num;
+        vector<string> res;
+        string temp;
+        while(i<n){
+            num = line.size();
+            if(num+len+words[i].size()>maxWidth){
+                int space = maxWidth -len;
+                temp ="";
+                if(num==1){
+                    temp+=line[0];
+                    temp+=string(space,' ');
+                }
+                else{
+                    int quo = space/(num-1);
+                    int remainder = space%(num-1);
+                    for(int j=0;j<num-1;j++){
+                        temp+=line[j];
+                        temp+=string(quo,' ');
+                        if(remainder){
+                            temp+=" ";
+                            remainder--;
+                        }
+                    }
+                    temp+=line[num-1];
+                }
+                res.push_back(temp);
+                len =0;
+                line.clear();
+                temp="";
+            }
+            else{
+                line.push_back(words[i]);
+                len+=words[i].size();
+                i++;
+            }
+        }
+        res.push_back(getlastline(line,len,maxWidth));
+        return res;
+    }
+};

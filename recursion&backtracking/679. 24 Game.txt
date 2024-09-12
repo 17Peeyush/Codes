@@ -1,0 +1,50 @@
+Problem: https://leetcode.com/problems/24-game/description/
+Approach: Here we are starting with 4 numbers and then we take two of them at a time and perform all the valid operations between them. Then we are left with three numbers so we again take two of them and perform all valid operations on them. Then we are left with two numbers and we perform all valid operations on them. Then we are left with one number and we compare it whether it is equal to 24.(Upto some precision because we are using double as integer division is not allowed).
+Time Complexity: O(1296)
+->The algorithm starts with 4 numbers and computes the result of merging any two numbers into one by one of 6 operations. ->This leads to a branching factor of C(4,2)*6 = 6*6, where C(n,k) denotes a combination of n items taken k at a time.
+->The next recursive call has 3 numbers and possible pairings are C(3,2)*6 = 3*6.
+->The last one has 2 numbers left and just C(2,2)*6 = 1*6.
+->The maximum depth of recursion would be 3 since it takes 3 operations to reduce the original list of 4 numbers to a single number.
+
+Combining these observations, the time complexity is O((6*6) * (3*6) * (1*6)) = O(6^4) = O(1296).
+Auxiliary Space: O(4+3+2) ~= O(1)
+Code:
+class Solution {
+public:
+    vector<double> allOperations(double a, double b){
+        vector<double> at={a+b,a*b,a-b,b-a};
+        if(a!=0) at.push_back(b/a);
+        if(b!=0) at.push_back(a/b);
+        return at;
+    }
+    bool helper(vector<double>&c){
+        if(c.size()==1){
+            return abs(c[0]-24)<FLT_EPSILON;
+        }
+        int n = c.size();
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                vector<double>t(n-1);
+                int id=0;
+                for(int k=0;k<n;k++){
+                    if(k!=i && k!=j){
+                        t[id++] = c[k];
+                    }
+                }
+                for(auto x: allOperations(c[i],c[j])){
+                    t[id]=x;
+                    if(helper(t)){
+                        return true;
+                    }
+                }
+            }
+            
+        }
+        return false;
+    }
+    bool judgePoint24(vector<int>& cards) {
+        int n = cards.size();
+        vector<double> c(cards.begin(),cards.end());
+        return helper(c);
+    }
+};

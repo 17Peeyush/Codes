@@ -1,0 +1,53 @@
+Problem: https://leetcode.com/problems/special-array-ii/description/
+Companies: Google
+Approach: Here we are creating another array which keeps track of continous array till we have adjacent even odd elements. 
+example: [1,2,3,5,6,8]
+=>[[0,2],[3,4],[5,5]]
+Now we will do binary search on it and try to find the start index of the query if both the start index and end index are in same subarray that means parity is not broken in between so we will return true. Otherwise if they both are in different subarrays then it means in between parity is broken and it's not a special array.
+Time Complexity: O(n+qlogk), n is length of nums, q is queries length, k is the length of intermediate array
+Auxiliary Space: O(k)
+Code:
+class Solution {
+public:
+    int binary(const int& val, const vector<vector<int>>&arr){
+        int l=0, h=arr.size()-1,mid;
+        while(l<=h){
+            mid = h-(h-l)/2;
+             if(arr[mid][0]<=val && val<=arr[mid][1]){
+                return mid;
+            }
+            else if(arr[mid][0]>val){
+                h = mid-1;
+            }
+            else{
+                l = mid+1;
+            }
+        }
+        return -1;
+    }
+    vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
+        vector<vector<int>> parity;
+        int n = nums.size();
+        int i=0,j=0;
+        while(i<n)
+        {
+            j=i;
+            i++;
+            while(i<n&&(nums[i-1]%2)^(nums[i]%2)){
+                i++;
+            }
+            parity.push_back({j,i-1});
+        }
+        /*for(auto x: parity){
+            cout<<x[0]<<","<<x[1]<<endl;
+        }*/
+        vector<bool> res;
+        for(auto x: queries){
+            int idx = binary(x[0],parity);
+            if(idx==-1) {res.push_back(false);continue;}
+            if(x[1]<=parity[idx][1]) res.push_back(true);
+            else res.push_back(false);
+        }
+        return res;
+    }
+};

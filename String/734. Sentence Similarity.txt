@@ -1,0 +1,39 @@
+Problem: https://leetcode.com/problems/sentence-similarity/
+Companies: Google
+Time Complexity: O(n*m), where n is the total number of words in sentence and m is the no. of similar words.
+Auxiliary Space: O(n*m)
+Code:
+class Solution {
+public:
+    unordered_map<string,vector<string>>mp;
+    bool ispresent(string&a,string&b){
+        for(auto x: mp[a]){
+            if(x==b){
+                return true;
+            }
+        }
+        return false;
+    }
+    bool areSentencesSimilar(vector<string>& sentence1, vector<string>& sentence2, vector<vector<string>>& similarPairs) {
+        int n = sentence1.size();
+        int m = sentence2.size();
+        if(n!=m) return false;
+        for(auto x: similarPairs){
+            mp[x[0]].push_back(x[1]);
+            mp[x[1]].push_back(x[0]);
+        }
+        for(int i=0;i<n;i++){
+            if(sentence1[i]!=sentence2[i]){
+                if(ispresent(sentence1[i],sentence2[i]))
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+    return true;
+    }
+};

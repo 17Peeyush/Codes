@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/decode-string/
+Companies: Amazon
+Time Complexity: O(n.k), where  k is the average number of times a string is getting repeated
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int n;
+    string helper(int &i, string &s){
+        string res="", num="";
+        while(i<n && s[i]!=']'){
+            if(isdigit(s[i])){
+                while(i<n&&isdigit(s[i])&&s[i]!='['){
+                    num+=s[i];
+                    i++;
+                }
+                i++;
+                string tres = helper(i,s);
+                int k = stoi(num);
+                while(k--){
+                    res+=tres;
+                }
+                num="";
+            }
+            else{
+                res+=s[i];
+                i++;
+            }
+        }
+        i++;
+        return res;
+    }
+    string decodeString(string s) {
+        int i=0;
+        n=s.size();
+        return helper(i,s);
+    }
+};

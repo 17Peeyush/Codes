@@ -1,0 +1,27 @@
+Problem: https://leetcode.com/problems/find-the-winner-of-the-circular-game/
+Time Complexity: O(n^2)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+
+    void helperwinner(int idx, int &k, vector<int>&p, int & winner){
+        if(p.size()==0){
+            winner = p[0];
+            return;
+        }
+        idx = (idx+k)%p.size();
+        p.erase(p.begin()+idx);
+        helperwinner(idx,k,p,winner);
+    }
+    int findTheWinner(int n, int k) {
+        vector<int> player(n);
+        for(int i=0;i<n;i++){
+            player[i]=i+1;
+        }
+        int winner =-1;
+        k--;
+        helperwinner(0,k,player,winner);
+        return winner;
+    }
+};

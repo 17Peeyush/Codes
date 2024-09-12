@@ -1,0 +1,87 @@
+Problem: https://leetcode.com/problems/minimum-area-rectangle/
+Approach: In order to form a rectangle parallel to x and y axis, to start we need 2 points with the same x coordiante or y coordinate. Once we got two points say (x1,y1) and(x2,y1) here we can see that they both are at same line 'y1'. We will fix one point say (x1,y1), then we will try to find any points that have coordinates like (x1,z), 'z' -> multiple integers.
+Once we found one coordiante like, (x1,y2) ,z=x3 then we have three coordinates (x1,y1),(x2,y1),(x1,y2) then we will check if we have a coordinate (x2,y2) then we can form a square we will calculate are from these four points.
+Time Complexity: O(nlogn+n.k.k), n is total unique points on x axis or y axis, k is the average points lying on same line parallel to x or y axis
+Auxiliary Space: O(m), m is all the elements in points vector
+Code:
+class Solution {
+public:
+    int minAreaRect(vector<vector<int>>& points){ 
+    sort(points.begin(),points.end());
+        unordered_map<int, set<pair<int,int>>> xdir, ydir; //xdir ybasis, ydir x basis
+        for(auto p: points){
+            if(xdir[p[1]].size()==0){ 
+                xdir[p[1]] = set<pair<int,int>>();
+            }
+            if(ydir[p[0]].size()==0){ 
+                ydir[p[0]] = set<pair<int,int>>();
+            }
+            xdir[p[1]].insert({p[0],p[1]});
+            ydir[p[0]].insert({p[0],p[1]});
+        }
+        int area = INT_MAX;
+        for(auto p: xdir){
+            int n =p.second.size();
+            for(auto s = p.second.begin();next(s)!=p.second.end();s++)
+            {
+                for(auto s2 = next(s);s2!=p.second.end();s2++)
+                {
+                    //cout<<"a->["<<s->first<<","<<s->second<<"]\tb->["<<next(s)->first<<","<<next(s)->second<<endl;
+                    pair<int,int> a = *s; //a->(3,1)
+                    pair<int,int> b = *(s2);//b->(4,1)
+                    for(auto p1: ydir[a.first])
+                    {
+                        if(p1!=a){
+                            if(xdir[p1.second].find({b.first,p1.second})!=xdir[p1.second].end())
+                            {
+                                area = min(area, abs(a.first-b.first)*abs(a.second-p1.second));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(area==INT_MAX) area =0;
+        return area;
+    }
+};
+
+Approach 2: We use set to keep track of all the elements. We then try to find two points who can be potential candidates to form a diagonal i.e both points can say at same 'x' or 'y' coordinates. Once we found these coordiantes we try to find other two points. If they exist then we calculate the area and compare with out minarea. 
+Time Complexity: O(nlogn+n^n)
+Auxiliary Space: O(n), where n is number of points 
+Code:
+class Solution {
+public:
+    int dist(const vector<int>&a, const vector<int>&b){
+        return (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1]);
+    }
+    int minAreaRect(vector<vector<int>>& points) {
+        set<vector<int>> s;
+        for(auto x: points){
+            s.insert(x);
+        }
+        int n = s.size();
+        int minarea = INT_MAX;
+        int area;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                //p1-> point[i]=>x1,y1
+                //p2-> point[j]=> x2,y2
+                //p3-> x1,y2
+                //p4-> x2,y1
+                if(points[i][0]==points[j][0]||points[i][1]==points[j][1]){
+                    continue;
+                }
+                if(s.find({points[i][0],points[j][1]})!=s.end()&&s.find({points[j][0],points[i][1]})!=s.end())
+                {
+                    vector<int> t ={points[i][0],points[j][1]};
+                    area = abs(points[i][0]-points[j][0])*abs(points[i][1]-points[j][1]);
+                    minarea  = min(minarea, area);
+                }
+                
+            }
+        }
+        if(minarea == INT_MAX) minarea =0;
+        return minarea;
+    }
+};

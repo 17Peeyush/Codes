@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/path-with-maximum-probability/
+Approach: Modification of dijkstra's algorithm.
+Time Complexity: O(e+vlogv)
+Auxiliary Space: O(v+e)
+Code:
+class Solution {
+public:
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start_node, int end_node) {
+        vector<vector<pair<double,int>>> g(n,vector<pair<double,int>>());
+        int m = edges.size();
+        for(int i=0;i<m;i++){
+            g[edges[i][0]].push_back({succProb[i],edges[i][1]});
+            g[edges[i][1]].push_back({succProb[i],edges[i][0]});
+        }
+        vector<double> dist(n,INT_MIN);
+        priority_queue<pair<double,int>>q;
+        dist[start_node]=1;
+        vector<bool> processed(n,false);
+        q.push({1,start_node});
+        while(!q.empty()){
+            auto x = q.top();
+            if(x.second==end_node)
+            {
+                break;
+            }
+            q.pop();
+            if(processed[x.second]) continue;
+            double d = x.first;
+            for(auto y:g[x.second]){
+                if(d*y.first>dist[y.second]){
+                    dist[y.second]=d*y.first;
+                    q.push({dist[y.second],y.second});
+                }
+            }
+        }
+        return dist[end_node]==(double)INT_MIN?0:dist[end_node];
+    }
+};

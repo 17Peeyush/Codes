@@ -1,0 +1,36 @@
+Problem: https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together-ii/description
+Approach: Here number of swaps are dependent on number of ones. We will calculate the total number of ones, that will be our window size. Then we will slide over the array keeping track of number of zeros which will give us the number of swaps. The window which contains the maximum number of ones will give us the minimum number of swaps. For handling circular array we will append our array to its end.
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+    class Solution {
+    public:
+        int minSwaps(vector<int>& nums) {
+            int window =0;
+            for(int x:nums){
+                if(x) window++;
+            }
+            nums.insert(nums.end(),nums.begin(),nums.end());
+            int n = nums.size();
+            int czero=0;
+            int i=0;
+            int res=INT_MAX;
+            for(;i<window;i++){
+                if(!nums[i]){
+                    czero++;
+                }
+            }
+            res=min(res,czero);
+            for(int j=0;i<n;i++,j++){
+                if(!nums[j])
+                {
+                    czero--;
+                }
+                if(!nums[i]){
+                    czero++;
+                }
+                res=min(res,czero);
+            }
+            return res;
+        }
+    };

@@ -1,0 +1,41 @@
+Problem: https://leetcode.com/problems/delete-nodes-and-return-forest/
+Companies: Google
+Approach: For each node we will be checking whether it is in to_delete list then we are pushing its child into result array as two new trees will be formed.(if they are not equal to nullptr). As for the root which needs to be deleted we are sending nullptr to its parent so parent's child will be updated to nullptr.
+Time Complexity: O(n)
+Auxiliary Space: O(h), where h is the height of the tree
+Code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> result;
+    unordered_set<int> del;
+    TreeNode * helper(TreeNode * root){
+        if( root == nullptr) return nullptr;
+        if(del.find(root->val)!=del.end()){
+            TreeNode * l = helper(root->left);
+            TreeNode* r = helper(root->right);
+            if( l) result.push_back(l);
+            if(r) result.push_back(r);
+            return nullptr;
+        }
+        root -> left = helper(root->left);
+        root->right = helper(root->right);
+        return root;
+    }
+    vector<TreeNode*> delNodes(TreeNode * root, vector<int>& to_delete){
+        del = unordered_set<int>(to_delete.begin(),to_delete.end());
+        root = helper(root);
+        if(root) result.push_back(root);
+            return result;
+    }
+};

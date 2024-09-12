@@ -1,0 +1,32 @@
+Problem: https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-ii/
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Approach: Our aim to minimize the number of times the button was pressed. If we place the characters whose frequency is more in the front then only one press is required similarly if we have 8 such position. Once all 8 places have been used then we will place the next frequent characters at second place so only two times we have to press button. Similarly this idea will go on for rest of numbers. 
+Code:
+class Solution {
+public:
+    int minimumPushes(string word) {
+        unordered_map<char,int>mp;
+        for(char ch: word){
+            mp[ch]++;
+        }
+        priority_queue<int>q;
+        for(auto x: mp){
+            q.push(x.second);
+        }
+        int pressed =0,place=1;
+        int key,t;
+        while(!q.empty())
+        {
+            key=8;
+            while(key-- && !q.empty())
+            {
+                t=q.top();
+                q.pop();
+                pressed+=(t*place);
+            }
+            place++;
+        }
+        return pressed;
+    }
+};

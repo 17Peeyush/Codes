@@ -1,0 +1,20 @@
+Problem: https://leetcode.com/problems/sum-of-two-integers/
+Companies: Google
+Approach: Since we can't use addition operator we will be using bit manipulation. We see a property if we try to do bit addition then 1+1 will give '0' and a carry over and '0'+'1' or '1'+'0' will give 1 so we see this property in xor as same bits gives '0' and different bits will give '1'. Then another part we have to handle that is carry we see carry is only generated when '1'+'1' we are doing, and carry is forwarded to left bit. We can take help of '&' operator to find the bits which will generate carry and to pass it to next bit we can left shift the result by 1.
+We do this recursively untill there is no carry left and we will be left with our answer.	
+Time Complexity: O(1)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int getSum(int a, int b) {
+        int xors=0;
+       do
+        {
+            xors = a^b;
+            b = (a&b)<<1;
+            a = xors;
+        } while(b);
+        return xors;
+    }
+};

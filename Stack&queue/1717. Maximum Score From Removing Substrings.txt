@@ -1,0 +1,57 @@
+Problem: https://leetcode.com/problems/maximum-score-from-removing-substrings/description
+Approach: Here we can't tackle both the string at once so we will greedy try to find first the string that have more score. Once we are done with first string we will remove the occurance of the first string from my input string. Then we will try to find the second string in the input string and calculate the score. (removal of first string we can easily do by stack)
+Proof by contradiction:
+suppose 'ab' string has more score than 'ba' string then we will choose first all occurances of 'ab' from the inout string.
+a ab a --> after removal of ab --> aa
+b ab b -->bb
+a ab b --> ab --> "" in first pass only as soon we get this we will reduce it so this case won't come anytime if we start with 'ab' 
+b ab a --> ba 
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int helper(string pattern, const int &c, string&s){
+        int n = s.size();
+        stack<char>st;
+        int score =0;
+        for(int i=0;i<n;i++){
+            if(st.empty()){
+                st.push(s[i]);
+            }
+            else if(s[i]==pattern[1])
+            {
+                if(!st.empty()&&st.top()==pattern[0])
+               { st.pop();
+                score+=c;}
+                else{
+                    st.push(s[i]);
+                }
+            }
+            else{
+                st.push(s[i]);
+            }
+        }
+        s="";
+        while(!st.empty()){
+            s+=st.top();
+            st.pop();
+        }
+        reverse(s.begin(),s.end());
+        return score;
+    }
+    int maximumGain(string s, int x, int y) {
+        stack<int> st;
+        int score =0;
+        if(x>y)
+        {
+            score+=helper("ab",x,s);
+            score+=helper("ba",y,s);
+        }
+        else{
+            score+=helper("ba",y,s);
+            score+=helper("ab",x,s);
+        }
+        return score;
+    }
+};

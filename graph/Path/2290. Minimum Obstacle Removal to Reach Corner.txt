@@ -1,0 +1,58 @@
+Problem: https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/
+Companies: Google
+Approach: We will start traversing the array from [0,0] and will stop when we encounter [r-1,c-1]. If we encounter a wall inorder to traverse it we will add '1' to our cost. If we encounter '0' we add '0' to our cost. Then this problem is broken into Dijkstra algorithm.
+Time Complexity: O((r*c)log(r*c)), where 'r' is number of rows and 'c' is number of columns.
+Auxiliary Space: O(r*c)
+Code:
+//#define ppi pair<int,pair<int,int>>
+#define ppi pair<int,pair<int,int>>
+class Solution {
+public:
+int r,c;
+    bool isValid(int i, int j){
+        if(i>=0&&i<r&&j>=0&&j<c) return true;
+        return false;
+    }
+    int minimumObstacles(vector<vector<int>>& grid) {
+        r = grid.size();
+        c = grid[0].size();
+        vector<vector<int>> visited(r,vector<int>(c,INT_MAX));
+        int dir[4][2]={{-1,0},{1,0},{0,1},{0,-1}};
+        int i,j;
+        int m1,m2,cost,ncost;
+        priority_queue<ppi,vector<ppi>,greater<ppi>>q;
+        q.push({0,{0,0}});
+        while(!q.empty())
+        {
+            auto x=q.top();
+            q.pop();
+            auto [i,j]=x.second;
+            cost = x.first;
+            if(i==r-1&&j==c-1){
+                return cost;
+            }
+            if(visited[i][j]>cost)
+            {
+                visited[i][j]=cost;
+                for(auto d:dir){
+                    m1=i+d[0];
+                    m2=j+d[1];
+                    if(isValid(m1,m2))
+                    {
+                        if(grid[m1][m2]){
+                            ncost = cost+1;
+                        }
+                        else{
+                            ncost = cost;
+                        }
+                        if(visited[m1][m2]>ncost){
+                            q.push({ncost,{m1,m2}});
+                        }
+                    }
+                }
+            }
+
+        }
+        return 0;
+    }
+};

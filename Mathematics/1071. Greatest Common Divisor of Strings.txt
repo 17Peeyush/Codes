@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/greatest-common-divisor-of-strings/
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int n,m;
+    string getstr(int c,string s){
+        string t="";
+        while(c--){
+            t+=s;
+        }
+        return t;
+    }
+    string gcd(string &str1, string &str2, string common)
+    {
+        int cs = common.size();
+        //cout<<common<<endl;
+        if(cs==0) return  "";
+        if(n%cs==0 && m%cs==0){
+            if((str1==getstr(n/cs,common))&&(str2==getstr(m/cs,common))){
+                return common;
+            }
+        }
+        return gcd(str1, str2, common.substr(0,cs-1));
+    }
+    string gcdOfStrings(string str1, string str2) {
+        n = str1.size();
+        m = str2.size();
+        string common = "";
+        for(int i=0;i<min(n,m);i++){
+            if(str1[i]==str2[i]){
+                common+=str1[i];
+            }else{
+                break;
+            }
+        }
+        int cs = common.size();
+        if(cs==0) return "";
+        return gcd(str1,str2,common);
+    }
+};

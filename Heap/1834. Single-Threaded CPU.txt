@@ -1,0 +1,52 @@
+Problem: https://leetcode.com/problems/single-threaded-cpu/description/
+Companies: Google
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code: 
+class Solution {
+public:
+    struct comp{
+        bool operator()(const pair<int,int>a, const pair<int,int>&b){
+            if(a.first>b.first) return true;
+            else if(a.first==b.first){
+                if(a.second>b.second) return true;
+                }
+                return false;
+            }
+    };
+
+    vector<int> getOrder(vector<vector<int>>& tasks) {
+        int n= tasks.size();
+        for(int i=0;i<n;i++){
+           tasks[i].push_back(i);
+        }
+        sort(tasks.begin(),tasks.end());
+        int curr =0;
+        vector<int> order;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,comp>q;
+        int i=0;
+        while(i<n){
+            if(curr<tasks[i][0]){
+                curr = tasks[i][0];
+            }
+            while(i<n&&curr>=tasks[i][0]){
+                q.push({tasks[i][1],tasks[i][2]});
+                i++;
+            }
+            while(i<n && curr<tasks[i][0] && !q.empty())
+            {
+                pair<int,int> x = q.top();
+                q.pop();
+                curr+=x.first;
+                order.push_back(x.second);
+            }
+            
+        }
+        while(!q.empty()){
+            order.push_back(q.top().second);
+            q.pop();
+        }
+        return order;
+
+    }
+};

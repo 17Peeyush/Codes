@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/increasing-triplet-subsequence
+Approach: We keep track of smallest number encountered 'min' and when we encounter a number greater than smaller we update 'mid' then we keep searching till we get a number greater than mid. In between if we encounter a number that is greater than 'min' but less than 'mid' then we update 'mid' with current element. Hence increasing the possibility of finding an element greater than 'mid'. We keep updating 'min' and 'mid' accordingly.
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int min=INT_MAX,mid=INT_MAX;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            if(nums[i]>mid)
+            {
+                return true;
+            }
+            if(nums[i]<=min){
+                min = nums[i];
+            }
+            else {
+                mid = nums[i];
+            }
+        }
+        return false;
+    }
+};

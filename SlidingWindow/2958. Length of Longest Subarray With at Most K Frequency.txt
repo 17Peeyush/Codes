@@ -1,0 +1,30 @@
+Problem: https://leetcode.com/problems/length-of-longest-subarray-with-at-most-k-frequency/description/
+Companies: Google
+Approach: We will use a dynamic window to keep track of our size by using two pointers. We will use a hash map to keep track of count of each element in our window. As soon as the count of one element is more than 'k' then we will reduce the window will that element count is less than or equal to 'k'. We will increment our start pointer to achieve this.
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int maxSubarrayLength(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+        int n = nums.size(), l =0,r=0, mxlen=0;
+        while(r<n){
+            if(mp[nums[r]]+1<=k){
+                mp[nums[r]]++;
+                r++;
+            }	
+            else{
+            mxlen = max(mxlen, r-l);
+            mp[nums[r]]++;
+            while(mp[nums[r]]>k){
+                mp[nums[l]]--;
+                l++;
+            }
+            r++;
+            }
+        }
+        mxlen= max(mxlen, r-l);
+        return mxlen;
+    }
+};

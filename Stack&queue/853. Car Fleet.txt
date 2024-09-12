@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/car-fleet/description/
+Companies: Google
+Approach: Here first think was to identify how I am going to find a common ground for which I can see the whether one car can catch up to another. Then common ground will the time taken by cars to reach the target. So inorder to find whether one car will catch up to another car we need to sort them according to their positions. Once we have sorted them and calculated the time we will se if the time taken by the previous car to reach the target is less than the time taken by the current car to reach the target, then we can surely say the previous car will catch up to current car. 
+Since the condition is given if faster car catches up to slower car then the faster car will move along with the slower car at slower car pace and form a carfleet. We will take help of monotonic stack and will keep track of time in increasing order only. It will give the number of fleets as those won't be able to catch up to another fleet.
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    int carFleet(int target, vector<int>& position, vector<int>& speed) {
+       int n = position.size();
+        vector<pair<int,int>> pos(n);
+        for(int i=0;i<n;i++){
+            pos[i]={position[i],i};
+        }
+        sort(pos.begin(),pos.end());
+        vector<double> time(n);
+        for(int i=0;i<n;i++){
+            time[i]= (double)(target-pos[i].first)/speed[pos[i].second];
+        }
+        stack<double>st;
+        int i=0;
+        while(i<n){
+            if(st.empty()){
+                st.push(time[i]);
+                i++;
+            }
+            else if(st.top()<=time[i]){
+                while(!st.empty() && st.top()<=time[i]){
+                    st.pop();
+                }
+                st.push(time[i]);
+                i++;
+            }
+            else{
+                st.push(time[i]);
+                i++;
+            }
+        }
+        return st.size();
+    }
+};

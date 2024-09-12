@@ -1,0 +1,78 @@
+Problem: https://leetcode.com/problems/random-pick-with-weight/description/
+Companies: Google
+Approach: By some random leet coder:
+So lets relate this problem with a problem of dividing a cake in a party such that the person with highest weight has high probablity of picking.
+
+Suppose we have people with weight 1, 3, 5, 7, 9 pounds and they went for a party to a bakery and purchased a cake. They decided that lets add our total weight and buy a cake proportional to it. So their totalWeight came as
+1+3+5+7+9 = 25
+They purchased a 25 pound cake :).
+They decided that lets cut cake in 1 pound slices(25 slices total) and whoever wants to eat can take a 1 pound slice at a time. The person who will pick a slice will be picked randomly.
+
+To find out how to pick randomly and to figure out who will pick first, they first did a cumulative sum of their weights
+
+1->1
+3-> 1 + 3 = 4
+5-> 4 + 5 = 9
+7-> 7 + 9 = 16
+9-> 9 + 16 = 25
+
+=1,4,9,16,25
+
+And then find a random number out of 25. The random number represents a slice.
+So it can be 17 out of 25 or 6 out of 25.
+
+So the slice 1 belongs to 1 pounds guy. Which is only 1 slice.
+Slice between 2-4 belong to 3 pounds guy. Which are 3 slices.
+.
+.
+Slice between 16- 25 belong to the 9 pounds guy. Which are 9 slices.
+
+If we pick a random slice out of 25, there is a higher probability that it will belong to a guy with 9 slices (the person with 9 pounds) , the guy who own 7 slices has second higest probability. The guy whose weight is 1 pound and has only 1 slice has least probability to pick a slice.
+
+And thats what we wanted. We want to let the person with highest weight get better chances of getting a slice
+Time Complexity: for soution constructor O(n), pickIndex O(logn)
+Auxillary Space: O(n)
+Note: 1 needs to be added in random number generation as our sum starts from 1 not 0.
+Code:
+class Solution {
+public:
+    vector<int> cumulative;
+    int n;
+    Solution(vector<int>& w) {
+        n = w.size();
+        cumulative = vector<int>(w.begin(),w.end());
+        for(int i=0;i<n-1;i++)
+        {
+            cumulative[i+1]+=cumulative[i];
+        }
+    }
+    
+    int binarySearch(int l,int h, int &num){
+        int mid, bucket;
+        while(l<=h){
+            mid = l+(h-l)/2;
+            if(cumulative[mid]==num){
+                return mid;
+            }
+            else if(cumulative[mid]<num){
+                l = mid+1;
+            }
+            else
+            {
+                //bucket = mid;
+                h = mid-1;
+            }
+        }
+        return l;
+    }
+    int pickIndex() {
+        int random =  (rand() %cumulative[n-1])+1;
+        return binarySearch(0,n-1,random);
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(w);
+ * int param_1 = obj->pickIndex();
+ */

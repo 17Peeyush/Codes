@@ -1,0 +1,17 @@
+Problem: https://leetcode.com/problems/best-sightseeing-pair/
+Approach: Here the formula is rewritten as (arr[i]+i)+(arr[j]-j) then we traverse the array then we keep track of the maximum value of (arr[i]+i) say mx so far then at each stage we check if mx+(arr[j]-j) and update our final answer if it is greater than current answer.
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    int maxScoreSightseeingPair(vector<int>& values) {
+        int res = INT_MIN, maxVal = values[0];
+        int n = values.size();
+        for(int i=1;i<n;i++){
+            res = max(res, maxVal+(values[i]-i));
+            maxVal = max(maxVal, values[i]+i);
+        }
+        return res;
+    }
+};

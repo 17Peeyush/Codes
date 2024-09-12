@@ -1,0 +1,16 @@
+Problem: https://leetcode.com/problems/reverse-bits/description/
+Companies: Google
+Approach: Just from the msb i pushed it to the right and checked if it was 1 or not and then started adding from lsb.
+Time Complexity: O(1)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        uint32_t rev =0;
+        for(int i=31,j=0;i>=0;i--,j++){
+            rev = rev|((n>>i&1)<<(j));
+        }
+        return rev;
+    }
+};

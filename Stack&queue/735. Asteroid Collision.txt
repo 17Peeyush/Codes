@@ -1,0 +1,42 @@
+Problem: https://leetcode.com/problems/asteroid-collision/
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int>st;
+        int n = asteroids.size();
+        int i=0;
+        while(i<n){
+            if(st.empty()){
+                st.push(asteroids[i]);
+                i++;
+            }
+            else if((st.top()>0 && asteroids[i]<0)){
+                if(abs(asteroids[i])==st.top()){
+                    st.pop();
+                    i++;
+                }else if(abs(asteroids[i])>abs(st.top())){
+                    st.pop();
+                }
+                else{
+                    i++;
+                }
+            }
+            else{
+                st.push(asteroids[i]);
+                i++;
+            }
+        }
+        int m = st.size();
+        vector<int> res(m);
+        int j=m-1;
+        while(m--){
+            res[j]=st.top();
+            st.pop();
+            j--;
+        }
+        return res;
+    }
+};

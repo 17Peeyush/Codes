@@ -1,0 +1,45 @@
+Problem: https://leetcode.com/problems/number-of-provinces/description/
+Time Complexity: O(n^2)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int>parent;
+    int findParent(int n){
+        if(parent[n]<0) return n;
+        return parent[n]=findParent(parent[n]);
+    }
+
+    bool unionByWeight(int u, int v){
+        int pu = findParent(u);
+        int pv = findParent(v);
+        if(pu!=pv){
+            if(parent[pu]<parent[pv]){
+                parent[pu]+=parent[pv];
+                parent[pv] = pu;
+            }
+            else{
+                parent[pv]+=parent[pu];
+                parent[pu] = pv;
+            }
+            return true;
+        }
+        return false;
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n = isConnected.size();
+        int diff =n;
+        parent = vector<int>(n,-1);
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if(isConnected[i][j]){
+                    if(unionByWeight(i,j))
+                    {
+                        diff--;
+                    }
+                }  
+            }
+        }
+        return diff;
+    }
+};

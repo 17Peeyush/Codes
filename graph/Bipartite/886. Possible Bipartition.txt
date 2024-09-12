@@ -1,0 +1,38 @@
+Problem: https://leetcode.com/problems/possible-bipartition/description/
+Time Complexity: O(v+e)
+Auxiliary Space: O(v+e+v)
+Code:
+class Solution {
+public:
+    vector<int> group;
+    bool dfs(int node,vector<vector<int>>&g, int colour){
+        group[node]=colour;
+        for(auto x: g[node])
+        {
+            if(group[x]==-1){
+                if(!dfs(x,g,1^colour)) return false;
+            }
+            else if(group[x]==colour){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        vector<vector<int>> g(n,vector<int>());
+        for(auto x: dislikes){
+            g[x[0]-1].push_back(x[1]-1);
+            g[x[1]-1].push_back(x[0]-1);
+        }
+        group = vector<int> (n,-1); //-1, not in any group, 1->group1, 2->group2
+        for(int i=0;i<n;i++){
+
+            if(group[i]==-1){
+                if(!dfs(i,g,1)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};

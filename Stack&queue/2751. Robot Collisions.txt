@@ -1,0 +1,81 @@
+Problem: https://leetcode.com/problems/robot-collisions/description
+Approach: We will form vector of position, health and index and sort them according to position. Then we the help of stack we will detect collision if the direction is not same for the current element and element at the top of stack.
+Note: if the stack top is 'L' and current element is 'R' both will be moving in different direction without collision.
+But if stack top element is moving in 'R' and current element is moving in 'L' then collision will be there.
+Time Complexity: O(nlogn)
+Auxiliary Space: O(n)
+Code:
+class Solution {
+public:
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions) {
+        int n = positions.size();
+        vector<vector<int>> data(n);
+        for(int i=0;i<n;i++){
+            data[i]={positions[i], healths[i], i};
+        }
+        sort(data.begin(),data.end());
+        stack<vector<int>>st;
+        int i=0;
+        while(i<n){
+            if(st.empty()){
+                st.push(data[i]);
+                i++;
+            }
+            else if(directions[st.top()[2]]==directions[data[i][2]]){
+                st.push(data[i]);
+                i++;
+            }
+            else{
+                vector<int> temp = data[i];
+                {
+                    while(!st.empty()){
+                        if(directions[temp[2]]==directions[st.top()[2]])
+                        {
+                            st.push(temp);
+                            break;
+                        }
+                        else{
+                            if(directions[st.top()[2]]=='L'&&directions[temp[2]]=='R')
+                            {
+                                st.push(temp);
+                                break;
+                            }
+                            if(st.top()[1]>temp[1]){
+                                temp = st.top();
+                                temp[1]-=1; // health reduced by 1
+                                st.pop();
+                                st.push(temp);
+                                break;
+                            }
+                            else if(st.top()[1]<temp[1]){
+                                st.pop();
+                                temp[1]-=1; // health reduce by 1
+                                if(st.empty())
+                                {
+                                    st.push(temp);
+                                    break;
+                                }
+                            }else{
+                                st.pop();
+                                break; 
+                            }
+                        }
+                    }
+                }
+                i++;
+            }
+        }
+        vector<pair<int,int>> remhealth;
+        while(!st.empty()){
+            remhealth.push_back({st.top()[2],st.top()[1]});
+            st.pop();
+        }
+        sort(remhealth.begin(),remhealth.end());
+        int m = remhealth.size();
+        vector<int>res(m);
+        for(int i=0;i<m;i++){
+            res[i]=remhealth[i].second;
+        }
+        return res;
+    }
+};

@@ -1,0 +1,40 @@
+Problem: https://leetcode.com/problems/palindrome-permutation/
+Given a string s, return true if a permutation of the string could form a palindrome and false otherwise.
+
+Example 1:
+Input: s = "code"
+Output: false
+
+Example 2:
+Input: s = "aab"
+Output: true
+
+Example 3:
+Input: s = "carerac"
+Output: true
+
+Constraints:
+
+1 <= s.length <= 5000
+s consists of only lowercase English letters.
+
+Companies: Google
+Time Complexity: O(n)
+Auxiliary Space: O(1)
+Code:
+class Solution {
+public:
+    bool canPermutePalindrome(string s) {
+        unordered_map<char,int>mp;
+        for(char ch: s){
+            mp[ch]++;
+        }
+        int odd_count =0;
+        for(auto x: mp){
+            if(x.second%2){
+                odd_count++;
+            }
+        }
+        return odd_count<=1;
+    }
+};
